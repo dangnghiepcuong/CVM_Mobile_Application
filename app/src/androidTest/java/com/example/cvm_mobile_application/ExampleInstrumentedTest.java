@@ -1,4 +1,4 @@
-package com.example.cvm;
+package com.example.cvm_mobile_application;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.example.cvm", appContext.getPackageName());
+        assertEquals("com.example.cvm_mobile_application", appContext.getPackageName());
     }
 }
