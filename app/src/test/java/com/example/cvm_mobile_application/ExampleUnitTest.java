@@ -1,4 +1,4 @@
-package com.example.cvm;
+package com.example.cvm_mobile_application;
 
 import org.junit.Test;
 
