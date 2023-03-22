@@ -1,2 +1,4 @@
-package com.example.cvm_mobile_application.data.db.model;public class Register {
+package com.example.cvm_mobile_application.data.db.model;
+
+public class Register {
 }
