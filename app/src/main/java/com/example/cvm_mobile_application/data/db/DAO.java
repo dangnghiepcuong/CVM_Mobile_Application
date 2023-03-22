@@ -47,13 +47,16 @@ public class  DAO extends SQLiteOpenHelper {
     public static final String col_LIMIT_DAY = "LimitDay";
     public static final String col_LIMIT_NOON = "LimitNoon";
     public static final String col_LIMIT_NIGHT = "LimitNight";
-    public static final String col_DAY_REGISTED = "DayRegisted";
-    public static final String col_NOON_REGISTED = "NoonRegisted";
-    public static final String col_NIGHT_REGISTED = "NightRegisted";
+    public static final String col_DAY_REGISTERED = "DayRegistered";
+    public static final String col_NOON_REGISTERED = "NoonRegistered";
+    public static final String col_NIGHT_REGISTERED = "NightRegistered";
+    public static final String col_ID = "ID";
     public static final String col_DOSE_TYPE = "DoseType";
     public static final String col_TIME = "Time";
     public static final String col_NO = "NumOrder";
     public static final String col_IMAGE = "Image";
+    public static final String col_GUARDIAN = "Guardian";
+    public static final String col_INJ_NO = "InjNo";
 
     public DAO(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, "cvm.db", factory, 1);
@@ -83,6 +86,7 @@ public class  DAO extends SQLiteOpenHelper {
                 col_STREET + " text," +
                 col_PHONE + " text," +
                 col_EMAIL + " text," +
+                col_GUARDIAN + " text," +
                 "primary key (" + col_CITIZEN_ID + ")" +
                 ")";
 
@@ -120,7 +124,6 @@ public class  DAO extends SQLiteOpenHelper {
                 col_NOTI_TITLE + " text," +
                 "Date integer," +
                 "UpdateOn text," +
-                "Note text," +
                 "primary key (StatID, UpdateOn)" +
                 ")";
 
@@ -139,7 +142,7 @@ public class  DAO extends SQLiteOpenHelper {
                 "primary key (" + col_CITIZEN_ID + ")" +
                 ")";
 
-        createTableStatement = "CREATE TABLE " + col_NO + "TIFICATION (" +
+        createTableStatement = "CREATE TABLE NOTIFICATION (" +
                 col_NOTI_ID + " integer," +
                 col_NOTI_TITLE + " text," +
                 col_NOTI_CONTENT + " text," +
@@ -156,14 +159,14 @@ public class  DAO extends SQLiteOpenHelper {
                 col_LIMIT_DAY + " integer," +
                 col_LIMIT_NOON + " integer," +
                 col_LIMIT_NIGHT + " integer," +
-                col_DAY_REGISTED + " integer," +
-                col_NOON_REGISTED + " integer," +
-                col_NIGHT_REGISTED + " integer," +
+                col_DAY_REGISTERED + " integer," +
+                col_NOON_REGISTERED + " integer," +
+                col_NIGHT_REGISTERED + " integer," +
                 "primary key (" + col_SCHED_ID + ")" +
                 ")";
 
         createTableStatement = "CREATE TABLE REGISTER (" +
-                col_FORM_ID + " integer," +
+                col_ID + " integer," +
                 col_CITIZEN_ID + " text," +
                 col_SCHED_ID + " text," +
                 col_DOSE_TYPE + " text," +
@@ -171,15 +174,15 @@ public class  DAO extends SQLiteOpenHelper {
                 col_NO + " integer," +
                 col_STATUS + " integer," +
                 col_IMAGE + " blob," +
-                "primary key (" + col_FORM_ID + ", " + col_CITIZEN_ID + ", " + col_SCHED_ID + ")" +
+                "primary key (" + col_ID + ", " + col_CITIZEN_ID + ", " + col_SCHED_ID + ")" +
                 ")";
 
         createTableStatement = "CREATE TABLE INJECTION (" +
-                "InjNo integer," +
+                col_INJ_NO + " integer," +
                 col_CITIZEN_ID + " text," +
                 col_SCHED_ID + " text," +
                 col_DOSE_TYPE + " text," +
-                "primary key (InjNo, " + col_CITIZEN_ID + ")" +
+                "primary key (" + col_INJ_NO + ", " + col_CITIZEN_ID + ")" +
                 ")";
     }
 
