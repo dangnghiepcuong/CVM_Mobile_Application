@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CVM_Mobile_Application</string>
+    <string name="log_in">Đăng nhập</string>
 </resources>
