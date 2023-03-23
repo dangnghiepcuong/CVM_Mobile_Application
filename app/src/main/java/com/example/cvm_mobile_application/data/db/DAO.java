@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-public class  DAO extends SQLiteOpenHelper {
+public class DAO extends SQLiteOpenHelper {
 
     public static final String col_CITIZEN_ID = "CitizenID";
     public static final String col_LAST_NAME = "LastName";
