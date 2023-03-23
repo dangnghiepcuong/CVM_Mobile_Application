@@ -26,10 +26,11 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:text="Đăng Nhập"
+            android:text="Đăng nhập"
             android:textAlignment="center"
-            android:textSize="20sp"
-            android:layout_marginTop="25dp"/>
+            android:textSize="24sp"
+            android:layout_marginTop="25dp"
+            android:fontFamily="@font/roboto_medium"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="30dp"
@@ -37,7 +38,8 @@
             android:textSize="18sp"
             android:layout_marginHorizontal="30dp"
             android:layout_marginTop="25dp"
-            android:labelFor="@+id/et_username"/>
+            android:labelFor="@+id/et_username"
+            android:fontFamily="@font/roboto_medium"/>
         <EditText
             android:id="@+id/et_username"
             android:layout_width="match_parent"
@@ -45,7 +47,12 @@
             android:background="@drawable/edit_text"
             android:layout_marginHorizontal="30dp"
             android:inputType="text"
-            android:autofillHints="phone"/>
+            android:hint="Nhập số điện thoại"
+            android:textSize="16dp"
+            android:padding="10dp"
+            android:autofillHints="phone"
+            android:gravity="center_vertical"
+            android:fontFamily="@font/roboto"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="30dp"
@@ -53,15 +60,23 @@
             android:textSize="18sp"
             android:layout_marginHorizontal="30dp"
             android:layout_marginTop="25dp"
-            android:labelFor="@+id/et_password"/>
+            android:labelFor="@+id/et_password"
+            android:fontFamily="@font/roboto_medium"/>
+
         <EditText
             android:id="@+id/et_password"
+            style="@android:style/Widget.DeviceDefault.EditText"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@drawable/edit_text"
             android:layout_marginHorizontal="30dp"
+            android:autofillHints="password"
+            android:background="@drawable/edit_text"
+            android:fontFamily="@font/roboto"
+            android:hint="Nhập mật khẩu"
             android:inputType="textPassword"
-            android:autofillHints="password" />
+            android:textSize="16sp"
+            android:gravity="center_vertical"
+            android:padding="10dp"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="30dp"
@@ -69,7 +84,8 @@
             android:textSize="18sp"
             android:textAlignment="textEnd"
             android:layout_marginHorizontal="30dp"
-            android:layout_marginTop="15dp"/>
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/roboto_medium"/>
 
         <Button
             android:layout_width="match_parent"
@@ -80,7 +96,8 @@
             android:text="Đăng nhập"
             android:textSize="20sp"
             android:textColor="@color/white"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:fontFamily="@font/roboto_medium"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
