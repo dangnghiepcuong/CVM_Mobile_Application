@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item>
-        <shape>
-            <gradient
-                android:startColor="@color/color8"
-                android:endColor="@color/color5"
-                android:type="linear"
-                android:angle="0"/>
-        </shape>
-    </item>
-</selector>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+        android:angle="0"
+        android:endColor="@color/color5"
+        android:startColor="@color/color8"
+        android:type="linear" />
+</shape>
 
-<!--    android:startColor="#2178F9"-->
-<!--    android:endColor="#57BDFD"-->
+    <!--    android:startColor="#2178F9"-->
+    <!--    android:endColor="#57BDFD"-->
