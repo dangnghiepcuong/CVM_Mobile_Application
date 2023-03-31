@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="oval">
-    <size android:height="80dp" android:width="80dp"/>
-    <solid android:color="@color/white"/>
-    <stroke android:color="@color/color6" android:width="3dp"/>
-</shape>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <layer-list>
+            <item>
+                <shape xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:shape="oval">
+                    <size android:height="80dp" android:width="80dp"/>
+                    <solid android:color="@color/white"/>
+                    <stroke android:color="@color/Secondary" android:width="3dp"/>
+                </shape>
+            </item>
+
+            <item android:drawable="@drawable/ic_person"
+                android:width="60dp"
+                android:height="60dp"
+                android:gravity="center"></item>
+        </layer-list>
+    </item>
+</selector>
+
