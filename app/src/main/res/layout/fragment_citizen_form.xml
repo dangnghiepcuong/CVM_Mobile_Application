@@ -350,7 +350,7 @@ vaccine Covid-19 hoặc đang là đối tượng chống chỉ định tiêm ch
                         android:textSize="20sp" />
 
                 </LinearLayout>
-                
+
             </ScrollView>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
