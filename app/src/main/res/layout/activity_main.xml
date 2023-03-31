@@ -44,11 +44,10 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:autofillHints="phone"
-            android:background="@drawable/edit_text"
+            android:background="@drawable/bg_edit_text"
             android:gravity="center_vertical"
             android:hint="Nhập tên tài khoản"
             android:inputType="text"
-            android:paddingLeft="10dp"
             android:textSize="18sp" />
 
         <TextView
@@ -64,11 +63,10 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:autofillHints="password"
-            android:background="@drawable/edit_text"
+            android:background="@drawable/bg_edit_text"
             android:gravity="center_vertical"
             android:hint="Nhập mật khẩu"
             android:inputType="textPassword"
-            android:paddingLeft="10dp"
             android:textSize="18sp" />
 
         <TextView
@@ -84,6 +82,7 @@
             android:layout_height="30dp" />
 
         <Button
+            android:id="@+id/btn_login"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/btn_primary"

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CVM_Mobile_Application</string>
+    <string name="medium_text_content">18sp</string>
 </resources>
