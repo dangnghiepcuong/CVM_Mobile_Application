@@ -74,7 +74,6 @@
                         android:layout_weight="1"
                         android:background="@drawable/card_second_primary_feature"
                         android:orientation="vertical">
-
                     </LinearLayout>
 
                     <LinearLayout
@@ -112,19 +111,11 @@
                         android:orientation="vertical">
 
                         <Button
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:background="@drawable/btn_secondary_feature">
+                            style="@style/btn_feature">
                         </Button>
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="15dp"
-                            android:lineSpacingMultiplier="1.2"
-                            android:text="Thông tin tổ chức"
-                            android:textAlignment="center"
-                            android:textSize="18sp" />
+                        <TextView style="@style/labelFor_btn_feature"
+                            android:text="Thông tin\ntổ chức"/>
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.appcompat.widget.LinearLayoutCompat
@@ -135,19 +126,11 @@
                         android:orientation="vertical">
 
                         <Button
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:background="@drawable/btn_secondary_feature">
+                            style="@style/btn_feature">
                         </Button>
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="15dp"
-                            android:lineSpacingMultiplier="1.2"
-                            android:text="Thông tin tài khoản"
-                            android:textAlignment="center"
-                            android:textSize="18sp" />
+                        <TextView style="@style/labelFor_btn_feature"
+                            android:text="Thông tin\ntài khoản"/>
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.appcompat.widget.LinearLayoutCompat
@@ -163,14 +146,8 @@
                             android:background="@drawable/bg_btn_org_feature_schedule_create">
                         </Button>
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="10dp"
-                            android:lineSpacingMultiplier="1.2"
-                            android:text="Tạo lịch tiêm chủng"
-                            android:textAlignment="center"
-                            android:textSize="18sp" />
+                        <TextView style="@style/labelFor_btn_feature"
+                            android:text="Tạo lịch\ntiêm chủng"/>
                     </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -187,10 +164,9 @@
                         android:orientation="vertical">
 
                         <Button
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:background="@drawable/btn_secondary_feature">
+                            style="@style/btn_feature">
                         </Button>
+
 
                         <TextView
                             android:layout_width="match_parent"
@@ -198,6 +174,10 @@
                             android:text="Quản lý lịch tiêm chủng"
                             android:textAlignment="center"
                             android:textSize="18sp" />
+
+                        <TextView style="@style/labelFor_btn_feature"
+                            android:text="%%%"/>
+
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.appcompat.widget.LinearLayoutCompat
@@ -208,16 +188,11 @@
                         android:orientation="vertical">
 
                         <Button
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:background="@drawable/btn_secondary_feature"></Button>
+                            style="@style/btn_feature">
+                        </Button>
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="%%%"
-                            android:textAlignment="center"
-                            android:textSize="18sp" />
+                        <TextView style="@style/labelFor_btn_feature"
+                            android:text="%%%"/>
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.appcompat.widget.LinearLayoutCompat
@@ -233,20 +208,13 @@
                             android:layout_height="80dp"
                             android:background="@drawable/bg_btn_feature_more"></Button>
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Xem thêm"
-                            android:textAlignment="center"
-                            android:textSize="18sp" />
+                        <TextView style="@style/labelFor_btn_feature"
+                            android:text="Xem thêm"/>
                     </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Các quy định về tổ chức tiêm chủng"
-                    android:textSize="20sp"/>
+                <TextView style="@style/text_heading"
+                    android:text="Các quy định về tổ chức tiêm chủng"/>
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.appcompat.widget.LinearLayoutCompat>
     </ScrollView>
