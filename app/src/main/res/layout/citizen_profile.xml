@@ -377,13 +377,13 @@
                     android:background="@drawable/bg_edit_text"/>
 
                 <Button
-                    android:layout_width="300dp"
+                    android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_gravity="center_horizontal"
                     android:text="Lưu thông tin"
                     android:textSize="18dp"
                     android:textColor="@color/white"
-                    android:background="@drawable/btn_primary"
+                    android:background="@drawable/bg_btn_primary"
                     android:layout_marginTop="30dp"
                     android:layout_marginBottom="10dp"/>
             </LinearLayout>
