@@ -104,7 +104,7 @@ phòng chống dịch Covid-19 và nhận chứng nhận tiêm chủng"
         <Button
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@drawable/btn_primary"
+            android:background="@drawable/bg_btn_primary"
             android:gravity="center"
             android:text="Đăng ký"
             android:textColor="@color/white"

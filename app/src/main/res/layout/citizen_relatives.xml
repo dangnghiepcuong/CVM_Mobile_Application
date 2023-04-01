@@ -118,7 +118,7 @@
                 android:textSize="18dp"
                 android:layout_gravity="bottom"
                 android:textColor="@color/white"
-                android:background="@drawable/btn_primary"/>
+                android:background="@drawable/bg_btn_primary"/>
         </LinearLayout>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
