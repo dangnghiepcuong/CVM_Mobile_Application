@@ -112,9 +112,7 @@
                         android:orientation="vertical">
 
                         <Button
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:background="@drawable/btn_secondary_feature">
+                            style="@style/btn_feature">
                         </Button>
 
                         <TextView
@@ -135,9 +133,7 @@
                         android:orientation="vertical">
 
                         <Button
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:background="@drawable/btn_secondary_feature">
+                            style="@style/btn_feature">
                         </Button>
 
                         <TextView
@@ -187,9 +183,7 @@
                         android:orientation="vertical">
 
                         <Button
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:background="@drawable/btn_secondary_feature">
+                            style="@style/btn_feature">
                         </Button>
 
                         <TextView
@@ -208,9 +202,8 @@
                         android:orientation="vertical">
 
                         <Button
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:background="@drawable/btn_secondary_feature"></Button>
+                            style="@style/btn_feature">
+                        </Button>
 
                         <TextView
                             android:layout_width="match_parent"
