@@ -44,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:autofillHints="phone"
-            android:background="@drawable/bg_edit_text"
+            android:background="@drawable/bg_"
             android:gravity="center_vertical"
             android:hint="Nhập tên tài khoản"
             android:inputType="text"
@@ -63,7 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:autofillHints="password"
-            android:background="@drawable/bg_edit_text"
+            android:background="@drawable/bg_"
             android:gravity="center_vertical"
             android:hint="Nhập mật khẩu"
             android:inputType="textPassword"
@@ -83,13 +83,8 @@
 
         <Button
             android:id="@+id/btn_login"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/btn_primary"
-            android:gravity="center"
             android:text="Đăng nhập"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
+            style="@style/btn_primary"/>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
