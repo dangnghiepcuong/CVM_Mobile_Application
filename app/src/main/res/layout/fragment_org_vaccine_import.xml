@@ -6,10 +6,14 @@
     android:paddingHorizontal="15dp">
 
     <TextView style="@style/labelFor_et"
-        android:text="Số lô vắc-xin: #######" />
+        android:text="Số lô vắc-xin" />
+    <EditText style="@style/edit_text"
+        android:hint="######"/>
 
     <TextView style="@style/labelFor_et"
         android:text="Ngày nhập: dd/mm/yyyy"/>
+    <EditText style="@style/edit_text"
+        android:hint="dd/mm/yyyy"/>
 
     <TextView style="@style/labelFor_et"
         android:text="Số lượng"/>
