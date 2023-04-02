@@ -167,8 +167,17 @@
                             style="@style/btn_feature">
                         </Button>
 
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Quản lý lịch tiêm chủng"
+                            android:textAlignment="center"
+                            android:textSize="18sp" />
+
                         <TextView style="@style/labelFor_btn_feature"
                             android:text="%%%"/>
+
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.appcompat.widget.LinearLayoutCompat

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.cvm_mobile_application.ui.org.home.HomeFragment"
+        android:label="org home"
+        tools:layout="@layout/fragment_admin_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_org_instruction2"
+            app:destination="@id/navigation_org_instruction" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_org_instruction"
+        android:name="com.example.cvm_mobile_application.ui.org.home.InstructionFragment"
+        android:label="org schedule"
+        tools:layout="@layout/fragment_org_instruction" >
+        <action
+            android:id="@+id/action_navigation_org_instruction_to_navigation_org_notifications"
+            app:destination="@id/navigation_org_notifications" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_org_notifications"
+        android:name="com.example.cvm_mobile_application.ui.org.home.NotificationFragment"
+        android:label="org info"
+        tools:layout="@layout/fragment_notification" >
+        <action
+            android:id="@+id/action_navigation_org_notifications_to_navigation_org_information"
+            app:destination="@id/navigation_org_information" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_org_information"
+        android:name="com.example.cvm_mobile_application.ui.org.info.InfoFragment"
+        android:label="org info"
+        tools:layout="@layout/fragment_org_information" >
+        <action
+            android:id="@+id/action_navigation_org_information_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
+</navigation>
