@@ -11,7 +11,7 @@
                 </shape>
             </item>
 
-            <item android:width="60dp" android:height="60dp" android:drawable="@drawable/ic_org_avatar" android:gravity="center_horizontal">
+            <item android:width="60dp" android:height="60dp" android:drawable="@drawable/ic_medic" android:gravity="center_horizontal">
             </item>
         </layer-list>
     </item>
