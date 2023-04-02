@@ -1,12 +1,10 @@
-package com.example.cvm_mobile_application.ui.login;
+package com.example.cvm_mobile_application.ui.citizen.login;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import org.jetbrains.annotations.Contract;
 
 public class LoginActivity extends AppCompatActivity implements LoginContract.View {
 
