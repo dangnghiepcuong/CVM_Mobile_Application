@@ -53,6 +53,13 @@
         <item name="android:layout_marginVertical">2dp</item>
     </style>
 
+    <style name="text_name">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="text_date_view_dd">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -67,6 +74,58 @@
         <item name="android:textSize">18sp</item>
         <item name="android:layout_gravity">center_horizontal</item>
         <item name="android:lineSpacingMultiplier">1</item>
+    </style>
+
+    <style name="text_status_registration_0">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingHorizontal">10dp</item>
+        <item name="android:paddingVertical">2dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@android:color/holo_blue_dark</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:text">Đăng ký thành công</item>
+        <item name="android:background">@drawable/bg_text_status_registration_0</item>
+    </style>
+
+    <style name="text_status_registration_1">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingHorizontal">10dp</item>
+        <item name="android:paddingVertical">2dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@android:color/holo_orange_dark</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:text">Điểm danh</item>
+        <item name="android:background">@drawable/bg_text_status_registration_1</item>
+    </style>
+
+    <style name="text_status_registration_2">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingHorizontal">10dp</item>
+        <item name="android:paddingVertical">2dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@android:color/holo_green_dark</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:text">Đã tiêm</item>
+        <item name="android:background">@drawable/bg_text_status_registration_2</item>
+    </style>
+
+    <style name="text_status_registration_3">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingHorizontal">10dp</item>
+        <item name="android:paddingVertical">2dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@android:color/holo_red_dark</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:text">Đã hủy</item>
+        <item name="android:background">@drawable/bg_text_status_registration_3</item>
     </style>
 
     <style name="btn_primary">
