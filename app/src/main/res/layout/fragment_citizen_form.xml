@@ -87,7 +87,7 @@
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:background="@color/grey"
+            android:background="@color/BlankBg"
             android:orientation="horizontal"
             android:paddingHorizontal="10dp">
 
@@ -105,7 +105,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
                         android:layout_marginTop="25dp"
-                        android:background="@color/white"
+                        android:background="@drawable/card_viewform"
                         android:orientation="vertical"
                         android:paddingHorizontal="10dp">
 
@@ -168,7 +168,7 @@ nhất 1 trong các dấu hiệu: ho, khó thở, viêm phổi, đau họng, m�
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
                         android:layout_marginTop="25dp"
-                        android:background="@color/white"
+                        android:background="@drawable/card_viewform"
                         android:orientation="vertical"
                         android:paddingHorizontal="10dp">
 
@@ -231,7 +231,7 @@ với Người bệnh hoặc nghi ngờ, mắc bệnh Covid-19 không?"
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
                         android:layout_marginTop="25dp"
-                        android:background="@color/white"
+                        android:background="@drawable/card_viewform"
                         android:orientation="vertical"
                         android:paddingHorizontal="10dp">
 
@@ -293,7 +293,7 @@ với Người bệnh hoặc nghi ngờ, mắc bệnh Covid-19 không?"
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
                         android:layout_marginTop="25dp"
-                        android:background="@color/white"
+                        android:background="@drawable/card_viewform"
                         android:orientation="vertical"
                         android:paddingHorizontal="10dp">
 
@@ -355,6 +355,7 @@ vaccine Covid-19 hoặc đang là đối tượng chống chỉ định tiêm ch
                     <Button
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
+                        android:layout_marginTop="30dp"
                         android:layout_marginHorizontal="90dp"
                         android:background="@drawable/bg_btn_primary"
                         android:gravity="center"
