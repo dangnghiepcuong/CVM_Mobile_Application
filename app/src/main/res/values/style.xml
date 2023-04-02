@@ -53,6 +53,22 @@
         <item name="android:layout_marginVertical">2dp</item>
     </style>
 
+    <style name="text_date_view_dd">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">40sp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:lineSpacingMultiplier">1</item>
+    </style>
+
+    <style name="text_date_view_mmyyyy">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:lineSpacingMultiplier">1</item>
+    </style>
+
     <style name="btn_primary">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">50dp</item>
@@ -91,6 +107,14 @@
         <item name="android:paddingHorizontal">15dp</item>
         <item name="android:paddingVertical">10dp</item>
         <item name="android:background">@drawable/card_white_radius10</item>
+    </style>
+
+    <style name="card_date">
+        <item name="android:layout_width">80dp</item>
+        <item name="android:layout_height">80dp</item>
+        <item name="android:background">@drawable/bg_date_view</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_gravity">center_horizontal</item>
     </style>
 
     <style name="iconFor_item_menu_info">
