@@ -1,10 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <gradient
-        android:angle="45"
-        android:startColor="@color/color1st"
-        android:endColor="@color/color4th"
-        android:type="linear" />
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <layer-list>
+            <!-- Drop Shadow Stack -->
+            <item>
+                <shape>
+                    <padding
+                        android:bottom="1dp"
+                        android:left="1dp"
+                        android:right="1dp"
+                        android:top="1dp" />
 
-    <corners android:radius="20dp"/>
-</shape>
+                    <solid android:color="#00CCCCCC" />
+
+                    <corners android:radius="20dp" />
+                </shape>
+            </item>
+            <item>
+                <shape>
+                    <padding
+                        android:bottom="1dp"
+                        android:left="1dp"
+                        android:right="1dp"
+                        android:top="1dp" />
+
+                    <solid android:color="#10CCCCCC" />
+
+                    <corners android:radius="20dp" />
+                </shape>
+            </item>
+            <item>
+                <shape>
+                    <padding
+                        android:bottom="1dp"
+                        android:left="1dp"
+                        android:right="1dp"
+                        android:top="1dp" />
+
+                    <solid android:color="#20CCCCCC" />
+
+                    <corners android:radius="20dp" />
+                </shape>
+            </item>
+            <item>
+                <shape>
+                    <padding
+                        android:bottom="1dp"
+                        android:left="1dp"
+                        android:right="1dp"
+                        android:top="1dp" />
+
+                    <solid android:color="#30CCCCCC" />
+
+                    <corners android:radius="20dp" />
+                </shape>
+            </item>
+            <item>
+                <shape>
+                    <padding
+                        android:bottom="1dp"
+                        android:left="1dp"
+                        android:right="1dp"
+                        android:top="1dp" />
+
+                    <solid android:color="#50CCCCCC" />
+
+                    <corners android:radius="20dp" />
+                </shape>
+            </item>
+
+            <item>
+                <shape android:shape="rectangle">
+                    <gradient android:angle="45" android:startColor="@color/color_card_third_dark" android:endColor="#F59694" android:type="linear" />
+                    <corners android:radius="20dp" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+</selector>
