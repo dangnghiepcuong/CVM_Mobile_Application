@@ -34,7 +34,7 @@
                         <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/avatar_org" />
+                            android:background="@drawable/default_avatar_org" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.appcompat.widget.LinearLayoutCompat
@@ -167,8 +167,17 @@
                             style="@style/btn_feature">
                         </Button>
 
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Quản lý lịch tiêm chủng"
+                            android:textAlignment="center"
+                            android:textSize="18sp" />
+
                         <TextView style="@style/labelFor_btn_feature"
                             android:text="%%%"/>
+
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.appcompat.widget.LinearLayoutCompat

@@ -13,106 +13,110 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
-        android:orientation="vertical"/>
+        android:orientation="vertical" />
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="6"
-        android:background="@drawable/card_login"
-        android:orientation="vertical"
-        android:paddingHorizontal="30dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginTop="25dp"
-            android:text="Đăng Ký"
-            android:textAlignment="center"
-            android:textSize="20sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginTop="25dp"
-            android:labelFor="@+id/et_fullname"
-            android:text="Họ và tên"
-            android:textSize="18sp" />
-
-        <EditText
-            android:id="@+id/et_fullname"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:autofillHints="fullname"
-            android:background="@drawable/bg_"
-            android:gravity="center_vertical"
-            android:hint="Nhập họ và tên"
-            android:inputType="textCapWords"
-            android:paddingLeft="10dp"
-            android:textSize="18sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginTop="25dp"
-            android:labelFor="@+id/et_phone"
-            android:text="Số điện thoại"
-            android:textSize="18sp" />
-
-        <EditText
-            android:id="@+id/et_phone"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:autofillHints="phone"
-            android:background="@drawable/bg_"
-            android:gravity="center_vertical"
-            android:hint="Nhập số điện thoại"
-            android:inputType="text"
-            android:paddingLeft="10dp"
-            android:textSize="18sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginTop="25dp"
-            android:labelFor="@+id/et_password"
-            android:text="Mật khẩu"
-            android:textSize="18sp" />
-
-        <EditText
-            android:id="@+id/et_password"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:autofillHints="phone"
-            android:background="@drawable/bg_"
-            android:gravity="center_vertical"
-            android:hint="Nhập mật khẩu"
-            android:inputType="textPassword"
-            android:paddingLeft="10dp"
-            android:textSize="18sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="85dp"
-            android:layout_marginTop="15dp"
-            android:labelFor="@+id/et_password"
-            android:text="*Vui lòng cung cấp thông tin chính xác để đám bảo công tác
-phòng chống dịch Covid-19 và nhận chứng nhận tiêm chủng"
-            android:textColor= "#FF0000"
-            android:textSize="18sp" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/bg_btn_primary"
-            android:gravity="center"
-            android:text="Đăng ký"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
+        android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="50dp" />
+            android:layout_height="0dp"
+            android:layout_weight="6"
+            android:background="@drawable/card_home"
+            android:orientation="vertical"
+            android:paddingHorizontal="30dp">
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="25dp"
+                android:text="Đăng Ký"
+                android:textAlignment="center"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="25dp"
+                android:labelFor="@+id/et_fullname"
+                android:text="Họ và tên"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/et_fullname"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:autofillHints="fullname"
+                android:background="@drawable/bg_"
+                android:gravity="center_vertical"
+                android:hint="Nhập họ và tên"
+                android:inputType="textCapWords"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="25dp"
+                android:labelFor="@+id/et_phone"
+                android:text="Số điện thoại"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/et_phone"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:autofillHints="phone"
+                android:background="@drawable/bg_"
+                android:gravity="center_vertical"
+                android:hint="Nhập số điện thoại"
+                android:inputType="text"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="25dp"
+                android:labelFor="@+id/et_password"
+                android:text="Mật khẩu"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:autofillHints="phone"
+                android:background="@drawable/bg_"
+                android:gravity="center_vertical"
+                android:hint="Nhập mật khẩu"
+                android:inputType="textPassword"
+                android:textSize="18sp" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:labelFor="@+id/et_password"
+                android:text="*Vui lòng cung cấp thông tin chính xác để đảm bảo công tác
+phòng chống dịch Covid-19 và nhận chứng nhận tiêm chủng"
+                android:textColor="#FF0000"
+                android:textSize="18sp" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_btn_primary"
+                android:gravity="center"
+                android:text="Đăng ký"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </ScrollView>
 </androidx.appcompat.widget.LinearLayoutCompat>

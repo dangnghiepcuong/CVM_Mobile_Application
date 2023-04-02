@@ -1,4 +1,4 @@
-package com.example.cvm_mobile_application.ui.login;
+package com.example.cvm_mobile_application.ui.citizen.login;
 
 public interface LoginContract {
     interface View {
