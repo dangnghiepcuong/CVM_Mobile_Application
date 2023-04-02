@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <layer-list>
+            <item android:drawable="@drawable/ic_shield_blue"
+                android:width="35dp"
+                android:height="35dp"
+                android:gravity="center"></item>
+
+            <item android:drawable="@drawable/ic_coronavirus"
+                android:width="20dp"
+                android:height="20dp"
+                android:gravity="center"></item>
+        </layer-list>
+    </item>
+</selector>
