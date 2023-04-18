@@ -12,10 +12,10 @@ import com.example.cvm_mobile_application.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link citizen_listforrm#newInstance} factory method to
+ * Use the {@link ListformFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class citizen_listforrm extends Fragment {
+public class ListformFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class citizen_listforrm extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public citizen_listforrm() {
+    public ListformFragment() {
         // Required empty public constructor
     }
 
@@ -39,8 +39,8 @@ public class citizen_listforrm extends Fragment {
      * @return A new instance of fragment citizen_listforrm.
      */
     // TODO: Rename and change types and number of parameters
-    public static citizen_listforrm newInstance(String param1, String param2) {
-        citizen_listforrm fragment = new citizen_listforrm();
+    public static ListformFragment newInstance(String param1, String param2) {
+        ListformFragment fragment = new ListformFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

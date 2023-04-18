@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.citizen.citizen_home">
+    tools:context=".ui.citizen.HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -193,11 +193,13 @@
                             android:orientation="vertical">
 
                             <Button
+                                android:id="@+id/btn_registration"
                                 style="@style/btn_feature"
                                 android:background="@drawable/bg_btn_citizen_list_registration">
                             </Button>
 
                             <TextView style="@style/labelFor_btn_feature"
+                                android:labelFor="@+id/btn_registration"
                                 android:text="Lịch đăng ký\ntiêm chủng"/>
                         </androidx.appcompat.widget.LinearLayoutCompat>
                     </androidx.appcompat.widget.LinearLayoutCompat>

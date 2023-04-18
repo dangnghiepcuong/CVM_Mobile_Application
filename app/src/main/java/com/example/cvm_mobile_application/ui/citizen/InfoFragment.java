@@ -9,11 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.cvm_mobile_application.R;
-public class citizen_notification extends Fragment {
+public class InfoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_citizen_notification, container, false);
+        return inflater.inflate(R.layout.fragment_citizen_info, container, false);
     }
 }
