@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_admin_home"
+        android:name="com.example.cvm_mobile_application.ui.admin.home.HomeFragment"
+        android:label="org home"
+        tools:layout="@layout/fragment_admin_home" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_admin_instruction"
+        android:name="com.example.cvm_mobile_application.ui.admin.home.InstructionFragment"
+        android:label="org schedule"
+        tools:layout="@layout/fragment_admin_instruction" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_admin_notifications"
+        android:name="com.example.cvm_mobile_application.ui.org.home.NotificationFragment"
+        android:label="org info"
+        tools:layout="@layout/fragment_notification" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_admin_information"
+        android:name="com.example.cvm_mobile_application.ui.admin.info.ProfileFragment"
+        android:label="org info"
+        tools:layout="@layout/fragment_admin_profile" >
+    </fragment>
+</navigation>
