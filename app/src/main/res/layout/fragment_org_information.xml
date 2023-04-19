@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -12,9 +18,10 @@
             android:paddingHorizontal="20dp">
 
             <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/ic_person"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/default_avatar_org"
                 android:layout_gravity="center_horizontal"/>
 
             <LinearLayout
@@ -25,7 +32,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ID đơn vị"
+                    android:text="Mã đơn vị tiêm chủng"
                     android:textSize="16dp"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -53,7 +60,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tên đơn vị"
+                    android:text="Tên đơn vị tiêm chủng"
                     android:textSize="16dp"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -71,143 +78,6 @@
                 android:hint="hint"
                 android:paddingLeft="15dp"
                 android:textSize="16dp"
-                android:background="@drawable/bg_edit_text"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:orientation="horizontal"
-                android:gravity="bottom">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Giới tính"
-                    android:textSize="16dp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" *"
-                    android:textColor="@color/red"
-                    android:textSize="16dp"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="5dp">
-
-                <RadioGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:text="Nam"
-                        android:textSize="16dp"
-                        android:onClick="onRadioButtonClicked"/>
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:text="Nữ"
-                        android:textSize="16dp"
-                        android:onClick="onRadioButtonClicked"/>
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:text="Khác"
-                        android:textSize="16dp"
-                        android:onClick="onRadioButtonClicked"/>
-                </RadioGroup>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:orientation="horizontal"
-                android:gravity="bottom">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Số điện thoại"
-                    android:textSize="16dp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" *"
-                    android:textColor="@color/red"
-                    android:textSize="16dp"/>
-            </LinearLayout>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="5dp"
-                android:inputType="phone"
-                android:hint="hint"
-                android:paddingLeft="15dp"
-                android:textSize="16dp"
-                android:background="@drawable/bg_edit_text"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:orientation="horizontal"
-                android:gravity="bottom">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Số hộ chiếu/CMND/CCCD"
-                    android:textSize="16dp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" *"
-                    android:textColor="@color/red"
-                    android:textSize="16dp"/>
-            </LinearLayout>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="5dp"
-                android:inputType="number"
-                android:hint="hint"
-                android:paddingLeft="15dp"
-                android:textSize="16dp"
-                android:background="@drawable/bg_edit_text"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:orientation="horizontal"
-                android:gravity="bottom">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Email"
-                    android:textSize="16dp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" *"
-                    android:textColor="@color/red"
-                    android:textSize="16dp"/>
-            </LinearLayout>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="5dp"
-                android:hint="hint"
-                android:paddingLeft="15dp"
-                android:textSize="16dp"
-                android:inputType="textEmailAddress"
                 android:background="@drawable/bg_edit_text"/>
 
             <LinearLayout
@@ -306,16 +176,15 @@
                 android:paddingLeft="15dp"
                 android:textSize="16dp"
                 android:background="@drawable/bg_edit_text"/>
-
-            <Button
-                android:layout_width="300dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center_horizontal"
-                android:text="Lưu thông tin"
-                android:textSize="18dp"
-                android:textColor="@color/white"
-                android:background="@drawable/bg_btn_primary"
-                android:layout_marginTop="30dp"/>
         </LinearLayout>
     </ScrollView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+    <Button
+        style="@style/btn_primary"
+        android:layout_gravity="center_horizontal"
+        android:text="Lưu thông tin"
+        android:textSize="18dp"
+        android:textColor="@color/white"
+        android:background="@drawable/bg_btn_primary"
+        android:layout_marginHorizontal="20dp"/>
+</androidx.appcompat.widget.LinearLayoutCompat>

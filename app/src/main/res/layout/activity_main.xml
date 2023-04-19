@@ -34,7 +34,7 @@
         <TextView
             android:labelFor="@+id/et_username"
             android:text="Số điện thoại"
-            style="@style/label"/>
+            style="@style/labelFor_et"/>
 
         <EditText
             android:id="@+id/et_username"

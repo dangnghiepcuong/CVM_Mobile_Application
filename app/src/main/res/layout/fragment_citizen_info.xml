@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.citizen.citizen_info">
+    tools:context=".ui.citizen.InfoFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -26,7 +26,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/avatar"
+                    android:background="@drawable/default_avatar_citizen"
                     android:layout_gravity="center"/>
 
                 <LinearLayout
@@ -76,29 +76,18 @@
                     android:layout_height="50dp"
                     android:orientation="horizontal">
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/ic_home"
-                        android:layout_gravity="center"
-                        android:layout_marginHorizontal="10dp"/>
+                        android:background="@drawable/ic_infomation"
+                        style="@style/iconFor_item_menu_info"/>
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:gravity=""
-                        android:text="Thông tin cá nhân"
-                        android:textSize="18dp"/>
+                        <TextView
+                            style="@style/labelFor_item_menu_info"
+                            android:text="Thông tin cá nhân" />
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/ic_arrow_forward"
-                        android:layout_gravity="center"
-                        android:layout_marginHorizontal="10dp"/>
+                    <LinearLayout style="@style/icon_arrow_forward"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -116,29 +105,49 @@
                     android:layout_height="50dp"
                     android:orientation="horizontal">
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/ic_home"
-                        android:layout_gravity="center"
-                        android:layout_marginHorizontal="10dp"/>
+                        android:background="@drawable/ic_family"
+                        style="@style/iconFor_item_menu_info"/>
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1">
                         <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:gravity=""
-                            android:text="Thành viên gia đinh"
-                            android:textSize="18dp"/>
+                            style="@style/labelFor_item_menu_info"
+                            android:text="Thành viên gia đinh" />
                     </LinearLayout>
 
+                    <LinearLayout style="@style/icon_arrow_forward"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="@drawable/line_under_text"/>
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:background="@drawable/ic_shield_color_secondary"
+                        style="@style/iconFor_item_menu_info"/>
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/ic_arrow_forward"
-                        android:layout_gravity="center"
-                        android:layout_marginHorizontal="10dp"/>
+                        android:layout_weight="1">
+                        <TextView
+                            style="@style/labelFor_item_menu_info"
+                            android:text="Chứng nhận tiêm chủng" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/icon_arrow_forward"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -156,29 +165,18 @@
                     android:layout_height="50dp"
                     android:orientation="horizontal">
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/ic_home"
-                        android:layout_gravity="center"
-                        android:layout_marginHorizontal="10dp"/>
+                        android:background="@drawable/ic_info"
+                        style="@style/iconFor_item_menu_info"/>
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1">
                         <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:gravity=""
-                            android:text="Lịch sử đặt khám"
-                            android:textSize="18dp"/>
+                            style="@style/labelFor_item_menu_info"
+                            android:text="Giới thiệu" />
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/ic_arrow_forward"
-                        android:layout_gravity="center"
-                        android:layout_marginHorizontal="10dp"/>
+                    <LinearLayout style="@style/icon_arrow_forward"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -196,29 +194,18 @@
                     android:layout_height="50dp"
                     android:orientation="horizontal">
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/ic_home"
-                        android:layout_gravity="center"
-                        android:layout_marginHorizontal="10dp"/>
+                        android:background="@drawable/ic_settings"
+                        style="@style/iconFor_item_menu_info"/>
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1">
                         <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:gravity=""
-                            android:text="Chứng nhận tiêm chủng"
-                            android:textSize="18dp"/>
+                            style="@style/labelFor_item_menu_info"
+                            android:text="Cài đặt" />
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/ic_arrow_forward"
-                        android:layout_gravity="center"
-                        android:layout_marginHorizontal="10dp"/>
+                    <LinearLayout style="@style/icon_arrow_forward"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -236,101 +223,15 @@
                     android:layout_height="50dp"
                     android:orientation="horizontal">
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/ic_home"
-                        android:layout_gravity="center"
-                        android:layout_marginHorizontal="10dp"/>
+                        android:background="@drawable/ic_logout"
+                        style="@style/iconFor_item_menu_info"/>
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1">
                         <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:gravity=""
-                            android:text="Giới thiệu"
-                            android:textSize="18dp"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/ic_arrow_forward"
-                        android:layout_gravity="center"
-                        android:layout_marginHorizontal="10dp"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp"
-                    android:background="@drawable/line_under_text"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:orientation="horizontal">
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/ic_home"
-                        android:layout_gravity="center"
-                        android:layout_marginHorizontal="10dp"/>
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1">
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:gravity=""
-                            android:text="Cài đặt"
-                            android:textSize="18dp"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/ic_arrow_forward"
-                        android:layout_gravity="center"
-                        android:layout_marginHorizontal="10dp"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp"
-                    android:background="@drawable/line_under_text"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:orientation="horizontal">
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/ic_home"
-                        android:layout_gravity="center"
-                        android:layout_marginHorizontal="10dp"/>
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1">
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:gravity=""
-                            android:text="Đăng xuất"
-                            android:textSize="18dp"/>
+                            style="@style/labelFor_item_menu_info"
+                            android:text="Đăng xuất" />
                     </LinearLayout>
                 </LinearLayout>
                 <LinearLayout

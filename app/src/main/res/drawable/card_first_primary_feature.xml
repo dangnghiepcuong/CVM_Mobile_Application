@@ -1,17 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <layer-list>
+            <!-- Drop Shadow Stack -->
+            <item>
+                <shape>
+                    <padding
+                        android:bottom="1dp"
+                        android:left="1dp"
+                        android:right="1dp"
+                        android:top="1dp" />
+
+                    <solid android:color="#00CCCCCC" />
+
+                    <corners android:radius="20dp" />
+                </shape>
+            </item>
+            <item>
+                <shape>
+                    <padding
+                        android:bottom="1dp"
+                        android:left="1dp"
+                        android:right="1dp"
+                        android:top="1dp" />
+
+                    <solid android:color="#10CCCCCC" />
+
+                    <corners android:radius="20dp" />
+                </shape>
+            </item>
+            <item>
+                <shape>
+                    <padding
+                        android:bottom="1dp"
+                        android:left="1dp"
+                        android:right="1dp"
+                        android:top="1dp" />
+
+                    <solid android:color="#20CCCCCC" />
+
+                    <corners android:radius="20dp" />
+                </shape>
+            </item>
+            <item>
+                <shape>
+                    <padding
+                        android:bottom="1dp"
+                        android:left="1dp"
+                        android:right="1dp"
+                        android:top="1dp" />
+
+                    <solid android:color="#30CCCCCC" />
+
+                    <corners android:radius="20dp" />
+                </shape>
+            </item>
+            <item>
+                <shape>
+                    <padding
+                        android:bottom="1dp"
+                        android:left="1dp"
+                        android:right="1dp"
+                        android:top="1dp" />
+
+                    <solid android:color="#50CCCCCC" />
+
+                    <corners android:radius="20dp" />
+                </shape>
+            </item>
+
             <item>
                 <shape android:shape="rectangle">
                     <gradient android:angle="45" android:endColor="#57BDFD" android:startColor="#2178F9" android:type="linear" />
                     <corners android:radius="20dp" />
                 </shape>
-            </item>
-
-            <item android:width="60dp" android:height="60dp" android:drawable="@drawable/ic_org_avatar" android:gravity="center_horizontal">
             </item>
         </layer-list>
     </item>

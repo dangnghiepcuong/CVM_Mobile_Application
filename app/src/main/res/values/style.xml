@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="labelFor_fragment">
-        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">40dp</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">20sp</item>
@@ -17,13 +17,13 @@
     </style>
 
     <style name="labelFor_et">
-        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:textSize">18sp</item>
         <item name="android:layout_height">30dp</item>
     </style>
 
     <style name="labelFor_btn_feature">
-        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="marginHorizontal">5dp</item>
         <item name="android:lineSpacingMultiplier">1.2</item>
@@ -39,18 +39,101 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+    <style name="spinner">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:background">@drawable/bg_spinner</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
     <style name="text_heading">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">25dp</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="text_content">
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">20dp</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">18sp</item>
         <item name="android:layout_marginVertical">2dp</item>
+    </style>
+
+    <style name="text_name">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="text_date_view_dd">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">40sp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:lineSpacingMultiplier">1</item>
+    </style>
+
+    <style name="text_date_view_mmyyyy">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:lineSpacingMultiplier">1</item>
+    </style>
+
+    <style name="text_status_registration_0">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingHorizontal">10dp</item>
+        <item name="android:paddingVertical">2dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@android:color/holo_blue_dark</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:text">Đăng ký thành công</item>
+        <item name="android:background">@drawable/bg_text_status_registration_0</item>
+    </style>
+
+    <style name="text_status_registration_1">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingHorizontal">10dp</item>
+        <item name="android:paddingVertical">2dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@android:color/holo_orange_dark</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:text">Điểm danh</item>
+        <item name="android:background">@drawable/bg_text_status_registration_1</item>
+    </style>
+
+    <style name="text_status_registration_2">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingHorizontal">10dp</item>
+        <item name="android:paddingVertical">2dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@android:color/holo_green_dark</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:text">Đã tiêm</item>
+        <item name="android:background">@drawable/bg_text_status_registration_2</item>
+    </style>
+
+    <style name="text_status_registration_3">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingHorizontal">10dp</item>
+        <item name="android:paddingVertical">2dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@android:color/holo_red_dark</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:text">Đã hủy</item>
+        <item name="android:background">@drawable/bg_text_status_registration_3</item>
     </style>
 
     <style name="btn_primary">
@@ -91,5 +174,35 @@
         <item name="android:paddingHorizontal">15dp</item>
         <item name="android:paddingVertical">10dp</item>
         <item name="android:background">@drawable/card_white_radius10</item>
+    </style>
+
+    <style name="card_date">
+        <item name="android:layout_width">80dp</item>
+        <item name="android:layout_height">80dp</item>
+        <item name="android:background">@drawable/bg_date_view</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
+
+    <style name="iconFor_item_menu_info">
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginHorizontal">10dp</item>
+    </style>
+
+    <style name="labelFor_item_menu_info">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:gravity"></item>
+        <item name="android:textSize">18dp</item>
+    </style>
+
+    <style name="icon_arrow_forward">
+        <item name="android:layout_width">24dp</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="android:layout_marginHorizontal">10dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:background">@drawable/ic_arrow_forward</item>
     </style>
 </resources>
