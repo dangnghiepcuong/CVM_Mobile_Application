@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.citizen.citizen_info">
+    tools:context=".ui.citizen.InfoFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -75,7 +75,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:orientation="horizontal">
-                    <Button
+                    <LinearLayout
                         android:background="@drawable/ic_infomation"
                         style="@style/iconFor_item_menu_info"/>
                     <LinearLayout
@@ -87,7 +87,7 @@
                             android:text="Thông tin cá nhân" />
                     </LinearLayout>
 
-                    <Button style="@style/icon_arrow_forward"/>
+                    <LinearLayout style="@style/icon_arrow_forward"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -104,7 +104,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:orientation="horizontal">
-                    <Button
+                    <LinearLayout
                         android:background="@drawable/ic_family"
                         style="@style/iconFor_item_menu_info"/>
                     <LinearLayout
@@ -116,7 +116,7 @@
                             android:text="Thành viên gia đinh" />
                     </LinearLayout>
 
-                    <Button style="@style/icon_arrow_forward"/>
+                    <LinearLayout style="@style/icon_arrow_forward"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -135,7 +135,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:orientation="horizontal">
-                    <Button
+                    <LinearLayout
                         android:background="@drawable/ic_shield_color_secondary"
                         style="@style/iconFor_item_menu_info"/>
                     <LinearLayout
@@ -147,7 +147,7 @@
                             android:text="Chứng nhận tiêm chủng" />
                     </LinearLayout>
 
-                    <Button style="@style/icon_arrow_forward"/>
+                    <LinearLayout style="@style/icon_arrow_forward"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -164,7 +164,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:orientation="horizontal">
-                    <Button
+                    <LinearLayout
                         android:background="@drawable/ic_info"
                         style="@style/iconFor_item_menu_info"/>
                     <LinearLayout
@@ -176,7 +176,7 @@
                             android:text="Giới thiệu" />
                     </LinearLayout>
 
-                    <Button style="@style/icon_arrow_forward"/>
+                    <LinearLayout style="@style/icon_arrow_forward"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -193,7 +193,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:orientation="horizontal">
-                    <Button
+                    <LinearLayout
                         android:background="@drawable/ic_settings"
                         style="@style/iconFor_item_menu_info"/>
                     <LinearLayout
@@ -205,7 +205,7 @@
                             android:text="Cài đặt" />
                     </LinearLayout>
 
-                    <Button style="@style/icon_arrow_forward"/>
+                    <LinearLayout style="@style/icon_arrow_forward"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -222,7 +222,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:orientation="horizontal">
-                    <Button
+                    <LinearLayout
                         android:background="@drawable/ic_logout"
                         style="@style/iconFor_item_menu_info"/>
                     <LinearLayout

@@ -21,7 +21,6 @@
             android:background="@drawable/bg_navigation"
             android:elevation="2dp"
             android:padding="5dp"
-            app: ="@android:color/secondary_text_light"
             app:labelVisibilityMode="labeled"
             app:menu="@menu/bottom_menu" />
 
