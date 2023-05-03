@@ -194,7 +194,8 @@
     <style name="labelFor_item_menu_info">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">50dp</item>
-        <item name="android:gravity"></item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">10dp</item>
         <item name="android:textSize">18dp</item>
     </style>
 
