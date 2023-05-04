@@ -1,39 +1,24 @@
 package com.example.cvm_mobile_application.data.db.model;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class Citizen {
+public class Citizen implements Serializable {
     private String id;
-    private String lastName;
-    private String firstName;
+    private String last_name;
+    private String first_name;
     private Date birthday;
     private String gender;
     private String hometown;
-    private String province;
-    private String district;
-    private String town;
+    private String province_name;
+    private String district_name;
+    private String ward_name;
     private String street;
     private String phone;
     private String email;
     private String guardian;
 
     public Citizen() {
-    }
-
-    public Citizen(String id, String lastName, String firstName, Date birthday, String gender, String hometown, String province, String district, String town, String street, String phone, String email, String guardian) {
-        this.id = id;
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.birthday = birthday;
-        this.gender = gender;
-        this.hometown = hometown;
-        this.province = province;
-        this.district = district;
-        this.town = town;
-        this.street = street;
-        this.phone = phone;
-        this.email = email;
-        this.guardian = guardian;
     }
 
     public String getId() {
@@ -44,24 +29,20 @@ public class Citizen {
         this.id = id;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLast_name() {
+        return last_name;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirst_name() {
+        return first_name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getFullName() {
-        return lastName + firstName;
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
     }
 
     public Date getBirthday() {
@@ -88,28 +69,28 @@ public class Citizen {
         this.hometown = hometown;
     }
 
-    public String getProvince() {
-        return province;
+    public String getProvince_name() {
+        return province_name;
     }
 
-    public void setProvince(String province) {
-        this.province = province;
+    public void setProvince_name(String province_name) {
+        this.province_name = province_name;
     }
 
-    public String getDistrict() {
-        return district;
+    public String getDistrict_name() {
+        return district_name;
     }
 
-    public void setDistrict(String district) {
-        this.district = district;
+    public void setDistrict_name(String district_name) {
+        this.district_name = district_name;
     }
 
-    public String getTown() {
-        return town;
+    public String getWard_name() {
+        return ward_name;
     }
 
-    public void setTown(String town) {
-        this.town = town;
+    public void setWard_name(String ward_name) {
+        this.ward_name = ward_name;
     }
 
     public String getStreet() {
