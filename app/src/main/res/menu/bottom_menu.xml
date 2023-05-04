@@ -9,16 +9,16 @@
     <item
         android:id="@+id/registration"
         android:title="Đặt lịch"
-        android:icon="@drawable/ic_home"/>
+        android:icon="@drawable/ic_edit_calendar"/>
 
     <item
         android:id="@+id/notification"
-        android:icon="@drawable/ic_home"
+        android:icon="@drawable/ic_notifications"
         android:title="Thông báo" />
 
     <item
         android:id="@+id/info"
         android:title="Cá nhân"
-        android:icon="@drawable/ic_home"/>
+        android:icon="@drawable/ic_person"/>
 
 </menu>
