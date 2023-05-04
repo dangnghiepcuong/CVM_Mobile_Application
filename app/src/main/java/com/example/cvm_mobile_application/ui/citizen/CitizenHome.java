@@ -1,9 +1,7 @@
 package com.example.cvm_mobile_application.ui.citizen;
 
 
-import android.content.Context;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,13 +11,9 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.databinding.ActivityMainBinding;
-import com.example.cvm_mobile_application.ui.citizen.HomeFragment;
-import com.example.cvm_mobile_application.ui.citizen.InfoFragment;
-import com.example.cvm_mobile_application.ui.citizen.NotificationFragment;
-import com.example.cvm_mobile_application.ui.citizen.RegistrationFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class HomePage extends AppCompatActivity {
+public class CitizenHome extends AppCompatActivity {
     ActivityMainBinding binding;
 
     @Override
