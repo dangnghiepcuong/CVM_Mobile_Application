@@ -34,7 +34,7 @@
                         <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/default_avatar_org" />
+                            android:background="@drawable/default_avatar_admin" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.appcompat.widget.LinearLayoutCompat
@@ -49,7 +49,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:lineSpacingMultiplier="1.25"
-                            android:text="Bệnh viện đa khoa Dầu Tiếng"
+                            android:text="Quản trị viên\nBộ Y tế"
                             android:textColor="@color/black"
                             android:textSize="24sp" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -115,7 +115,7 @@
                         </Button>
 
                         <TextView style="@style/labelFor_btn_feature"
-                            android:text="Thông tin\ntổ chức"/>
+                            android:text="Thống kê\ntraffic"/>
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.appcompat.widget.LinearLayoutCompat
@@ -130,7 +130,7 @@
                         </Button>
 
                         <TextView style="@style/labelFor_btn_feature"
-                            android:text="Thông tin\ntài khoản"/>
+                            android:text="Số liệu\ntiêm chủng"/>
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.appcompat.widget.LinearLayoutCompat
@@ -142,12 +142,11 @@
 
                         <Button
                             android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:background="@drawable/bg_btn_org_feature_schedule_create">
+                            android:layout_height="80dp">
                         </Button>
 
                         <TextView style="@style/labelFor_btn_feature"
-                            android:text="Tạo lịch\ntiêm chủng"/>
+                            android:text="Danh sách\ncác ĐVTC"/>
                     </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -166,14 +165,6 @@
                         <Button
                             style="@style/btn_feature">
                         </Button>
-
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Quản lý lịch tiêm chủng"
-                            android:textAlignment="center"
-                            android:textSize="18sp" />
 
                         <TextView style="@style/labelFor_btn_feature"
                             android:text="%%%"/>

@@ -55,8 +55,11 @@
                                 android:layout_width="25dp"
                                 android:layout_height="25dp"
                                 android:background="@drawable/ic_cake"/>
-                            <TextView style="@style/labelFor_et"
-                                android:text="17/008/2002"/>
+
+                            <TextView
+                                style="@style/labelFor_et"
+                                android:layout_width="wrap_content"
+                                android:text="17/008/2002" />
                         </LinearLayout>
                         <TextView style="@style/text_status_registration_1"/>
                     </LinearLayout>

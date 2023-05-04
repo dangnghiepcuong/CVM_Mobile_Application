@@ -2,8 +2,8 @@
      Base application theme.
     <style name="Theme.CVM_Mobile_Application" parent="Theme.AppCompat.DayNight">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/color4th</item>
-        <item name="colorPrimaryVariant">@color/color2nd</item>
+<!--        <item name="colorPrimary">@color/color4th</item>-->
+<!--        <item name="colorPrimaryVariant">@color/color2nd</item>-->
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/color8</item>
@@ -12,5 +12,9 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+    </style>
+
+    <style name="BottomNavThem" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/Primary</item>
     </style>
 </resources>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="labelFor_fragment">
-        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">40dp</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">20sp</item>
@@ -17,13 +17,13 @@
     </style>
 
     <style name="labelFor_et">
-        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:textSize">18sp</item>
         <item name="android:layout_height">30dp</item>
     </style>
 
     <style name="labelFor_btn_feature">
-        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="marginHorizontal">5dp</item>
         <item name="android:lineSpacingMultiplier">1.2</item>
@@ -39,23 +39,31 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+    <style name="spinner">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:background">@drawable/bg_spinner</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
     <style name="text_heading">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">25dp</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="text_content">
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">20dp</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">18sp</item>
         <item name="android:layout_marginVertical">2dp</item>
     </style>
 
     <style name="text_name">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:layout_height">30dp</item>
         <item name="android:textStyle">bold</item>
     </style>
@@ -186,7 +194,8 @@
     <style name="labelFor_item_menu_info">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">50dp</item>
-        <item name="android:gravity"></item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">10dp</item>
         <item name="android:textSize">18dp</item>
     </style>
 
