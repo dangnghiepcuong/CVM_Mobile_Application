@@ -106,8 +106,6 @@ public class MainActivity extends AppCompatActivity {
                         if(task.isSuccessful()){
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 role = (Integer) document.get("role");
-
-
                             }
                         } else {
                         }
