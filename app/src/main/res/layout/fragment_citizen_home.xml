@@ -4,7 +4,8 @@
     android:id="@+id/fragment_citizen_home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.citizen.HomeFragment">
+    tools:context=".ui.citizen.CitizenHomeFragment"
+    tools:viewBindingIgnore="true">
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.appcompat.widget.LinearLayoutCompat
