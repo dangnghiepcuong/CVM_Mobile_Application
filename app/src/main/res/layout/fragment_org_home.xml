@@ -130,7 +130,7 @@
 
                             <TextView style="@style/labelFor_btn_feature"
                                 android:textColor="@color/white"
-                                android:text="Chức năng\n"/>
+                                android:text="Quản lý vaccine"/>
 
                         </LinearLayout>
 

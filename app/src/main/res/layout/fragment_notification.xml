@@ -1,28 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingHorizontal="15dp"
-    android:paddingVertical="15dp"
-    android:background="@color/grey">
-    <ScrollView
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".ui.org.home.NotificationFragment">
+
+<!-- TODO: Update blank fragment layout -->
+    <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingHorizontal="15dp"
+        android:paddingVertical="15dp"
+        android:background="@color/grey">
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
+            android:layout_height="match_parent">
             <androidx.appcompat.widget.LinearLayoutCompat
-                style="@style/card_linearLayout_vertical">
-                <TextView style="@style/text_heading"
-                    android:text="Title of notification"/>
-                <TextView style="@style/text_content"
-                    android:layout_height="65dp"
-                    android:text="Content ofnotification\nContent ofnotification\nContent ofnotification\n"/>
-            </androidx.appcompat.widget.LinearLayoutCompat>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
-    </ScrollView>
-</androidx.appcompat.widget.LinearLayoutCompat>
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    style="@style/card_linearLayout_vertical">
+                    <TextView style="@style/text_heading"
+                        android:text="Title of notification"/>
+                    <TextView style="@style/text_content"
+                        android:layout_height="65dp"
+                        android:text="Content ofnotification\nContent ofnotification\nContent ofnotification\n"/>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </ScrollView>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</FrameLayout>
