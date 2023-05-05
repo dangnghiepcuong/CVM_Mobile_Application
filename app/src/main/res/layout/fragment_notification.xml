@@ -9,20 +9,9 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/notification_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                style="@style/card_linearLayout_vertical">
-                <TextView style="@style/text_heading"
-                    android:text="Title of notification"/>
-                <TextView style="@style/text_content"
-                    android:layout_height="65dp"
-                    android:text="Content ofnotification\nContent ofnotification\nContent ofnotification\n"/>
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-        </androidx.appcompat.widget.LinearLayoutCompat>
+            android:layout_height="wrap_content"/>
     </ScrollView>
 </androidx.appcompat.widget.LinearLayoutCompat>

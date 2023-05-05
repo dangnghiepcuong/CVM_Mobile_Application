@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/background"
+    style="@style/card_linearLayout_vertical">
+    <TextView
+        android:id="@+id/title"
+        style="@style/text_heading"
+        android:text="Title of notification" />
+
+    <EditText
+        android:id="@+id/content"
+        style="@style/text_content"
+        android:layout_height="65dp"
+        android:layout_width="match_parent"
+        android:text="Content ofnotification Content ofnotificationContent ofnotificationContent ofnotificationContent ofnotification" />
+</androidx.appcompat.widget.LinearLayoutCompat>
