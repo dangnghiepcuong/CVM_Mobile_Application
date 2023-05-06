@@ -1,17 +1,20 @@
 package com.example.cvm_mobile_application.data.db.model;
 
-import java.sql.Date;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class Citizen {
+import androidx.annotation.NonNull;
+
+public class Citizen implements Parcelable {
     private String id;
-    private String lastName;
-    private String firstName;
-    private Date birthday;
+    private String last_name;
+    private String first_name;
+    private String birthday;
     private String gender;
     private String hometown;
-    private String province;
-    private String district;
-    private String town;
+    private String province_name;
+    private String district_name;
+    private String ward_name;
     private String street;
     private String phone;
     private String email;
@@ -20,21 +23,33 @@ public class Citizen {
     public Citizen() {
     }
 
-    public Citizen(String id, String lastName, String firstName, Date birthday, String gender, String hometown, String province, String district, String town, String street, String phone, String email, String guardian) {
-        this.id = id;
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.birthday = birthday;
-        this.gender = gender;
-        this.hometown = hometown;
-        this.province = province;
-        this.district = district;
-        this.town = town;
-        this.street = street;
-        this.phone = phone;
-        this.email = email;
-        this.guardian = guardian;
+    protected Citizen(Parcel in) {
+        id = in.readString();
+        last_name = in.readString();
+        first_name = in.readString();
+        birthday = in.readString();
+        gender = in.readString();
+        hometown = in.readString();
+        province_name = in.readString();
+        district_name = in.readString();
+        ward_name = in.readString();
+        street = in.readString();
+        phone = in.readString();
+        email = in.readString();
+        guardian = in.readString();
     }
+
+    public static final Creator<Citizen> CREATOR = new Creator<Citizen>() {
+        @Override
+        public Citizen createFromParcel(Parcel in) {
+            return new Citizen(in);
+        }
+
+        @Override
+        public Citizen[] newArray(int size) {
+            return new Citizen[size];
+        }
+    };
 
     public String getId() {
         return id;
@@ -44,31 +59,27 @@ public class Citizen {
         this.id = id;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLast_name() {
+        return last_name;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirst_name() {
+        return first_name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
     }
 
-    public String getFullName() {
-        return lastName + firstName;
-    }
-
-    public Date getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 
@@ -88,28 +99,28 @@ public class Citizen {
         this.hometown = hometown;
     }
 
-    public String getProvince() {
-        return province;
+    public String getProvince_name() {
+        return province_name;
     }
 
-    public void setProvince(String province) {
-        this.province = province;
+    public void setProvince_name(String province_name) {
+        this.province_name = province_name;
     }
 
-    public String getDistrict() {
-        return district;
+    public String getDistrict_name() {
+        return district_name;
     }
 
-    public void setDistrict(String district) {
-        this.district = district;
+    public void setDistrict_name(String district_name) {
+        this.district_name = district_name;
     }
 
-    public String getTown() {
-        return town;
+    public String getWard_name() {
+        return ward_name;
     }
 
-    public void setTown(String town) {
-        this.town = town;
+    public void setWard_name(String ward_name) {
+        this.ward_name = ward_name;
     }
 
     public String getStreet() {
@@ -142,5 +153,31 @@ public class Citizen {
 
     public void setGuardian(String guardian) {
         this.guardian = guardian;
+    }
+
+    public String getFull_name() {
+        return last_name + " " + first_name;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(last_name);
+        dest.writeString(first_name);
+        dest.writeString(birthday);
+        dest.writeString(gender);
+        dest.writeString(hometown);
+        dest.writeString(province_name);
+        dest.writeString(district_name);
+        dest.writeString(ward_name);
+        dest.writeString(street);
+        dest.writeString(phone);
+        dest.writeString(email);
+        dest.writeString(guardian);
     }
 }
