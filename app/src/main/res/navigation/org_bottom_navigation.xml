@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_org_home"
-        android:name="com.example.cvm_mobile_application.ui.org.home.HomeFragment"
+        android:name="com.example.cvm_mobile_application.ui.org.home.OrgHomeFragment"
         android:label="org home"
         tools:layout="@layout/fragment_admin_home" >
         <action
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/navigation_org_instruction"
-        android:name="com.example.cvm_mobile_application.ui.org.home.InstructionFragment"
+        android:name="com.example.cvm_mobile_application.ui.org.home.OrgInstructionFragment"
         android:label="org schedule"
         tools:layout="@layout/fragment_org_instruction" >
         <action
@@ -37,7 +37,7 @@
 
     <fragment
         android:id="@+id/navigation_org_information"
-        android:name="com.example.cvm_mobile_application.ui.org.info.InfoFragment"
+        android:name="com.example.cvm_mobile_application.ui.org.info.OrgOptionalMenuFragment"
         android:label="org info"
         tools:layout="@layout/fragment_org_information" >
         <action
