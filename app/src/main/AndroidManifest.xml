@@ -19,7 +19,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.org.OrgHome"
+            android:name=".ui.org.OrgNavigationBottom"
             android:screenOrientation="portrait" />
 
         <activity
