@@ -11,11 +11,15 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.CVM_Mobile_Application"
+        android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
         tools:targetApi="31">
 
         <activity
             android:name=".ui.citizen.CitizenNavigationBottom"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.org.OrgHome"
             android:screenOrientation="portrait" />
 
         <activity
