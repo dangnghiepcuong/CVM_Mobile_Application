@@ -21,6 +21,18 @@ public class Citizen implements Parcelable {
     private String guardian;
 
     public Citizen() {
+        id = "";
+        last_name = "";
+        birthday = "";
+        gender = "";
+        hometown = "";
+        province_name = "";
+        district_name = "";
+        ward_name = "";
+        street = "";
+        phone = "";
+        email = "";
+        guardian = "";
     }
 
     protected Citizen(Parcel in) {
