@@ -1,10 +1,5 @@
 package com.example.cvm_mobile_application;
 
-import static android.content.ContentValues.TAG;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,7 +8,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.cvm_mobile_application.ui.citizen.CitizenHome;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.cvm_mobile_application.ui.citizen.CitizenNavigationBottom;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -24,11 +22,13 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 public class MainActivity extends AppCompatActivity {
-
     private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
     private Button btn_login;
     private EditText et_username;
     private EditText et_password;
+    private String role = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +39,7 @@ public class MainActivity extends AppCompatActivity {
         et_password = findViewById(R.id.et_password);
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
-
-
+        db = FirebaseFirestore.getInstance();
     }
 
     @Override
@@ -49,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
-            startActivity(new Intent(getApplicationContext(), CitizenHome.class));
+            startActivity(new Intent(getApplicationContext(), CitizenNavigationBottom.class));
             finish();
             return;
         }
@@ -58,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String username = String.valueOf(et_username.getText());
-
                 if (username.equals("")) {
                     Toast.makeText(MainActivity.this, "*Nhập tài khoản", Toast.LENGTH_SHORT).show();
                     return;
@@ -70,50 +68,76 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
 
-                mAuth.signInWithEmailAndPassword(username, password)
-                        .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
-                                    Log.d(TAG, "signInWithEmail:success");
-                                    Toast.makeText(MainActivity.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
-                                    FirebaseUser user = mAuth.getCurrentUser();
-
-                                } else {
-                                    // If sign in fails, display a message to the user.
-                                    Log.w(TAG, "signInWithEmail:failure", task.getException());
-                                    Toast.makeText(MainActivity.this, "Authentication failed.",
-                                            Toast.LENGTH_LONG).show();
-                                    return;
-                                }
-                            }
-                        });
+                MainActivity.this.authenticateLogin(username, password);
             }
         });
     }
 
-    public void updateUI(String username) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        Integer role = -1;
-        db.collection("acounts")
+    public void authenticateLogin(String username, String password) {
+        mAuth.signInWithEmailAndPassword(username, password)
+                .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d("myTAG", "signInWithEmail:success");
+                            Toast.makeText(MainActivity.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
+
+                            // GET USER ROLE
+                            MainActivity.this.queryUserRole(username);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w("myTAG", "signInWithEmail:failure", task.getException());
+                            Toast.makeText(MainActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+    }
+
+    public void queryUserRole(String username) {
+        // QUERY USER ROLE
+        db.collection("accounts")
                 .whereEqualTo("username", username)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    public Integer role;
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                role = (Integer) document.get("role");
+                                Integer role = Integer.parseInt(String.valueOf(document.get("role")));
+                                Log.i("myTAG", "role: " + role);
+
+                                // UPDATE UI BASE ON ROLE
+                                MainActivity.this.updateUI(username, role);
                             }
                         } else {
+                            Log.w("myTAG", "queryCollection doc role:failure", task.getException());
+                            Toast.makeText(MainActivity.this, "*Đã có lỗi xảy ra. Vui lòng thử lại!"
+                                    , Toast.LENGTH_LONG).show();
                         }
                     }
-                }).getResult();
-        startActivity(new Intent(getApplicationContext(), CitizenHome.class));
-        Intent intent = new Intent(MainActivity.this, CitizenHome.class);
-        //intent.putExtra();
+                });
+    }
+
+    public void updateUI(String username, Integer role) {
+        Intent intent = new Intent(getBaseContext(), CitizenNavigationBottom.class);
+        intent.putExtra("username", username);
+
+        switch (role) {
+            case 0:
+                Toast.makeText(this, "Đăng nhập thành công! - Admin", Toast.LENGTH_SHORT).show();
+                break;
+
+            case 1:
+                Toast.makeText(this, "Đăng nhập thành công! - Org", Toast.LENGTH_SHORT).show();
+                break;
+
+            case 2:
+                startActivity(intent);
+                break;
+            default:
+        }
         finish();
     }
 }

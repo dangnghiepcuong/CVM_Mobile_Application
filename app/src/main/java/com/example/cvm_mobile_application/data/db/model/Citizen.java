@@ -1,13 +1,15 @@
 package com.example.cvm_mobile_application.data.db.model;
 
-import java.io.Serializable;
-import java.sql.Date;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class Citizen implements Serializable {
+import androidx.annotation.NonNull;
+
+public class Citizen implements Parcelable {
     private String id;
     private String last_name;
     private String first_name;
-    private Date birthday;
+    private String birthday;
     private String gender;
     private String hometown;
     private String province_name;
@@ -20,6 +22,34 @@ public class Citizen implements Serializable {
 
     public Citizen() {
     }
+
+    protected Citizen(Parcel in) {
+        id = in.readString();
+        last_name = in.readString();
+        first_name = in.readString();
+        birthday = in.readString();
+        gender = in.readString();
+        hometown = in.readString();
+        province_name = in.readString();
+        district_name = in.readString();
+        ward_name = in.readString();
+        street = in.readString();
+        phone = in.readString();
+        email = in.readString();
+        guardian = in.readString();
+    }
+
+    public static final Creator<Citizen> CREATOR = new Creator<Citizen>() {
+        @Override
+        public Citizen createFromParcel(Parcel in) {
+            return new Citizen(in);
+        }
+
+        @Override
+        public Citizen[] newArray(int size) {
+            return new Citizen[size];
+        }
+    };
 
     public String getId() {
         return id;
@@ -45,11 +75,11 @@ public class Citizen implements Serializable {
         this.first_name = first_name;
     }
 
-    public Date getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 
@@ -123,5 +153,31 @@ public class Citizen implements Serializable {
 
     public void setGuardian(String guardian) {
         this.guardian = guardian;
+    }
+
+    public String getFull_name() {
+        return last_name + " " + first_name;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(last_name);
+        dest.writeString(first_name);
+        dest.writeString(birthday);
+        dest.writeString(gender);
+        dest.writeString(hometown);
+        dest.writeString(province_name);
+        dest.writeString(district_name);
+        dest.writeString(ward_name);
+        dest.writeString(street);
+        dest.writeString(phone);
+        dest.writeString(email);
+        dest.writeString(guardian);
     }
 }
