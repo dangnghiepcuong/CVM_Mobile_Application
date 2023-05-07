@@ -17,11 +17,12 @@ import com.example.cvm_mobile_application.ui.citizen.vaccination.CitizenVaccinat
 public class CitizenHomeFragment extends Fragment {
     private LinearLayout btnVaccination;
     private Citizen citizen;
+    private View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_citizen_home, container, false);
+        view = inflater.inflate(R.layout.fragment_citizen_home, container, false);
 
         citizen = new Citizen();
         citizen = getArguments().getParcelable("citizen");
@@ -29,17 +30,17 @@ public class CitizenHomeFragment extends Fragment {
         TextView fullName = view.findViewById(R.id.FullName);
         fullName.setText(citizen.getFull_name());
 
+        initButtons();
         return view;
     }
 
-    public void initButtons(View view) {
+    public void initButtons() {
         btnVaccination = view.findViewById(R.id.btn_vaccination);
         btnVaccination.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity().getBaseContext(), CitizenVaccinationActivity.class);
                 intent.putExtra("citizen", citizen);
-
                 startActivity(intent);
             }
         });
