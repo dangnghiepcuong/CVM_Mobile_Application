@@ -23,7 +23,6 @@ public class Citizen implements Parcelable {
     public Citizen() {
         id = "";
         last_name = "";
-        first_name = "";
         birthday = "";
         gender = "";
         hometown = "";

@@ -27,6 +27,14 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".ui.admin.AdminNavigationBottom"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.citizen.info.CitizenProfileFragment"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

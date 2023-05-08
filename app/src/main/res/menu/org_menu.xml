@@ -7,13 +7,8 @@
 
     <item
         android:id="@+id/schedule"
-        android:title="Tạo lịch"
-        android:icon="@drawable/ic_edit_calendar"/>
-
-    <item
-        android:id="@+id/notification"
-        android:icon="@drawable/ic_notifications"
-        android:title="Thông báo" />
+        android:title="Lịch tiêm"
+        android:icon="@drawable/ic_calendar"/>
 
     <item
         android:id="@+id/info"

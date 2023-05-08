@@ -11,7 +11,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.cvm_mobile_application.ui.admin.AdminNavigationBottom;
 import com.example.cvm_mobile_application.ui.citizen.CitizenNavigationBottom;
+import com.example.cvm_mobile_application.ui.org.OrgNavigationBottom;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -121,23 +123,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void updateUI(String username, Integer role) {
-        Intent intent = new Intent(getBaseContext(), CitizenNavigationBottom.class);
-        intent.putExtra("username", username);
-
+        Intent intent = null;
         switch (role) {
             case 0:
-                Toast.makeText(this, "Đăng nhập thành công! - Admin", Toast.LENGTH_SHORT).show();
+                intent = new Intent(getBaseContext(), AdminNavigationBottom.class);
                 break;
 
             case 1:
-                Toast.makeText(this, "Đăng nhập thành công! - Org", Toast.LENGTH_SHORT).show();
+                intent = new Intent(getBaseContext(), OrgNavigationBottom.class);
                 break;
 
             case 2:
-                startActivity(intent);
+                intent = new Intent(getBaseContext(), CitizenNavigationBottom.class);
                 break;
             default:
         }
+        intent.putExtra("username", username);
+        startActivity(intent);
         finish();
     }
 }
