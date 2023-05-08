@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayoutCompat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="10dp"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/ic_arrow_back_white" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:text="Tra cứu điểm tiêm theo địa bàn"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="412dp"
+        android:layout_height="666dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="4dp"
+        android:layout_weight="9"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat"
+        app:layout_constraintVertical_bias="1.0"
+        tools:layout_editor_absoluteX="-1dp"
+        tools:ignore="MissingConstraints">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/card_home">
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16sp"
+                android:hint="@string/selectWard">
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoCompleteTextViewWard"
+                    android:layout_width="83dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"></AutoCompleteTextView>
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16sp"
+                android:hint="@string/selectDistrict">
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoCompleteTextViewDistrict"
+                    android:layout_width="83dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"></AutoCompleteTextView>
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16sp"
+                android:hint="@string/selectProvince">
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoCompleteTextViewProvince"
+                    android:layout_width="83dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"></AutoCompleteTextView>
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
