@@ -13,7 +13,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingHorizontal="20dp"
-        android:paddingVertical="10dp">
+        android:paddingVertical="10dp"
+        tools:ignore="MissingConstraints">
 
         <LinearLayout
             android:layout_width="30dp"
@@ -45,21 +46,59 @@
         tools:ignore="MissingConstraints">
 
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16sp"
-            android:hint="@string/selectProvince">
+            android:background="@drawable/card_home">
 
-            <AutoCompleteTextView
-                android:id="@+id/autoCompleteTextView"
-                android:layout_width="83dp"
+            <com.google.android.material.textfield.TextInputLayout
+
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="none"></AutoCompleteTextView>
+                android:layout_margin="16sp"
+                android:hint="@string/selectWard">
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoCompleteTextViewWard"
+                    android:layout_width="83dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"></AutoCompleteTextView>
 
 
-        </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16sp"
+                android:hint="@string/selectDistrict">
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoCompleteTextViewDistrict"
+                    android:layout_width="83dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"></AutoCompleteTextView>
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16sp"
+                android:hint="@string/selectProvince">
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoCompleteTextViewProvince"
+                    android:layout_width="83dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"></AutoCompleteTextView>
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
 
 
 
