@@ -1,7 +1,6 @@
-package com.example.cvm_mobile_application.ui.org;
+package com.example.cvm_mobile_application.ui.admin;
 
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -13,13 +12,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.cvm_mobile_application.R;
-import com.example.cvm_mobile_application.data.db.model.Citizen;
 import com.example.cvm_mobile_application.data.db.model.Organization;
-import com.example.cvm_mobile_application.ui.citizen.CitizenHomeFragment;
-import com.example.cvm_mobile_application.ui.citizen.CitizenNavigationBottom;
-import com.example.cvm_mobile_application.ui.citizen.notification.NotificationFragment;
-import com.example.cvm_mobile_application.ui.org.home.OrgHomeFragment;
-import com.example.cvm_mobile_application.ui.org.info.OrgOptionalMenuFragment;
+import com.example.cvm_mobile_application.ui.admin.home.AdminHomeFragment;
+import com.example.cvm_mobile_application.ui.admin.info.AdminOptionalMenuFragment;
+import com.example.cvm_mobile_application.ui.admin.manage.AdminManageOrgFragment;
 import com.example.cvm_mobile_application.ui.org.schedule.OrgScheduleFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -28,8 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-public class OrgNavigationBottom extends AppCompatActivity {
-
+public class AdminNavigationBottom extends AppCompatActivity {
     private FirebaseFirestore db;
     private BottomNavigationView bottomNavigationView;
     @Override
@@ -52,10 +47,10 @@ public class OrgNavigationBottom extends AppCompatActivity {
     }
 
     public void getOrgNavigationBottom(String username){
-        setContentView(R.layout.org_navigation_bottom);
+        setContentView(R.layout.admin_navigation_bottom);
         getHomeScreen(username);
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation_org);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation_admin);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.home:
@@ -64,8 +59,8 @@ public class OrgNavigationBottom extends AppCompatActivity {
                 case R.id.info:
                     getOptionalMenuScreen(username);
                     break;
-                case R.id.schedule:
-                    replaceFragment(new OrgScheduleFragment());
+                case R.id.manage:
+                    getManageOrgScreen(username);
                     break;
             }
             return true;
@@ -87,12 +82,12 @@ public class OrgNavigationBottom extends AppCompatActivity {
 
                             Bundle bundle = new Bundle();
                             bundle.putParcelable("org", organization);
-                            OrgHomeFragment orgHomeFragment = new OrgHomeFragment();
-                            orgHomeFragment.setArguments(bundle);
-                            replaceFragment(orgHomeFragment);
+                            AdminHomeFragment adminHomeFragment = new AdminHomeFragment();
+                            adminHomeFragment.setArguments(bundle);
+                            replaceFragment(adminHomeFragment);
                         } else {
                             Log.w("myTAG", "queryCollection:failure", task.getException());
-                            Toast.makeText(OrgNavigationBottom.this, "*Đã có lỗi xảy ra. Vui lòng thử lại!"
+                            Toast.makeText(AdminNavigationBottom.this, "*Đã có lỗi xảy ra. Vui lòng thử lại!"
                                     , Toast.LENGTH_LONG).show();
                         }
                     }
@@ -114,12 +109,39 @@ public class OrgNavigationBottom extends AppCompatActivity {
 
                             Bundle bundle = new Bundle();
                             bundle.putParcelable("org", organization);
-                            OrgOptionalMenuFragment orgOptionalMenuFragment = new OrgOptionalMenuFragment();
-                            orgOptionalMenuFragment.setArguments(bundle);
-                            replaceFragment(orgOptionalMenuFragment);
+                            AdminOptionalMenuFragment adminOptionnalMenuFragment = new AdminOptionalMenuFragment();
+                            adminOptionnalMenuFragment.setArguments(bundle);
+                            replaceFragment(adminOptionnalMenuFragment);
                         } else {
                             Log.w("myTAG", "queryCollection:failure", task.getException());
-                            Toast.makeText(OrgNavigationBottom.this, "*Đã có lỗi xảy ra. Vui lòng thử lại!"
+                            Toast.makeText(AdminNavigationBottom.this, "*Đã có lỗi xảy ra. Vui lòng thử lại!"
+                                    , Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+    }
+
+    public void getManageOrgScreen(String username){
+        db.collection("organizations")
+                .whereEqualTo("id", username)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            Organization organization = new Organization();
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                organization = document.toObject(Organization.class);
+                            }
+
+                            Bundle bundle = new Bundle();
+                            bundle.putParcelable("org", organization);
+                            AdminManageOrgFragment adminManageOrgFragment = new AdminManageOrgFragment();
+                            adminManageOrgFragment.setArguments(bundle);
+                            replaceFragment(adminManageOrgFragment);
+                        } else {
+                            Log.w("myTAG", "queryCollection:failure", task.getException());
+                            Toast.makeText(AdminNavigationBottom.this, "*Đã có lỗi xảy ra. Vui lòng thử lại!"
                                     , Toast.LENGTH_LONG).show();
                         }
                     }

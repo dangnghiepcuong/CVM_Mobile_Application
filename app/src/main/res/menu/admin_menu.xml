@@ -12,11 +12,6 @@
         android:icon="@drawable/ic_edit_calendar"/>
 
     <item
-        android:id="@+id/notification"
-        android:icon="@drawable/ic_notifications"
-        android:title="Thông báo" />
-
-    <item
         android:id="@+id/info"
         android:title="Hồ sơ"
         android:icon="@drawable/ic_person"/>

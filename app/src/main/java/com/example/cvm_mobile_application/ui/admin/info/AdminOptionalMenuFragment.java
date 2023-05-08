@@ -1,4 +1,4 @@
-package com.example.cvm_mobile_application.ui.org.home;
+package com.example.cvm_mobile_application.ui.admin.info;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,14 +9,13 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.example.cvm_mobile_application.R;
-import com.example.cvm_mobile_application.data.db.model.Citizen;
 import com.example.cvm_mobile_application.data.db.model.Organization;
 
-public class OrgHomeFragment extends Fragment {
+public class AdminOptionalMenuFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_org_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_admin_optional_menu, container, false);
 
         Organization organization = getArguments().getParcelable("org");
 
