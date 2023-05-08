@@ -1,24 +1,47 @@
 package com.example.cvm_mobile_application.data.db.model;
 
-public class Organization {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
+public class Organization implements Parcelable {
     private String id;
     private String name;
-    private String province;
-    private String district;
-    private String town;
+    private String province_name;
+    private String district_name;
+    private String ward_name;
     private String street;
 
     public Organization() {
+        id = "";
+        name = "";
+        province_name = "";
+        district_name = "";
+        ward_name = "";
+        street = "";
     }
 
-    public Organization(String id, String name, String province, String district, String town, String street) {
-        this.id = id;
-        this.name = name;
-        this.province = province;
-        this.district = district;
-        this.town = town;
-        this.street = street;
+    protected Organization(Parcel in) {
+        id = in.readString();
+        name = in.readString();
+        province_name = in.readString();
+        district_name = in.readString();
+        ward_name = in.readString();
+        street = in.readString();
     }
+
+    public static final Creator<Organization> CREATOR = new Creator<Organization>() {
+        @Override
+        public Organization createFromParcel(Parcel in) {
+            return new Organization(in);
+        }
+
+        @Override
+        public Organization[] newArray(int size) {
+            return new Organization[size];
+        }
+    };
 
     public String getId() {
         return id;
@@ -36,28 +59,28 @@ public class Organization {
         this.name = name;
     }
 
-    public String getProvince() {
-        return province;
+    public String getProvince_name() {
+        return province_name;
     }
 
-    public void setProvince(String province) {
-        this.province = province;
+    public void setProvince_name(String province_name) {
+        this.province_name = province_name;
     }
 
-    public String getDistrict() {
-        return district;
+    public String getDistrict_name() {
+        return district_name;
     }
 
-    public void setDistrict(String district) {
-        this.district = district;
+    public void setDistrict_name(String district_name) {
+        this.district_name = district_name;
     }
 
-    public String getTown() {
-        return town;
+    public String getWard_name() {
+        return ward_name;
     }
 
-    public void setTown(String town) {
-        this.town = town;
+    public void setWard_name(String ward_name) {
+        this.ward_name = ward_name;
     }
 
     public String getStreet() {
@@ -66,5 +89,20 @@ public class Organization {
 
     public void setStreet(String street) {
         this.street = street;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeString(id);
+        parcel.writeString(name);
+        parcel.writeString(province_name);
+        parcel.writeString(district_name);
+        parcel.writeString(ward_name);
+        parcel.writeString(street);
     }
 }

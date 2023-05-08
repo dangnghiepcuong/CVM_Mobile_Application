@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.org.home.HomeFragment">
+    tools:context=".ui.org.home.OrgHomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -60,7 +60,7 @@
                                 android:textColor="@color/black"
                                 android:textSize="18sp" />
                             <TextView
-                                android:id="@+id/FullName"
+                                android:id="@+id/tv_Name"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
@@ -130,7 +130,7 @@
 
                             <TextView style="@style/labelFor_btn_feature"
                                 android:textColor="@color/white"
-                                android:text="Chức năng\n"/>
+                                android:text="Quản lý vaccine"/>
 
                         </LinearLayout>
 
