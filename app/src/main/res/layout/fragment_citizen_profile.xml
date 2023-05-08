@@ -40,6 +40,7 @@
             </LinearLayout>
 
             <EditText
+                android:id="@+id/et_fullname"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="5dp"
@@ -68,6 +69,7 @@
             </LinearLayout>
 
             <EditText
+                android:id="@+id/et_birthday"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="5dp"
@@ -106,6 +108,7 @@
                     android:orientation="horizontal">
 
                     <RadioButton
+                        android:id="@+id/rdo_gender_man"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -113,6 +116,7 @@
                         android:textSize="16dp"
                         android:onClick="onRadioButtonClicked"/>
                     <RadioButton
+                        android:id="@+id/rdo_gender_woman"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -120,6 +124,7 @@
                         android:textSize="16dp"
                         android:onClick="onRadioButtonClicked"/>
                     <RadioButton
+                        android:id="@+id/rdo_gender_other"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -149,6 +154,7 @@
             </LinearLayout>
 
             <EditText
+                android:id="@+id/et_phone"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="5dp"
@@ -177,6 +183,7 @@
             </LinearLayout>
 
             <EditText
+                android:id="@+id/et_id"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="5dp"
@@ -205,6 +212,7 @@
             </LinearLayout>
 
             <EditText
+                android:id="@+id/et_email"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="5dp"
@@ -232,11 +240,12 @@
                     android:textSize="16dp"/>
             </LinearLayout>
 
-            <Spinner
+            <EditText
                 android:id="@+id/select_city"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="5dp"
+                android:text="asd"
                 android:background="@drawable/bg_edit_text"/>
 
             <LinearLayout
@@ -257,11 +266,12 @@
                     android:textSize="16dp"/>
             </LinearLayout>
 
-            <Spinner
+            <EditText
                 android:id="@+id/select_district"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="5dp"
+                android:text="asd"
                 android:background="@drawable/bg_edit_text"/>
 
             <LinearLayout
@@ -282,11 +292,12 @@
                     android:textSize="16dp"/>
             </LinearLayout>
 
-            <Spinner
+            <EditText
                 android:id="@+id/select_town"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="5dp"
+                android:text="sad"
                 android:background="@drawable/bg_edit_text"/>
 
             <LinearLayout
@@ -302,6 +313,7 @@
             </LinearLayout>
 
             <EditText
+                android:id="@+id/et_street"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="5dp"
