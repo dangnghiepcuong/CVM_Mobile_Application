@@ -244,7 +244,7 @@
                 </LinearLayout>
 
                 <Spinner
-                    android:id="@+id/sp_target_city"
+                    android:id="@+id/sp_province"
                     style="@style/spinner" />
 
                 <LinearLayout
@@ -268,7 +268,7 @@
                 </LinearLayout>
 
                 <Spinner
-                    android:id="@+id/sp_target_district"
+                    android:id="@+id/sp_district"
                     style="@style/spinner" />
 
                 <LinearLayout
@@ -292,7 +292,7 @@
                 </LinearLayout>
 
                 <Spinner
-                    android:id="@+id/sp_target_ward"
+                    android:id="@+id/sp_ward"
                     style="@style/spinner" />
 
                 <LinearLayout
