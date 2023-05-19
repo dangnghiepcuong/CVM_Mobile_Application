@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment;
 import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.SpinnerOption;
 import com.example.cvm_mobile_application.data.db.model.Citizen;
-import com.example.cvm_mobile_application.data.objects.LocalHelper;
+import com.example.cvm_mobile_application.data.objects.DVHCHelper;
 import com.example.cvm_mobile_application.ui.SpinnerAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -23,7 +23,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
@@ -34,7 +33,7 @@ public class CitizenVaccinationState1Fragment extends Fragment {
     private Citizen citizen;
     private View view;
     private Spinner spTargetList;
-    private List<SpinnerOption> targetList = new ArrayList<>();
+    private final List<SpinnerOption> targetList = new ArrayList<>();
     private String selectedTargetId;
 
     private EditText etTargetId;
@@ -52,21 +51,14 @@ public class CitizenVaccinationState1Fragment extends Fragment {
     private Spinner spWard;
     private List<SpinnerOption> wardList = new ArrayList<>();
     private SpinnerAdapter spWardListAdapter;
-    private JSONArray jsonProvince = new JSONArray();
-    private String seletedProvinceCode = "";
-    private JSONArray jsonDistrict = new JSONArray();
-    private String seletedDistrictCode = "";
-    private JSONArray jsonWard = new JSONArray();
-    private String seletedWardCode = "";
-    private JSONArray jsonLocal = new JSONArray();
-    private LocalHelper localHelper;
+    private DVHCHelper dvhcHelper;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_citizen_vaccination_state1, container, false);
         db = FirebaseFirestore.getInstance();
-        localHelper = new LocalHelper(getActivity().getApplicationContext());
+        dvhcHelper = new DVHCHelper(getActivity().getApplicationContext());
 
         try {
             getViewData();
@@ -162,36 +154,42 @@ public class CitizenVaccinationState1Fragment extends Fragment {
 
 
         //GET PROVINCE LIST
-        provinceList = localHelper.getCitizenProvinceList(citizen.getProvince_name());
+        provinceList = dvhcHelper.getLocalList(DVHCHelper.PROVINCE_LEVEL, null);
 
         //SET PROVINCE INFO VALUE
         spProvince = view.findViewById(R.id.sp_province);
         spProvinceListAdapter = new SpinnerAdapter(getActivity().getApplicationContext(),
                 R.layout.item_string, provinceList);
         spProvince.setAdapter(spProvinceListAdapter);
+        int provincePosition = dvhcHelper.getLocalPositionFromList(
+                DVHCHelper.PROVINCE_LEVEL, citizen.getProvince_name(), null);
+        spProvince.setSelection(provincePosition);
 
         //GET DISTRICT LIST
-        districtList = localHelper.getCitizenDistrictList(citizen.getProvince_name(), citizen.getDistrict_name());
+        String provinceCode = ((SpinnerOption) spProvince.getItemAtPosition(spProvince.getSelectedItemPosition())).getValue();
+        districtList = dvhcHelper.getLocalList(DVHCHelper.DISTRICT_LEVEL, provinceCode);
 
         //SET DISTRICT INFO VALUE
         spDistrict = view.findViewById(R.id.sp_district);
         spDistrictListAdapter = new SpinnerAdapter(getActivity().getApplicationContext(),
                 R.layout.item_string, districtList);
         spDistrict.setAdapter(spDistrictListAdapter);
+        int districtPosition = dvhcHelper.getLocalPositionFromList(
+                DVHCHelper.DISTRICT_LEVEL, citizen.getDistrict_name(), provinceCode);
+        spDistrict.setSelection(districtPosition);
 
         //GET WARD LIST
-        wardList = localHelper.getCitizenWardList(citizen.getProvince_name(),
-                citizen.getDistrict_name(), citizen.getWard_name());
+        String districtCode = ((SpinnerOption) spDistrict.getItemAtPosition(spDistrict.getSelectedItemPosition())).getValue();
+        wardList = dvhcHelper.getLocalList(DVHCHelper.WARD_LEVEL, districtCode);
 
         //SET WARD INFO VALUE
         spWard = view.findViewById(R.id.sp_ward);
         spWardListAdapter = new SpinnerAdapter(getActivity().getApplicationContext(),
                 R.layout.item_string, wardList);
         spWard.setAdapter(spWardListAdapter);
-
-
-//        SpinnerOption selectedProvince = (SpinnerOption) spProvince.getItemAtPosition(0);
-//        seletedProvinceCode = selectedProvince.getValue();
+        int wardPosition = dvhcHelper.getLocalPositionFromList(
+                DVHCHelper.WARD_LEVEL, citizen.getWard_name(), districtCode);
+        spWard.setSelection(wardPosition);
 
         etTargetStreet = view.findViewById(R.id.et_target_street);
         etTargetStreet.setText(target.getStreet());
@@ -199,20 +197,24 @@ public class CitizenVaccinationState1Fragment extends Fragment {
         setViewComponentListener();
     }
 
-    public void setViewComponentListener() throws JSONException{
+    public void setViewComponentListener() {
         //SET PROVINCE SPINNER LISTENER
         spProvince.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                SpinnerOption option = (SpinnerOption) parent.getItemAtPosition(position);
                 //GET DISTRICT LIST, WARD LIST
                 try {
-                    int provincePos = spProvince.getSelectedItemPosition();
-                    districtList = localHelper.getDistrictList(provincePos);
+                    SpinnerOption provinceOtion = (SpinnerOption) parent.getItemAtPosition(position);
+                    districtList = dvhcHelper.getLocalList(
+                            DVHCHelper.DISTRICT_LEVEL, provinceOtion.getValue());
+                    spDistrictListAdapter.setOptionList(districtList);
                     spDistrictListAdapter.notifyDataSetChanged();
+                    spDistrict.setSelection(0);
 
-                    int districtPos = spDistrict.getSelectedItemPosition();
-                    wardList = localHelper.getWardList(provincePos, districtPos);
+                    SpinnerOption districtOption = (SpinnerOption) districtList.get(0);
+                    wardList = dvhcHelper.getLocalList(
+                            DVHCHelper.WARD_LEVEL, districtOption.getValue());
+                    spWardListAdapter.setOptionList(wardList);
                     spWardListAdapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
@@ -229,14 +231,14 @@ public class CitizenVaccinationState1Fragment extends Fragment {
         spDistrict.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                SpinnerOption option = (SpinnerOption) parent.getItemAtPosition(position);
                 //GET WARD LIST
                 try {
-                    int provincePos = spProvince.getSelectedItemPosition();
-                    int districtPos = spDistrict.getSelectedItemPosition();
-                    wardList = localHelper.getWardList(provincePos, districtPos);
+                    SpinnerOption districtOption = (SpinnerOption) parent.getItemAtPosition(position);
+                    wardList = dvhcHelper.getLocalList(
+                            DVHCHelper.WARD_LEVEL, districtOption.getValue());
+                    spWardListAdapter.setOptionList(wardList);
                     spWardListAdapter.notifyDataSetChanged();
-                } catch (JSONException e) {
+                } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
             }

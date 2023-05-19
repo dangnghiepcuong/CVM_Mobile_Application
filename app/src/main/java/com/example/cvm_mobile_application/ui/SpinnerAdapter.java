@@ -17,12 +17,25 @@ import java.util.List;
 
 public class SpinnerAdapter extends ArrayAdapter<SpinnerOption> {
     private List<SpinnerOption> optionList;
-    private LayoutInflater inflater;
+    private final LayoutInflater inflater;
 
     public SpinnerAdapter(@NonNull Context context, int resource, @NonNull List<SpinnerOption> objects) {
         super(context, resource, objects);
         this.optionList = objects;
         inflater = LayoutInflater.from(context);
+    }
+
+    public List<SpinnerOption> getOptionList() {
+        return optionList;
+    }
+
+    public void setOptionList(List<SpinnerOption> optionList) {
+        this.optionList = optionList;
+    }
+
+    @Override
+    public int getCount() {
+        return optionList.size();
     }
 
     @NonNull
