@@ -73,7 +73,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:orientation="horizontal"
-                    android:id="@+id/profile">
+                    android:id="@+id/menu_tab_profile">
                     <LinearLayout
                         android:background="@drawable/ic_infomation"
                         style="@style/iconFor_item_menu_info"/>
@@ -218,6 +218,7 @@
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/menu_tab_logout"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:orientation="horizontal">
@@ -228,6 +229,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1">
+
                         <TextView
                             style="@style/labelFor_item_menu_info"
                             android:text="Đăng xuất" />

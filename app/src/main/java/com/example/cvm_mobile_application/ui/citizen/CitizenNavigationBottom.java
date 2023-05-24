@@ -1,13 +1,17 @@
 package com.example.cvm_mobile_application.ui.citizen;
 
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
+import android.window.OnBackInvokedDispatcher;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.os.BuildCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -23,6 +27,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+@BuildCompat.PrereleaseSdkCheck
 public class CitizenNavigationBottom extends AppCompatActivity {
     ActivityMainBinding binding;
     private FirebaseFirestore db;
@@ -32,6 +37,8 @@ public class CitizenNavigationBottom extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         db = FirebaseFirestore.getInstance();
+
+
     }
 
     @Override
@@ -39,6 +46,33 @@ public class CitizenNavigationBottom extends AppCompatActivity {
         super.onStart();
         String username = getIntent().getStringExtra("username");
         getCitizenNavigationBottom(username);
+
+        // This callback will only be called when MyFragment is at least Started.
+
+//        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
+
+        // The callback can be enabled or disabled here or in handleOnBackPressed()
+
+        if (BuildCompat.isAtLeastT()) {
+            getOnBackInvokedDispatcher().registerOnBackInvokedCallback(
+                    OnBackInvokedDispatcher.PRIORITY_DEFAULT,
+                    () -> {
+                        finish();
+                        /**
+                         * onBackPressed logic goes here - For instance:
+                         * Prevents closing the app to go home screen when in the
+                         * middle of entering data to a form
+                         * or from accidentally leaving a fragment with a WebView in it
+                         *
+                         * Unregistering the callback to stop intercepting the back gesture:
+                         * When the user transitions to the topmost screen (activity, fragment)
+                         * in the BackStack, unregister the callback by using
+                         * OnBackInvokeDispatcher.unregisterOnBackInvokedCallback
+                         * (https://developer.android.com/reference/kotlin/android/view/OnBackInvokedDispatcher#unregisteronbackinvokedcallback)
+                         */
+                    }
+            );
+        }
     }
 
     public void getCitizenNavigationBottom(String username) {
@@ -103,7 +137,7 @@ public class CitizenNavigationBottom extends AppCompatActivity {
                 });
     }
 
-    public void getPersonalMenuScreen (String username) {
+    public void getPersonalMenuScreen(String username) {
         db.collection("users")
                 .whereEqualTo("email", username)
                 .get()
@@ -155,5 +189,25 @@ public class CitizenNavigationBottom extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    @Override
+    public void onBackPressed() {
+        // Here you want to show the user a dialog box{
+        new AlertDialog.Builder(getApplicationContext())
+                .setTitle("Exiting the App")
+                .setMessage("Are you sure?")
+                .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        // The user wants to leave - so dismiss the dialog and exit
+                        finish();
+                        dialog.dismiss();
+                    }
+                }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        // The user is not sure, so you can exit or just stay
+                        dialog.dismiss();
+                    }
+                }).show();
     }
 }

@@ -18,7 +18,7 @@ public class CitizenVaccinationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_vaccination);
+        setContentView(R.layout.activity_citizen_vaccination);
 
         db = FirebaseFirestore.getInstance();
         citizen = new Citizen();

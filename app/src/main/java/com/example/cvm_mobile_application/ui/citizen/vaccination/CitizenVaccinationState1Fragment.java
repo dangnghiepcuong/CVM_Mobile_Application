@@ -61,14 +61,14 @@ public class CitizenVaccinationState1Fragment extends Fragment {
         dvhcHelper = new DVHCHelper(getActivity().getApplicationContext());
 
         try {
-            getViewData();
+            implementView();
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
         return view;
     }
 
-    public void getViewData() throws JSONException {
+    public void implementView() throws JSONException {
         citizen = getArguments().getParcelable("citizen");
 
         SpinnerOption spinnerOption = new SpinnerOption(citizen.getFull_name(), citizen.getId());
@@ -194,10 +194,10 @@ public class CitizenVaccinationState1Fragment extends Fragment {
         etTargetStreet = view.findViewById(R.id.et_target_street);
         etTargetStreet.setText(target.getStreet());
 
-        setViewComponentListener();
+        setViewListener();
     }
 
-    public void setViewComponentListener() {
+    public void setViewListener() {
         //SET PROVINCE SPINNER LISTENER
         spProvince.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
