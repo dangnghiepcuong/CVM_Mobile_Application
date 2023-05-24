@@ -31,7 +31,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.citizen.info.CitizenProfileFragment"
+            android:name=".ui.citizen.info.CitizenProfileActivity"
             android:screenOrientation="portrait" />
 
         <activity
