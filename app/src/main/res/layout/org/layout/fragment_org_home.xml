@@ -116,6 +116,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/btn_vaccine_inventory"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -131,8 +132,7 @@
 
                             <TextView style="@style/labelFor_btn_feature"
                                 android:textColor="@color/white"
-                                android:text="Quản lý vaccine"/>
-
+                                android:text="Quản lý kho vaccine"/>
                         </LinearLayout>
 
                     </androidx.appcompat.widget.LinearLayoutCompat>

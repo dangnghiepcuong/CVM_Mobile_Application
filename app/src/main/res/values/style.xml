@@ -39,6 +39,14 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+    <style name="edit_date">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:background">@drawable/bg_edit_date</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
     <style name="spinner">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">50dp</item>
@@ -153,6 +161,14 @@
         <item name="android:background">@drawable/bg_btn_primary</item>
     </style>
 
+    <style name="btn_date_picker">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/bg_btn_datepicker</item>
+    </style>
+
     <style name="btn_feature">
         <item name="android:layout_width">80dp</item>
         <item name="android:layout_height">80dp</item>
@@ -213,5 +229,13 @@
         <item name="android:layout_marginHorizontal">10dp</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:background">@drawable/ic_arrow_forward</item>
+    </style>
+
+    <style name="linear_layout_date_picker">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center</item>
     </style>
 </resources>

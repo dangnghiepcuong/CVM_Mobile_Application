@@ -14,8 +14,8 @@ import androidx.core.os.BuildCompat;
 
 import com.example.cvm_mobile_application.data.db.model.Account;
 import com.example.cvm_mobile_application.ui.admin.AdminNavigationBottom;
-import com.example.cvm_mobile_application.ui.citizen.CitizenNavigationBottom;
-import com.example.cvm_mobile_application.ui.org.OrgNavigationBottom;
+import com.example.cvm_mobile_application.ui.citizen.CitizenNavigationBottomActivity;
+import com.example.cvm_mobile_application.ui.org.OrgNavigationBottomActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -50,7 +50,7 @@ import com.google.firebase.firestore.QuerySnapshot;
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
-            startActivity(new Intent(getApplicationContext(), CitizenNavigationBottom.class));
+            startActivity(new Intent(getApplicationContext(), CitizenNavigationBottomActivity.class));
             finish();
             return;
         }
@@ -185,11 +185,11 @@ import com.google.firebase.firestore.QuerySnapshot;
                 break;
 
             case 1:
-                intent = new Intent(getBaseContext(), OrgNavigationBottom.class);
+                intent = new Intent(getBaseContext(), OrgNavigationBottomActivity.class);
                 break;
 
             case 2:
-                intent = new Intent(getBaseContext(), CitizenNavigationBottom.class);
+                intent = new Intent(getBaseContext(), CitizenNavigationBottomActivity.class);
                 break;
             default:
         }

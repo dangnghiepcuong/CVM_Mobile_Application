@@ -72,11 +72,11 @@ public class OrgCreateScheduleActivity extends AppCompatActivity {
         etOnDate = findViewById(R.id.et_on_date);
 
         spVaccineType = findViewById(R.id.sp_vaccine_type);
-        pbSpVaccineList = findViewById(R.id.pb_sp_vaccine_type);
+//        pbSpVaccineList = findViewById(R.id.pb_sp_vaccine_type);
 
         spVaccineLot = findViewById(R.id.sp_vaccine_lot);
         spVaccineLot.setEnabled(false);
-        pbSpVaccineLot = findViewById(R.id.pb_sp_vaccine_lot);
+//        pbSpVaccineLot = findViewById(R.id.pb_sp_vaccine_lot);
 
         etDayLimit = findViewById(R.id.et_day_limit);
         etNoonLimit = findViewById(R.id.et_noon_limit);
@@ -124,8 +124,7 @@ public class OrgCreateScheduleActivity extends AppCompatActivity {
 //        pbSpVaccineList.setVisibility(View.VISIBLE);
         db.collection("vaccines")
                 .get()
-                .addOnCompleteListener(OrgCreateScheduleActivity.this,
-                        new OnCompleteListener<QuerySnapshot>() {
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 if (task.isSuccessful()) {
@@ -136,6 +135,7 @@ public class OrgCreateScheduleActivity extends AppCompatActivity {
                                         );
                                         vaccineList.add(spOption);
                                     }
+                                    spVaccineTypeAdapter.notifyDataSetChanged();
 
                                     // RETRIEVE VACCINE LOT LIST IN INVENTORY
                                     OrgCreateScheduleActivity.this.getVaccineInventoryList(vaccineList.get(0).getValue());
@@ -157,11 +157,11 @@ public class OrgCreateScheduleActivity extends AppCompatActivity {
                 .whereEqualTo("org_id", org.getId())
                 .whereEqualTo("vaccine_id", vaccineId)
                 .get()
-                .addOnCompleteListener(OrgCreateScheduleActivity.this,
-                        new OnCompleteListener<QuerySnapshot>() {
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 if (task.isSuccessful()) {
+                                    vaccineInventoryList = new ArrayList<>();
                                     for (QueryDocumentSnapshot document : task.getResult()) {
                                         SpinnerOption spOption = new SpinnerOption(
                                                 (String) document.get("lot")
@@ -171,7 +171,8 @@ public class OrgCreateScheduleActivity extends AppCompatActivity {
                                         );
                                         vaccineInventoryList.add(spOption);
                                     }
-
+                                    spVaccineLotAdapter.setOptionList(vaccineInventoryList);
+                                    spVaccineLotAdapter.notifyDataSetChanged();
                                     btnCreate.setEnabled(true);
                                 } else {
                                     Log.d("myTAG", "Retrieving Data: getVaccineInventoryList");
@@ -206,8 +207,7 @@ public class OrgCreateScheduleActivity extends AppCompatActivity {
 
         db.collection("schedules")
                 .add(data)
-                .addOnCompleteListener(OrgCreateScheduleActivity.this,
-                        new OnCompleteListener<DocumentReference>() {
+                .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentReference> task) {
                         if (task.isSuccessful()) {
