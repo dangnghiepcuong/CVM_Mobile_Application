@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.citizen.CitizenPersonalMenuFragment">
+    tools:context=".ui.org.info.OrgOptionalMenuFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -26,7 +26,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/default_avatar_citizen"
+                    android:background="@drawable/default_avatar_org"
                     android:layout_gravity="center"/>
 
                 <LinearLayout
@@ -36,18 +36,13 @@
                     android:layout_gravity="center_vertical"
                     android:layout_margin="10dp">
                     <TextView
-                        android:id="@+id/FullName"
+                        android:id="@+id/tv_Name"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="match_parent"
+                        android:text="Bệnh viện Đa khoa Dầu Tiếng"
                         android:textStyle="bold"
                         android:textColor="@color/white"
                         android:textSize="22sp" />
-                    <TextView
-                        android:id="@+id/PhoneNumber"
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:textColor="@color/white"
-                        android:textSize="20sp" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -70,10 +65,10 @@
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/menu_tab_profile"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:orientation="horizontal"
-                    android:id="@+id/profile">
+                    android:orientation="horizontal">
                     <LinearLayout
                         android:background="@drawable/ic_infomation"
                         style="@style/iconFor_item_menu_info"/>
@@ -81,69 +76,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1">
+
                         <TextView
                             style="@style/labelFor_item_menu_info"
-                            android:text="Thông tin cá nhân" />
-                    </LinearLayout>
-
-                    <LinearLayout style="@style/icon_arrow_forward"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp"
-                    android:background="@drawable/line_under_text"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:orientation="horizontal">
-                    <LinearLayout
-                        android:background="@drawable/ic_family"
-                        style="@style/iconFor_item_menu_info"/>
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1">
-                        <TextView
-                            style="@style/labelFor_item_menu_info"
-                            android:text="Thành viên gia đinh" />
-                    </LinearLayout>
-
-                    <LinearLayout style="@style/icon_arrow_forward"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp"
-                    android:background="@drawable/line_under_text"/>
-            </LinearLayout>
-
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:orientation="horizontal">
-                    <LinearLayout
-                        android:background="@drawable/ic_shield_color_secondary"
-                        style="@style/iconFor_item_menu_info"/>
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1">
-                        <TextView
-                            style="@style/labelFor_item_menu_info"
-                            android:text="Chứng nhận tiêm chủng" />
+                            android:text="Thông tin đơn vị" />
                     </LinearLayout>
 
                     <LinearLayout style="@style/icon_arrow_forward"/>
@@ -172,7 +108,7 @@
                         android:layout_weight="1">
                         <TextView
                             style="@style/labelFor_item_menu_info"
-                            android:text="Giới thiệu" />
+                            android:text="Thông tin tài khoản" />
                     </LinearLayout>
 
                     <LinearLayout style="@style/icon_arrow_forward"/>
@@ -218,6 +154,7 @@
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/menu_tab_logout"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:orientation="horizontal">

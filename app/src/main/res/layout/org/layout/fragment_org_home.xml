@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragment_citizen_home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.citizen.CitizenHomeFragment"
-    tools:viewBindingIgnore="true">
+    tools:context=".ui.org.home.OrgHomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -44,7 +42,7 @@
                             <androidx.appcompat.widget.LinearLayoutCompat
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:background="@drawable/default_avatar_citizen" />
+                                android:background="@drawable/default_avatar_org" />
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
                         <androidx.appcompat.widget.LinearLayoutCompat
@@ -62,11 +60,12 @@
                                 android:textColor="@color/black"
                                 android:textSize="18sp" />
                             <TextView
-                                android:id="@+id/FullName"
+                                android:id="@+id/tv_Name"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
                                 android:lineSpacingMultiplier="1.25"
+                                android:text="Bệnh viện đa khoa Dầu Tiếng"
                                 android:textColor="@color/black"
                                 android:textStyle="bold"
                                 android:textSize="22sp" />
@@ -79,6 +78,7 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
+                            android:id="@+id/btn_create_schedule"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -90,11 +90,11 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
-                                android:background="@drawable/ic_card1_citizen"/>
+                                android:background="@drawable/ic_card1_org"/>
 
                             <TextView style="@style/labelFor_btn_feature"
                                 android:textColor="@color/white"
-                                android:text="Khai báo\ny tế"/>
+                                android:text="Tạo lịch\ntiêm chủng"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -108,23 +108,21 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
-                                android:background="@drawable/ic_card2_citizen"/>
+                                android:background="@drawable/ic_card2_org"/>
 
                             <TextView style="@style/labelFor_btn_feature"
                                 android:textColor="@color/white"
-                                android:text="Chứng nhận\ntiêm chủng"/>
+                                android:text="Quản lý lịch\ntiêm chủng"/>
                         </LinearLayout>
 
                         <LinearLayout
-                            android:id="@+id/btn_vaccination"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:layout_marginHorizontal="5dp"
                             android:gravity="center"
                             android:background="@drawable/card_third_primary_feature"
-                            android:orientation="vertical"
-                            android:clickable="true">
+                            android:orientation="vertical">
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -133,7 +131,7 @@
 
                             <TextView style="@style/labelFor_btn_feature"
                                 android:textColor="@color/white"
-                                android:text="Đăng ký\ntiêm chủng"/>
+                                android:text="Quản lý vaccine"/>
 
                         </LinearLayout>
 
@@ -164,11 +162,11 @@
 
                             <Button
                                 style="@style/btn_feature"
-                                android:background="@drawable/bg_btn_citizen_infomation">
+                                android:background="@drawable/bg_btn_org_infomation">
                             </Button>
 
                             <TextView style="@style/labelFor_btn_feature"
-                                android:text="Thông tin\ncông dân"/>
+                                android:text="Thông tin\nđơn vị"/>
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
                         <androidx.appcompat.widget.LinearLayoutCompat
@@ -196,14 +194,11 @@
                             android:orientation="vertical">
 
                             <Button
-                                android:id="@+id/btn_registration"
-                                style="@style/btn_feature"
-                                android:background="@drawable/bg_btn_citizen_list_registration">
+                                style="@style/btn_feature">
                             </Button>
 
                             <TextView style="@style/labelFor_btn_feature"
-                                android:labelFor="@+id/btn_registration"
-                                android:text="Lịch đăng ký\ntiêm chủng"/>
+                                android:text="Chức năng"/>
                         </androidx.appcompat.widget.LinearLayoutCompat>
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -220,12 +215,11 @@
                             android:orientation="vertical">
 
                             <Button
-                                style="@style/btn_feature"
-                                android:background="@drawable/bg_btn_citizen_relatives">
+                                style="@style/btn_feature">
                             </Button>
 
                             <TextView style="@style/labelFor_btn_feature"
-                                android:text="Danh sách người thân"/>
+                                android:text="Chức năng"/>
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
                         <androidx.appcompat.widget.LinearLayoutCompat
@@ -262,7 +256,7 @@
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <TextView style="@style/text_heading"
-                        android:text="Cẩm nang y tế"/>
+                        android:text="Các quy định về tổ chức tiêm chủng"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"

@@ -113,24 +113,21 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="Nam"
-                        android:textSize="16dp"
-                        android:onClick="onRadioButtonClicked"/>
+                        android:textSize="16dp"/>
                     <RadioButton
                         android:id="@+id/rdo_gender_woman"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="Nữ"
-                        android:textSize="16dp"
-                        android:onClick="onRadioButtonClicked"/>
+                        android:textSize="16dp"/>
                     <RadioButton
                         android:id="@+id/rdo_gender_other"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="Khác"
-                        android:textSize="16dp"
-                        android:onClick="onRadioButtonClicked"/>
+                        android:textSize="16dp"/>
                 </RadioGroup>
 
             </LinearLayout>

@@ -19,6 +19,10 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".ui.citizen.info.CitizenProfileActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".ui.citizen.vaccination.CitizenVaccinationActivity"
             android:screenOrientation="portrait" />
 
@@ -27,11 +31,11 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.admin.AdminNavigationBottom"
+            android:name=".ui.org.schedule.OrgCreateScheduleActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.citizen.info.CitizenProfileFragment"
+            android:name=".ui.admin.AdminNavigationBottom"
             android:screenOrientation="portrait" />
 
         <activity

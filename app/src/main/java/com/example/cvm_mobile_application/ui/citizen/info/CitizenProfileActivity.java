@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.db.model.Citizen;
 
-public class CitizenProfileFragment extends AppCompatActivity {
+public class CitizenProfileActivity extends AppCompatActivity {
     EditText et_fullName;
     EditText et_birthday;
     RadioButton rdo_gender_man;

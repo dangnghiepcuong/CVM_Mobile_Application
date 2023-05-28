@@ -10,7 +10,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.os.BuildCompat;
 
+import com.example.cvm_mobile_application.data.db.model.Account;
 import com.example.cvm_mobile_application.ui.admin.AdminNavigationBottom;
 import com.example.cvm_mobile_application.ui.citizen.CitizenNavigationBottom;
 import com.example.cvm_mobile_application.ui.org.OrgNavigationBottom;
@@ -23,22 +25,20 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-public class MainActivity extends AppCompatActivity {
+@BuildCompat.PrereleaseSdkCheck public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
     private Button btn_login;
     private EditText et_username;
     private EditText et_password;
-    private String role = "";
+    private int role = -1;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        btn_login = findViewById(R.id.btn_login);
-        et_username = findViewById(R.id.et_username);
-        et_password = findViewById(R.id.et_password);
+        setContentView(R.layout.activity_login);
+
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
@@ -55,6 +55,17 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
+        implementView();
+        setViewListener();
+    }
+
+    public void implementView() {
+        btn_login = findViewById(R.id.btn_login);
+        et_username = findViewById(R.id.et_username);
+        et_password = findViewById(R.id.et_password);
+    }
+
+    public void setViewListener() {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,17 +81,61 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
 
-                MainActivity.this.authenticateLogin(username, password);
+                if (username.contains("@")) {
+                    MainActivity.this.authPersonalUser(username, password);
+                } else {
+                    MainActivity.this.authOrgUser(username, password);
+                }
             }
         });
     }
 
-    public void authenticateLogin(String username, String password) {
+    public void authPersonalUser(String username, String password) {
         mAuth.signInWithEmailAndPassword(username, password)
                 .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d("myTAG", "signInWithEmail:success");
+                            Toast.makeText(MainActivity.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
+
+                            // GET USER ROLE
+                            MainActivity.this.queryUserRole(username);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w("myTAG", "signInWithEmail:failure", task.getException());
+                            Toast.makeText(MainActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+    }
+
+    public void authOrgUser(String username, String password) {
+        db.collection("accounts")
+                .whereEqualTo("username", username)
+                .get()
+                .addOnCompleteListener(MainActivity.this, new OnCompleteListener<QuerySnapshot>() {
+
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            if (task.getResult().isEmpty()) {
+                                Toast.makeText(MainActivity.this, "Tài khoản không tồn tại!", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+
+                            Account account = new Account();
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                account = document.toObject(Account.class);
+                            }
+
+                            if (password.equals(account.getPassword()) == false) {
+                                Toast.makeText(MainActivity.this, "Sai mật khẩu!", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("myTAG", "signInWithEmail:success");
                             Toast.makeText(MainActivity.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
@@ -107,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Integer role = Integer.parseInt(String.valueOf(document.get("role")));
+                                role = Integer.parseInt(String.valueOf(document.get("role")));
                                 Log.i("myTAG", "role: " + role);
 
                                 // UPDATE UI BASE ON ROLE
@@ -122,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    public void updateUI(String username, Integer role) {
+    public void updateUI(String username, int role) {
         Intent intent = null;
         switch (role) {
             case 0:
