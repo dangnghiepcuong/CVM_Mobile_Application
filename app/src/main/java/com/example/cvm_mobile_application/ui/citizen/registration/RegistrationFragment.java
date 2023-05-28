@@ -1,4 +1,4 @@
-package com.example.cvm_mobile_application.ui.citizen;
+package com.example.cvm_mobile_application.ui.citizen.registration;
 
 import android.os.Bundle;
 

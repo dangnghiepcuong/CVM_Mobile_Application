@@ -16,7 +16,6 @@ import com.example.cvm_mobile_application.data.db.model.Organization;
 import com.example.cvm_mobile_application.ui.admin.home.AdminHomeFragment;
 import com.example.cvm_mobile_application.ui.admin.info.AdminOptionalMenuFragment;
 import com.example.cvm_mobile_application.ui.admin.manage.AdminManageOrgFragment;
-import com.example.cvm_mobile_application.ui.org.schedule.OrgScheduleFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;

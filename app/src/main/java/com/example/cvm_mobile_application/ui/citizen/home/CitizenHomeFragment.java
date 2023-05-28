@@ -1,4 +1,4 @@
-package com.example.cvm_mobile_application.ui.citizen;
+package com.example.cvm_mobile_application.ui.citizen.home;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +18,7 @@ public class CitizenHomeFragment extends Fragment {
     private LinearLayout btnVaccination;
     private Citizen citizen;
     private View view;
+    private TextView fullName;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -27,15 +28,23 @@ public class CitizenHomeFragment extends Fragment {
         citizen = new Citizen();
         citizen = getArguments().getParcelable("citizen");
 
-        TextView fullName = view.findViewById(R.id.FullName);
-        fullName.setText(citizen.getFull_name());
+        implementView();
+        setViewListener();
+        bindViewData();
 
-        initButtons();
         return view;
     }
 
-    public void initButtons() {
+    public void implementView() {
+        fullName = view.findViewById(R.id.FullName);
         btnVaccination = view.findViewById(R.id.btn_vaccination);
+    }
+
+    public void bindViewData() {
+        fullName.setText(citizen.getFull_name());
+    }
+
+    public void setViewListener() {
         btnVaccination.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
