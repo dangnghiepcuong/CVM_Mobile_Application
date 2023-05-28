@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="9"
-        android:paddingVertical="40dp">
+        android:paddingTop="40dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,25 +32,30 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="end"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:gravity="end">
+                <LinearLayout
+                    android:id="@+id/btn_detail_personal_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+                    <TextView
+                        style="@style/labelFor_et"
+                        android:text="Chi tiết" />
 
-                <TextView
-                    style="@style/labelFor_et"
-                    android:text="Chi tiết" />
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:contentDescription="arrow"
-                    android:background="@drawable/ic_spinner_arrow_down" />
-            </LinearLayout>
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:contentDescription="arrow"
+                        android:background="@drawable/ic_spinner_arrow_down" />
+                </LinearLayout>
+                </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/layout_detail_personal_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -61,7 +66,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="CCCD"
+                        android:text="Họ và tên"
                         android:textSize="16sp" />
 
                     <TextView
@@ -73,6 +78,7 @@
                 </LinearLayout>
 
                 <EditText
+                    android:id="@+id/et_fullname"
                     style="@style/edit_text"/>
 
                 <LinearLayout
@@ -312,31 +318,7 @@
                     android:id="@+id/et_target_street"
                     style="@style/edit_text" />
             </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        android:paddingHorizontal="20dp">
-
-        <Button
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:text="Back"></Button>
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/bg_btn_primary"
-            android:text="Lưu thông tin"
-            android:textColor="@color/white"
-            android:textSize="18dp" />
-    </LinearLayout>
 </androidx.appcompat.widget.LinearLayoutCompat>

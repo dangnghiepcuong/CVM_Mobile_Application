@@ -141,14 +141,13 @@
                     android:hint="0"/>
 
                 <Button
+                    android:id="@+id/btn_create_schedule"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginVertical="15dp"
                     android:background="@drawable/bg_btn_primary"
                     android:gravity="center"
-                    android:text="Tạo lịch tiêm chủng"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
+                    android:text="Tạo lịch tiêm chủng" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"

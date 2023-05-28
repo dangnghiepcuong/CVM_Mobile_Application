@@ -1,4 +1,4 @@
-package com.example.cvm_mobile_application.ui.citizen;
+package com.example.cvm_mobile_application.ui.org;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,24 +11,21 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.example.cvm_mobile_application.R;
-import com.example.cvm_mobile_application.data.db.model.Citizen;
+import com.example.cvm_mobile_application.data.db.model.Organization;
 import com.example.cvm_mobile_application.ui.citizen.info.CitizenProfileActivity;
 
-public class CitizenPersonalMenuFragment extends Fragment {
-
-    private LinearLayout menuTabProfile;
-    private Citizen citizen;
+public class OrgOptionalMenuFragment extends Fragment {
     private View view;
+    private Organization org;
+    private LinearLayout menuTabProfile;
     private LinearLayout menuTabLogout;
-    private TextView fullName;
-    private TextView phoneNumber;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_citizen_personal_menu, container, false);
 
-        citizen = getArguments().getParcelable("citizen");
+        org = getArguments().getParcelable("org");
 
         implementView();
         setViewListener();
@@ -36,40 +33,23 @@ public class CitizenPersonalMenuFragment extends Fragment {
     }
 
     public void implementView() {
-        fullName = view.findViewById(R.id.FullName);
-        fullName.setText(citizen.getFull_name());
-
-        phoneNumber = view.findViewById(R.id.PhoneNumber);
-        phoneNumber.setText(citizen.getPhone());
-
+        TextView tvName = view.findViewById(R.id.tv_Name);
         menuTabProfile = view.findViewById(R.id.menu_tab_profile);
-
         menuTabLogout = view.findViewById(R.id.menu_tab_logout);
     }
 
     public void setViewListener() {
         menuTabProfile.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                CitizenPersonalMenuFragment.this.getProfileActivity(citizen);
-            }
-        });
-
-        menuTabLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
             public void onClick(View v) {
-                CitizenPersonalMenuFragment.this.logOut();
+                OrgOptionalMenuFragment.this.getProfileActivity(org);
             }
         });
     }
 
-    public void getProfileActivity(Citizen citizen){
+    public void getProfileActivity(Organization org){
         Intent intent = new Intent(getActivity(), CitizenProfileActivity.class);
-        intent.putExtra("citizen", citizen);
+        intent.putExtra("org", org);
         startActivity(intent);
-    }
-
-    public void logOut() {
-
     }
 }
