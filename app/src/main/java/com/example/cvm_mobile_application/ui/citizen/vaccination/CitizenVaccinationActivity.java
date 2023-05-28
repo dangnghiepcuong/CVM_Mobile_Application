@@ -32,6 +32,9 @@ public class CitizenVaccinationActivity extends AppCompatActivity {
         super.onStart();
         citizen = getIntent().getParcelableExtra("citizen");
 
+        implementView();
+        setViewListener();
+
         Bundle bundle = new Bundle();
         bundle.putParcelable("citizen", citizen);
         CitizenVaccinationState1Fragment state1Fragment = new CitizenVaccinationState1Fragment();

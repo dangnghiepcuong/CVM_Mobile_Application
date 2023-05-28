@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.db.model.Organization;
-import com.example.cvm_mobile_application.ui.citizen.vaccination.CitizenVaccinationActivity;
+import com.example.cvm_mobile_application.ui.org.schedule.OrgCreateScheduleActivity;
 
 public class OrgHomeFragment extends Fragment {
 
@@ -29,7 +29,9 @@ public class OrgHomeFragment extends Fragment {
         org = getArguments().getParcelable("org");
 
         implementView();
-        fullName.setText(org.getName());
+        bindViewData();
+        setViewListener();
+
         return view;
     }
 
@@ -46,7 +48,7 @@ public class OrgHomeFragment extends Fragment {
         btnCreateSchedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity().getBaseContext(), CitizenVaccinationActivity.class);
+                Intent intent = new Intent(getActivity().getBaseContext(), OrgCreateScheduleActivity.class);
                 intent.putExtra("org", org);
                 startActivity(intent);
             }
