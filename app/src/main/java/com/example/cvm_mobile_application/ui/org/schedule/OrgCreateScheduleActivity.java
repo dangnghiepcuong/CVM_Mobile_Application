@@ -5,9 +5,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.SpinnerOption;
 import com.example.cvm_mobile_application.data.db.model.Organization;
+import com.example.cvm_mobile_application.data.db.model.Schedule;
 import com.example.cvm_mobile_application.ui.SpinnerAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -34,7 +37,7 @@ public class OrgCreateScheduleActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private Organization org;
     private Button btnCreate;
-    private EditText etOnDate;
+    private Button btnOnDate;
     private Spinner spVaccineType;
     private Spinner spVaccineLot;
     private EditText etDayLimit;
@@ -46,6 +49,8 @@ public class OrgCreateScheduleActivity extends AppCompatActivity {
     private ProgressBar pbSpVaccineLot;
     private SpinnerAdapter spVaccineTypeAdapter;
     private SpinnerAdapter spVaccineLotAdapter;
+    private DatePicker dpOnDate;
+    private TextView tvOnDate;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,7 +74,9 @@ public class OrgCreateScheduleActivity extends AppCompatActivity {
     }
 
     public void implementView() {
-        etOnDate = findViewById(R.id.et_on_date);
+        tvOnDate = findViewById(R.id.tv_on_date);
+        btnOnDate = findViewById(R.id.btn_on_dp);
+        dpOnDate = findViewById(R.id.dp_on_date);
 
         spVaccineType = findViewById(R.id.sp_vaccine_type);
 //        pbSpVaccineList = findViewById(R.id.pb_sp_vaccine_type);
@@ -96,10 +103,23 @@ public class OrgCreateScheduleActivity extends AppCompatActivity {
     }
 
     public void setViewListener() {
-        btnCreate.setOnClickListener(new View.OnClickListener() {
+
+        btnOnDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                OrgCreateScheduleActivity.this.createSchedule();
+                if (dpOnDate.getVisibility() == View.GONE) {
+                    dpOnDate.setVisibility(View.VISIBLE);
+                } else {
+                    dpOnDate.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        dpOnDate.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
+            @Override
+            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                monthOfYear++;
+                tvOnDate.setText(year + "-" + monthOfYear + "-" + dayOfMonth);
             }
         });
 
@@ -114,6 +134,30 @@ public class OrgCreateScheduleActivity extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
+
+        btnCreate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String onDate = String.valueOf(tvOnDate.getText());
+
+                SpinnerOption vaccine = (SpinnerOption) spVaccineType.getSelectedItem();
+                String vaccineType = vaccine.getValue();
+
+                vaccine = (SpinnerOption) spVaccineLot.getSelectedItem();
+                String vaccineLot = vaccine.getValue();
+
+                int limitDay = Integer.parseInt(String.valueOf(etDayLimit.getText()));
+                int limitNoon = Integer.parseInt(String.valueOf(etNoonLimit.getText()));
+                int limitNight = Integer.parseInt(String.valueOf(etNightLimit.getText()));
+
+                Schedule schedule = new Schedule(
+                        "", onDate, vaccineLot, limitDay, limitNoon, limitNight,
+                        0, 0, 0, org.getId(), vaccineType
+                );
+
+                OrgCreateScheduleActivity.this.createSchedule(schedule);
             }
         });
     }
@@ -183,27 +227,15 @@ public class OrgCreateScheduleActivity extends AppCompatActivity {
                         });
     }
 
-    public void createSchedule() {
-        String onDate = String.valueOf(etOnDate.getText());
-
-        SpinnerOption vaccine = (SpinnerOption) spVaccineType.getSelectedItem();
-        String vaccineType = vaccine.getValue();
-
-        vaccine = (SpinnerOption) spVaccineLot.getSelectedItem();
-        String vaccineLot = vaccine.getValue();
-
-        String limitDay = String.valueOf(etDayLimit.getText());
-        String limitNoon = String.valueOf(etNoonLimit.getText());
-        String limitNight = String.valueOf(etNightLimit.getText());
-
+    public void createSchedule(Schedule schedule) {
         // Add a new document with a generated id.
         Map<String, Object> data = new HashMap<>();
-        data.put("on_date", onDate);
-        data.put("vaccine_id", vaccineType);
-        data.put("vaccine_lot", vaccineLot);
-        data.put("limit_day", limitDay);
-        data.put("limit_noon", limitNoon);
-        data.put("limit_night", limitNight);
+        data.put("on_date", schedule.getOnDate());
+        data.put("vaccine_id", schedule.getVaccineId());
+        data.put("vaccine_lot", schedule.getSerial());
+        data.put("limit_day", schedule.getLimitDay());
+        data.put("limit_noon", schedule.getLimitNoon());
+        data.put("limit_night", schedule.getLimitNight());
 
         db.collection("schedules")
                 .add(data)
