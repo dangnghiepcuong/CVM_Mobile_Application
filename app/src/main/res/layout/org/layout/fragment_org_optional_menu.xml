@@ -65,6 +65,7 @@
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/menu_tab_profile"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:orientation="horizontal">
@@ -75,6 +76,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1">
+
                         <TextView
                             style="@style/labelFor_item_menu_info"
                             android:text="Thông tin đơn vị" />
@@ -152,6 +154,7 @@
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/menu_tab_logout"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:orientation="horizontal">

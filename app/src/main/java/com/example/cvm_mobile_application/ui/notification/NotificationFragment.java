@@ -1,4 +1,4 @@
-package com.example.cvm_mobile_application.ui.citizen.notification;
+package com.example.cvm_mobile_application.ui.notification;
 
 import android.os.Bundle;
 import android.util.Log;
