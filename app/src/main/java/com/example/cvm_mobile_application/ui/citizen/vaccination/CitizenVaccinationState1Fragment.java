@@ -11,7 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.cvm_mobile_application.R;
@@ -19,11 +18,8 @@ import com.example.cvm_mobile_application.data.SpinnerOption;
 import com.example.cvm_mobile_application.data.db.model.Citizen;
 import com.example.cvm_mobile_application.data.objects.DVHCHelper;
 import com.example.cvm_mobile_application.ui.SpinnerAdapter;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import org.json.JSONException;
 
@@ -38,7 +34,6 @@ public class CitizenVaccinationState1Fragment extends Fragment {
     private Spinner spTargetList;
     private List<SpinnerOption> targetList;
     private String selectedTargetId;
-
     private EditText etTargetId;
     private EditText etTargetBirthday;
     private RadioButton rdBtnTargetGender;
@@ -65,10 +60,10 @@ public class CitizenVaccinationState1Fragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_citizen_vaccination_state1, container, false);
         db = FirebaseFirestore.getInstance();
-        dvhcHelper = new DVHCHelper(getActivity().getApplicationContext());
+        dvhcHelper = new DVHCHelper(requireActivity().getApplicationContext());
 
         //GET CITIZEN DATA FROM ACTIVITY
-        citizen = getArguments().getParcelable("citizen");
+        citizen = requireArguments().getParcelable("citizen");
         SpinnerOption spOption = new SpinnerOption(citizen.getFull_name(), citizen.getId());
         targetList = new ArrayList<>();
         targetList.add(spOption);
@@ -88,6 +83,9 @@ public class CitizenVaccinationState1Fragment extends Fragment {
 
     public void implementView() throws JSONException {
         spTargetList = view.findViewById(R.id.sp_target_list);
+        spTargetListAdapter = new SpinnerAdapter(requireActivity().getApplicationContext(),
+                R.layout.item_string, targetList);
+        spTargetList.setAdapter(spTargetListAdapter);
 
         btnDetailPersonalInfo = view.findViewById(R.id.btn_detail_personal_info);
         layoutDetailPersonalInfo = view.findViewById(R.id.layout_detail_personal_info);
@@ -108,20 +106,17 @@ public class CitizenVaccinationState1Fragment extends Fragment {
         db.collection("users")
                 .whereEqualTo("id", selectedTargetId)
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            citizen = new Citizen();
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                citizen = document.toObject(Citizen.class);
-                            }
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        citizen = new Citizen();
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            citizen = document.toObject(Citizen.class);
+                        }
 
-                            try {
-                                CitizenVaccinationState1Fragment.this.bindViewData();
-                            } catch (JSONException e) {
-                                throw new RuntimeException(e);
-                            }
+                        try {
+                            CitizenVaccinationState1Fragment.this.bindViewData();
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
                         }
                     }
                 });
@@ -131,27 +126,22 @@ public class CitizenVaccinationState1Fragment extends Fragment {
         db.collection("users")
                 .whereEqualTo("id", "07202007263")
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            relatives = new ArrayList<>();
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Citizen relative = document.toObject(Citizen.class);
-                                relatives.add(relative);
-                                SpinnerOption spinnerOption = new SpinnerOption(relative.getFull_name(), relative.getId());
-                                targetList.add(spinnerOption);
-                            }
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        relatives = new ArrayList<>();
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            Citizen relative = document.toObject(Citizen.class);
+                            relatives.add(relative);
+                            SpinnerOption spinnerOption = new SpinnerOption(relative.getFull_name(), relative.getId());
+                            targetList.add(spinnerOption);
                         }
+                        spTargetListAdapter.setOptionList(targetList);
+                        spTargetListAdapter.notifyDataSetChanged();
                     }
                 });
     }
 
     public void bindViewData() throws JSONException {
-        spTargetListAdapter = new SpinnerAdapter(getActivity().getApplicationContext(),
-                R.layout.item_string, targetList);
-        spTargetList.setAdapter(spTargetListAdapter);
-
         selectedTargetId = citizen.getId();
 
         //SET FULL NAME INFO VALUE
@@ -187,7 +177,7 @@ public class CitizenVaccinationState1Fragment extends Fragment {
         provinceList = dvhcHelper.getLocalList(DVHCHelper.PROVINCE_LEVEL, null);
 
         //SET PROVINCE INFO VALUE
-        spProvinceListAdapter = new SpinnerAdapter(getActivity().getApplicationContext(),
+        spProvinceListAdapter = new SpinnerAdapter(requireActivity().getApplicationContext(),
                 R.layout.item_string, provinceList);
         spProvince.setAdapter(spProvinceListAdapter);
         int provincePosition = dvhcHelper.getLocalPositionFromList(
@@ -199,7 +189,7 @@ public class CitizenVaccinationState1Fragment extends Fragment {
         districtList = dvhcHelper.getLocalList(DVHCHelper.DISTRICT_LEVEL, provinceCode);
 
         //SET DISTRICT INFO VALUE
-        spDistrictListAdapter = new SpinnerAdapter(getActivity().getApplicationContext(),
+        spDistrictListAdapter = new SpinnerAdapter(requireActivity().getApplicationContext(),
                 R.layout.item_string, districtList);
         spDistrict.setAdapter(spDistrictListAdapter);
         int districtPosition = dvhcHelper.getLocalPositionFromList(
@@ -211,7 +201,7 @@ public class CitizenVaccinationState1Fragment extends Fragment {
         wardList = dvhcHelper.getLocalList(DVHCHelper.WARD_LEVEL, districtCode);
 
         //SET WARD INFO VALUE
-        spWardListAdapter = new SpinnerAdapter(getActivity().getApplicationContext(),
+        spWardListAdapter = new SpinnerAdapter(requireActivity().getApplicationContext(),
                 R.layout.item_string, wardList);
         spWard.setAdapter(spWardListAdapter);
         int wardPosition = dvhcHelper.getLocalPositionFromList(
@@ -228,6 +218,13 @@ public class CitizenVaccinationState1Fragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 SpinnerOption option = (SpinnerOption) parent.getItemAtPosition(position);
+
+                // AVOID THE FIRST TRIGGER WHEN INITIALIZING SPINNER,
+                // AND KEEP THE TRIGGERING OF NEXT SELECTION ON THE FIRST SELECTION
+                if (selectedTargetId.equals(option.getValue())) {
+                    return;
+                }
+
                 selectedTargetId = option.getValue();
                 etTargetId.setText(selectedTargetId);
                 Log.i("myTAG", selectedTargetId);
@@ -240,19 +237,17 @@ public class CitizenVaccinationState1Fragment extends Fragment {
         });
 
         //SET DETAIL PERSONAL INFO BUTTON LISTENER
-        btnDetailPersonalInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int visibility = layoutDetailPersonalInfo.getVisibility();
-                switch (visibility) {
-                    case View.GONE:
-                        layoutDetailPersonalInfo.setVisibility(View.VISIBLE);
-                        break;
+        btnDetailPersonalInfo.setOnClickListener(v -> {
+            int visibility = layoutDetailPersonalInfo.getVisibility();
+            switch (visibility) {
+                case View.GONE:
+                    layoutDetailPersonalInfo.setVisibility(View.VISIBLE);
+                    break;
 
-                    case View.VISIBLE:
-                    default:
-                        layoutDetailPersonalInfo.setVisibility(View.GONE);
-                }
+                case View.VISIBLE:
+                default:
+                case View.INVISIBLE:
+                    layoutDetailPersonalInfo.setVisibility(View.GONE);
             }
         });
 
@@ -314,6 +309,19 @@ public class CitizenVaccinationState1Fragment extends Fragment {
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
+                Log.i("myTAG", "district spinner");
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        spWard.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.i("myTAG", "ward spinner");
             }
 
             @Override

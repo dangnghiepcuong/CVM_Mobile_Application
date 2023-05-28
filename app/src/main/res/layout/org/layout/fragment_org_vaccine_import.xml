@@ -2,30 +2,80 @@
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingHorizontal="15dp">
+    android:orientation="vertical">
 
-    <TextView style="@style/labelFor_et"
-        android:text="Số lô vắc-xin" />
-    <EditText style="@style/edit_text"
-        android:hint="######"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView style="@style/labelFor_et"
+                android:text="Loại vaccine" />
+            <Spinner
+                android:id="@+id/sp_vaccine_type"
+                style="@style/spinner"/>
 
-    <TextView style="@style/labelFor_et"
-        android:text="Ngày nhập: dd/mm/yyyy"/>
-    <EditText style="@style/edit_text"
-        android:hint="dd/mm/yyyy"/>
+            <TextView style="@style/labelFor_et"
+                android:text="Số lô vắc-xin" />
+            <EditText
+                android:id="@+id/et_vaccine_lot"
+                style="@style/edit_text"
+                android:hint="######"/>
 
-    <TextView style="@style/labelFor_et"
-        android:text="Số lượng"/>
-    <EditText style="@style/edit_text"
-        android:hint="######"/>
+            <TextView style="@style/labelFor_et"
+                android:text="Ngày nhập:"/>
+            <LinearLayout style="@style/linear_layout_date_picker">
+                <TextView
+                    android:id="@+id/tv_import_date"
+                    style="@style/edit_date"
+                    android:layout_weight="7"/>
+                <Button
+                    android:id="@+id/btn_import_dp"
+                    style="@style/btn_date_picker"
+                    android:layout_weight="3"
+                    android:text="chọn ngày"/>
+            </LinearLayout>
+            <DatePicker
+                android:id="@+id/dp_import_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:spinnersShown="false"
+                android:visibility="gone"/>
 
-    <TextView style="@style/labelFor_et"
-        android:text="Hạn sử dụng"/>
-    <EditText style="@style/edit_text"
-        android:hint="dd/mm/yyyy"/>
+            <TextView style="@style/labelFor_et"
+                android:text="Số lượng"/>
+            <EditText
+                android:id="@+id/et_quantity"
+                style="@style/edit_text"
+                android:inputType="number"
+                android:hint="0"/>
 
-    <Button
-        android:text="Nhập lô vắc-xin"
-        style="@style/btn_primary"/>
+            <TextView style="@style/labelFor_et"
+                android:text="HSD:"/>
+            <LinearLayout style="@style/linear_layout_date_picker">
+                <TextView
+                    android:id="@+id/tv_expiration_date"
+                    style="@style/edit_date"
+                    android:layout_weight="7"/>
+                <Button
+                    android:id="@+id/btn_expiration_dp"
+                    style="@style/btn_date_picker"
+                    android:layout_weight="3"
+                    android:text="chọn ngày"/>
+            </LinearLayout>
+            <DatePicker
+                android:id="@+id/dp_expiration_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:spinnersShown="false"
+                android:visibility="gone"/>
+
+            <Button
+                android:id="@+id/btn_import_vaccine"
+                android:text="Nhập lô vắc-xin"
+                style="@style/btn_primary"/>
+        </LinearLayout>
+    </ScrollView>
 </androidx.appcompat.widget.LinearLayoutCompat>
