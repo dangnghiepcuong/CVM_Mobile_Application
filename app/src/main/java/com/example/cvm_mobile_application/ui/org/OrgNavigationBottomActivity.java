@@ -28,7 +28,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-@BuildCompat.PrereleaseSdkCheck public class OrgNavigationBottom extends AppCompatActivity {
+@BuildCompat.PrereleaseSdkCheck public class OrgNavigationBottomActivity extends AppCompatActivity {
 
     private FirebaseFirestore db;
     private BottomNavigationView bottomNavigationView;
@@ -130,7 +130,7 @@ import com.google.firebase.firestore.QuerySnapshot;
                             });
                         } else {
                             Log.w("myTAG", "queryCollection:failure", task.getException());
-                            Toast.makeText(OrgNavigationBottom.this, "*Đã có lỗi xảy ra. Vui lòng thử lại!"
+                            Toast.makeText(OrgNavigationBottomActivity.this, "*Đã có lỗi xảy ra. Vui lòng thử lại!"
                                     , Toast.LENGTH_LONG).show();
                         }
                     }

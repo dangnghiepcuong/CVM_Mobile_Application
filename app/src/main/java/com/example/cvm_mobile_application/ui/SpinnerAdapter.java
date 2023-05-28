@@ -1,5 +1,6 @@
 package com.example.cvm_mobile_application.ui;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,7 +42,7 @@ public class SpinnerAdapter extends ArrayAdapter<SpinnerOption> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        View itemView = inflater.inflate(R.layout.item_string, null);
+        @SuppressLint("ViewHolder") View itemView = inflater.inflate(R.layout.item_string, null);
 
         TextView option = itemView.findViewById(R.id.option);
         option.setText(optionList.get(position).getOption());

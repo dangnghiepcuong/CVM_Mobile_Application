@@ -28,7 +28,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 @BuildCompat.PrereleaseSdkCheck
-public class CitizenNavigationBottom extends AppCompatActivity {
+public class CitizenNavigationBottomActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private BottomNavigationView bottomNavigationView;
     private CitizenHomeFragment citizenHomeFragment;
@@ -105,7 +105,7 @@ public class CitizenNavigationBottom extends AppCompatActivity {
 
                         } else {
                             Log.w("myTAG", "queryCollection:failure", task.getException());
-                            Toast.makeText(CitizenNavigationBottom.this, "*Đã có lỗi xảy ra. Vui lòng thử lại!"
+                            Toast.makeText(CitizenNavigationBottomActivity.this, "*Đã có lỗi xảy ra. Vui lòng thử lại!"
                                     , Toast.LENGTH_LONG).show();
                         }
                     }

@@ -2,290 +2,47 @@
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/card_home"
     android:orientation="vertical">
-
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="9">
-        <ScrollView
+        android:layout_height="match_parent">
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingHorizontal="15dp">
+                android:layout_height="125dp"
+                android:layout_marginVertical="5dp"
+                android:background="@drawable/bg_notification"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="125dp"
-                    android:layout_marginVertical="5dp"
-                    android:background="@drawable/bg_notification"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                    <TextView
+                        style="@style/text_heading"
+                        android:text="Lô vắc-xin: ######" />
 
-                        <TextView
-                            style="@style/text_heading"
-                            android:text="Lô vắc-xin: ######" />
+                    <TextView
+                        style="@style/text_content"
+                        android:text="Nhập ngày: dd/mm/yyyy" />
 
-                        <TextView
-                            style="@style/text_content"
-                            android:text="Nhập ngày: dd/mm/yyyy" />
+                    <TextView
+                        style="@style/text_content"
+                        android:text="Số lượng: ####" />
 
-                        <TextView
-                            style="@style/text_content"
-                            android:text="Số lượng: ####" />
-
-                        <TextView
-                            style="@style/text_content"
-                            android:text="HSD: dd/mm/yyyy" />
-                    </LinearLayout>
-
-                    <Button
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:background="@drawable/bg_btn_edit" />
+                    <TextView
+                        style="@style/text_content"
+                        android:text="HSD: dd/mm/yyyy" />
                 </LinearLayout>
+            </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="125dp"
-                    android:layout_marginVertical="5dp"
-                    android:background="@drawable/bg_notification"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            style="@style/text_heading"
-                            android:text="Lô vắc-xin: ######" />
-
-                        <TextView
-                            style="@style/text_content"
-                            android:text="Nhập ngày: dd/mm/yyyy" />
-
-                        <TextView
-                            style="@style/text_content"
-                            android:text="Số lượng: ####" />
-
-                        <TextView
-                            style="@style/text_content"
-                            android:text="HSD: dd/mm/yyyy" />
-                    </LinearLayout>
-
-                    <Button
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:background="@drawable/bg_btn_edit" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="125dp"
-                    android:layout_marginVertical="5dp"
-                    android:background="@drawable/bg_notification"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            style="@style/text_heading"
-                            android:text="Lô vắc-xin: ######" />
-
-                        <TextView
-                            style="@style/text_content"
-                            android:text="Nhập ngày: dd/mm/yyyy" />
-
-                        <TextView
-                            style="@style/text_content"
-                            android:text="Số lượng: ####" />
-
-                        <TextView
-                            style="@style/text_content"
-                            android:text="HSD: dd/mm/yyyy" />
-                    </LinearLayout>
-
-                    <Button
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:background="@drawable/bg_btn_edit" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="125dp"
-                    android:layout_marginVertical="5dp"
-                    android:background="@drawable/bg_notification"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            style="@style/text_heading"
-                            android:text="Lô vắc-xin: ######" />
-
-                        <TextView
-                            style="@style/text_content"
-                            android:text="Nhập ngày: dd/mm/yyyy" />
-
-                        <TextView
-                            style="@style/text_content"
-                            android:text="Số lượng: ####" />
-
-                        <TextView
-                            style="@style/text_content"
-                            android:text="HSD: dd/mm/yyyy" />
-                    </LinearLayout>
-
-                    <Button
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:background="@drawable/bg_btn_edit" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="125dp"
-                    android:layout_marginVertical="5dp"
-                    android:background="@drawable/bg_notification"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            style="@style/text_heading"
-                            android:text="Lô vắc-xin: ######" />
-
-                        <TextView
-                            style="@style/text_content"
-                            android:text="Nhập ngày: dd/mm/yyyy" />
-
-                        <TextView
-                            style="@style/text_content"
-                            android:text="Số lượng: ####" />
-
-                        <TextView
-                            style="@style/text_content"
-                            android:text="HSD: dd/mm/yyyy" />
-                    </LinearLayout>
-
-                    <Button
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:background="@drawable/bg_btn_edit" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="125dp"
-                    android:layout_marginVertical="5dp"
-                    android:background="@drawable/bg_notification"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            style="@style/text_heading"
-                            android:text="Lô vắc-xin: ######" />
-
-                        <TextView
-                            style="@style/text_content"
-                            android:text="Nhập ngày: dd/mm/yyyy" />
-
-                        <TextView
-                            style="@style/text_content"
-                            android:text="Số lượng: ####" />
-
-                        <TextView
-                            style="@style/text_content"
-                            android:text="HSD: dd/mm/yyyy" />
-                    </LinearLayout>
-
-                    <Button
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:background="@drawable/bg_btn_edit" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="125dp"
-                    android:layout_marginVertical="5dp"
-                    android:background="@drawable/bg_notification"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            style="@style/text_heading"
-                            android:text="Lô vắc-xin: ######" />
-
-                        <TextView
-                            style="@style/text_content"
-                            android:text="Nhập ngày: dd/mm/yyyy" />
-
-                        <TextView
-                            style="@style/text_content"
-                            android:text="Số lượng: ####" />
-
-                        <TextView
-                            style="@style/text_content"
-                            android:text="HSD: dd/mm/yyyy" />
-                    </LinearLayout>
-
-                    <Button
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:background="@drawable/bg_btn_edit" />
-                </LinearLayout>
-            </androidx.appcompat.widget.LinearLayoutCompat>
-        </ScrollView>
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:paddingHorizontal="30dp">
-        <Button style="@style/btn_primary"
-            android:text="Nhập vắc-xin"/>
-    </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </ScrollView>
 </androidx.appcompat.widget.LinearLayoutCompat>

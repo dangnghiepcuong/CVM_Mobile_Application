@@ -60,14 +60,17 @@
                     android:text="Ngày diễn ra lịch tiêm"
                     android:textSize="18sp" />
 
-                <EditText
-                    android:id="@+id/et_on_date"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/bg_edit_text"
-                    android:hint="dd/mm/yyyy"
-                    android:inputType="date" />
+                <LinearLayout style="@style/linear_layout_date_picker">
+                    <TextView
+                        android:id="@+id/tv_on_date"
+                        style="@style/edit_date"
+                        android:layout_weight="7"/>
+                    <Button
+                        android:id="@+id/btn_expiration_dp"
+                        style="@style/btn_date_picker"
+                        android:layout_weight="3"
+                        android:text="chọn ngày"/>
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="match_parent"
