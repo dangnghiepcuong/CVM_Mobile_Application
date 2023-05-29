@@ -49,7 +49,7 @@
                     android:background="@drawable/bg_btn_org_feature_schedule_create" />
 
                 <TextView
-                    style="@style/labelFor_item_menu_info"
+                    style="@style/labelFor_et"
                     android:text="Ngày diễn ra lịch tiêm"
                     android:textSize="18sp" />
 
@@ -72,7 +72,7 @@
                     android:visibility="gone"/>
 
                 <TextView
-                    style="@style/labelFor_item_menu_info"
+                    style="@style/labelFor_et"
                     android:text="Loại vắc-xin"
                     android:textSize="18sp" />
 
@@ -92,7 +92,7 @@
 
 
                 <TextView
-                    style="@style/labelFor_item_menu_info"
+                    style="@style/labelFor_et"
                     android:text="Số lô vắc-xin"
                     android:textSize="18sp" />
 
@@ -111,7 +111,7 @@
                 </FrameLayout>
 
                 <TextView
-                    style="@style/labelFor_item_menu_info"
+                    style="@style/labelFor_et"
                     android:text="Giới hạn đăng ký buổi sáng"
                     android:textSize="18sp" />
 
@@ -122,7 +122,7 @@
                     android:hint="0"/>
 
                 <TextView
-                    style="@style/labelFor_item_menu_info"
+                    style="@style/labelFor_et"
                     android:text="Giới hạn đăng ký buổi trưa"
                     android:textSize="18sp" />
 
@@ -133,7 +133,7 @@
                     android:hint="0"/>
 
                 <TextView
-                    style="@style/labelFor_item_menu_info"
+                    style="@style/labelFor_et"
                     android:text="Giới hạn đăng ký buổi tối"
                     android:textSize="18sp" />
 
@@ -152,6 +152,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="30dp" />
             </androidx.appcompat.widget.LinearLayoutCompat>
+            
         </ScrollView>
     </androidx.appcompat.widget.LinearLayoutCompat>
 
