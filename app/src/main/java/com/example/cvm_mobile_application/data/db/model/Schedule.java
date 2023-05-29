@@ -11,12 +11,12 @@ public class Schedule {
     private int noonRegistered;
     private int nightRegistered;
     private String orgId;
-    private String vaccineId   ;
+    private String vaccineId;
 
     public Schedule() {
     }
 
-    public Schedule(String id, String onDate, String serial, int limitDay, int limitNoon, int limitNight, int dayRegistered, int noonRegistered, int nightRegistered, String orgId, String vaccine) {
+    public Schedule(String id, String onDate, String serial, int limitDay, int limitNoon, int limitNight, int dayRegistered, int noonRegistered, int nightRegistered, String orgId, String vaccineId) {
         this.id = id;
         this.onDate = onDate;
         this.serial = serial;
@@ -102,11 +102,11 @@ public class Schedule {
         this.nightRegistered = nightRegistered;
     }
 
-    public String getOrg() {
+    public String getOrgId() {
         return orgId;
     }
 
-    public void setOrg(String orgId) {
+    public void setOrgId(String orgId) {
         this.orgId = orgId  ;
     }
 

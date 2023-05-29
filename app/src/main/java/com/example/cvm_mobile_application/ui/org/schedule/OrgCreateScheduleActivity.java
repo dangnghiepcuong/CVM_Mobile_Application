@@ -145,12 +145,28 @@ public class OrgCreateScheduleActivity extends AppCompatActivity {
                 SpinnerOption vaccine = (SpinnerOption) spVaccineType.getSelectedItem();
                 String vaccineType = vaccine.getValue();
 
-                vaccine = (SpinnerOption) spVaccineLot.getSelectedItem();
+                vaccine = vaccineInventoryList.get(spVaccineLot.getSelectedItemPosition());
                 String vaccineLot = vaccine.getValue();
+                int limitDay = 0;
+                int limitNoon = 0;
+                int limitNight = 0;
 
-                int limitDay = Integer.parseInt(String.valueOf(etDayLimit.getText()));
-                int limitNoon = Integer.parseInt(String.valueOf(etNoonLimit.getText()));
-                int limitNight = Integer.parseInt(String.valueOf(etNightLimit.getText()));
+                try {
+                    limitDay = Integer.parseInt(String.valueOf(etDayLimit.getText()));
+                } catch (NumberFormatException e) {
+                    limitDay = 0;
+                }
+                try {
+                    limitNoon = Integer.parseInt(String.valueOf(etNoonLimit.getText()));
+                } catch (NumberFormatException e) {
+                    limitNoon = 0;
+                }
+                try {
+                    limitNight = Integer.parseInt(String.valueOf(etNightLimit.getText()));
+                } catch (NumberFormatException e) {
+                    limitNight = 0;
+                }
+
 
                 Schedule schedule = new Schedule(
                         "", onDate, vaccineLot, limitDay, limitNoon, limitNight,
@@ -169,30 +185,30 @@ public class OrgCreateScheduleActivity extends AppCompatActivity {
         db.collection("vaccines")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    for (QueryDocumentSnapshot document : task.getResult()) {
-                                        SpinnerOption spOption = new SpinnerOption(
-                                                (String) document.get("name"),
-                                                (String) document.get("id")
-                                        );
-                                        vaccineList.add(spOption);
-                                    }
-                                    spVaccineTypeAdapter.notifyDataSetChanged();
-
-                                    // RETRIEVE VACCINE LOT LIST IN INVENTORY
-                                    OrgCreateScheduleActivity.this.getVaccineInventoryList(vaccineList.get(0).getValue());
-
-                                    // ENABLE SPINNER VACCINE LOT AFTER SUCCESSFULLY RETRIEVING VACCINE TYPE
-                                    spVaccineLot.setEnabled(true);
-                                } else {
-                                    Log.d("myTAG", "Retrieving Data: getVaccineList");
-                                    Toast.makeText(OrgCreateScheduleActivity.this,
-                                            "Lỗi khi lấy danh sách vaccine", Toast.LENGTH_LONG).show();
-                                }
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                SpinnerOption spOption = new SpinnerOption(
+                                        (String) document.get("name"),
+                                        (String) document.get("id")
+                                );
+                                vaccineList.add(spOption);
                             }
-                        });
+                            spVaccineTypeAdapter.notifyDataSetChanged();
+
+                            // RETRIEVE VACCINE LOT LIST IN INVENTORY
+                            OrgCreateScheduleActivity.this.getVaccineInventoryList(vaccineList.get(0).getValue());
+
+                            // ENABLE SPINNER VACCINE LOT AFTER SUCCESSFULLY RETRIEVING VACCINE TYPE
+                            spVaccineLot.setEnabled(true);
+                        } else {
+                            Log.d("myTAG", "Retrieving Data: getVaccineList");
+                            Toast.makeText(OrgCreateScheduleActivity.this,
+                                    "Lỗi khi lấy danh sách vaccine", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
     }
 
     public void getVaccineInventoryList(String vaccineId) {
@@ -202,40 +218,44 @@ public class OrgCreateScheduleActivity extends AppCompatActivity {
                 .whereEqualTo("vaccine_id", vaccineId)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    vaccineInventoryList = new ArrayList<>();
-                                    for (QueryDocumentSnapshot document : task.getResult()) {
-                                        SpinnerOption spOption = new SpinnerOption(
-                                                (String) document.get("lot")
-                                                        + " - sl: "
-                                                        + document.get("quantity"),
-                                                (String) document.get("id")
-                                        );
-                                        vaccineInventoryList.add(spOption);
-                                    }
-                                    spVaccineLotAdapter.setOptionList(vaccineInventoryList);
-                                    spVaccineLotAdapter.notifyDataSetChanged();
-                                    btnCreate.setEnabled(true);
-                                } else {
-                                    Log.d("myTAG", "Retrieving Data: getVaccineInventoryList");
-                                    Toast.makeText(OrgCreateScheduleActivity.this,
-                                            "Lỗi khi lấy danh sách lot vaccine", Toast.LENGTH_LONG).show();
-                                }
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            vaccineInventoryList = new ArrayList<>();
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                SpinnerOption spOption = new SpinnerOption(
+                                        (String) document.get("lot")
+                                                + " - sl: "
+                                                + document.get("quantity"),
+                                        (String) document.get("lot")
+                                );
+                                vaccineInventoryList.add(spOption);
                             }
-                        });
+                            spVaccineLotAdapter.setOptionList(vaccineInventoryList);
+                            spVaccineLotAdapter.notifyDataSetChanged();
+                            btnCreate.setEnabled(true);
+                        } else {
+                            Log.d("myTAG", "Retrieving Data: getVaccineInventoryList");
+                            Toast.makeText(OrgCreateScheduleActivity.this,
+                                    "Lỗi khi lấy danh sách lot vaccine", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
     }
 
     public void createSchedule(Schedule schedule) {
         // Add a new document with a generated id.
         Map<String, Object> data = new HashMap<>();
+        data.put("org_id", schedule.getOrgId());
         data.put("on_date", schedule.getOnDate());
         data.put("vaccine_id", schedule.getVaccineId());
-        data.put("vaccine_lot", schedule.getSerial());
+        data.put("lot", schedule.getSerial());
         data.put("limit_day", schedule.getLimitDay());
         data.put("limit_noon", schedule.getLimitNoon());
         data.put("limit_night", schedule.getLimitNight());
+        data.put("day_registered", 0);
+        data.put("noon_registered", 0);
+        data.put("night_registered", 0);
 
         db.collection("schedules")
                 .add(data)
