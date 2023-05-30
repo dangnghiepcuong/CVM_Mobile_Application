@@ -23,9 +23,12 @@ import com.example.cvm_mobile_application.ui.SpinnerAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Transaction;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -141,12 +144,38 @@ public class OrgCreateScheduleActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String onDate = String.valueOf(tvOnDate.getText());
+                if (onDate.equals("")) {
+                    Toast.makeText(OrgCreateScheduleActivity.this,
+                            "*Chọn ngày diễn ra lịch tiêm", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-                SpinnerOption vaccine = (SpinnerOption) spVaccineType.getSelectedItem();
-                String vaccineType = vaccine.getValue();
+                // IF DATA HAVEN'T RETRIEVED YET, RETURN
+                SpinnerOption spOption = (SpinnerOption) spVaccineType.getSelectedItem();
+                try {
+                    spOption = (SpinnerOption) spVaccineType.getSelectedItem();
+                } catch (NullPointerException e) {
+                    return;
+                }
+                String vaccineType = spOption.getValue();
 
-                vaccine = vaccineInventoryList.get(spVaccineLot.getSelectedItemPosition());
-                String vaccineLot = vaccine.getValue();
+                // IF DATA HAVEN'T RETRIEVED YET, OR DATA IS EMPTY THEN TOAST AND RETURN
+                if (vaccineInventoryList.size() == 0) {
+                    Toast.makeText(OrgCreateScheduleActivity.this,
+                            "Không có dữ liệu lô vắc-xin", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // IF THE SPINNER HAVEN'T BEEN BIND DATA YET, RETURN
+                try {
+                    spOption = vaccineInventoryList.get(spVaccineLot.getSelectedItemPosition());
+                } catch (NullPointerException e) {
+                    Toast.makeText(OrgCreateScheduleActivity.this,
+                            "*Chưa có dữ liệu lô vắc-xin", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                String vaccineLot = spOption.getValue();
+
                 int limitDay = 0;
                 int limitNoon = 0;
                 int limitNight = 0;
@@ -167,9 +196,10 @@ public class OrgCreateScheduleActivity extends AppCompatActivity {
                     limitNight = 0;
                 }
 
+                String id = org.getId() + onDate + vaccineType + vaccineLot;
 
                 Schedule schedule = new Schedule(
-                        "", onDate, vaccineLot, limitDay, limitNoon, limitNight,
+                        id, onDate, vaccineLot, limitDay, limitNoon, limitNight,
                         0, 0, 0, org.getId(), vaccineType
                 );
 
@@ -223,13 +253,15 @@ public class OrgCreateScheduleActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             vaccineInventoryList = new ArrayList<>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                SpinnerOption spOption = new SpinnerOption(
-                                        (String) document.get("lot")
-                                                + " - sl: "
-                                                + document.get("quantity"),
-                                        (String) document.get("lot")
-                                );
-                                vaccineInventoryList.add(spOption);
+                                if (Integer.parseInt(String.valueOf(document.get("quantity"))) > 0) {
+                                    SpinnerOption spOption = new SpinnerOption(
+                                            (String) document.get("lot")
+                                                    + " - sl: "
+                                                    + document.get("quantity"),
+                                            (String) document.get("lot")
+                                    );
+                                    vaccineInventoryList.add(spOption);
+                                }
                             }
                             spVaccineLotAdapter.setOptionList(vaccineInventoryList);
                             spVaccineLotAdapter.notifyDataSetChanged();
@@ -246,10 +278,11 @@ public class OrgCreateScheduleActivity extends AppCompatActivity {
     public void createSchedule(Schedule schedule) {
         // Add a new document with a generated id.
         Map<String, Object> data = new HashMap<>();
+        data.put("id", schedule.getId());
         data.put("org_id", schedule.getOrgId());
         data.put("on_date", schedule.getOnDate());
         data.put("vaccine_id", schedule.getVaccineId());
-        data.put("lot", schedule.getSerial());
+        data.put("lot", schedule.getLot());
         data.put("limit_day", schedule.getLimitDay());
         data.put("limit_noon", schedule.getLimitNoon());
         data.put("limit_night", schedule.getLimitNight());
@@ -257,21 +290,46 @@ public class OrgCreateScheduleActivity extends AppCompatActivity {
         data.put("noon_registered", 0);
         data.put("night_registered", 0);
 
-        db.collection("schedules")
-                .add(data)
-                .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentReference> task) {
-                        if (task.isSuccessful()) {
-                            Log.d("myTAG", "DocumentSnapshot written with ID: " + task.getResult().getId());
-                            Toast.makeText(OrgCreateScheduleActivity.this,
-                                    "Tạo lịch tiêm chủng thành công!", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Log.w("myTAG", "Error adding document", task.getException());
-                            Toast.makeText(OrgCreateScheduleActivity.this,
-                                    "Đã có lỗi xảy, vui lòng thử lại!", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
+        db.runTransaction(new Transaction.Function<Integer>() {
+            @Override
+            public Integer apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
+                String lotId = schedule.getOrgId() + schedule.getVaccineId() + schedule.getLot();
+                int scheduledQuantity = schedule.getLimitDay() + schedule.getLimitNoon() + schedule.getLimitNight();
+
+                DocumentReference referenceInventory =
+                        db.collection("vaccine_inventory").document(lotId);
+
+                DocumentSnapshot snapshot = transaction.get(referenceInventory);
+                int updatedQuantity = Integer.parseInt(String.valueOf(snapshot.get("quantity"))) - scheduledQuantity;
+
+                // DECREASE THE QUANTITY OF THE SCHEDULED VACCINE IN THE INVENTORY
+                transaction.update(referenceInventory, "quantity", updatedQuantity);
+
+                DocumentReference referenceSchedule =
+                        db.collection("schedules").document(schedule.getId());
+
+                transaction.set(referenceSchedule, data);
+                return updatedQuantity;
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Integer>() {
+            @Override
+            public void onComplete(@NonNull Task<Integer> task) {
+                if (task.isSuccessful()) {
+                    tvOnDate.setText("");
+                    OrgCreateScheduleActivity.this.getVaccineInventoryList(schedule.getVaccineId());
+                    etDayLimit.setText("");
+                    etNoonLimit.setText("");
+                    etNightLimit.setText("");
+
+                    Log.d("myTAG", "Document created with ID: " + schedule.getId());
+                    Toast.makeText(OrgCreateScheduleActivity.this,
+                            "Tạo lịch tiêm chủng thành công!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Log.w("myTAG", "Error adding document", task.getException());
+                    Toast.makeText(OrgCreateScheduleActivity.this,
+                            "Đã có lỗi xảy, vui lòng thử lại!", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 }

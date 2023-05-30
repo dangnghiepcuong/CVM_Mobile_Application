@@ -22,7 +22,6 @@ import com.example.cvm_mobile_application.data.db.model.VaccineLot;
 import com.example.cvm_mobile_application.ui.SpinnerAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -50,8 +49,7 @@ public class OrgVaccineImportFragment extends Fragment {
     private DatePicker dpExpirationDate;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_org_vaccine_import, container, false);
         db = FirebaseFirestore.getInstance();
         org = requireArguments().getParcelable("org");
@@ -78,9 +76,7 @@ public class OrgVaccineImportFragment extends Fragment {
 
     public void bindViewData() {
         getVaccineList();
-        spVaccineTypeAdapter = new SpinnerAdapter(
-                requireActivity().getApplicationContext(),
-                R.layout.item_string, vaccineList);
+        spVaccineTypeAdapter = new SpinnerAdapter(requireActivity().getApplicationContext(), R.layout.item_string, vaccineList);
         spVaccineType.setAdapter(spVaccineTypeAdapter);
     }
 
@@ -140,14 +136,7 @@ public class OrgVaccineImportFragment extends Fragment {
 
                 VaccineLot vaccineLot = new VaccineLot();
                 try {
-                    vaccineLot = new VaccineLot(
-                            org.getId(),
-                            String.valueOf(etVaccineLot.getText()),
-                            String.valueOf(spOption.getValue()),
-                            String.valueOf(tvImportDate.getText()),
-                            Integer.parseInt(String.valueOf(etQuantity.getText())),
-                            String.valueOf(tvExpirationDate.getText())
-                    );
+                    vaccineLot = new VaccineLot(org.getId(), String.valueOf(etVaccineLot.getText()), String.valueOf(spOption.getValue()), String.valueOf(tvImportDate.getText()), Integer.parseInt(String.valueOf(etQuantity.getText())), String.valueOf(tvExpirationDate.getText()));
                 } catch (NumberFormatException e) {
                     Toast.makeText(getActivity(), "*Số lượng phải là số", Toast.LENGTH_LONG).show();
                     return;
@@ -168,10 +157,10 @@ public class OrgVaccineImportFragment extends Fragment {
                     return;
                 }
 
-                if (vaccineLot.getQuantity() == 0) {
-                    Toast.makeText(getActivity(), "*Nhập số lượng", Toast.LENGTH_LONG).show();
-                    return;
-                }
+//                if (vaccineLot.getQuantity() == 0) {
+//                    Toast.makeText(getActivity(), "*Nhập số lượng", Toast.LENGTH_LONG).show();
+//                    return;
+//                }
 
                 if (vaccineLot.getExpirationDate().equals("")) {
                     Toast.makeText(getActivity(), "*Nhập ngày hết hạn", Toast.LENGTH_LONG).show();
@@ -185,52 +174,40 @@ public class OrgVaccineImportFragment extends Fragment {
 
     public void getVaccineList() {
         // DISABLE SPINNER VACCINE LOT BEFORE GETTING NEW VACCINE TYPE
-        db.collection("vaccines")
-                .get()
-                .addOnCompleteListener(requireActivity(),
-                        new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    for (QueryDocumentSnapshot document : task.getResult()) {
-                                        SpinnerOption spOption = new SpinnerOption(
-                                                (String) document.get("name"),
-                                                (String) document.get("id")
-                                        );
-                                        vaccineList.add(spOption);
-                                    }
-                                    spVaccineTypeAdapter.notifyDataSetChanged();
-                                } else {
-                                    Log.d("myTAG", "Retrieving Data: getVaccineList");
-                                    Toast.makeText(getActivity().getApplicationContext(),
-                                            "Lỗi khi lấy danh sách vaccine", Toast.LENGTH_LONG).show();
-                                }
-                            }
-                        });
+        db.collection("vaccines").get().addOnCompleteListener(requireActivity(), new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        SpinnerOption spOption = new SpinnerOption((String) document.get("name"), (String) document.get("id"));
+                        vaccineList.add(spOption);
+                    }
+                    spVaccineTypeAdapter.notifyDataSetChanged();
+                } else {
+                    Log.d("myTAG", "Retrieving Data: getVaccineList");
+                    Toast.makeText(getActivity().getApplicationContext(), "Lỗi khi lấy danh sách vaccine", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
     public void getVaccineLot(VaccineLot vaccineLot) {
-        db.collection("vaccine_inventory")
-                .whereEqualTo("lot", vaccineLot.getLot())
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            String vaccineLot_queried = "";
-                            if (task.getResult().isEmpty() == false) {
-                                Toast.makeText(getActivity(), "Lô vắc-xin đã có trong kho,\nvui lòng thực hiện cập nhật",
-                                        Toast.LENGTH_SHORT).show();
-                            } else {
-                                OrgVaccineImportFragment.this.importVaccine(vaccineLot);
-                            }
-                        } else {
-                            Log.d("myTAG", "Retrieving Data: getVaccineLot");
-                            Toast.makeText(requireActivity().getApplicationContext(),
-                                    "Lỗi khi lấy dữ liệu từ kho vắc-xin", Toast.LENGTH_LONG).show();
-                        }
+        db.collection("vaccine_inventory").whereEqualTo("lot", vaccineLot.getLot()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    String vaccineLot_queried = "";
+                    if (task.getResult().isEmpty() == false) {
+                        Toast.makeText(getActivity(), "Lô vắc-xin đã có trong kho,\nvui lòng thực hiện cập nhật", Toast.LENGTH_SHORT).show();
+                    } else {
+                        OrgVaccineImportFragment.this.importVaccine(vaccineLot);
                     }
-                });
+                } else {
+                    Log.d("myTAG", "Retrieving Data: getVaccineLot");
+                    Toast.makeText(requireActivity().getApplicationContext(), "Lỗi khi lấy dữ liệu từ kho vắc-xin", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
     public void importVaccine(VaccineLot vaccineLot) {
@@ -243,13 +220,12 @@ public class OrgVaccineImportFragment extends Fragment {
         data.put("expiration_date", vaccineLot.getExpirationDate());
 
         db.collection("vaccine_inventory")
-                .add(data)
-                .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                .document(vaccineLot.getOrgId() + vaccineLot.getVaccineId() + vaccineLot.getLot())
+                .set(data).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
-                    public void onComplete(@NonNull Task<DocumentReference> task) {
+                    public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(requireActivity().getApplicationContext(),
-                                    "Nhập dữ liệu vào kho vắc-xin thành công!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(requireActivity().getApplicationContext(), "Nhập dữ liệu vào kho vắc-xin thành công!", Toast.LENGTH_SHORT).show();
 
                             etVaccineLot.setText("");
                             tvImportDate.setText("");
@@ -257,8 +233,7 @@ public class OrgVaccineImportFragment extends Fragment {
                             tvExpirationDate.setText("");
                         } else {
                             Log.d("myTAG", "Writing Data: importVaccine");
-                            Toast.makeText(requireActivity().getApplicationContext(),
-                                    "Lỗi khi nhập dữ liệu vào kho vắc-xin", Toast.LENGTH_LONG).show();
+                            Toast.makeText(requireActivity().getApplicationContext(), "Lỗi khi nhập dữ liệu vào kho vắc-xin", Toast.LENGTH_LONG).show();
                         }
                     }
                 });

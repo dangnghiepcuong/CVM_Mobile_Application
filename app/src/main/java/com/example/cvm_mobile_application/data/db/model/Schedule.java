@@ -3,7 +3,7 @@ package com.example.cvm_mobile_application.data.db.model;
 public class Schedule {
     private String id;
     private String onDate;
-    private String serial;
+    private String lot;
     private int limitDay;
     private int limitNoon;
     private int limitNight;
@@ -16,10 +16,10 @@ public class Schedule {
     public Schedule() {
     }
 
-    public Schedule(String id, String onDate, String serial, int limitDay, int limitNoon, int limitNight, int dayRegistered, int noonRegistered, int nightRegistered, String orgId, String vaccineId) {
+    public Schedule(String id, String onDate, String lot, int limitDay, int limitNoon, int limitNight, int dayRegistered, int noonRegistered, int nightRegistered, String orgId, String vaccineId) {
         this.id = id;
         this.onDate = onDate;
-        this.serial = serial;
+        this.lot = lot;
         this.limitDay = limitDay;
         this.limitNoon = limitNoon;
         this.limitNight = limitNight;
@@ -46,12 +46,12 @@ public class Schedule {
         this.onDate = onDate;
     }
 
-    public String getSerial() {
-        return serial;
+    public String getLot() {
+        return lot;
     }
 
-    public void setSerial(String serial) {
-        this.serial = serial;
+    public void setLot(String lot) {
+        this.lot = lot;
     }
 
     public int getLimitDay() {
