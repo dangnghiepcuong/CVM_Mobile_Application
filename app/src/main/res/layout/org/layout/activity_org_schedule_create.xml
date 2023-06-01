@@ -19,13 +19,8 @@
             android:background="@drawable/ic_arrow_back_white" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center"
-            android:text="Tạo lịch tiêm chủng"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            style="@style/labelFor_fragment"
+            android:text="Tạo lịch tiêm chủng"/>
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -37,7 +32,8 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingTop="20dp">
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
@@ -47,112 +43,116 @@
                 android:paddingHorizontal="20dp">
 
                 <LinearLayout
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_gravity="center"
                     android:background="@drawable/bg_btn_org_feature_schedule_create" />
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="10dp"
+                    style="@style/labelFor_et"
                     android:text="Ngày diễn ra lịch tiêm"
                     android:textSize="18sp" />
 
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/bg_edit_text"
-                    android:hint="dd/mm/yyyy"
-                    android:inputType="date" />
+                <LinearLayout style="@style/linear_layout_date_picker">
+                    <TextView
+                        android:id="@+id/tv_on_date"
+                        style="@style/edit_date"
+                        android:layout_weight="7"/>
+                    <Button
+                        android:id="@+id/btn_on_dp"
+                        style="@style/btn_date_picker"
+                        android:layout_weight="3"
+                        android:text="chọn ngày"/>
+                </LinearLayout>
+                <DatePicker
+                    android:id="@+id/dp_on_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:spinnersShown="false"
+                    android:visibility="gone"/>
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="10dp"
+                    style="@style/labelFor_et"
                     android:text="Loại vắc-xin"
                     android:textSize="18sp" />
 
-                <Spinner
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/bg_spinner"
-                    android:spinnerMode="dialog"></Spinner>
+                    android:layout_height="wrap_content">
+                    <Spinner
+                        android:id="@+id/sp_vaccine_type"
+                        style="@style/spinner"
+                        android:spinnerMode="dialog"></Spinner>
+<!--                    <ProgressBar-->
+<!--                        android:id="@+id/pb_sp_vaccine_type"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:visibility="gone"/>-->
+                </FrameLayout>
+
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="10dp"
+                    style="@style/labelFor_et"
                     android:text="Số lô vắc-xin"
                     android:textSize="18sp" />
 
-                <Spinner
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/bg_spinner"
-                    android:spinnerMode="dialog"></Spinner>
+                    android:layout_height="wrap_content">
+                    <Spinner
+                        android:id="@+id/sp_vaccine_lot"
+                        style="@style/spinner"
+                        android:spinnerMode="dialog"/>
+<!--                    <ProgressBar-->
+<!--                        android:id="@+id/pb_sp_vaccine_lot"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:visibility="gone"/>-->
+                </FrameLayout>
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="10dp"
+                    style="@style/labelFor_et"
                     android:text="Giới hạn đăng ký buổi sáng"
                     android:textSize="18sp" />
 
                 <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/bg_edit_text"
+                    android:id="@+id/et_day_limit"
+                    style="@style/edit_text"
                     android:inputType="number"
                     android:hint="0"/>
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="10dp"
+                    style="@style/labelFor_et"
                     android:text="Giới hạn đăng ký buổi trưa"
                     android:textSize="18sp" />
 
                 <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/bg_edit_text"
+                    android:id="@+id/et_noon_limit"
+                    style="@style/edit_text"
                     android:inputType="number"
                     android:hint="0"/>
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="10dp"
+                    style="@style/labelFor_et"
                     android:text="Giới hạn đăng ký buổi tối"
                     android:textSize="18sp" />
 
                 <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/bg_edit_text"
+                    android:id="@+id/et_night_limit"
+                    style="@style/edit_text"
                     android:inputType="number"
                     android:hint="0"/>
 
                 <Button
                     android:id="@+id/btn_create_schedule"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginVertical="15dp"
-                    android:background="@drawable/bg_btn_primary"
-                    android:gravity="center"
+                    style="@style/btn_primary"
                     android:text="Tạo lịch tiêm chủng" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="30dp" />
             </androidx.appcompat.widget.LinearLayoutCompat>
+            
         </ScrollView>
     </androidx.appcompat.widget.LinearLayoutCompat>
 

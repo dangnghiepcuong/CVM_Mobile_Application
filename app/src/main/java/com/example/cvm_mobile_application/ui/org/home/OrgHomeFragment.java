@@ -12,7 +12,8 @@ import androidx.fragment.app.Fragment;
 
 import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.db.model.Organization;
-import com.example.cvm_mobile_application.ui.citizen.vaccination.CitizenVaccinationActivity;
+import com.example.cvm_mobile_application.ui.org.schedule.OrgCreateScheduleActivity;
+import com.example.cvm_mobile_application.ui.org.vaccine.OrgVaccineManagementActivity;
 
 public class OrgHomeFragment extends Fragment {
 
@@ -20,6 +21,7 @@ public class OrgHomeFragment extends Fragment {
     private View view;
     private Organization org;
     private LinearLayout btnCreateSchedule;
+    private LinearLayout btnVaccineManagement;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -29,13 +31,16 @@ public class OrgHomeFragment extends Fragment {
         org = getArguments().getParcelable("org");
 
         implementView();
-        fullName.setText(org.getName());
+        bindViewData();
+        setViewListener();
+
         return view;
     }
 
     public void implementView() {
         fullName = view.findViewById(R.id.tv_Name);
         btnCreateSchedule = view.findViewById(R.id.btn_create_schedule);
+        btnVaccineManagement = view.findViewById(R.id.btn_vaccine_inventory);
     }
 
     public void bindViewData() {
@@ -46,7 +51,18 @@ public class OrgHomeFragment extends Fragment {
         btnCreateSchedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity().getBaseContext(), CitizenVaccinationActivity.class);
+                Intent intent = new Intent(getActivity().getBaseContext(),
+                        OrgCreateScheduleActivity.class);
+                intent.putExtra("org", org);
+                startActivity(intent);
+            }
+        });
+
+        btnVaccineManagement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity().getBaseContext(),
+                        OrgVaccineManagementActivity.class);
                 intent.putExtra("org", org);
                 startActivity(intent);
             }
