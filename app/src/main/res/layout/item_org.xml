@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/card_linearLayout_horizontal">
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="3">
+
+        <Button
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/ic_org_avatar" />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="7"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tv_org_name"
+            style="@style/text_name"
+            android:text="BV Đa khoa h. Dầu Tiếng"/>
+        <TextView
+            android:id="@+id/tv_org_address"
+            style="@style/text_content"
+            android:text="Địa chỉ: "/>
+        <TextView
+            android:id="@+id/tv_org_contact"
+            style="@style/text_content"
+            android:text="Liên hệ: "/>
+        <TextView
+            android:id="@+id/tv_org_n_schedules"
+            style="@style/text_content"
+            android:text="Số lịch tiêm hiện có:"/>
+    </LinearLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>
+
