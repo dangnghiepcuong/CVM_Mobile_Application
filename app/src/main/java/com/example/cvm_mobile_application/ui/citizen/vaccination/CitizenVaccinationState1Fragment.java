@@ -124,7 +124,7 @@ public class CitizenVaccinationState1Fragment extends Fragment {
 
     public void getTargetRelativesData() {
         db.collection("users")
-                .whereEqualTo("id", "07202007263")
+                .whereEqualTo("guardian", citizen.getId())
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
