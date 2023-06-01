@@ -21,6 +21,7 @@ import com.example.cvm_mobile_application.data.SpinnerOption;
 import com.example.cvm_mobile_application.data.db.model.Citizen;
 import com.example.cvm_mobile_application.data.objects.DVHCHelper;
 import com.example.cvm_mobile_application.ui.SpinnerAdapter;
+import com.example.cvm_mobile_application.ui.citizen.info.CitizenProfileActivity;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -38,7 +39,7 @@ public class CitizenVaccinationState1Fragment extends Fragment {
     private List<SpinnerOption> targetList;
     private String selectedTargetId;
     private EditText etTargetId;
-    private EditText etTargetBirthday;
+    private EditText tvTargetBirthday;
     private RadioButton rdBtnTargetGender;
     private EditText etTargetPhone;
     private EditText etTargetEmail;
@@ -74,9 +75,6 @@ public class CitizenVaccinationState1Fragment extends Fragment {
 
         //GET CITIZEN DATA FROM ACTIVITY
         citizen = requireArguments().getParcelable("citizen");
-        SpinnerOption spOption = new SpinnerOption(citizen.getFull_name(), citizen.getId());
-        targetList = new ArrayList<>();
-        targetList.add(spOption);
 
         //GET CITIZEN RELATIVES DATA FROM FIREBASE
         getTargetRelativesData();
@@ -92,6 +90,8 @@ public class CitizenVaccinationState1Fragment extends Fragment {
     }
 
     public void implementView() throws JSONException {
+        targetList = new ArrayList<>();
+
         spTargetList = view.findViewById(R.id.sp_target_list);
         spTargetListAdapter = new SpinnerAdapter(requireActivity().getApplicationContext(),
                 R.layout.item_string, targetList);
@@ -101,7 +101,7 @@ public class CitizenVaccinationState1Fragment extends Fragment {
         layoutDetailPersonalInfo = view.findViewById(R.id.layout_detail_personal_info);
 
         etTargetFullName = view.findViewById(R.id.et_fullname);
-        etTargetBirthday = view.findViewById(R.id.et_target_birthday);
+        tvTargetBirthday = view.findViewById(R.id.tv_birthday);
         etTargetPhone = view.findViewById(R.id.et_target_phone);
         etTargetId = view.findViewById(R.id.et_target_id);
         etTargetEmail = view.findViewById(R.id.et_target_email);
@@ -154,13 +154,17 @@ public class CitizenVaccinationState1Fragment extends Fragment {
     }
 
     public void bindViewData() throws JSONException {
+        //SET TARGET
+        SpinnerOption spOption = new SpinnerOption(citizen.getFull_name(), citizen.getId());
+        targetList.add(spOption);
+
         selectedTargetId = citizen.getId();
 
         //SET FULL NAME INFO VALUE
         etTargetFullName.setText(citizen.getFull_name());
 
         // SET BIRTHDAY INFO VALUE
-        etTargetBirthday.setText(citizen.getBirthday());
+        tvTargetBirthday.setText(citizen.getBirthday());
 
         // SET GENDER INFO VALUE
         switch (citizen.getGender()) {
