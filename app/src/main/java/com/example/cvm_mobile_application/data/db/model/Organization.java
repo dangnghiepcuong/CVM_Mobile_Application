@@ -12,6 +12,8 @@ public class Organization implements Parcelable {
     private String district_name;
     private String ward_name;
     private String street;
+    private String contact;
+    private byte nSchedules;
 
     public Organization() {
         id = "";
@@ -20,6 +22,8 @@ public class Organization implements Parcelable {
         district_name = "";
         ward_name = "";
         street = "";
+        contact = "";
+        nSchedules = 0;
     }
 
     protected Organization(Parcel in) {
@@ -29,6 +33,8 @@ public class Organization implements Parcelable {
         district_name = in.readString();
         ward_name = in.readString();
         street = in.readString();
+        contact = in.readString();
+        nSchedules = in.readByte();
     }
 
     public static final Creator<Organization> CREATOR = new Creator<Organization>() {
@@ -91,6 +97,21 @@ public class Organization implements Parcelable {
         this.street = street;
     }
 
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+    public byte getNSchedules() {
+        return nSchedules;
+    }
+
+    public void setNSchedules(byte nSchedules) {
+        this.nSchedules = nSchedules;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -104,5 +125,7 @@ public class Organization implements Parcelable {
         parcel.writeString(district_name);
         parcel.writeString(ward_name);
         parcel.writeString(street);
+        parcel.writeString(contact);
+        parcel.writeByte(nSchedules);
     }
 }

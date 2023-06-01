@@ -4,78 +4,60 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.db.model.Organization;
 
 import java.util.List;
 
-public class OrgListAdapter extends ArrayAdapter<Organization> {
-    private List<Organization> orgList;
-    private final LayoutInflater inflater;
+public class OrgListAdapter extends RecyclerView.Adapter<OrgListAdapter.OrganizationViewHolder> {
+    private final Context context;
+    private final List<Organization> orgList;
 
-    public OrgListAdapter(@NonNull Context context, int resource, @NonNull List<Organization> objects) {
-        super(context, resource, objects);
-        this.orgList = objects;
-        inflater = LayoutInflater.from(context);
-    }
-
-    public List<Organization> getOrgList() {
-        return orgList;
-    }
-
-    public void setOrgList(List<Organization> orgList) {
+    public OrgListAdapter(Context context, List<Organization> orgList) {
+        this.context = context;
         this.orgList = orgList;
-    }
-
-    @Override
-    public int getCount() {
-        return orgList.size();
     }
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        View itemView = inflater.inflate(R.layout.item_org, null);
+    public OrganizationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.item_org, parent, false);
 
-        TextView tvOrgName = itemView.findViewById(R.id.tv_org_name);
-        tvOrgName.setText(orgList.get(position).getName());
-
-        String orgAddress =
-                "Địa chỉ: " + orgList.get(position).getStreet() + ", "
-                + orgList.get(position).getWard_name() + ", "
-                + orgList.get(position).getDistrict_name() + ", "
-                + orgList.get(position).getProvince_name();
-
-        TextView tvOrgAddress = itemView.findViewById(R.id.tv_org_address);
-        tvOrgAddress.setText(orgAddress);
-        TextView tvOrgContact = itemView.findViewById(R.id.tv_org_contact);
-        tvOrgContact.setText("Liên hệ: "+ "contact");
-
-        TextView tcOrgNSchedule = itemView.findViewById(R.id.tv_org_n_schedules);
-        tcOrgNSchedule.setText("Số lịch tiêm hiện có: " + "n_schedule");
-
-        return itemView;
+        return new OrganizationViewHolder(view);
     }
 
     @Override
-    public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        if (convertView == null)
-            convertView = inflater.inflate(R.layout.item_string, parent, false);
+    public void onBindViewHolder(OrganizationViewHolder holder, int position) {
+        Organization org = orgList.get(position);
+        holder.tvOrgName.setText(org.getName());
 
-        TextView tvOrgName = convertView.findViewById(R.id.tv_org_name);
-
-        TextView tvVaccineType = convertView.findViewById(R.id.tv_vaccine_type);
-
-        TextView tvOnDate = convertView.findViewById(R.id.tv_on_date);
-
-        TextView tvNRegisted = convertView.findViewById(R.id.tv_org_n_schedules);
-        return convertView;
+        holder.tvOrgAddress.setText(org.getStreet());
+//        holder.tvOrgContact.setText(org.getContact());
+//        holder.tvOrgNSchedules.setText(org.getNSchedules());
     }
 
+    @Override
+    public int getItemCount() {
+        return orgList.size();
+    }
+
+    public static class OrganizationViewHolder extends RecyclerView.ViewHolder {
+        TextView tvOrgName;
+        TextView tvOrgAddress;
+        TextView tvOrgContact;
+        TextView tvOrgNSchedules;
+
+        public OrganizationViewHolder(@NonNull View itemView) {
+            super(itemView);
+            tvOrgName = itemView.findViewById(R.id.tv_org_name);
+            tvOrgAddress = itemView.findViewById(R.id.tv_org_address);
+            tvOrgContact = itemView.findViewById(R.id.tv_org_contact);
+            tvOrgNSchedules = itemView.findViewById(R.id.tv_org_n_schedules);
+        }
+    }
 }

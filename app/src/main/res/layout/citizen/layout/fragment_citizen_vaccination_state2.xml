@@ -30,7 +30,7 @@
                 android:contentDescription="arrow" />
         </LinearLayout>
     </LinearLayout>
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <LinearLayout
         android:id="@+id/layout_linear_region_filter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -107,7 +107,7 @@
                     style="@style/spinner" />
             </LinearLayout>
         </LinearLayout>
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
