@@ -57,7 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -103,10 +103,23 @@
                         android:textSize="16sp" />
                 </LinearLayout>
 
-                <EditText
-                    android:id="@+id/et_target_birthday"
-                    style="@style/edit_text"
-                    android:inputType="date" />
+                <LinearLayout style="@style/linear_layout_date_picker">
+                    <TextView
+                        android:id="@+id/tv_birthday"
+                        style="@style/edit_date"
+                        android:layout_weight="7"/>
+                    <Button
+                        android:id="@+id/btn_birthday_dp"
+                        style="@style/btn_date_picker"
+                        android:layout_weight="3"
+                        android:text="chọn ngày"/>
+                </LinearLayout>
+                <DatePicker
+                    android:id="@+id/dp_birthday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:spinnersShown="false"
+                    android:visibility="gone"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"

@@ -4,77 +4,69 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.db.model.Schedule;
 
 import java.util.List;
 
-public class ScheduleListAdapter extends ArrayAdapter<Schedule> {
-    private List<Schedule> scheduleList;
-    private final LayoutInflater inflater;
+public class ScheduleListAdapter extends RecyclerView.Adapter<ScheduleListAdapter.OrganizationViewHolder> {
+    private final Context context;
+    private final List<Schedule> scheduleList;
 
-    public ScheduleListAdapter(@NonNull Context context, int resource, @NonNull List<Schedule> objects) {
-        super(context, resource, objects);
-        this.scheduleList = objects;
-        inflater = LayoutInflater.from(context);
-    }
-
-    public List<Schedule> getScheduleList() {
-        return scheduleList;
-    }
-
-    public void setScheduleList(List<Schedule> scheduleList) {
+    public ScheduleListAdapter(Context context, List<Schedule> scheduleList) {
+        this.context = context;
         this.scheduleList = scheduleList;
-    }
-
-    @Override
-    public int getCount() {
-        return scheduleList.size();
     }
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        View itemView = inflater.inflate(R.layout.item_schedule, null);
+    public ScheduleListAdapter.OrganizationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.item_schedule, parent, false);
 
-        TextView tvOrgName = itemView.findViewById(R.id.tv_org_name);
-        tvOrgName.setText(scheduleList.get(position).getOrgId());
-        TextView tvVaccineType = itemView.findViewById(R.id.tv_vaccine_type);
-        tvVaccineType.setText(scheduleList.get(position).getVaccineId());
-        TextView tvOnDate = itemView.findViewById(R.id.tv_on_date);
-        tvOnDate.setText(scheduleList.get(position).getOnDate());
-
-        String nRegistered =
-                "Sáng: " + scheduleList.get(position).getDayRegistered() +"/"
-                        + scheduleList.get(position).getLimitDay()
-                + ". Chiều: " + scheduleList.get(position).getNoonRegistered() +"/"
-                        + scheduleList.get(position).getLimitNoon()
-                + ". Tối: " + scheduleList.get(position).getNightRegistered() +"/"
-                        + scheduleList.get(position).getLimitNight();
-        TextView tvNRegisted = itemView.findViewById(R.id.iv_n_registered);
-        tvNRegisted.setText(nRegistered);
-
-        return itemView;
+        return new ScheduleListAdapter.OrganizationViewHolder(view);
     }
 
     @Override
-    public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        if (convertView == null)
-            convertView = inflater.inflate(R.layout.item_string, parent, false);
+    public void onBindViewHolder(ScheduleListAdapter.OrganizationViewHolder holder, int position) {
+        Schedule schedule = scheduleList.get(position);
 
-        TextView tvOrgName = convertView.findViewById(R.id.tv_org_name);
+        holder.tvOrgName.setText(schedule.getOrgId());
+        holder.tvVaccineTupe.setText(schedule.getVaccineId());
+        holder.tvOnDate.setText(schedule.getOnDate());
 
-        TextView tvVaccineType = convertView.findViewById(R.id.tv_vaccine_type);
+        String nRegistered =
+                "Sáng: " + schedule.getDayRegistered() +"/"
+                        + schedule.getLimitDay()
+                        + ". Chiều: " + schedule.getNoonRegistered() +"/"
+                        + schedule.getLimitNoon()
+                        + ". Tối: " + schedule.getNightRegistered() +"/"
+                        + schedule.getLimitNight();
+        holder.tvNRegistered.setText(nRegistered);
 
-        TextView tvOnDate = convertView.findViewById(R.id.tv_on_date);
+    }
 
-        TextView tvNRegisted = convertView.findViewById(R.id.iv_n_registered);
-        return convertView;
+    @Override
+    public int getItemCount() {
+        return scheduleList.size();
+    }
+
+    public static class OrganizationViewHolder extends RecyclerView.ViewHolder {
+        TextView tvOrgName;
+        TextView tvVaccineTupe;
+        TextView tvOnDate;
+        TextView tvNRegistered;
+
+        public OrganizationViewHolder(@NonNull View itemView) {
+            super(itemView);
+            tvOrgName = itemView.findViewById(R.id.tv_org_name);
+            tvVaccineTupe = itemView.findViewById(R.id.tv_vaccine_type);
+            tvOnDate = itemView.findViewById(R.id.tv_on_date);
+            tvNRegistered = itemView.findViewById(R.id.iv_n_registered);
+        }
     }
 }
