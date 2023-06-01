@@ -6,12 +6,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.SpinnerOption;
@@ -54,6 +57,13 @@ public class CitizenVaccinationState1Fragment extends Fragment {
     private LinearLayout layoutDetailPersonalInfo;
     private EditText etTargetFullName;
     private SpinnerAdapter spTargetListAdapter;
+    private Button btnSave;
+    private FragmentManager fragmentManager;
+    private CitizenVaccinationState2Fragment state2Fragment;
+
+    public Citizen getTarget() {
+        return citizen;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -99,6 +109,8 @@ public class CitizenVaccinationState1Fragment extends Fragment {
         spDistrict = view.findViewById(R.id.sp_district);
         spWard = view.findViewById(R.id.sp_ward);
         etTargetStreet = view.findViewById(R.id.et_target_street);
+
+        btnSave = view.findViewById(R.id.btn_next);
     }
 
     public void getTargetData() {
@@ -329,5 +341,24 @@ public class CitizenVaccinationState1Fragment extends Fragment {
 
             }
         });
+
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("citizen", citizen);
+
+                state2Fragment = new CitizenVaccinationState2Fragment();
+                state2Fragment.setArguments(bundle);
+                CitizenVaccinationState1Fragment.this.replaceFragment(state2Fragment);
+            }
+        });
+    }
+
+    public void replaceFragment(Fragment fragment) {
+        fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout, fragment);
+        fragmentTransaction.commit();
     }
 }

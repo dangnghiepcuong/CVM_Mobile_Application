@@ -1,8 +1,6 @@
 package com.example.cvm_mobile_application.ui.citizen.vaccination;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -16,7 +14,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class CitizenVaccinationActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private Citizen citizen;
-    private Button btnNext;
+    private CitizenVaccinationState1Fragment state1Fragment;
+    private CitizenVaccinationState2Fragment state2Fragment;
+    private FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,26 +37,20 @@ public class CitizenVaccinationActivity extends AppCompatActivity {
 
         Bundle bundle = new Bundle();
         bundle.putParcelable("citizen", citizen);
-        CitizenVaccinationState1Fragment state1Fragment = new CitizenVaccinationState1Fragment();
+        state1Fragment = new CitizenVaccinationState1Fragment();
         state1Fragment.setArguments(bundle);
         replaceFragment(state1Fragment);
     }
 
     public void implementView() {
-        btnNext = findViewById(R.id.btn_next);
     }
 
     public void setViewListener() {
-        btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // replaceFragment
-            }
-        });
+
     }
 
     public void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
