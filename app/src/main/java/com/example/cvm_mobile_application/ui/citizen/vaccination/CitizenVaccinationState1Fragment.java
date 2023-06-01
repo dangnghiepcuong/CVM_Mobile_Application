@@ -7,10 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -21,7 +23,6 @@ import com.example.cvm_mobile_application.data.SpinnerOption;
 import com.example.cvm_mobile_application.data.db.model.Citizen;
 import com.example.cvm_mobile_application.data.objects.DVHCHelper;
 import com.example.cvm_mobile_application.ui.SpinnerAdapter;
-import com.example.cvm_mobile_application.ui.citizen.info.CitizenProfileActivity;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -38,12 +39,14 @@ public class CitizenVaccinationState1Fragment extends Fragment {
     private Spinner spTargetList;
     private List<SpinnerOption> targetList;
     private String selectedTargetId;
-    private EditText etTargetId;
-    private EditText tvTargetBirthday;
-    private RadioButton rdBtnTargetGender;
-    private EditText etTargetPhone;
-    private EditText etTargetEmail;
-    private EditText etTargetStreet;
+    private EditText etId;
+    private TextView tvBirthday;
+    private Button btnBirthdayDP;
+    private DatePicker dpBirhtday;
+    private RadioButton rdBtnGender;
+    private EditText etPhone;
+    private EditText etEmail;
+    private EditText etStreet;
     private Spinner spProvince;
     private List<SpinnerOption> provinceList = new ArrayList<>();
     private SpinnerAdapter spProvinceListAdapter;
@@ -56,7 +59,7 @@ public class CitizenVaccinationState1Fragment extends Fragment {
     private DVHCHelper dvhcHelper;
     private LinearLayout btnDetailPersonalInfo;
     private LinearLayout layoutDetailPersonalInfo;
-    private EditText etTargetFullName;
+    private EditText etFullName;
     private SpinnerAdapter spTargetListAdapter;
     private Button btnSave;
     private FragmentManager fragmentManager;
@@ -75,6 +78,9 @@ public class CitizenVaccinationState1Fragment extends Fragment {
 
         //GET CITIZEN DATA FROM ACTIVITY
         citizen = requireArguments().getParcelable("citizen");
+        SpinnerOption spOption = new SpinnerOption(citizen.getFull_name(), citizen.getId());
+        targetList = new ArrayList<>();
+        targetList.add(spOption);
 
         //GET CITIZEN RELATIVES DATA FROM FIREBASE
         getTargetRelativesData();
@@ -90,8 +96,6 @@ public class CitizenVaccinationState1Fragment extends Fragment {
     }
 
     public void implementView() throws JSONException {
-        targetList = new ArrayList<>();
-
         spTargetList = view.findViewById(R.id.sp_target_list);
         spTargetListAdapter = new SpinnerAdapter(requireActivity().getApplicationContext(),
                 R.layout.item_string, targetList);
@@ -100,15 +104,19 @@ public class CitizenVaccinationState1Fragment extends Fragment {
         btnDetailPersonalInfo = view.findViewById(R.id.btn_detail_personal_info);
         layoutDetailPersonalInfo = view.findViewById(R.id.layout_detail_personal_info);
 
-        etTargetFullName = view.findViewById(R.id.et_fullname);
-        tvTargetBirthday = view.findViewById(R.id.tv_birthday);
-        etTargetPhone = view.findViewById(R.id.et_target_phone);
-        etTargetId = view.findViewById(R.id.et_target_id);
-        etTargetEmail = view.findViewById(R.id.et_target_email);
+        etFullName = view.findViewById(R.id.et_fullname);
+
+        tvBirthday = view.findViewById(R.id.tv_birthday);
+        btnBirthdayDP = view.findViewById(R.id.btn_birthday_dp);
+        dpBirhtday = view.findViewById(R.id.dp_birthday);
+
+        etPhone = view.findViewById(R.id.et_phone);
+        etId = view.findViewById(R.id.et_id);
+        etEmail = view.findViewById(R.id.et_email);
         spProvince = view.findViewById(R.id.sp_province);
         spDistrict = view.findViewById(R.id.sp_district);
         spWard = view.findViewById(R.id.sp_ward);
-        etTargetStreet = view.findViewById(R.id.et_target_street);
+        etStreet = view.findViewById(R.id.et_street);
 
         btnSave = view.findViewById(R.id.btn_next);
     }
@@ -154,40 +162,37 @@ public class CitizenVaccinationState1Fragment extends Fragment {
     }
 
     public void bindViewData() throws JSONException {
-        //SET TARGET
-        SpinnerOption spOption = new SpinnerOption(citizen.getFull_name(), citizen.getId());
-        targetList.add(spOption);
-
+        //SET TARGET ID
         selectedTargetId = citizen.getId();
 
         //SET FULL NAME INFO VALUE
-        etTargetFullName.setText(citizen.getFull_name());
+        etFullName.setText(citizen.getFull_name());
 
         // SET BIRTHDAY INFO VALUE
-        tvTargetBirthday.setText(citizen.getBirthday());
+        tvBirthday.setText(citizen.getBirthday());
 
         // SET GENDER INFO VALUE
         switch (citizen.getGender()) {
             case "Nam":
-                rdBtnTargetGender = view.findViewById(R.id.rd_btn_target_gender_male);
+                rdBtnGender = view.findViewById(R.id.rd_btn_gender_male);
                 break;
             case "Nữ":
-                rdBtnTargetGender = view.findViewById(R.id.rd_btn_target_gender_female);
+                rdBtnGender = view.findViewById(R.id.rd_btn_gender_female);
                 break;
             case "Khác":
-                rdBtnTargetGender = view.findViewById(R.id.rd_btn_target_gender_another);
+                rdBtnGender = view.findViewById(R.id.rd_btn_gender_another);
                 break;
         }
-        rdBtnTargetGender.setChecked(true);
+        rdBtnGender.setChecked(true);
 
         //SET PHONE INFO VALUE
-        etTargetPhone.setText(citizen.getPhone());
+        etPhone.setText(citizen.getPhone());
 
         //SET ID INFO VALUE
-        etTargetId.setText(selectedTargetId);
+        etId.setText(selectedTargetId);
 
         //SET EMAIL INFO VALUE
-        etTargetEmail.setText(citizen.getEmail());
+        etEmail.setText(citizen.getEmail());
 
         //GET PROVINCE LIST
         provinceList = dvhcHelper.getLocalList(DVHCHelper.PROVINCE_LEVEL, null);
@@ -225,7 +230,7 @@ public class CitizenVaccinationState1Fragment extends Fragment {
         spWard.setSelection(wardPosition);
 
         //SET ADDRESS INFO VALUE
-        etTargetStreet.setText(citizen.getStreet());
+        etStreet.setText(citizen.getStreet());
     }
 
     public void setViewListener() {
@@ -242,7 +247,6 @@ public class CitizenVaccinationState1Fragment extends Fragment {
                 }
 
                 selectedTargetId = option.getValue();
-                etTargetId.setText(selectedTargetId);
                 Log.i("myTAG", selectedTargetId);
                 CitizenVaccinationState1Fragment.this.getTargetData();
             }
@@ -264,6 +268,25 @@ public class CitizenVaccinationState1Fragment extends Fragment {
                 default:
                 case View.INVISIBLE:
                     layoutDetailPersonalInfo.setVisibility(View.GONE);
+            }
+        });
+
+        btnBirthdayDP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (dpBirhtday.getVisibility() == View.GONE) {
+                    dpBirhtday.setVisibility(View.VISIBLE);
+                } else {
+                    dpBirhtday.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        dpBirhtday.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
+            @Override
+            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                monthOfYear++;
+                tvBirthday.setText(year + "-" + monthOfYear + "-" + dayOfMonth);
             }
         });
 

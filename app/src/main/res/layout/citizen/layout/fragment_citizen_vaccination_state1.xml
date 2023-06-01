@@ -148,7 +148,7 @@
                     android:orientation="horizontal">
 
                     <RadioButton
-                        android:id="@+id/rd_btn_target_gender_male"
+                        android:id="@+id/rd_btn_gender_male"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -156,7 +156,7 @@
                         android:textSize="16sp" />
 
                     <RadioButton
-                        android:id="@+id/rd_btn_target_gender_female"
+                        android:id="@+id/rd_btn_gender_female"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -164,7 +164,7 @@
                         android:textSize="16sp" />
 
                     <RadioButton
-                        android:id="@+id/rd_btn_target_gender_another"
+                        android:id="@+id/rd_btn_gender_another"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -193,7 +193,7 @@
                 </LinearLayout>
 
                 <EditText
-                    android:id="@+id/et_target_phone"
+                    android:id="@+id/et_phone"
                     style="@style/edit_text" />
 
                 <LinearLayout
@@ -217,7 +217,7 @@
                 </LinearLayout>
 
                 <EditText
-                    android:id="@+id/et_target_id"
+                    android:id="@+id/et_id"
                     style="@style/edit_text" />
 
                 <LinearLayout
@@ -241,7 +241,7 @@
                 </LinearLayout>
 
                 <EditText
-                    android:id="@+id/et_target_email"
+                    android:id="@+id/et_email"
                     style="@style/edit_text" />
 
                 <LinearLayout
@@ -330,7 +330,7 @@
                 </LinearLayout>
 
                 <EditText
-                    android:id="@+id/et_target_street"
+                    android:id="@+id/et_street"
                     style="@style/edit_text" />
             </LinearLayout>
 

@@ -15,7 +15,6 @@ public class CitizenVaccinationActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private Citizen citizen;
     private CitizenVaccinationState1Fragment state1Fragment;
-    private CitizenVaccinationState2Fragment state2Fragment;
     private FragmentManager fragmentManager;
 
     @Override
