@@ -15,7 +15,7 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/btn_detail_personal_info"
+            android:id="@+id/btn_schedule_filter"
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
 
@@ -31,6 +31,7 @@
         </LinearLayout>
     </LinearLayout>
     <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/layout_linear_schedule_filter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="10dp"
