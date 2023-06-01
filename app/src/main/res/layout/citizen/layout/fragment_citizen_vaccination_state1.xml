@@ -12,7 +12,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="9"
+        android:layout_weight="10"
         android:paddingTop="40dp">
 
         <LinearLayout
@@ -321,4 +321,24 @@
 
         </LinearLayout>
     </ScrollView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingHorizontal="20dp">
+
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text="Back"/>
+
+        <Button
+            android:id="@+id/btn_next"
+            style="@style/btn_primary"
+            android:text="Lưu thông tin"
+            android:textSize="18sp" />
+    </LinearLayout>
 </androidx.appcompat.widget.LinearLayoutCompat>

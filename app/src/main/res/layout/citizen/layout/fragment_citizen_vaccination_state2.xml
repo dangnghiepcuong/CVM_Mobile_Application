@@ -1,228 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/card_white_rounded_corner"
+    tools:context=".ui.citizen.vaccination.CitizenVaccinationState2Fragment"
+    tools:viewBindingIgnore="true">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="9">
-        <ScrollView
+        android:layout_weight="11">
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingHorizontal="10dp">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="10dp">
 
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    style="@style/card_linearLayout_horizontal">
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3">
-                        <Button
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:layout_centerInParent="true"
-                            android:background="@drawable/ic_calendar" />
-                    </RelativeLayout>
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="7"
-                        android:orientation="vertical">
-                        <TextView style="@style/text_name"
-                            android:text="BV Đa khoa h. Dầu Tiếng"/>
-                        <TextView style="@style/text_content"
-                            android:text="Vắc-xin: Astra Zeneca"/>
-                        <TextView style="@style/text_content"
-                            android:text="Ngày: dd/mm/yyyy"/>
-                        <TextView style="@style/text_content"
-                            android:text="Sáng: #/#; Trưa: #/#; Tối: #/#"/>
-                    </LinearLayout>
-                </androidx.appcompat.widget.LinearLayoutCompat>
+            <androidx.appcompat.widget.LinearLayoutCompat style="@style/card_linearLayout_horizontal">
 
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    style="@style/card_linearLayout_horizontal">
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3">
-                        <Button
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:layout_centerInParent="true"
-                            android:background="@drawable/ic_calendar" />
-                    </RelativeLayout>
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="7"
-                        android:orientation="vertical">
-                        <TextView style="@style/text_name"
-                            android:text="BV Đa khoa h. Dầu Tiếng"/>
-                        <TextView style="@style/text_content"
-                            android:text="Vắc-xin: Astra Zeneca"/>
-                        <TextView style="@style/text_content"
-                            android:text="Ngày: dd/mm/yyyy"/>
-                        <TextView style="@style/text_content"
-                            android:text="Sáng: #/#; Trưa: #/#; Tối: #/#"/>
-                    </LinearLayout>
-                </androidx.appcompat.widget.LinearLayoutCompat>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3">
 
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    style="@style/card_linearLayout_horizontal">
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3">
-                        <Button
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:layout_centerInParent="true"
-                            android:background="@drawable/ic_calendar" />
-                    </RelativeLayout>
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="7"
-                        android:orientation="vertical">
-                        <TextView style="@style/text_name"
-                            android:text="BV Đa khoa h. Dầu Tiếng"/>
-                        <TextView style="@style/text_content"
-                            android:text="Vắc-xin: Astra Zeneca"/>
-                        <TextView style="@style/text_content"
-                            android:text="Ngày: dd/mm/yyyy"/>
-                        <TextView style="@style/text_content"
-                            android:text="Sáng: #/#; Trưa: #/#; Tối: #/#"/>
-                    </LinearLayout>
-                </androidx.appcompat.widget.LinearLayoutCompat>
+                    <Button
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/ic_calendar" />
+                </RelativeLayout>
 
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    style="@style/card_linearLayout_horizontal">
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3">
-                        <Button
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:layout_centerInParent="true"
-                            android:background="@drawable/ic_calendar" />
-                    </RelativeLayout>
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="7"
-                        android:orientation="vertical">
-                        <TextView style="@style/text_name"
-                            android:text="BV Đa khoa h. Dầu Tiếng"/>
-                        <TextView style="@style/text_content"
-                            android:text="Vắc-xin: Astra Zeneca"/>
-                        <TextView style="@style/text_content"
-                            android:text="Ngày: dd/mm/yyyy"/>
-                        <TextView style="@style/text_content"
-                            android:text="Sáng: #/#; Trưa: #/#; Tối: #/#"/>
-                    </LinearLayout>
-                </androidx.appcompat.widget.LinearLayoutCompat>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:orientation="vertical">
 
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    style="@style/card_linearLayout_horizontal">
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3">
-                        <Button
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:layout_centerInParent="true"
-                            android:background="@drawable/ic_calendar" />
-                    </RelativeLayout>
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="7"
-                        android:orientation="vertical">
-                        <TextView style="@style/text_name"
-                            android:text="BV Đa khoa h. Dầu Tiếng"/>
-                        <TextView style="@style/text_content"
-                            android:text="Vắc-xin: Astra Zeneca"/>
-                        <TextView style="@style/text_content"
-                            android:text="Ngày: dd/mm/yyyy"/>
-                        <TextView style="@style/text_content"
-                            android:text="Sáng: #/#; Trưa: #/#; Tối: #/#"/>
-                    </LinearLayout>
-                </androidx.appcompat.widget.LinearLayoutCompat>
+                    <TextView
+                        style="@style/text_name"
+                        android:text="BV Đa khoa h. Dầu Tiếng" />
 
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    style="@style/card_linearLayout_horizontal">
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3">
-                        <Button
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:layout_centerInParent="true"
-                            android:background="@drawable/ic_calendar" />
-                    </RelativeLayout>
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="7"
-                        android:orientation="vertical">
-                        <TextView style="@style/text_name"
-                            android:text="BV Đa khoa h. Dầu Tiếng"/>
-                        <TextView style="@style/text_content"
-                            android:text="Vắc-xin: Astra Zeneca"/>
-                        <TextView style="@style/text_content"
-                            android:text="Ngày: dd/mm/yyyy"/>
-                        <TextView style="@style/text_content"
-                            android:text="Sáng: #/#; Trưa: #/#; Tối: #/#"/>
-                    </LinearLayout>
-                </androidx.appcompat.widget.LinearLayoutCompat>
+                    <TextView
+                        style="@style/text_content"
+                        android:text="Vắc-xin: Astra Zeneca" />
 
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    style="@style/card_linearLayout_horizontal">
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3">
-                        <Button
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:layout_centerInParent="true"
-                            android:background="@drawable/ic_calendar" />
-                    </RelativeLayout>
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="7"
-                        android:orientation="vertical">
-                        <TextView style="@style/text_name"
-                            android:text="BV Đa khoa h. Dầu Tiếng"/>
-                        <TextView style="@style/text_content"
-                            android:text="Vắc-xin: Astra Zeneca"/>
-                        <TextView style="@style/text_content"
-                            android:text="Ngày: dd/mm/yyyy"/>
-                        <TextView style="@style/text_content"
-                            android:text="Sáng: #/#; Trưa: #/#; Tối: #/#"/>
-                    </LinearLayout>
-                </androidx.appcompat.widget.LinearLayoutCompat>
+                    <TextView
+                        style="@style/text_content"
+                        android:text="Ngày: dd/mm/yyyy" />
 
+                    <TextView
+                        style="@style/text_content"
+                        android:text="Sáng: #/#; Trưa: #/#; Tối: #/#" />
+                </LinearLayout>
             </androidx.appcompat.widget.LinearLayoutCompat>
-        </ScrollView>
-    </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </ScrollView>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:background="@color/white"
+        android:orientation="horizontal"
         android:paddingHorizontal="20dp">
-        <Button style="@style/btn_primary"
-            android:text="Tiếp tục"/>
-    </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text="Back"/>
+
+        <Button
+            android:id="@+id/btn_next"
+            style="@style/btn_primary"
+            android:text="Lưu thông tin"
+            android:textSize="18sp" />
+    </LinearLayout>
 </androidx.appcompat.widget.LinearLayoutCompat>
