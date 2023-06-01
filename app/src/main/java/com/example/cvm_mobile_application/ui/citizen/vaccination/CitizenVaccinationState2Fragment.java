@@ -74,9 +74,22 @@ public class CitizenVaccinationState2Fragment extends Fragment {
         return view;
     }
 
-    public void implementView() throws JSONException {
+    public void implementView() {
         btnRegionFilter = view.findViewById(R.id.btn_region_filter);
         layoutRegionFilter = view.findViewById(R.id.layout_linear_region_filter);
+
+        spProvince = view.findViewById(R.id.sp_province);
+        spDistrict = view.findViewById(R.id.sp_district);
+        spWard = view.findViewById(R.id.sp_ward);
+
+        //SET ORG LIST VIEW
+        recyclerViewOrgList = view.findViewById(R.id.view_recycler_org_list);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
+        recyclerViewOrgList.setLayoutManager(linearLayoutManager);
+    }
+
+    public void bindViewData() throws JSONException {
 
         //GET PROVINCE LIST
         provinceList = dvhcHelper.getLocalList(DVHCHelper.PROVINCE_LEVEL, null);
@@ -113,16 +126,12 @@ public class CitizenVaccinationState2Fragment extends Fragment {
                 DVHCHelper.WARD_LEVEL, citizen.getWard_name(), districtCode);
         spWard.setSelection(wardPosition);
 
-        recyclerViewOrgList = view.findViewById(R.id.view_recycler_org_list);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
-        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
-        recyclerViewOrgList.setLayoutManager(linearLayoutManager);
-        orgListAdapter = new OrgListAdapter(getActivity().getApplicationContext(),
-                R.layout.item_org, orgList);
-    }
-
-    public void bindViewData() {
+        //GET THE ORG LIST BASE ON THE INIT FILTER
         getOrgList(citizen.getProvince_name(), citizen.getDistrict_name(), citizen.getWard_name());
+
+        //BIND ORG LIST DATA
+        orgListAdapter = new OrgListAdapter(getActivity().getApplicationContext(), orgList);
+        recyclerViewOrgList.setAdapter(orgListAdapter);
     }
 
     public void setViewListener() {
