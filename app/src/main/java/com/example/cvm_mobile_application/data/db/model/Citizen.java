@@ -9,6 +9,7 @@ public class Citizen implements Parcelable {
     private String id;
     private String last_name;
     private String first_name;
+    private String full_name;
     private String birthday;
     private String gender;
     private String hometown;
@@ -23,6 +24,7 @@ public class Citizen implements Parcelable {
     public Citizen() {
         id = "";
         last_name = "";
+        full_name = "";
         birthday = "";
         gender = "";
         hometown = "";
@@ -39,6 +41,7 @@ public class Citizen implements Parcelable {
         id = in.readString();
         last_name = in.readString();
         first_name = in.readString();
+        full_name = in.readString();
         birthday = in.readString();
         gender = in.readString();
         hometown = in.readString();
@@ -85,6 +88,10 @@ public class Citizen implements Parcelable {
 
     public void setFirst_name(String first_name) {
         this.first_name = first_name;
+    }
+
+    public void setFull_name(String full_name) {
+        this.full_name = full_name;
     }
 
     public String getBirthday() {
@@ -168,7 +175,7 @@ public class Citizen implements Parcelable {
     }
 
     public String getFull_name() {
-        return last_name + " " + first_name;
+        return full_name;
     }
 
     @Override
@@ -181,6 +188,7 @@ public class Citizen implements Parcelable {
         dest.writeString(id);
         dest.writeString(last_name);
         dest.writeString(first_name);
+        dest.writeString(full_name);
         dest.writeString(birthday);
         dest.writeString(gender);
         dest.writeString(hometown);

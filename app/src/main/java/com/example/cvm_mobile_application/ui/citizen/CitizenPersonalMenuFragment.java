@@ -58,6 +58,7 @@ public class CitizenPersonalMenuFragment extends Fragment {
         menuTabLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 CitizenPersonalMenuFragment.this.logOut();
             }
         });
