@@ -32,12 +32,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="end">
+                android:gravity="end"
+                android:orientation="vertical">
+
                 <LinearLayout
                     android:id="@+id/btn_detail_personal_info"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent">
+
                     <TextView
                         style="@style/labelFor_et"
                         android:text="Chi tiết" />
@@ -45,10 +47,10 @@
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:contentDescription="arrow"
-                        android:background="@drawable/ic_spinner_arrow_down" />
+                        android:background="@drawable/ic_spinner_arrow_down"
+                        android:contentDescription="arrow" />
                 </LinearLayout>
-                </LinearLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/layout_detail_personal_info"
@@ -79,7 +81,7 @@
 
                 <EditText
                     android:id="@+id/et_fullname"
-                    style="@style/edit_text"/>
+                    style="@style/edit_text" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -104,7 +106,7 @@
                 <EditText
                     android:id="@+id/et_target_birthday"
                     style="@style/edit_text"
-                    android:inputType="date"/>
+                    android:inputType="date" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -321,6 +323,7 @@
 
         </LinearLayout>
     </ScrollView>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -333,7 +336,7 @@
             android:id="@+id/btn_back"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:text="Back"/>
+            android:text="Back" />
 
         <Button
             android:id="@+id/btn_next"
