@@ -44,12 +44,21 @@ public class ScheduleListAdapter extends ArrayAdapter<Schedule> {
         View itemView = inflater.inflate(R.layout.item_schedule, null);
 
         TextView tvOrgName = itemView.findViewById(R.id.tv_org_name);
-        tvOrgName.setText(scheduleList.get(position).getOrg().getName());
+        tvOrgName.setText(scheduleList.get(position).getOrgId());
         TextView tvVaccineType = itemView.findViewById(R.id.tv_vaccine_type);
-
+        tvVaccineType.setText(scheduleList.get(position).getVaccineId());
         TextView tvOnDate = itemView.findViewById(R.id.tv_on_date);
+        tvOnDate.setText(scheduleList.get(position).getOnDate());
 
-        TextView tvNRegisted = itemView.findViewById(R.id.iv_n_registed);
+        String nRegistered =
+                "Sáng: " + scheduleList.get(position).getDayRegistered() +"/"
+                        + scheduleList.get(position).getLimitDay()
+                + ". Chiều: " + scheduleList.get(position).getNoonRegistered() +"/"
+                        + scheduleList.get(position).getLimitNoon()
+                + ". Tối: " + scheduleList.get(position).getNightRegistered() +"/"
+                        + scheduleList.get(position).getLimitNight();
+        TextView tvNRegisted = itemView.findViewById(R.id.iv_n_registered);
+        tvNRegisted.setText(nRegistered);
 
         return itemView;
     }
@@ -65,7 +74,7 @@ public class ScheduleListAdapter extends ArrayAdapter<Schedule> {
 
         TextView tvOnDate = convertView.findViewById(R.id.tv_on_date);
 
-        TextView tvNRegisted = convertView.findViewById(R.id.iv_n_registed);
+        TextView tvNRegisted = convertView.findViewById(R.id.iv_n_registered);
         return convertView;
     }
 }

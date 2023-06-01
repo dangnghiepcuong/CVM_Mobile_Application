@@ -29,7 +29,7 @@
                 style="@style/text_content"
                 android:text="Ngày: dd/mm/yyyy"/>
             <TextView
-                android:id="@+id/iv_n_registed"
+                android:id="@+id/iv_n_registered"
                 style="@style/text_content"
                 android:text="Sáng: #/#; Trưa: #/#; Tối: #/#"/>
         </LinearLayout>
