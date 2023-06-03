@@ -43,10 +43,10 @@
             </LinearLayout>
 
             <EditText
+                android:id="@+id/et_id"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="5dp"
-                android:autofillHints="name"
                 android:hint="hint"
                 android:paddingLeft="15dp"
                 android:textSize="16dp"
@@ -71,10 +71,10 @@
             </LinearLayout>
 
             <EditText
+                android:id="@+id/et_name"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="5dp"
-                android:inputType="date"
                 android:hint="hint"
                 android:paddingLeft="15dp"
                 android:textSize="16dp"
@@ -83,108 +83,96 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
-                android:orientation="horizontal"
-                android:gravity="bottom">
+                android:gravity="bottom"
+                android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Tỉnh/Thành phố"
-                    android:textSize="16dp"/>
+                    android:textSize="16sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=" *"
                     android:textColor="@color/red"
-                    android:textSize="16dp"/>
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <Spinner
-                android:id="@+id/select_city"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/bg_edit_text"/>
+                android:id="@+id/sp_province"
+                style="@style/spinner" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
-                android:orientation="horizontal"
-                android:gravity="bottom">
+                android:gravity="bottom"
+                android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Quận/Huyện"
-                    android:textSize="16dp"/>
+                    android:textSize="16sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=" *"
                     android:textColor="@color/red"
-                    android:textSize="16dp"/>
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <Spinner
-                android:id="@+id/select_district"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/bg_edit_text"/>
+                android:id="@+id/sp_district"
+                style="@style/spinner" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
-                android:orientation="horizontal"
-                android:gravity="bottom">
+                android:gravity="bottom"
+                android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Phường/Xã"
-                    android:textSize="16dp"/>
+                    android:textSize="16sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=" *"
                     android:textColor="@color/red"
-                    android:textSize="16dp"/>
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <Spinner
-                android:id="@+id/select_town"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/bg_edit_text"/>
+                android:id="@+id/sp_ward"
+                style="@style/spinner" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
-                android:orientation="horizontal"
-                android:gravity="bottom">
+                android:gravity="bottom"
+                android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Thôn/Xóm/Số nhà"
-                    android:textSize="16dp"/>
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="5dp"
-                android:autofillHints="text"
-                android:hint="hint"
-                android:paddingLeft="15dp"
-                android:textSize="16dp"
-                android:background="@drawable/bg_edit_text"/>
+                android:id="@+id/et_street"
+                style="@style/edit_text" />
         </LinearLayout>
     </ScrollView>
     </LinearLayout>
     <Button
+        android:id="@+id/btn_save_profile"
         style="@style/btn_primary"
-        android:layout_gravity="center_horizontal"
-        android:text="Lưu thông tin"
-        android:textSize="18dp"
-        android:textColor="@color/white"
-        android:background="@drawable/bg_btn_primary"
-        android:layout_marginHorizontal="20dp"/>
+        android:text="Lưu thông tin" />
 </androidx.appcompat.widget.LinearLayoutCompat>
