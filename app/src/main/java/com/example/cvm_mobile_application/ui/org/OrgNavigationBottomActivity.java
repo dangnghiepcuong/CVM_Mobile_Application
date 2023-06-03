@@ -19,7 +19,7 @@ import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.db.model.Organization;
 import com.example.cvm_mobile_application.ui.notification.NotificationFragment;
 import com.example.cvm_mobile_application.ui.org.home.OrgHomeFragment;
-import com.example.cvm_mobile_application.ui.org.info.OrgOptionalMenuFragment;
+import com.example.cvm_mobile_application.ui.org.info.OrgProfileActivity;
 import com.example.cvm_mobile_application.ui.org.schedule.OrgScheduleFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

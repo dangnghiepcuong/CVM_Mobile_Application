@@ -13,8 +13,9 @@ import androidx.fragment.app.Fragment;
 import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.db.model.Organization;
 import com.example.cvm_mobile_application.ui.citizen.info.CitizenProfileActivity;
+import com.example.cvm_mobile_application.ui.org.info.OrgProfileActivity;
 
-public class OrgOptionalMenuFragment extends Fragment {
+public class    OrgOptionalMenuFragment extends Fragment {
     private View view;
     private Organization org;
     private LinearLayout menuTabProfile;
@@ -23,7 +24,7 @@ public class OrgOptionalMenuFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_citizen_personal_menu, container, false);
+        view = inflater.inflate(R.layout.fragment_org_optional_menu, container, false);
 
         org = getArguments().getParcelable("org");
 
@@ -34,6 +35,8 @@ public class OrgOptionalMenuFragment extends Fragment {
 
     public void implementView() {
         TextView tvName = view.findViewById(R.id.tv_Name);
+        tvName.setText(org.getName());
+
         menuTabProfile = view.findViewById(R.id.menu_tab_profile);
         menuTabLogout = view.findViewById(R.id.menu_tab_logout);
     }
@@ -48,7 +51,7 @@ public class OrgOptionalMenuFragment extends Fragment {
     }
 
     public void getProfileActivity(Organization org){
-        Intent intent = new Intent(getActivity(), CitizenProfileActivity.class);
+        Intent intent = new Intent(getActivity(), OrgProfileActivity.class);
         intent.putExtra("org", org);
         startActivity(intent);
     }
