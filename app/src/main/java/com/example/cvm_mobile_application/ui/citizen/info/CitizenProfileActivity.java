@@ -108,7 +108,9 @@ public class CitizenProfileActivity extends AppCompatActivity implements ViewStr
     @Override
     public void bindViewData() throws JSONException {
         etFullName.setText(citizen.getFull_name());
-        tvBirthday.setText(citizen.getBirthday());
+
+
+        tvBirthday.setText(citizen.getBirthdayString());
 
         switch (citizen.getGender()) {
             case "Nam":
@@ -275,7 +277,8 @@ public class CitizenProfileActivity extends AppCompatActivity implements ViewStr
     public void updateProfile() {
         Citizen profile = new Citizen();
         profile.setFull_name(String.valueOf(etFullName.getText()));
-        profile.setBirthday(String.valueOf(tvBirthday.getText()));
+
+        profile.setBirthdayFromString(String.valueOf(tvBirthday));
 
         switch (rdGroupGender.getCheckedRadioButtonId()) {
             case 0:
@@ -316,7 +319,7 @@ public class CitizenProfileActivity extends AppCompatActivity implements ViewStr
         data.put("street", profile.getStreet());
 
         db.collection("users")
-                .document(citizen.getPhone())
+                .document(citizen.getEmail())
                 .set(data)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override

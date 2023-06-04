@@ -21,6 +21,7 @@ import com.example.cvm_mobile_application.data.db.model.Organization;
 import com.example.cvm_mobile_application.data.objects.DVHCHelper;
 import com.example.cvm_mobile_application.ui.OrgListAdapter;
 import com.example.cvm_mobile_application.ui.SpinnerAdapter;
+import com.example.cvm_mobile_application.ui.ViewStructure;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -32,7 +33,7 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CitizenVaccinationState2Fragment extends Fragment {
+public class CitizenVaccinationState2Fragment extends Fragment implements ViewStructure {
 
     private View view;
     private FirebaseFirestore db;
@@ -74,6 +75,7 @@ public class CitizenVaccinationState2Fragment extends Fragment {
         return view;
     }
 
+    @Override
     public void implementView() {
         btnRegionFilter = view.findViewById(R.id.btn_region_filter);
         layoutRegionFilter = view.findViewById(R.id.layout_linear_region_filter);
@@ -89,6 +91,7 @@ public class CitizenVaccinationState2Fragment extends Fragment {
         recyclerViewOrgList.setLayoutManager(linearLayoutManager);
     }
 
+    @Override
     public void bindViewData() throws JSONException {
 
         //GET PROVINCE LIST
@@ -134,6 +137,7 @@ public class CitizenVaccinationState2Fragment extends Fragment {
         recyclerViewOrgList.setAdapter(orgListAdapter);
     }
 
+    @Override
     public void setViewListener() {
         //SET DETAIL PERSONAL INFO BUTTON LISTENER
         btnRegionFilter.setOnClickListener(v -> {

@@ -23,6 +23,7 @@ import com.example.cvm_mobile_application.data.SpinnerOption;
 import com.example.cvm_mobile_application.data.db.model.Citizen;
 import com.example.cvm_mobile_application.data.objects.DVHCHelper;
 import com.example.cvm_mobile_application.ui.SpinnerAdapter;
+import com.example.cvm_mobile_application.ui.ViewStructure;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -31,7 +32,7 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CitizenVaccinationState1Fragment extends Fragment {
+public class CitizenVaccinationState1Fragment extends Fragment implements ViewStructure {
     private FirebaseFirestore db;
     private Citizen citizen;
     private List<Citizen> relatives;
@@ -95,7 +96,8 @@ public class CitizenVaccinationState1Fragment extends Fragment {
         return view;
     }
 
-    public void implementView() throws JSONException {
+    @Override
+    public void implementView() {
         spTargetList = view.findViewById(R.id.sp_target_list);
         spTargetListAdapter = new SpinnerAdapter(requireActivity().getApplicationContext(),
                 R.layout.item_string, targetList);
@@ -121,46 +123,7 @@ public class CitizenVaccinationState1Fragment extends Fragment {
         btnSave = view.findViewById(R.id.btn_next);
     }
 
-    public void getTargetData() {
-//        QuerySnapshot document =
-        db.collection("users")
-                .whereEqualTo("id", selectedTargetId)
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        citizen = new Citizen();
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            citizen = document.toObject(Citizen.class);
-                        }
-
-                        try {
-                            CitizenVaccinationState1Fragment.this.bindViewData();
-                        } catch (JSONException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                });
-    }
-
-    public void getTargetRelativesData() {
-        db.collection("users")
-                .whereEqualTo("guardian", citizen.getId())
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        relatives = new ArrayList<>();
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            Citizen relative = document.toObject(Citizen.class);
-                            relatives.add(relative);
-                            SpinnerOption spinnerOption = new SpinnerOption(relative.getFull_name(), relative.getId());
-                            targetList.add(spinnerOption);
-                        }
-                        spTargetListAdapter.setOptionList(targetList);
-                        spTargetListAdapter.notifyDataSetChanged();
-                    }
-                });
-    }
-
+    @Override
     public void bindViewData() throws JSONException {
         //SET TARGET ID
         selectedTargetId = citizen.getId();
@@ -169,7 +132,7 @@ public class CitizenVaccinationState1Fragment extends Fragment {
         etFullName.setText(citizen.getFull_name());
 
         // SET BIRTHDAY INFO VALUE
-        tvBirthday.setText(citizen.getBirthday());
+        tvBirthday.setText(citizen.getBirthdayString());
 
         // SET GENDER INFO VALUE
         switch (citizen.getGender()) {
@@ -233,6 +196,7 @@ public class CitizenVaccinationState1Fragment extends Fragment {
         etStreet.setText(citizen.getStreet());
     }
 
+    @Override
     public void setViewListener() {
         //SET TARGET SPINNER LISTENER
         spTargetList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -380,6 +344,46 @@ public class CitizenVaccinationState1Fragment extends Fragment {
                 CitizenVaccinationState1Fragment.this.replaceFragment(state2Fragment);
             }
         });
+    }
+
+    public void getTargetData() {
+//        QuerySnapshot document =
+        db.collection("users")
+                .whereEqualTo("id", selectedTargetId)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        citizen = new Citizen();
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            citizen = document.toObject(Citizen.class);
+                        }
+
+                        try {
+                            CitizenVaccinationState1Fragment.this.bindViewData();
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                });
+    }
+
+    public void getTargetRelativesData() {
+        db.collection("users")
+                .whereEqualTo("guardian", citizen.getId())
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        relatives = new ArrayList<>();
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            Citizen relative = document.toObject(Citizen.class);
+                            relatives.add(relative);
+                            SpinnerOption spinnerOption = new SpinnerOption(relative.getFull_name(), relative.getId());
+                            targetList.add(spinnerOption);
+                        }
+                        spTargetListAdapter.setOptionList(targetList);
+                        spTargetListAdapter.notifyDataSetChanged();
+                    }
+                });
     }
 
     public void replaceFragment(Fragment fragment) {

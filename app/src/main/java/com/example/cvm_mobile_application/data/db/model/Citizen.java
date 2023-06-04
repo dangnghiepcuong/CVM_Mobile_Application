@@ -1,16 +1,24 @@
 package com.example.cvm_mobile_application.data.db.model;
 
+import android.annotation.SuppressLint;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
+
+import com.google.firebase.Timestamp;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Citizen implements Parcelable {
     private String id;
     private String last_name;
     private String first_name;
     private String full_name;
-    private String birthday;
+    private Timestamp birthday;
     private String gender;
     private String hometown;
     private String province_name;
@@ -25,7 +33,6 @@ public class Citizen implements Parcelable {
         id = "";
         last_name = "";
         full_name = "";
-        birthday = "";
         gender = "";
         hometown = "";
         province_name = "";
@@ -42,7 +49,15 @@ public class Citizen implements Parcelable {
         last_name = in.readString();
         first_name = in.readString();
         full_name = in.readString();
-        birthday = in.readString();
+
+        String dateString = in.readString();
+        @SuppressLint("SimpleDateFormat") DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            birthday =  new Timestamp(df.parse(dateString));
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
         gender = in.readString();
         hometown = in.readString();
         province_name = in.readString();
@@ -94,12 +109,29 @@ public class Citizen implements Parcelable {
         this.full_name = full_name;
     }
 
-    public String getBirthday() {
+    public Timestamp getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(String birthday) {
+    public String getBirthdayString() {
+        @SuppressLint("SimpleDateFormat") DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = birthday.toDate();
+        return df.format(date);
+    }
+
+    public void setBirthday(Timestamp birthday) {
         this.birthday = birthday;
+    }
+
+    public void setBirthdayFromString(String birthday) {
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        Date date;
+        try {
+            date = df.parse(birthday);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        this.birthday = new Timestamp(date);
     }
 
     public String getGender() {
@@ -189,7 +221,12 @@ public class Citizen implements Parcelable {
         dest.writeString(last_name);
         dest.writeString(first_name);
         dest.writeString(full_name);
+
+        Date date = birthday.toDate();
+        @SuppressLint("SimpleDateFormat") DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String birthday = df.format(date);
         dest.writeString(birthday);
+
         dest.writeString(gender);
         dest.writeString(hometown);
         dest.writeString(province_name);
