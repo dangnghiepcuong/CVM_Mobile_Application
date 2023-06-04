@@ -1,6 +1,5 @@
-package com.example.cvm_mobile_application.ui.citizen.info;
+package com.example.cvm_mobile_application.ui.citizen;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,12 +11,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.os.BuildCompat;
 
 import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.SpinnerOption;
@@ -25,19 +20,18 @@ import com.example.cvm_mobile_application.data.db.model.Citizen;
 import com.example.cvm_mobile_application.data.objects.DVHCHelper;
 import com.example.cvm_mobile_application.ui.SpinnerAdapter;
 import com.example.cvm_mobile_application.ui.ViewStructure;
-import com.example.cvm_mobile_application.ui.citizen.home.CitizenNavigationBottomActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
+import com.example.cvm_mobile_application.ui.citizen.info.CitizenProfileActivity;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.WriteBatch;
 
 import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@BuildCompat.PrereleaseSdkCheck public class CitizenProfileActivity extends AppCompatActivity implements ViewStructure {
+public class CitizenRegisterProfileActivity extends AppCompatActivity implements ViewStructure {
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
     private EditText etFullName;
     private RadioButton rdBtnGenderMale;
     private RadioButton rdBtnGenderFemale;
@@ -62,30 +56,19 @@ import java.util.List;
     private Citizen citizen;
     private Button btnSaveProfile;
     private RadioGroup rdGroupGender;
-    private FirebaseFirestore db;
     private RadioButton rdBtnGender;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_admin_profile);
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+    }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_citizen_profile);
-        db = FirebaseFirestore.getInstance();
-        dvhcHelper = new DVHCHelper(getApplicationContext());
-    }
-
     protected void onStart() {
         super.onStart();
-        citizen = getIntent().getParcelableExtra("citizen");
-
-        try {
-            implementView();
-            bindViewData();
-            setViewListener();
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
     }
-
     @Override
     public void implementView() {
         etFullName = findViewById(R.id.et_fullname);
@@ -170,7 +153,6 @@ import java.util.List;
 
     @Override
     public void setViewListener() {
-
         btnBirthdayDP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -272,92 +254,7 @@ import java.util.List;
         btnSaveProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CitizenProfileActivity.this.updateProfile();
             }
         });
-    }
-
-    public void updateProfile() {
-        Citizen profile = new Citizen();
-        profile.setFull_name(String.valueOf(etFullName.getText()));
-        if (profile.getFull_name().equals("")) {
-            Toast.makeText(this, "*Nhập họ và tên", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        profile.setBirthdayFromString(String.valueOf(tvBirthday.getText()));
-        if (profile.getBirthdayString().equals("")) {
-            Toast.makeText(this, "*Chọn ngày sinh", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (rdGroupGender.getCheckedRadioButtonId() == -1) {
-            Toast.makeText(this, "*Chọn giới tính", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        rdBtnGender = findViewById(rdGroupGender.getCheckedRadioButtonId());
-        profile.setGender(String.valueOf(rdBtnGender.getText()));
-
-        profile.setPhone(String.valueOf(etPhone.getText()));
-        if (profile.getPhone().equals("")) {
-            Toast.makeText(this, "*Nhập số điện thoại", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        
-        profile.setId(String.valueOf(etId.getText()));
-        if (profile.getId().equals("")) {
-            Toast.makeText(this, "*Nhập CCCD", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (!String.valueOf(etEmail.getText()).equals(citizen.getEmail())) {
-            Toast.makeText(this, "*Email không được thay đổi", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        profile.setEmail(String.valueOf(citizen.getEmail()));
-
-        SpinnerOption spOption = (SpinnerOption) spProvince.getSelectedItem();
-        profile.setProvince_name(spOption.getOption());
-
-        spOption = (SpinnerOption) spDistrict.getSelectedItem();
-        profile.setDistrict_name(spOption.getOption());
-
-        spOption = (SpinnerOption) spWard.getSelectedItem();
-        profile.setWard_name(spOption.getOption());
-
-        profile.setStreet(String.valueOf(etStreet.getText()));
-
-        WriteBatch batch = db.batch();
-        // USER CHANGE EMAIL, THEN DELETE THE OLD DOCUMENT
-        if (!profile.getEmail().equals(citizen.getEmail())) {
-            DocumentReference oldProfile = db.collection("users").document(this.citizen.getEmail());
-            batch.delete(oldProfile);
-        }
-        // THE SET() OPERATION WILL CREATE A NEW DOCUMENT OR OVER EXISTING
-        // DEPENDS ON THE EMAIL HAS BEEN CHANGED OR NOT (THE DOCUMENT IS DELETED OR NOT)
-        DocumentReference newProfile = db.collection("users").document(profile.getEmail());
-        batch.set(newProfile, profile);
-
-        DocumentReference profileAccount = db.collection("accounts").document(profile.getEmail());
-        batch.update(profileAccount, "status", 1);
-
-        batch.commit().addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    Toast.makeText(CitizenProfileActivity.this,
-                            "Cập nhật thông tin thành công!", Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(CitizenProfileActivity.this,
-                            "Đã có lỗi xảy ra", Toast.LENGTH_LONG).show();
-                }
-
-                Intent intent = new Intent(CitizenProfileActivity.this.getBaseContext(),
-                        CitizenNavigationBottomActivity.class);
-                intent.putExtra("username", citizen.getEmail());
-                startActivity(intent);
-            }
-        });
-
     }
 }

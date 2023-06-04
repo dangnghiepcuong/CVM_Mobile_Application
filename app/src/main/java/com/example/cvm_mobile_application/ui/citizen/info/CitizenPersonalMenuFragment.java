@@ -1,4 +1,4 @@
-package com.example.cvm_mobile_application.ui.citizen;
+package com.example.cvm_mobile_application.ui.citizen.info;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment;
 
 import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.db.model.Citizen;
-import com.example.cvm_mobile_application.ui.citizen.info.CitizenProfileActivity;
 
 public class CitizenPersonalMenuFragment extends Fragment {
 

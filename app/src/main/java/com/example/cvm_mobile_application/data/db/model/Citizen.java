@@ -33,6 +33,7 @@ public class Citizen implements Parcelable {
         id = "";
         last_name = "";
         full_name = "";
+        birthday = new Timestamp(new Date());
         gender = "";
         hometown = "";
         province_name = "";

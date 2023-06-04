@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -13,8 +14,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.os.BuildCompat;
 
 import com.example.cvm_mobile_application.data.db.model.Account;
+import com.example.cvm_mobile_application.data.db.model.Citizen;
 import com.example.cvm_mobile_application.ui.admin.AdminNavigationBottom;
-import com.example.cvm_mobile_application.ui.citizen.CitizenNavigationBottomActivity;
+import com.example.cvm_mobile_application.ui.citizen.CitizenRegisterAccountActivity;
+import com.example.cvm_mobile_application.ui.citizen.home.CitizenNavigationBottomActivity;
+import com.example.cvm_mobile_application.ui.citizen.info.CitizenProfileActivity;
 import com.example.cvm_mobile_application.ui.org.OrgNavigationBottomActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -28,10 +32,11 @@ import com.google.firebase.firestore.QuerySnapshot;
 @BuildCompat.PrereleaseSdkCheck public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
-    private Button btn_login;
+    private Button btnlogin;
     private EditText et_username;
     private EditText et_password;
     private int role = -1;
+    private TextView btnCreateNewAccount;
 
 
     @Override
@@ -60,13 +65,14 @@ import com.google.firebase.firestore.QuerySnapshot;
     }
 
     public void implementView() {
-        btn_login = findViewById(R.id.btn_login);
+        btnlogin = findViewById(R.id.btn_login);
         et_username = findViewById(R.id.et_username);
         et_password = findViewById(R.id.et_password);
+        btnCreateNewAccount = findViewById(R.id.btn_create_new_account);
     }
 
     public void setViewListener() {
-        btn_login.setOnClickListener(new View.OnClickListener() {
+        btnlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String username = String.valueOf(et_username.getText());
@@ -86,6 +92,14 @@ import com.google.firebase.firestore.QuerySnapshot;
                 } else {
                     MainActivity.this.authOrgUser(username, password);
                 }
+            }
+        });
+
+        btnCreateNewAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), CitizenRegisterAccountActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -163,10 +177,11 @@ import com.google.firebase.firestore.QuerySnapshot;
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 role = Integer.parseInt(String.valueOf(document.get("role")));
+                                int status = Integer.parseInt(String.valueOf(document.get("status")));
                                 Log.i("myTAG", "role: " + role);
 
                                 // UPDATE UI BASE ON ROLE
-                                MainActivity.this.updateUI(username, role);
+                                MainActivity.this.updateUI(username, role, status);
                             }
                         } else {
                             Log.w("myTAG", "queryCollection doc role:failure", task.getException());
@@ -177,7 +192,7 @@ import com.google.firebase.firestore.QuerySnapshot;
                 });
     }
 
-    public void updateUI(String username, int role) {
+    public void updateUI(String username, int role, int status) {
         Intent intent = null;
         switch (role) {
             case 0:
@@ -189,7 +204,14 @@ import com.google.firebase.firestore.QuerySnapshot;
                 break;
 
             case 2:
-                intent = new Intent(getBaseContext(), CitizenNavigationBottomActivity.class);
+                if (status == 1) {
+                    intent = new Intent(getBaseContext(), CitizenNavigationBottomActivity.class);
+                } else {
+                    Citizen citizen = new Citizen();
+                    citizen.setEmail(username);
+                    intent = new Intent(getBaseContext(), CitizenProfileActivity.class);
+                    intent.putExtra("citizen", citizen);
+                }
                 break;
             default:
         }

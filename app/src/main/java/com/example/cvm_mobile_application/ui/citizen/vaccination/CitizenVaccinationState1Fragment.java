@@ -11,9 +11,11 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -24,8 +26,12 @@ import com.example.cvm_mobile_application.data.db.model.Citizen;
 import com.example.cvm_mobile_application.data.objects.DVHCHelper;
 import com.example.cvm_mobile_application.ui.SpinnerAdapter;
 import com.example.cvm_mobile_application.ui.ViewStructure;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.WriteBatch;
 
 import org.json.JSONException;
 
@@ -44,7 +50,6 @@ public class CitizenVaccinationState1Fragment extends Fragment implements ViewSt
     private TextView tvBirthday;
     private Button btnBirthdayDP;
     private DatePicker dpBirhtday;
-    private RadioButton rdBtnGender;
     private EditText etPhone;
     private EditText etEmail;
     private EditText etStreet;
@@ -65,6 +70,11 @@ public class CitizenVaccinationState1Fragment extends Fragment implements ViewSt
     private Button btnSave;
     private FragmentManager fragmentManager;
     private CitizenVaccinationState2Fragment state2Fragment;
+    private RadioButton rdBtnGenderMale;
+    private RadioButton rdBtnGenderFemale;
+    private RadioButton rdBtnGenderOther;
+    private RadioGroup rdGroupGender;
+    private RadioButton rdBtnGender;
 
     public Citizen getTarget() {
         return citizen;
@@ -112,6 +122,11 @@ public class CitizenVaccinationState1Fragment extends Fragment implements ViewSt
         btnBirthdayDP = view.findViewById(R.id.btn_birthday_dp);
         dpBirhtday = view.findViewById(R.id.dp_birthday);
 
+        rdGroupGender = view.findViewById(R.id.rd_group_gender);
+        rdBtnGenderMale = view.findViewById(R.id.rd_btn_gender_male);
+        rdBtnGenderFemale = view.findViewById(R.id.rd_btn_gender_female);
+        rdBtnGenderOther = view.findViewById(R.id.rd_btn_gender_another);
+
         etPhone = view.findViewById(R.id.et_phone);
         etId = view.findViewById(R.id.et_id);
         etEmail = view.findViewById(R.id.et_email);
@@ -137,16 +152,16 @@ public class CitizenVaccinationState1Fragment extends Fragment implements ViewSt
         // SET GENDER INFO VALUE
         switch (citizen.getGender()) {
             case "Nam":
-                rdBtnGender = view.findViewById(R.id.rd_btn_gender_male);
+                rdBtnGenderMale.setChecked(true);
                 break;
             case "Nữ":
-                rdBtnGender = view.findViewById(R.id.rd_btn_gender_female);
+                rdBtnGenderFemale.setChecked(true);
                 break;
+            default:
             case "Khác":
-                rdBtnGender = view.findViewById(R.id.rd_btn_gender_another);
+                rdBtnGenderOther.setChecked(true);
                 break;
         }
-        rdBtnGender.setChecked(true);
 
         //SET PHONE INFO VALUE
         etPhone.setText(citizen.getPhone());
@@ -336,18 +351,13 @@ public class CitizenVaccinationState1Fragment extends Fragment implements ViewSt
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("citizen", citizen);
-
-                state2Fragment = new CitizenVaccinationState2Fragment();
-                state2Fragment.setArguments(bundle);
-                CitizenVaccinationState1Fragment.this.replaceFragment(state2Fragment);
+                // UPDATE PROFILE THEN UPDATE UI TO NEXT SCREEN
+                CitizenVaccinationState1Fragment.this.updateProfile();
             }
         });
     }
 
     public void getTargetData() {
-//        QuerySnapshot document =
         db.collection("users")
                 .whereEqualTo("id", selectedTargetId)
                 .get()
@@ -384,6 +394,55 @@ public class CitizenVaccinationState1Fragment extends Fragment implements ViewSt
                         spTargetListAdapter.notifyDataSetChanged();
                     }
                 });
+    }
+
+    public void updateProfile() {
+        Citizen profile = new Citizen();
+        profile.setFull_name(String.valueOf(etFullName.getText()));
+        profile.setBirthdayFromString(String.valueOf(tvBirthday.getText()));
+
+        rdBtnGender = view.findViewById(rdGroupGender.getCheckedRadioButtonId());
+        profile.setGender(String.valueOf(rdBtnGender.getText()));
+
+        profile.setPhone(String.valueOf(etPhone.getText()));
+        profile.setId(String.valueOf(etId.getText()));
+//        profile.setEmail(String.valueOf(etEmail.getText()));
+        profile.setEmail(citizen.getEmail());
+
+        SpinnerOption spOption = (SpinnerOption) spProvince.getSelectedItem();
+        profile.setProvince_name(spOption.getOption());
+        spOption = (SpinnerOption) spDistrict.getSelectedItem();
+        profile.setDistrict_name(spOption.getOption());
+        spOption = (SpinnerOption) spWard.getSelectedItem();
+        profile.setWard_name(spOption.getOption());
+
+        profile.setStreet(String.valueOf(etStreet.getText()));
+
+        WriteBatch batch = db.batch();
+
+        // USER CHANGE EMAIL, THEN DELETE THE OLD DOCUMENT
+        if (!profile.getEmail().equals(citizen.getEmail())) {
+            DocumentReference oldProfile = db.collection("users").document(this.citizen.getEmail());
+            batch.delete(oldProfile);
+        }
+        // THE SET() OPERATION WILL CREATE A NEW DOCUMENT OR OVER EXISTING
+        // DEPENDS ON THE EMAIL HAS BEEN CHANGED OR NOT (THE DOCUMENT IS DELETED OR NOT)
+        DocumentReference newProfile = db.collection("users").document(profile.getEmail());
+        batch.set(newProfile, profile);
+
+        batch.commit().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                CitizenVaccinationState1Fragment.this.citizen = profile;
+
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("citizen", citizen);
+
+                state2Fragment = new CitizenVaccinationState2Fragment();
+                state2Fragment.setArguments(bundle);
+                CitizenVaccinationState1Fragment.this.replaceFragment(state2Fragment);
+            }
+        });
     }
 
     public void replaceFragment(Fragment fragment) {

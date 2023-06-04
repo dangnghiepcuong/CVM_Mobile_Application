@@ -1,4 +1,4 @@
-package com.example.cvm_mobile_application.ui.citizen;
+package com.example.cvm_mobile_application.ui.citizen.home;
 
 
 import android.content.DialogInterface;
@@ -19,7 +19,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.db.model.Citizen;
 import com.example.cvm_mobile_application.ui.ViewStructure;
-import com.example.cvm_mobile_application.ui.citizen.home.CitizenHomeFragment;
+import com.example.cvm_mobile_application.ui.citizen.info.CitizenPersonalMenuFragment;
 import com.example.cvm_mobile_application.ui.notification.NotificationFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
