@@ -1,4 +1,4 @@
-package com.example.cvm_mobile_application.ui.citizen;
+package com.example.cvm_mobile_application.ui.citizen.home;
 
 
 import android.content.DialogInterface;
@@ -18,7 +18,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.db.model.Citizen;
-import com.example.cvm_mobile_application.ui.citizen.home.CitizenHomeFragment;
+import com.example.cvm_mobile_application.ui.ViewStructure;
+import com.example.cvm_mobile_application.ui.citizen.info.CitizenPersonalMenuFragment;
 import com.example.cvm_mobile_application.ui.notification.NotificationFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -27,13 +28,17 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.json.JSONException;
+
 @BuildCompat.PrereleaseSdkCheck
-public class CitizenNavigationBottomActivity extends AppCompatActivity {
+public class CitizenNavigationBottomActivity extends AppCompatActivity implements ViewStructure {
     private FirebaseFirestore db;
     private BottomNavigationView bottomNavigationView;
     private CitizenHomeFragment citizenHomeFragment;
     private CitizenPersonalMenuFragment personalMenuFragment;
     private NotificationFragment notificationFragment;
+    private Citizen citizen;
+    private String username;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,74 +50,62 @@ public class CitizenNavigationBottomActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        String username = getIntent().getStringExtra("username");
+        username = getIntent().getStringExtra("username");
 
-        implementView();
-        setViewListener();
-        getCitizenData(username);
+        try {
+            implementView();
+            bindViewData();
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
     }
 
+    @Override
     public void implementView() {
         bottomNavigationView = findViewById(R.id.bottomNavigation);
     }
 
-    public void getCitizenData(String username) {
-        db.collection("users")
-                .whereEqualTo("email", username)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            Citizen citizen = new Citizen();
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                citizen = document.toObject(Citizen.class);
-                            }
-
-                            Bundle bundle = new Bundle();
-                            bundle.putParcelable("citizen", citizen);
-                            citizenHomeFragment = new CitizenHomeFragment();
-                            citizenHomeFragment.setArguments(bundle);
-                            replaceFragment(citizenHomeFragment);
-
-                            bottomNavigationView.setOnItemSelectedListener(item -> {
-                                switch (item.getItemId()) {
-                                    default:
-                                    case R.id.home:
-                                        citizenHomeFragment = new CitizenHomeFragment();
-                                        citizenHomeFragment.setArguments(bundle);
-                                        replaceFragment(citizenHomeFragment);
-                                        break;
-
-                                    case R.id.registration:
-                                        // replaceFragment(new RegistrationFragment());
-                                        break;
-
-                                    case R.id.notification:
-                                        notificationFragment = new NotificationFragment();
-                                        notificationFragment.setArguments(bundle);
-                                        replaceFragment(notificationFragment);
-                                        break;
-
-                                    case R.id.info:
-                                        personalMenuFragment = new CitizenPersonalMenuFragment();
-                                        personalMenuFragment.setArguments(bundle);
-                                        replaceFragment(personalMenuFragment);
-                                        break;
-                                }
-                                return true;
-                            });
-
-                        } else {
-                            Log.w("myTAG", "queryCollection:failure", task.getException());
-                            Toast.makeText(CitizenNavigationBottomActivity.this, "*Đã có lỗi xảy ra. Vui lòng thử lại!"
-                                    , Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
+    @Override
+    public void bindViewData() throws JSONException {
+        getCitizenData();
     }
 
+    @Override
     public void setViewListener() {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("citizen", citizen);
+        citizenHomeFragment = new CitizenHomeFragment();
+        citizenHomeFragment.setArguments(bundle);
+        replaceFragment(citizenHomeFragment);
+
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                default:
+                case R.id.home:
+                    citizenHomeFragment = new CitizenHomeFragment();
+                    citizenHomeFragment.setArguments(bundle);
+                    replaceFragment(citizenHomeFragment);
+                    break;
+
+                case R.id.registration:
+                    // replaceFragment(new RegistrationFragment());
+                    break;
+
+                case R.id.notification:
+                    notificationFragment = new NotificationFragment();
+                    notificationFragment.setArguments(bundle);
+                    replaceFragment(notificationFragment);
+                    break;
+
+                case R.id.info:
+                    personalMenuFragment = new CitizenPersonalMenuFragment();
+                    personalMenuFragment.setArguments(bundle);
+                    replaceFragment(personalMenuFragment);
+                    break;
+            }
+            return true;
+        });
+
         // This callback will only be called when MyFragment is at least Started.
         // requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
         // The callback can be enabled or disabled here or in handleOnBackPressed()
@@ -137,6 +130,28 @@ public class CitizenNavigationBottomActivity extends AppCompatActivity {
                     }
             );
         }
+    }
+
+    public void getCitizenData() {
+        db.collection("users")
+                .whereEqualTo("email", username)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            citizen = new Citizen();
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                citizen = document.toObject(Citizen.class);
+                            }
+                            CitizenNavigationBottomActivity.this.setViewListener();
+                        } else {
+                            Log.w("myTAG", "queryCollection:failure", task.getException());
+                            Toast.makeText(CitizenNavigationBottomActivity.this, "*Đã có lỗi xảy ra. Vui lòng thử lại!"
+                                    , Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
     }
 
     public void replaceFragment(Fragment fragment) {

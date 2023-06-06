@@ -1,8 +1,13 @@
 package com.example.cvm_mobile_application.data.db.model;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Schedule {
     private String id;
-    private String onDate;
+    private Date onDate;
     private String lot;
     private int limitDay;
     private int limitNoon;
@@ -16,9 +21,21 @@ public class Schedule {
     public Schedule() {
     }
 
-    public Schedule(String id, String onDate, String lot, int limitDay, int limitNoon, int limitNight, int dayRegistered, int noonRegistered, int nightRegistered, String orgId, String vaccineId) {
+    public Schedule(String id, String onDateString, String lot,
+                    int limitDay, int limitNoon, int limitNight,
+                    int dayRegistered, int noonRegistered, int nightRegistered,
+                    String orgId, String vaccineId) {
         this.id = id;
+
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        Date onDate = null;
+        try {
+            onDate = df.parse(onDateString);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
         this.onDate = onDate;
+
         this.lot = lot;
         this.limitDay = limitDay;
         this.limitNoon = limitNoon;
@@ -38,11 +55,11 @@ public class Schedule {
         this.id = id;
     }
 
-    public String getOnDate() {
+    public java.util.Date getOnDate() {
         return onDate;
     }
 
-    public void setOnDate(String onDate) {
+    public void setOnDate(java.util.Date onDate) {
         this.onDate = onDate;
     }
 

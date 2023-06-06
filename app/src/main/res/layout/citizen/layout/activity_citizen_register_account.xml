@@ -54,37 +54,17 @@
                 android:layout_height="30dp"
                 android:layout_marginTop="25dp"
                 android:labelFor="@+id/et_fullname"
-                android:text="Họ và tên"
+                android:text="Email"
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/et_fullname"
+                android:id="@+id/et_email"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:autofillHints="fullname"
                 android:background="@drawable/bg_edit_text"
                 android:gravity="center_vertical"
-                android:hint="Nhập họ và tên"
-                android:inputType="textCapWords"
-                android:textSize="18sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_marginTop="25dp"
-                android:labelFor="@+id/et_phone"
-                android:text="Số điện thoại"
-                android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/et_phone"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:autofillHints="phone"
-                android:background="@drawable/bg_edit_text"
-                android:gravity="center_vertical"
-                android:hint="Nhập số điện thoại"
-                android:inputType="text"
+                android:hint="Nhập email"
                 android:textSize="18sp" />
 
             <TextView
@@ -106,6 +86,24 @@
                 android:inputType="textPassword"
                 android:textSize="18sp" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="25dp"
+                android:labelFor="@+id/et_phone"
+                android:text="CMND/CCCD"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/et_phone"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:autofillHints="phone"
+                android:background="@drawable/bg_edit_text"
+                android:gravity="center_vertical"
+                android:hint="Nhập CMND/CCCD"
+                android:inputType="text"
+                android:textSize="18sp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -118,6 +116,7 @@ phòng chống dịch Covid-19 và nhận chứng nhận tiêm chủng"
                 android:textSize="18sp" />
 
             <Button
+                android:id="@+id/btn_register"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="20dp"

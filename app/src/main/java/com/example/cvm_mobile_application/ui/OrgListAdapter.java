@@ -16,10 +16,18 @@ import java.util.List;
 
 public class OrgListAdapter extends RecyclerView.Adapter<OrgListAdapter.OrganizationViewHolder> {
     private final Context context;
-    private final List<Organization> orgList;
+    private List<Organization> orgList;
 
     public OrgListAdapter(Context context, List<Organization> orgList) {
         this.context = context;
+        this.orgList = orgList;
+    }
+
+    public List<Organization> getOrgList() {
+        return orgList;
+    }
+
+    public void setOrgList (List<Organization> orgList) {
         this.orgList = orgList;
     }
 

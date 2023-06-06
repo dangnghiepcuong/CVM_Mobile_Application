@@ -65,7 +65,7 @@ public class DVHCHelper {
 
     //GET THE SPECIFIED LIST OF LOCAL
     public List<SpinnerOption> getLocalList(int localLevel, @Nullable String parentCode) throws JSONException {
-        List<SpinnerOption> localList = new ArrayList<>();
+        List<SpinnerOption> localList = getAnAllOption();
 
         //SPECIFY THE RETRIEVING LIST OF LOCAL
         JSONObject jsonLocal;
@@ -95,18 +95,23 @@ public class DVHCHelper {
                 localList.add(spOption);
             }
         } else {
-            //THEN RETRIEVE ONLY THE SATISFIED ITEMS BY CHECKING ITS PARENT CODE
-            while (keys.hasNext()) {
-                String key = keys.next();
-                JSONObject object = jsonLocal.getJSONObject(key);
-                if (object.getString("parent_code").equals(parentCode)) {
-                    SpinnerOption spOption = new SpinnerOption(
-                            object.getString("name"), object.getString("code"));
-                    localList.add(spOption);
+            // IF PARENT CODE IS UNDEFINED, RETURN A LIST WITH AN ALL OPTION
+            if (parentCode.equals("-1")) {
+                localList = getAnAllOption();
+
+            } else {
+                // ELSE RETRIEVE ONLY THE SATISFIED ITEMS BY CHECKING ITS PARENT CODE
+                while (keys.hasNext()) {
+                    String key = keys.next();
+                    JSONObject object = jsonLocal.getJSONObject(key);
+                    if (object.getString("parent_code").equals(parentCode)) {
+                        SpinnerOption spOption = new SpinnerOption(
+                                object.getString("name"), object.getString("code"));
+                        localList.add(spOption);
+                    }
                 }
             }
         }
-
         return localList;
     }
 
@@ -144,6 +149,13 @@ public class DVHCHelper {
         SpinnerOption sp = new SpinnerOption(localName, localCode);
         localList.add(0, sp);
 
+        return localList;
+    }
+
+    public List<SpinnerOption> getAnAllOption() {
+        List<SpinnerOption> localList = new ArrayList<>();
+        SpinnerOption spOption = new SpinnerOption("Tất cả", "-1");
+        localList.add(spOption);
         return localList;
     }
 

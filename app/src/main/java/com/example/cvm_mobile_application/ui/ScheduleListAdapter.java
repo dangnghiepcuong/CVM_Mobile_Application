@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.db.model.Schedule;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class ScheduleListAdapter extends RecyclerView.Adapter<ScheduleListAdapter.OrganizationViewHolder> {
@@ -37,7 +39,10 @@ public class ScheduleListAdapter extends RecyclerView.Adapter<ScheduleListAdapte
 
         holder.tvOrgName.setText(schedule.getOrgId());
         holder.tvVaccineTupe.setText(schedule.getVaccineId());
-        holder.tvOnDate.setText(schedule.getOnDate());
+
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String onDate = df.format(schedule.getOnDate());
+        holder.tvOnDate.setText(onDate);
 
         String nRegistered =
                 "Sáng: " + schedule.getDayRegistered() +"/"

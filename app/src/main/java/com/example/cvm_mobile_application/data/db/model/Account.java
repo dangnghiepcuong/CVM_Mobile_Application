@@ -5,15 +5,17 @@ public class Account {
     private String password;
     private int role;
     private int status;
+    private String user_id;
 
     public Account() {
     }
 
-    public Account(String username, String password, int role, int status) {
+    public Account(String username, String password, int role, int status, String user_id) {
         this.username = username;
         this.password = password;
         this.role = role;
         this.status = status;
+        this.user_id = user_id;
     }
 
     public String getUsername() {
@@ -46,5 +48,13 @@ public class Account {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
     }
 }
