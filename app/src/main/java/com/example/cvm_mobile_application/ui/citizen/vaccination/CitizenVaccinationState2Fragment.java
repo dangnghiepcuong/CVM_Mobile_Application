@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -58,6 +60,7 @@ public class CitizenVaccinationState2Fragment extends Fragment implements ViewSt
     private LinearLayout btnRegionFilter;
     private LinearLayout layoutRegionFilter;
     private OnOrgItemClickListener onOrgItemClickListener;
+    private FragmentManager fragmentManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -91,7 +94,7 @@ public class CitizenVaccinationState2Fragment extends Fragment implements ViewSt
 
         //SET ORG LIST VIEW
         recyclerViewOrgList = view.findViewById(R.id.view_recycler_org_list);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireActivity().getApplicationContext());
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerViewOrgList.setLayoutManager(linearLayoutManager);
     }
@@ -138,8 +141,7 @@ public class CitizenVaccinationState2Fragment extends Fragment implements ViewSt
         getOrgList(citizen.getProvince_name(), citizen.getDistrict_name(), citizen.getWard_name());
 
         //BIND ORG LIST DATA
-        orgListAdapter = new OrgListAdapter(getActivity().getApplicationContext(), orgList);
-
+        orgListAdapter = new OrgListAdapter(requireActivity().getApplicationContext(), orgList);
         recyclerViewOrgList.setAdapter(orgListAdapter);
     }
 
@@ -206,11 +208,22 @@ public class CitizenVaccinationState2Fragment extends Fragment implements ViewSt
         });
 
         onOrgItemClickListener = new OnOrgItemClickListener() {
+
+            private CitizenVaccinationState3Fragment state3Fragment;
+
             @Override
             public void onItemClick(Organization item) {
                 Toast.makeText(getContext(),
                         item.getId(), Toast.LENGTH_SHORT).show();
-                
+
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("citizen", citizen);
+                bundle.putParcelable("organization", item);
+
+                state3Fragment = new CitizenVaccinationState3Fragment();
+                state3Fragment.setArguments(bundle);
+                CitizenVaccinationState2Fragment.this.replaceFragment(state3Fragment);
+
             }
         };
         orgListAdapter.setListener(onOrgItemClickListener);
@@ -255,8 +268,6 @@ public class CitizenVaccinationState2Fragment extends Fragment implements ViewSt
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
-
-
     }
 
     public void spDistrictTriggeredActivities() {
@@ -328,5 +339,12 @@ public class CitizenVaccinationState2Fragment extends Fragment implements ViewSt
                         }
                     }
                 });
+    }
+
+    public void replaceFragment(Fragment fragment) {
+        fragmentManager = requireActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout, fragment);
+        fragmentTransaction.commit();
     }
 }

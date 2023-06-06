@@ -397,6 +397,8 @@ import java.util.List;
                 Intent intent = new Intent(CitizenProfileActivity.this.getBaseContext(),
                         CitizenNavigationBottomActivity.class);
                 intent.putExtra("username", citizen.getEmail());
+
+                CitizenProfileActivity.this.finish();
                 startActivity(intent);
             }
         });
