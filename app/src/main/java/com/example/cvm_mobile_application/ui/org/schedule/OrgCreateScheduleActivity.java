@@ -279,13 +279,13 @@ public class OrgCreateScheduleActivity extends AppCompatActivity {
         // Add a new document with a generated id.
         Map<String, Object> data = new HashMap<>();
         data.put("id", schedule.getId());
-        data.put("org_id", schedule.getOrgId());
-        data.put("on_date", schedule.getOnDate());
-        data.put("vaccine_id", schedule.getVaccineId());
+        data.put("org_id", schedule.getOrg_id());
+        data.put("on_date", schedule.getOn_date());
+        data.put("vaccine_id", schedule.getVaccine_id());
         data.put("lot", schedule.getLot());
-        data.put("limit_day", schedule.getLimitDay());
-        data.put("limit_noon", schedule.getLimitNoon());
-        data.put("limit_night", schedule.getLimitNight());
+        data.put("limit_day", schedule.getLimit_day());
+        data.put("limit_noon", schedule.getLimit_noon());
+        data.put("limit_night", schedule.getLimit_night());
         data.put("day_registered", 0);
         data.put("noon_registered", 0);
         data.put("night_registered", 0);
@@ -293,8 +293,8 @@ public class OrgCreateScheduleActivity extends AppCompatActivity {
         db.runTransaction(new Transaction.Function<Integer>() {
             @Override
             public Integer apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
-                String lotId = schedule.getOrgId() + schedule.getVaccineId() + schedule.getLot();
-                int scheduledQuantity = schedule.getLimitDay() + schedule.getLimitNoon() + schedule.getLimitNight();
+                String lotId = schedule.getOrg_id() + schedule.getVaccine_id() + schedule.getLot();
+                int scheduledQuantity = schedule.getLimit_day() + schedule.getLimit_noon() + schedule.getLimit_night();
 
                 DocumentReference referenceInventory =
                         db.collection("vaccine_inventory").document(lotId);
@@ -316,7 +316,7 @@ public class OrgCreateScheduleActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<Integer> task) {
                 if (task.isSuccessful()) {
                     tvOnDate.setText("");
-                    OrgCreateScheduleActivity.this.getVaccineInventoryList(schedule.getVaccineId());
+                    OrgCreateScheduleActivity.this.getVaccineInventoryList(schedule.getVaccine_id());
                     etDayLimit.setText("");
                     etNoonLimit.setText("");
                     etNightLimit.setText("");

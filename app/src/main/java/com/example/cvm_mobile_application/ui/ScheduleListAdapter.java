@@ -54,20 +54,20 @@ public class ScheduleListAdapter extends RecyclerView.Adapter<ScheduleListAdapte
     public void onBindViewHolder(ScheduleViewHolder holder, int position) {
         Schedule schedule = scheduleList.get(position);
 
-        holder.tvOrgName.setText(schedule.getOrgId());
-        holder.tvVaccineTupe.setText(schedule.getVaccineId());
+        holder.tvOrgName.setText(schedule.getOrg_id());
+        holder.tvVaccineTupe.setText(schedule.getVaccine_id());
 
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        String onDate = df.format(schedule.getOnDate());
+        String onDate = df.format(schedule.getOn_date());
         holder.tvOnDate.setText(onDate);
 
         String nRegistered =
-                "Sáng: " + schedule.getDayRegistered() +"/"
-                        + schedule.getLimitDay()
-                        + ". Chiều: " + schedule.getNoonRegistered() +"/"
-                        + schedule.getLimitNoon()
-                        + ". Tối: " + schedule.getNightRegistered() +"/"
-                        + schedule.getLimitNight();
+                "Sáng: " + schedule.getDay_registered() +"/"
+                        + schedule.getLimit_day()
+                        + ". Chiều: " + schedule.getNoon_registered() +"/"
+                        + schedule.getLimit_noon()
+                        + ". Tối: " + schedule.getNight_registered() +"/"
+                        + schedule.getLimit_night();
         holder.tvNRegistered.setText(nRegistered);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

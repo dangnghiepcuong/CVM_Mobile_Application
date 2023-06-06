@@ -7,24 +7,24 @@ import java.util.Date;
 
 public class Schedule {
     private String id;
-    private Date onDate;
+    private Date on_date;
     private String lot;
-    private int limitDay;
-    private int limitNoon;
-    private int limitNight;
-    private int dayRegistered;
-    private int noonRegistered;
-    private int nightRegistered;
-    private String orgId;
-    private String vaccineId;
+    private int limit_day;
+    private int limit_noon;
+    private int limit_night;
+    private int day_registered;
+    private int noon_registered;
+    private int night_registered;
+    private String org_id;
+    private String vaccine_id;
 
     public Schedule() {
     }
 
     public Schedule(String id, String onDateString, String lot,
-                    int limitDay, int limitNoon, int limitNight,
-                    int dayRegistered, int noonRegistered, int nightRegistered,
-                    String orgId, String vaccineId) {
+                    int limit_day, int limit_noon, int limit_night,
+                    int day_registered, int noon_registered, int night_registered,
+                    String org_id, String vaccine_id) {
         this.id = id;
 
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -34,17 +34,17 @@ public class Schedule {
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
-        this.onDate = onDate;
+        this.on_date = onDate;
 
         this.lot = lot;
-        this.limitDay = limitDay;
-        this.limitNoon = limitNoon;
-        this.limitNight = limitNight;
-        this.dayRegistered = dayRegistered;
-        this.noonRegistered = noonRegistered;
-        this.nightRegistered = nightRegistered;
-        this.orgId = orgId;
-        this.vaccineId = vaccineId;
+        this.limit_day = limit_day;
+        this.limit_noon = limit_noon;
+        this.limit_night = limit_night;
+        this.day_registered = day_registered;
+        this.noon_registered = noon_registered;
+        this.night_registered = night_registered;
+        this.org_id = org_id;
+        this.vaccine_id = vaccine_id;
     }
 
     public String getId() {
@@ -55,12 +55,12 @@ public class Schedule {
         this.id = id;
     }
 
-    public java.util.Date getOnDate() {
-        return onDate;
+    public java.util.Date getOn_date() {
+        return on_date;
     }
 
-    public void setOnDate(java.util.Date onDate) {
-        this.onDate = onDate;
+    public void setOn_date(java.util.Date on_date) {
+        this.on_date = on_date;
     }
 
     public String getLot() {
@@ -71,67 +71,67 @@ public class Schedule {
         this.lot = lot;
     }
 
-    public int getLimitDay() {
-        return limitDay;
+    public int getLimit_day() {
+        return limit_day;
     }
 
-    public void setLimitDay(int limitDay) {
-        this.limitDay = limitDay;
+    public void setLimit_day(int limit_day) {
+        this.limit_day = limit_day;
     }
 
-    public int getLimitNoon() {
-        return limitNoon;
+    public int getLimit_noon() {
+        return limit_noon;
     }
 
-    public void setLimitNoon(int limitNoon) {
-        this.limitNoon = limitNoon;
+    public void setLimit_noon(int limit_noon) {
+        this.limit_noon = limit_noon;
     }
 
-    public int getLimitNight() {
-        return limitNight;
+    public int getLimit_night() {
+        return limit_night;
     }
 
-    public void setLimitNight(int limitNight) {
-        this.limitNight = limitNight;
+    public void setLimit_night(int limit_night) {
+        this.limit_night = limit_night;
     }
 
-    public int getDayRegistered() {
-        return dayRegistered;
+    public int getDay_registered() {
+        return day_registered;
     }
 
-    public void setDayRegistered(int dayRegistered) {
-        this.dayRegistered = dayRegistered;
+    public void setDay_registered(int day_registered) {
+        this.day_registered = day_registered;
     }
 
-    public int getNoonRegistered() {
-        return noonRegistered;
+    public int getNoon_registered() {
+        return noon_registered;
     }
 
-    public void setNoonRegistered(int noonRegistered) {
-        this.noonRegistered = noonRegistered;
+    public void setNoon_registered(int noon_registered) {
+        this.noon_registered = noon_registered;
     }
 
-    public int getNightRegistered() {
-        return nightRegistered;
+    public int getNight_registered() {
+        return night_registered;
     }
 
-    public void setNightRegistered(int nightRegistered) {
-        this.nightRegistered = nightRegistered;
+    public void setNight_registered(int night_registered) {
+        this.night_registered = night_registered;
     }
 
-    public String getOrgId() {
-        return orgId;
+    public String getOrg_id() {
+        return org_id;
     }
 
-    public void setOrgId(String orgId) {
-        this.orgId = orgId  ;
+    public void setOrg_id(String org_id) {
+        this.org_id = org_id;
     }
 
-    public String getVaccineId() {
-        return vaccineId;
+    public String getVaccine_id() {
+        return vaccine_id;
     }
 
-    public void setVaccineId(String vaccineId) {
-        this.vaccineId = vaccineId;
+    public void setVaccine_id(String vaccine_id) {
+        this.vaccine_id = vaccine_id;
     }
 }
