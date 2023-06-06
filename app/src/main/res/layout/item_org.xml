@@ -18,6 +18,11 @@
         android:layout_weight="7"
         android:orientation="vertical">
         <TextView
+            android:id="@+id/tv_org_id"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone" />
+        <TextView
             android:id="@+id/tv_org_name"
             style="@style/text_name"
             android:text="BV Đa khoa h. Dầu Tiếng"/>

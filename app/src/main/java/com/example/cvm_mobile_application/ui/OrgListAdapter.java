@@ -17,6 +17,7 @@ import java.util.List;
 public class OrgListAdapter extends RecyclerView.Adapter<OrgListAdapter.OrganizationViewHolder> {
     private final Context context;
     private List<Organization> orgList;
+    private OnOrgItemClickListener listener;
 
     public OrgListAdapter(Context context, List<Organization> orgList) {
         this.context = context;
@@ -25,6 +26,14 @@ public class OrgListAdapter extends RecyclerView.Adapter<OrgListAdapter.Organiza
 
     public List<Organization> getOrgList() {
         return orgList;
+    }
+
+    public OnOrgItemClickListener getListener() {
+        return listener;
+    }
+
+    public void setListener(OnOrgItemClickListener listener) {
+        this.listener = listener;
     }
 
     public void setOrgList (List<Organization> orgList) {
@@ -47,6 +56,13 @@ public class OrgListAdapter extends RecyclerView.Adapter<OrgListAdapter.Organiza
         holder.tvOrgAddress.setText(org.getStreet());
 //        holder.tvOrgContact.setText(org.getContact());
 //        holder.tvOrgNSchedules.setText(org.getNSchedules());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onItemClick(org);
+            }
+        });
     }
 
     @Override
@@ -55,6 +71,7 @@ public class OrgListAdapter extends RecyclerView.Adapter<OrgListAdapter.Organiza
     }
 
     public static class OrganizationViewHolder extends RecyclerView.ViewHolder {
+        TextView tvOrgId;
         TextView tvOrgName;
         TextView tvOrgAddress;
         TextView tvOrgContact;
@@ -62,6 +79,7 @@ public class OrgListAdapter extends RecyclerView.Adapter<OrgListAdapter.Organiza
 
         public OrganizationViewHolder(@NonNull View itemView) {
             super(itemView);
+            tvOrgId = itemView.findViewById(R.id.tv_org_id);
             tvOrgName = itemView.findViewById(R.id.tv_org_name);
             tvOrgAddress = itemView.findViewById(R.id.tv_org_address);
             tvOrgContact = itemView.findViewById(R.id.tv_org_contact);

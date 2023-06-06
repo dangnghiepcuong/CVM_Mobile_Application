@@ -8,12 +8,14 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cvm_mobile_application.ui.OnOrgItemClickListener;
 import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.SpinnerOption;
 import com.example.cvm_mobile_application.data.db.model.Citizen;
@@ -55,6 +57,7 @@ public class CitizenVaccinationState2Fragment extends Fragment implements ViewSt
     private OrgListAdapter orgListAdapter;
     private LinearLayout btnRegionFilter;
     private LinearLayout layoutRegionFilter;
+    private OnOrgItemClickListener onOrgItemClickListener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -136,6 +139,7 @@ public class CitizenVaccinationState2Fragment extends Fragment implements ViewSt
 
         //BIND ORG LIST DATA
         orgListAdapter = new OrgListAdapter(getActivity().getApplicationContext(), orgList);
+
         recyclerViewOrgList.setAdapter(orgListAdapter);
     }
 
@@ -201,18 +205,15 @@ public class CitizenVaccinationState2Fragment extends Fragment implements ViewSt
             }
         });
 
-
-//        spProvince.setOnHierarchyChangeListener(new ViewGroup.OnHierarchyChangeListener() {
-//            @Override
-//            public void onChildViewAdded(View parent, View child) {
-//
-//            }
-//
-//            @Override
-//            public void onChildViewRemoved(View parent, View child) {
-//
-//            }
-//        });
+        onOrgItemClickListener = new OnOrgItemClickListener() {
+            @Override
+            public void onItemClick(Organization item) {
+                Toast.makeText(getContext(),
+                        item.getId(), Toast.LENGTH_SHORT).show();
+                
+            }
+        };
+        orgListAdapter.setListener(onOrgItemClickListener);
     }
 
     public void spProvinceTriggeredActivities() {
@@ -254,6 +255,8 @@ public class CitizenVaccinationState2Fragment extends Fragment implements ViewSt
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
+
+
     }
 
     public void spDistrictTriggeredActivities() {
