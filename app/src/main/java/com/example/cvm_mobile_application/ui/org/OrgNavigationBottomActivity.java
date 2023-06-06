@@ -19,14 +19,12 @@ import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.db.model.Organization;
 import com.example.cvm_mobile_application.ui.notification.NotificationFragment;
 import com.example.cvm_mobile_application.ui.org.home.OrgHomeFragment;
-import com.example.cvm_mobile_application.ui.org.info.OrgProfileActivity;
 import com.example.cvm_mobile_application.ui.org.schedule.OrgScheduleFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 @BuildCompat.PrereleaseSdkCheck public class OrgNavigationBottomActivity extends AppCompatActivity {
 
@@ -83,18 +81,15 @@ import com.google.firebase.firestore.QuerySnapshot;
     }
 
     public void getOrgData(String username) {
-        db.collection("organizations")
-                .whereEqualTo("id", username)
+        db.collection("organizations").document(username)
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()) {
                             Organization org = new Organization();
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                org = document.toObject(Organization.class);
-                            }
+                            DocumentSnapshot document = task.getResult();
+                            org = document.toObject(Organization.class);
 
                             Bundle bundle = new Bundle();
                             bundle.putParcelable("org", org);

@@ -30,14 +30,31 @@
                 android:contentDescription="arrow" />
         </LinearLayout>
     </LinearLayout>
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <LinearLayout
         android:id="@+id/layout_linear_schedule_filter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="10dp"
-        android:visibility="gone"
+        android:visibility="visible"
         android:orientation="vertical">
 
+        <LinearLayout style="@style/linear_layout_date_picker">
+            <TextView
+                android:id="@+id/tv_on_date"
+                style="@style/edit_date"
+                android:layout_weight="7"/>
+            <Button
+                android:id="@+id/btn_on_date_dp"
+                style="@style/btn_date_picker"
+                android:layout_weight="3"
+                android:text="chọn ngày"/>
+        </LinearLayout>
+        <DatePicker
+            android:id="@+id/dp_on_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:spinnersShown="false"
+            android:visibility="gone"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -56,29 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2">
                 <Spinner
-                    style="@style/spinner" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Ngày tiêm"
-                    android:textSize="16sp" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2">
-                <Spinner
+                    android:id="@+id/sp_vaccine_type"
                     style="@style/spinner" />
             </LinearLayout>
         </LinearLayout>
@@ -101,10 +96,11 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2">
                 <Spinner
+                    android:id="@+id/sp_shift"
                     style="@style/spinner" />
             </LinearLayout>
         </LinearLayout>
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -116,27 +112,5 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingHorizontal="10dp"/>
-
     </ScrollView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        android:paddingHorizontal="20dp">
-
-        <Button
-            android:id="@+id/btn_back"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:text="Back"/>
-
-        <Button
-            android:id="@+id/btn_next"
-            style="@style/btn_primary"
-            android:text="Lưu thông tin"
-            android:textSize="18sp" />
-    </LinearLayout>
 </androidx.appcompat.widget.LinearLayoutCompat>
