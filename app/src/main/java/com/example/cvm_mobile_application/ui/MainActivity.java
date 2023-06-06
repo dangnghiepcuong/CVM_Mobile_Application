@@ -1,4 +1,4 @@
-package com.example.cvm_mobile_application;
+package com.example.cvm_mobile_application.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.os.BuildCompat;
 
+import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.db.model.Account;
 import com.example.cvm_mobile_application.data.db.model.Citizen;
 import com.example.cvm_mobile_application.ui.admin.AdminNavigationBottom;
