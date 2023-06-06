@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.os.BuildCompat;
 
 import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.db.model.Account;
@@ -23,12 +24,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.json.JSONException;
 
-public class CitizenRegisterAccountActivity extends AppCompatActivity implements ViewStructure {
+@BuildCompat.PrereleaseSdkCheck public class CitizenRegisterAccountActivity extends AppCompatActivity implements ViewStructure {
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
     private EditText etEmail;
-    private EditText etPhone;
+    private EditText etId;
     private EditText etPassword;
     private Button btnRegister;
 
@@ -56,7 +57,7 @@ public class CitizenRegisterAccountActivity extends AppCompatActivity implements
     @Override
     public void implementView() {
         etEmail = findViewById(R.id.et_email);
-        etPhone = findViewById(R.id.et_phone);
+        etId = findViewById(R.id.et_phone);
         etPassword = findViewById(R.id.et_password);
         btnRegister = findViewById(R.id.btn_register);
     }
@@ -71,11 +72,12 @@ public class CitizenRegisterAccountActivity extends AppCompatActivity implements
         btnRegister.setOnClickListener(v -> {
             String email = String.valueOf(etEmail.getText());
             String password = String.valueOf(etPassword.getText());
-            CitizenRegisterAccountActivity.this.createNewUserAuth(email, password);
+            String userId = String.valueOf(etId.getText());
+            CitizenRegisterAccountActivity.this.createNewUserAuth(email, password, userId);
         });
     }
 
-    public void createNewUserAuth(String email, String password) {
+    public void createNewUserAuth(String email, String password, String userId) {
         if (email.equals("")) {
             Toast.makeText(this, "*Nhập email", Toast.LENGTH_SHORT).show();
             return;
@@ -93,7 +95,7 @@ public class CitizenRegisterAccountActivity extends AppCompatActivity implements
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("myTAG", "createUserWithEmail:success");
-                            CitizenRegisterAccountActivity.this.createNewAccount(email, password);
+                            CitizenRegisterAccountActivity.this.createNewAccount(email, password, userId);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("myTAG", "createUserWithEmail:failure", task.getException());
@@ -106,8 +108,9 @@ public class CitizenRegisterAccountActivity extends AppCompatActivity implements
                 });
     }
 
-    public void createNewAccount(String email, String password) {
-        Account account = new Account(email, password, 2, 0, "");
+    public void createNewAccount(String email, String password, String userId) {
+        Account account = new Account(email, password, 2, 0, userId);
+
         db.collection("accounts").document(email)
                 .set(account)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -115,7 +118,7 @@ public class CitizenRegisterAccountActivity extends AppCompatActivity implements
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             Citizen citizen = new Citizen();
-                            citizen.setPhone(String.valueOf(etPhone.getText()));
+                            citizen.setId(String.valueOf(etId.getText()));
                             citizen.setEmail(String.valueOf(etEmail.getText()));
 
                             Intent intent = new Intent(getBaseContext(), CitizenProfileActivity.class);

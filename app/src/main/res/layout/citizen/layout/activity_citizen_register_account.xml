@@ -71,25 +71,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_marginTop="25dp"
-                android:labelFor="@+id/et_phone"
-                android:text="Số điện thoại"
-                android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/et_phone"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:autofillHints="phone"
-                android:background="@drawable/bg_edit_text"
-                android:gravity="center_vertical"
-                android:hint="Nhập số điện thoại"
-                android:inputType="text"
-                android:textSize="18sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_marginTop="25dp"
                 android:labelFor="@+id/et_password"
                 android:text="Mật khẩu"
                 android:textSize="18sp" />
@@ -105,6 +86,24 @@
                 android:inputType="textPassword"
                 android:textSize="18sp" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="25dp"
+                android:labelFor="@+id/et_phone"
+                android:text="CMND/CCCD"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/et_phone"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:autofillHints="phone"
+                android:background="@drawable/bg_edit_text"
+                android:gravity="center_vertical"
+                android:hint="Nhập CMND/CCCD"
+                android:inputType="text"
+                android:textSize="18sp" />
 
             <TextView
                 android:layout_width="match_parent"
