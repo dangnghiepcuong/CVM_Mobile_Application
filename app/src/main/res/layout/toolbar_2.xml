@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_gradient"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="15dp"
+        android:paddingVertical="10dp">
+
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:background="@drawable/ic_arrow_back_white" />
+
+        <TextView
+            android:id="@+id/tb_title"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:text="Title"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        gra
+        android:background="@drawable/card_home"
+        app:labelVisibilityMode="labeled"
+        android:theme="@style/BottomNavThem"
+        app:itemTextAppearanceActive="@style/toolbar_menu_Active"
+        app:itemTextAppearanceInactive="@style/toolbar_menu"
+        app:menu="@menu/toolbar_menu" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>
