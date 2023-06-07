@@ -13,9 +13,9 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="125dp"
+                android:layout_height="130dp"
                 android:layout_marginVertical="5dp"
-                android:background="@drawable/bg_notification"
+                android:background="@drawable/card_white_radius10"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -23,6 +23,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:paddingLeft="15dp"
                     android:orientation="vertical">
 
                     <TextView
