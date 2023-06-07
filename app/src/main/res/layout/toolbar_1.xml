@@ -5,66 +5,64 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_gradient"
-    android:orientation="vertical">
+    android:id="@+id/toolbar1"
+    app:contentInsetStart="0dp">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingVertical="10dp"
-        android:paddingHorizontal="20dp">
-
-        <LinearLayout
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/ic_arrow_back_white"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:text="Thành viên gia đình"
-            android:gravity="center"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@color/white"/>
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/card_home"
         android:orientation="vertical">
 
-        <LinearLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingHorizontal="25dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="bottom">
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="10dp">
+
+            <Button
+                android:id="@+id/btn_back"
+                android:layout_width="40dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_arrow_back_white" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Thành viên gia đình ("
-                android:textStyle="bold"
-                android:textSize="18dp"/>
-            <TextView
-                android:id="@+id/sum_relatives"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1"
-                android:textStyle="bold"
-                android:textSize="18dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=")"
-                android:textStyle="bold"
-                android:textSize="18dp"/>
+                android:id="@+id/tb_title"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="Title"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <LinearLayout
+            android:id="@+id/tb_bgr_menu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/card_white_rounded_corner"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="bottom"
+                android:orientation="horizontal"
+                android:paddingHorizontal="25dp">
+
+                <TextView
+                    android:id="@+id/tb_menu_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
         </LinearLayout>
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    </LinearLayout>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

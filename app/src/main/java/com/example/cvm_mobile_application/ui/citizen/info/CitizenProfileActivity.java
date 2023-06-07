@@ -64,11 +64,13 @@ import java.util.List;
     private RadioGroup rdGroupGender;
     private FirebaseFirestore db;
     private RadioButton rdBtnGender;
+    private Button btnBack;
+    private TextView tbTitle;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_citizen_profile);
+        setContentView(R.layout.activity_citizen_profile);
         db = FirebaseFirestore.getInstance();
         dvhcHelper = new DVHCHelper(getApplicationContext());
     }
@@ -88,6 +90,9 @@ import java.util.List;
 
     @Override
     public void implementView() {
+        btnBack = findViewById(R.id.btn_back);
+        tbTitle = findViewById(R.id.tb_title);
+
         etFullName = findViewById(R.id.et_fullname);
 
         tvBirthday = findViewById(R.id.tv_birthday);
@@ -111,6 +116,8 @@ import java.util.List;
 
     @Override
     public void bindViewData() throws JSONException {
+        tbTitle.setText("Chỉnh sửa thông tin cá nhân");
+
         etFullName.setText(citizen.getFull_name());
 
         tvBirthday.setText(citizen.getBirthdayString());
@@ -170,6 +177,13 @@ import java.util.List;
 
     @Override
     public void setViewListener() {
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         btnBirthdayDP.setOnClickListener(new View.OnClickListener() {
             @Override

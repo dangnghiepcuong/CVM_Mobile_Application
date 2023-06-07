@@ -8,12 +8,13 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.core.os.BuildCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.db.model.Citizen;
 
-public class CitizenPersonalMenuFragment extends Fragment {
+@BuildCompat.PrereleaseSdkCheck public class CitizenPersonalMenuFragment extends Fragment {
 
     private LinearLayout menuTabProfile;
     private Citizen citizen;
