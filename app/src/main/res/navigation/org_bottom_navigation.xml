@@ -39,7 +39,7 @@
         android:id="@+id/navigation_org_information"
         android:name="com.example.cvm_mobile_application.ui.org.info.OrgProfileActivity"
         android:label="org info"
-        tools:layout="@layout/fragment_org_profile" >
+        tools:layout="@layout/activity_org_profile" >
         <action
             android:id="@+id/action_navigation_org_information_to_navigation_home"
             app:destination="@id/navigation_home" />

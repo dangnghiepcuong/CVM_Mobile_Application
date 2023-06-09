@@ -238,4 +238,12 @@
         <item name="android:orientation">horizontal</item>
         <item name="android:gravity">center</item>
     </style>
+
+    <style name="toolbar_menu" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="toolbar_menu_Active" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">18sp</item>
+    </style>
 </resources>
