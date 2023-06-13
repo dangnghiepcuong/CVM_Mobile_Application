@@ -54,7 +54,6 @@ public class ScheduleListAdapter extends RecyclerView.Adapter<ScheduleListAdapte
     public void onBindViewHolder(ScheduleViewHolder holder, int position) {
         Schedule schedule = scheduleList.get(position);
 
-        holder.tvOrgName.setText(schedule.getOrg_id());
         holder.tvVaccineTupe.setText(schedule.getVaccine_id());
 
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -62,11 +61,11 @@ public class ScheduleListAdapter extends RecyclerView.Adapter<ScheduleListAdapte
         holder.tvOnDate.setText(onDate);
 
         String nRegistered =
-                "Sáng: " + schedule.getDay_registered() +"/"
+                "S: " + schedule.getDay_registered() +"/"
                         + schedule.getLimit_day()
-                        + ". Chiều: " + schedule.getNoon_registered() +"/"
+                        + "; C: " + schedule.getNoon_registered() +"/"
                         + schedule.getLimit_noon()
-                        + ". Tối: " + schedule.getNight_registered() +"/"
+                        + "; T: " + schedule.getNight_registered() +"/"
                         + schedule.getLimit_night();
         holder.tvNRegistered.setText(nRegistered);
 
@@ -84,14 +83,12 @@ public class ScheduleListAdapter extends RecyclerView.Adapter<ScheduleListAdapte
     }
 
     public static class ScheduleViewHolder extends RecyclerView.ViewHolder {
-        TextView tvOrgName;
         TextView tvVaccineTupe;
         TextView tvOnDate;
         TextView tvNRegistered;
 
         public ScheduleViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvOrgName = itemView.findViewById(R.id.tv_org_name);
             tvVaccineTupe = itemView.findViewById(R.id.tv_vaccine_type);
             tvOnDate = itemView.findViewById(R.id.tv_on_date);
             tvNRegistered = itemView.findViewById(R.id.iv_n_registered);

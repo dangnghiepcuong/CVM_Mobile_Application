@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,8 +24,10 @@ import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.SpinnerOption;
 import com.example.cvm_mobile_application.data.db.model.Citizen;
 import com.example.cvm_mobile_application.data.db.model.Organization;
+import com.example.cvm_mobile_application.data.db.model.Register;
 import com.example.cvm_mobile_application.data.db.model.Schedule;
 import com.example.cvm_mobile_application.data.db.model.Shift;
+import com.example.cvm_mobile_application.ui.CustomDialog;
 import com.example.cvm_mobile_application.ui.ScheduleListAdapter;
 import com.example.cvm_mobile_application.ui.SpinnerAdapter;
 import com.example.cvm_mobile_application.ui.ViewStructure;
@@ -32,9 +35,13 @@ import com.example.cvm_mobile_application.ui.org.OnScheduleItemClickListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Transaction;
 
 import org.json.JSONException;
 
@@ -51,6 +58,7 @@ public class CitizenVaccinationState3Fragment extends Fragment implements ViewSt
     private FirebaseFirestore db;
     private Citizen citizen;
     private Organization org;
+    private TextView tvOrgName;
     private LinearLayout btnScheduleFilter;
     private LinearLayout layoutScheduleFilter;
     private List<SpinnerOption> vaccineList;
@@ -66,6 +74,7 @@ public class CitizenVaccinationState3Fragment extends Fragment implements ViewSt
     private Button btnOnDateDP;
     private TextView tvOnDate;
     private DatePicker dpOnDate;
+    private CustomDialog customDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -92,6 +101,8 @@ public class CitizenVaccinationState3Fragment extends Fragment implements ViewSt
 
     @Override
     public void implementView() {
+        tvOrgName = view.findViewById(R.id.tv_org_name);
+
         btnScheduleFilter = view.findViewById(R.id.btn_schedule_filter);
         layoutScheduleFilter = view.findViewById(R.id.layout_linear_schedule_filter);
 
@@ -110,6 +121,8 @@ public class CitizenVaccinationState3Fragment extends Fragment implements ViewSt
 
     @Override
     public void bindViewData() throws JSONException {
+        tvOrgName.setText(org.getName());
+
         Timestamp timestamp = new Timestamp(new Date());
         @SuppressLint("SimpleDateFormat") DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         Date date = timestamp.toDate();
@@ -200,8 +213,7 @@ public class CitizenVaccinationState3Fragment extends Fragment implements ViewSt
         onScheduleItemClickListener = new OnScheduleItemClickListener() {
             @Override
             public void onItemClick(Schedule item) {
-                Toast.makeText(requireActivity().getApplicationContext()
-                        , item.getId(), Toast.LENGTH_SHORT).show();
+                CitizenVaccinationState3Fragment.this.checkConstraintBeforeVaccination(item);
             }
         };
         scheduleListAdapter.setListener(onScheduleItemClickListener);
@@ -266,5 +278,122 @@ public class CitizenVaccinationState3Fragment extends Fragment implements ViewSt
                         }
                     }
                 });
+    }
+
+    public void checkConstraintBeforeVaccination(Schedule schedule) {
+        db.collection("registry")
+                .whereEqualTo("citizen_id", citizen.getId())
+                .whereLessThan("status", 2)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            if (task.getResult().isEmpty()) {
+                                CitizenVaccinationState3Fragment.this.vaccinationRegistration(schedule);
+                            } else {
+                                Toast.makeText(getContext(), "Không thể đăng ký tiêm chủng!", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+
+                        }
+                    }
+                });
+    }
+
+    public void vaccinationRegistration(Schedule schedule) {
+        customDialog = new CustomDialog(getContext());
+
+        customDialog.setViewListener(new CustomDialog.OnClickButtonListener() {
+            @Override
+            public void onClickCancel() {
+                CitizenVaccinationState3Fragment.this.dialogOnCancel();
+            }
+
+            @Override
+            public void onClickConfirm() {
+                CitizenVaccinationState3Fragment.this.dialogOnConfirm(schedule.getId());
+            }
+        });
+
+        customDialog.showDialog("Xác nhận đăng ký tiêm chủng?",
+                "Lịch tiêm:...");
+    }
+
+    public void dialogOnCancel() {
+        customDialog.getDialog().dismiss();
+    }
+
+    public void dialogOnConfirm(String scheduleId) {
+        customDialog.getDialog().dismiss();
+
+        DocumentReference scheduleRef =
+                db.collection("schedules").document(scheduleId);
+        DocumentReference registryRef =
+                db.collection("registry").document(citizen.getId() + scheduleId);
+        db.runTransaction(new Transaction.Function<Integer>() {
+            @Nullable
+            @Override
+            public Integer apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
+                DocumentSnapshot scheduleSnapshot = transaction.get(scheduleRef);
+
+                Double dayRegistered = scheduleSnapshot.getDouble("day_registered");
+                Double noonRegistered = scheduleSnapshot.getDouble("noon_registered");
+                Double nightRegistered = scheduleSnapshot.getDouble("night_registered");
+                Double limitDay = scheduleSnapshot.getDouble("limit_day");
+                Double limitNoon = scheduleSnapshot.getDouble("limit_noon");
+                Double limitNight = scheduleSnapshot.getDouble("limit_night");
+
+                Log.i("myTAG", dayRegistered + " " + noonRegistered + " " + nightRegistered
+                        + " " + limitDay + " " + limitNoon + " " + limitNight);
+
+                SpinnerOption shiftOption = (SpinnerOption) spShift.getSelectedItem();
+                String shiftValue = shiftOption.getValue();
+                String shiftName = shiftOption.getOption().substring(0, shiftOption.getOption().length()-3);
+                switch (shiftValue) {
+                    default:
+                    case "0":
+                        if (dayRegistered == limitDay)
+                            return null;
+                        else
+                            transaction.update(scheduleRef, "day_registered", dayRegistered+1);
+                        break;
+                    case "1":
+                        if (noonRegistered == limitNoon)
+                            return null;
+                        else
+                            transaction.update(scheduleRef, "noon_registered", noonRegistered+1);
+                        break;
+                    case "2":
+                        if (nightRegistered == limitNight)
+                            return null;
+                        else
+                            transaction.update(scheduleRef, "night_registered", nightRegistered+1);
+                        break;
+                }
+
+                Register register = new Register();
+                register.setCitizen_id(citizen.getId());
+                register.setSchedule_id(scheduleId);
+                register.setShift(shiftName);
+                register.setNum_order(dayRegistered.intValue()
+                        + noonRegistered.intValue()
+                        + nightRegistered.intValue()
+                        + 1);
+                register.setStatus(0);
+
+                transaction.set(registryRef, register);
+                return 1;
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Integer>() {
+            @Override
+            public void onComplete(@NonNull Task<Integer> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(getContext(), "Đăng ký tiêm chủng thành công!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), "Đăng ký tiêm chủng thất bại!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }
