@@ -2,9 +2,7 @@ package com.example.cvm_mobile_application.ui.citizen.info;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -106,9 +104,15 @@ import java.util.List;
         etPhone = findViewById(R.id.et_phone);
         etId = findViewById(R.id.et_id);
         etEmail = findViewById(R.id.et_email);
-        spProvince = findViewById(R.id.sp_province);
-        spDistrict = findViewById(R.id.sp_district);
-        spWard = findViewById(R.id.sp_ward);
+
+        dvhcHelper.setSpProvince(findViewById(R.id.sp_province));
+        dvhcHelper.setSpDistrict(findViewById(R.id.sp_district));
+        dvhcHelper.setSpWard(findViewById(R.id.sp_ward));
+
+        spProvince = dvhcHelper.getSpProvince();
+        spDistrict = dvhcHelper.getSpDistrict();
+        spWard = dvhcHelper.getSpWard();
+
         etStreet = findViewById(R.id.et_street);
 
         btnSaveProfile = findViewById(R.id.btn_save_profile);
@@ -137,40 +141,8 @@ import java.util.List;
         etId.setText(citizen.getId());
         etEmail.setText(citizen.getEmail());
 
-        //GET PROVINCE LIST
-        provinceList = dvhcHelper.getLocalList(DVHCHelper.PROVINCE_LEVEL, null);
-
-        //SET PROVINCE INFO VALUE
-        spProvinceListAdapter = new SpinnerAdapter(getApplicationContext(),
-                R.layout.item_string, provinceList);
-        spProvince.setAdapter(spProvinceListAdapter);
-        int provincePosition = dvhcHelper.getLocalPositionFromList(
-                DVHCHelper.PROVINCE_LEVEL, citizen.getProvince_name(), null);
-        spProvince.setSelection(provincePosition, true);
-
-        //GET DISTRICT LIST
-        String provinceCode = ((SpinnerOption) spProvince.getItemAtPosition(spProvince.getSelectedItemPosition())).getValue();
-        districtList = dvhcHelper.getLocalList(DVHCHelper.DISTRICT_LEVEL, provinceCode);
-
-        //SET DISTRICT INFO VALUE
-        spDistrictListAdapter = new SpinnerAdapter(getApplicationContext(),
-                R.layout.item_string, districtList);
-        spDistrict.setAdapter(spDistrictListAdapter);
-        int districtPosition = dvhcHelper.getLocalPositionFromList(
-                DVHCHelper.DISTRICT_LEVEL, citizen.getDistrict_name(), provinceCode);
-        spDistrict.setSelection(districtPosition, true);
-
-        //GET WARD LIST
-        String districtCode = ((SpinnerOption) spDistrict.getItemAtPosition(spDistrict.getSelectedItemPosition())).getValue();
-        wardList = dvhcHelper.getLocalList(DVHCHelper.WARD_LEVEL, districtCode);
-
-        //SET WARD INFO VALUE
-        spWardListAdapter = new SpinnerAdapter(getApplicationContext(),
-                R.layout.item_string, wardList);
-        spWard.setAdapter(spWardListAdapter);
-        int wardPosition = dvhcHelper.getLocalPositionFromList(
-                DVHCHelper.WARD_LEVEL, citizen.getWard_name(), districtCode);
-        spWard.setSelection(wardPosition, true);
+        //SET LOCAL VALUE
+        dvhcHelper.bindLocalListSpinnerData(getApplicationContext(), citizen);
 
         etStreet.setText(citizen.getStreet());
     }
@@ -204,51 +176,7 @@ import java.util.List;
             }
         });
 
-        //SET PROVINCE SPINNER LISTENER
-        spProvince.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //GET DISTRICT LIST, WARD LIST
-                CitizenProfileActivity.this
-                        .spProvinceTriggeredActivities();
-                Log.i("myTAG", "province spinner");
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        //SET DISTRICT SPINNER LISTENER
-        spDistrict.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //GET WARD LIST
-                CitizenProfileActivity.this
-                        .spDistrictTriggeredActivities();
-                Log.i("myTAG", "district spinner");
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        spWard.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                CitizenProfileActivity.this
-                        .spWardTriggeredActivities();
-                Log.i("myTAG", "ward spinner");
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+        dvhcHelper.setLocalListSpinnerListener();
 
         btnSaveProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -256,74 +184,6 @@ import java.util.List;
                 CitizenProfileActivity.this.updateProfile();
             }
         });
-    }
-
-    public void spProvinceTriggeredActivities() {
-        try {
-            SpinnerOption provinceOption =
-                    (SpinnerOption) provinceList.get(spProvince.getSelectedItemPosition());
-            districtList = dvhcHelper.getLocalList(
-                    DVHCHelper.DISTRICT_LEVEL, provinceOption.getValue());
-            spDistrictListAdapter.setOptionList(districtList);
-            spDistrictListAdapter.notifyDataSetChanged();
-
-            // Changing selected province triggers district listener to change district list.
-            // And when changing district list, we also need to change ward list,
-
-            // IN CASE, THE DISTRICT SPINNER HAS NOT BEEN SELECTED
-            // (SELECTED POSITION STAYS = 0)
-            // THEN WHEN .setSelection(0) IS CALLED
-            // IT DOES NOT TRIGGER THE SELECTION OF THE DISTRICT SPINNER
-            // (THE ACTIVITY WHEN DISTRICT SPINNER IS TRIGGERED IS CHANGING THE WARD LIST)
-            // SO WE NEED TO DO THE ACTIVITY OF THE DISTRICT SPINNER TRIGGER BY HAND HERE
-            if (spDistrict.getSelectedItemPosition() == 0) {
-//                SpinnerOption districtOption = (SpinnerOption) districtList.get(0);
-//                wardList = dvhcHelper.getLocalList(
-//                        DVHCHelper.WARD_LEVEL, districtOption.getValue());
-//                spWardListAdapter.setOptionList(wardList);
-//                spWardListAdapter.notifyDataSetChanged();
-
-                spDistrictTriggeredActivities();
-            }
-            // ELSE SET SELECTION TO 0 AND TRIGGER THE DISTRICT SPINNER AUTOMATICALLY
-            else {
-                spDistrict.setSelection(0, true);
-            }
-
-            // MORE EXPLANATION
-            // THE REASON WE NEED TO TRIGGER THESE LISTENERS IN CHAIN THAT IS
-            // TO MAKE SURE ALL THESE ACTIVITIES ARE ACTIVATED COMPLETELY AND IN ORDERLY
-
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void spDistrictTriggeredActivities() {
-        try {
-            SpinnerOption districtOption = (SpinnerOption) spDistrict.getSelectedItem();
-            wardList = dvhcHelper.getLocalList(
-                    DVHCHelper.WARD_LEVEL, districtOption.getValue());
-            spWardListAdapter.setOptionList(wardList);
-            spWardListAdapter.notifyDataSetChanged();
-
-            // TRIGGER WARD SPINNER SELECTION FOR THE NEXT ACTIVITIES
-
-            if (spWard.getSelectedItemPosition() == 0) {
-                spWardTriggeredActivities();
-            } else {
-                spWard.setSelection(0, true);
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void spWardTriggeredActivities() {
-        SpinnerOption provinceOption = (SpinnerOption) spProvince.getSelectedItem();
-        SpinnerOption districtOption = (SpinnerOption) spDistrict.getSelectedItem();
-        SpinnerOption wardOption =
-                (SpinnerOption) wardList.get(spWard.getSelectedItemPosition());
     }
 
     public void updateProfile() {
@@ -365,13 +225,13 @@ import java.util.List;
         }
         profile.setEmail(String.valueOf(citizen.getEmail()));
 
-        SpinnerOption spOption = (SpinnerOption) spProvince.getSelectedItem();
+        SpinnerOption spOption = (SpinnerOption) dvhcHelper.getSelectedLocal(DVHCHelper.PROVINCE_LEVEL);
         profile.setProvince_name(spOption.getOption());
 
-        spOption = (SpinnerOption) spDistrict.getSelectedItem();
+        spOption = (SpinnerOption) dvhcHelper.getSelectedLocal(DVHCHelper.DISTRICT_LEVEL);
         profile.setDistrict_name(spOption.getOption());
 
-        spOption = (SpinnerOption) spWard.getSelectedItem();
+        spOption = (SpinnerOption) dvhcHelper.getSelectedLocal(DVHCHelper.WARD_LEVEL);
         profile.setWard_name(spOption.getOption());
 
         profile.setStreet(String.valueOf(etStreet.getText()));
@@ -416,6 +276,5 @@ import java.util.List;
                 startActivity(intent);
             }
         });
-
     }
 }
