@@ -53,7 +53,6 @@ import java.util.Date;
 import java.util.List;
 
 public class CitizenVaccinationState3Fragment extends Fragment implements ViewStructure {
-
     private View view;
     private FirebaseFirestore db;
     private Citizen citizen;

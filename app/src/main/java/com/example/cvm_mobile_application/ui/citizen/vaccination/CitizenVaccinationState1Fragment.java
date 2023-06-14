@@ -131,9 +131,15 @@ public class CitizenVaccinationState1Fragment extends Fragment implements ViewSt
         etPhone = view.findViewById(R.id.et_phone);
         etId = view.findViewById(R.id.et_id);
         etEmail = view.findViewById(R.id.et_email);
-        spProvince = view.findViewById(R.id.sp_province);
-        spDistrict = view.findViewById(R.id.sp_district);
-        spWard = view.findViewById(R.id.sp_ward);
+
+        dvhcHelper.setSpProvince(view.findViewById(R.id.sp_province));
+        dvhcHelper.setSpDistrict(view.findViewById(R.id.sp_district));
+        dvhcHelper.setSpWard(view.findViewById(R.id.sp_ward));
+
+        spProvince = dvhcHelper.getSpProvince();
+        spDistrict = dvhcHelper.getSpDistrict();
+        spWard = dvhcHelper.getSpWard();
+
         etStreet = view.findViewById(R.id.et_street);
 
         btnSave = view.findViewById(R.id.btn_next);
@@ -173,40 +179,8 @@ public class CitizenVaccinationState1Fragment extends Fragment implements ViewSt
         //SET EMAIL INFO VALUE
         etEmail.setText(citizen.getEmail());
 
-        //GET PROVINCE LIST
-        provinceList = dvhcHelper.getLocalList(DVHCHelper.PROVINCE_LEVEL, null);
-
-        //SET PROVINCE INFO VALUE
-        spProvinceListAdapter = new SpinnerAdapter(requireActivity().getApplicationContext(),
-                R.layout.item_string, provinceList);
-        spProvince.setAdapter(spProvinceListAdapter);
-        int provincePosition = dvhcHelper.getLocalPositionFromList(
-                DVHCHelper.PROVINCE_LEVEL, citizen.getProvince_name(), null);
-        spProvince.setSelection(provincePosition, false);
-
-        //GET DISTRICT LIST
-        String provinceCode = ((SpinnerOption) spProvince.getItemAtPosition(spProvince.getSelectedItemPosition())).getValue();
-        districtList = dvhcHelper.getLocalList(DVHCHelper.DISTRICT_LEVEL, provinceCode);
-
-        //SET DISTRICT INFO VALUE
-        spDistrictListAdapter = new SpinnerAdapter(requireActivity().getApplicationContext(),
-                R.layout.item_string, districtList);
-        spDistrict.setAdapter(spDistrictListAdapter);
-        int districtPosition = dvhcHelper.getLocalPositionFromList(
-                DVHCHelper.DISTRICT_LEVEL, citizen.getDistrict_name(), provinceCode);
-        spDistrict.setSelection(districtPosition, false);
-
-        //GET WARD LIST
-        String districtCode = ((SpinnerOption) spDistrict.getItemAtPosition(spDistrict.getSelectedItemPosition())).getValue();
-        wardList = dvhcHelper.getLocalList(DVHCHelper.WARD_LEVEL, districtCode);
-
-        //SET WARD INFO VALUE
-        spWardListAdapter = new SpinnerAdapter(requireActivity().getApplicationContext(),
-                R.layout.item_string, wardList);
-        spWard.setAdapter(spWardListAdapter);
-        int wardPosition = dvhcHelper.getLocalPositionFromList(
-                DVHCHelper.WARD_LEVEL, citizen.getWard_name(), districtCode);
-        spWard.setSelection(wardPosition);
+        //SET LOCAL VALUE
+        dvhcHelper.bindLocalListSpinnerData(getContext(), citizen);
 
         //SET ADDRESS INFO VALUE
         etStreet.setText(citizen.getStreet());
@@ -270,51 +244,7 @@ public class CitizenVaccinationState1Fragment extends Fragment implements ViewSt
             }
         });
 
-        //SET PROVINCE SPINNER LISTENER
-        spProvince.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //GET DISTRICT LIST, WARD LIST
-                CitizenVaccinationState1Fragment.this
-                        .spProvinceTriggeredActivities();
-                Log.i("myTAG", "province spinner");
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        //SET DISTRICT SPINNER LISTENER
-        spDistrict.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //GET WARD LIST
-                CitizenVaccinationState1Fragment.this
-                        .spDistrictTriggeredActivities();
-                Log.i("myTAG", "district spinner");
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        spWard.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                CitizenVaccinationState1Fragment.this
-                        .spWardTriggeredActivities();
-                Log.i("myTAG", "ward spinner");
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-
+        dvhcHelper.setLocalListSpinnerListener();
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -323,75 +253,6 @@ public class CitizenVaccinationState1Fragment extends Fragment implements ViewSt
                 CitizenVaccinationState1Fragment.this.updateProfile();
             }
         });
-    }
-
-
-    public void spProvinceTriggeredActivities() {
-        try {
-            SpinnerOption provinceOption =
-                    (SpinnerOption) provinceList.get(spProvince.getSelectedItemPosition());
-            districtList = dvhcHelper.getLocalList(
-                    DVHCHelper.DISTRICT_LEVEL, provinceOption.getValue());
-            spDistrictListAdapter.setOptionList(districtList);
-            spDistrictListAdapter.notifyDataSetChanged();
-
-            // Changing selected province triggers district listener to change district list.
-            // And when changing district list, we also need to change ward list,
-
-            // IN CASE, THE DISTRICT SPINNER HAS NOT BEEN SELECTED
-            // (SELECTED POSITION STAYS = 0)
-            // THEN WHEN .setSelection(0) IS CALLED
-            // IT DOES NOT TRIGGER THE SELECTION OF THE DISTRICT SPINNER
-            // (THE ACTIVITY WHEN DISTRICT SPINNER IS TRIGGERED IS CHANGING THE WARD LIST)
-            // SO WE NEED TO DO THE ACTIVITY OF THE DISTRICT SPINNER TRIGGER BY HAND HERE
-            if (spDistrict.getSelectedItemPosition() == 0) {
-//                SpinnerOption districtOption = (SpinnerOption) districtList.get(0);
-//                wardList = dvhcHelper.getLocalList(
-//                        DVHCHelper.WARD_LEVEL, districtOption.getValue());
-//                spWardListAdapter.setOptionList(wardList);
-//                spWardListAdapter.notifyDataSetChanged();
-
-                spDistrictTriggeredActivities();
-            }
-            // ELSE SET SELECTION TO 0 AND TRIGGER THE DISTRICT SPINNER AUTOMATICALLY
-            else {
-                spDistrict.setSelection(0, true);
-            }
-
-            // MORE EXPLANATION
-            // THE REASON WE NEED TO TRIGGER THESE LISTENERS IN CHAIN THAT IS
-            // TO MAKE SURE ALL THESE ACTIVITIES ARE ACTIVATED COMPLETELY AND IN ORDERLY
-
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void spDistrictTriggeredActivities() {
-        try {
-            SpinnerOption districtOption = (SpinnerOption) spDistrict.getSelectedItem();
-            wardList = dvhcHelper.getLocalList(
-                    DVHCHelper.WARD_LEVEL, districtOption.getValue());
-            spWardListAdapter.setOptionList(wardList);
-            spWardListAdapter.notifyDataSetChanged();
-
-            // TRIGGER WARD SPINNER SELECTION FOR THE NEXT ACTIVITIES
-
-            if (spWard.getSelectedItemPosition() == 0) {
-                spWardTriggeredActivities();
-            } else {
-                spWard.setSelection(0, true);
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void spWardTriggeredActivities() {
-        SpinnerOption provinceOption = (SpinnerOption) spProvince.getSelectedItem();
-        SpinnerOption districtOption = (SpinnerOption) spDistrict.getSelectedItem();
-        SpinnerOption wardOption =
-                (SpinnerOption) wardList.get(spWard.getSelectedItemPosition());
     }
 
     public void getTargetData() {
@@ -472,13 +333,13 @@ public class CitizenVaccinationState1Fragment extends Fragment implements ViewSt
         }
         profile.setEmail(String.valueOf(citizen.getEmail()));
 
-        SpinnerOption spOption = (SpinnerOption) spProvince.getSelectedItem();
+        SpinnerOption spOption = (SpinnerOption) dvhcHelper.getSelectedLocal(DVHCHelper.PROVINCE_LEVEL);
         profile.setProvince_name(spOption.getOption());
 
-        spOption = (SpinnerOption) spDistrict.getSelectedItem();
+        spOption = (SpinnerOption) dvhcHelper.getSelectedLocal(DVHCHelper.DISTRICT_LEVEL);
         profile.setDistrict_name(spOption.getOption());
 
-        spOption = (SpinnerOption) spWard.getSelectedItem();
+        spOption = (SpinnerOption) dvhcHelper.getSelectedLocal(DVHCHelper.WARD_LEVEL);
         profile.setWard_name(spOption.getOption());
 
         profile.setStreet(String.valueOf(etStreet.getText()));
