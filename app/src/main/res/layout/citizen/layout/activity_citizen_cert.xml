@@ -74,6 +74,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tv_num_injection"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center"
@@ -166,11 +167,11 @@
                                     android:orientation="vertical">
 
                                     <TextView
+                                        android:id="@+id/tv_fullName"
                                         android:layout_width="match_parent"
                                         android:layout_height="30dp"
                                         android:layout_marginLeft="20dp"
                                         android:layout_marginTop="2dp"
-                                        android:text="Lê Hoàng Duyên"
                                         android:textSize="20sp"
                                         android:textStyle="bold" />
                                 </LinearLayout>
@@ -234,11 +235,11 @@
                                     android:orientation="vertical">
 
                                     <TextView
+                                        android:id="@+id/tv_birthday"
                                         android:layout_width="match_parent"
                                         android:layout_height="30dp"
                                         android:layout_marginLeft="20dp"
                                         android:layout_marginTop="2dp"
-                                        android:text="27/10/2002"
                                         android:textSize="20sp"
                                         android:textStyle="bold" />
                                 </LinearLayout>
@@ -301,11 +302,11 @@
                                     android:orientation="vertical">
 
                                     <TextView
+                                        android:id="@+id/tv_id"
                                         android:layout_width="match_parent"
                                         android:layout_height="30dp"
                                         android:layout_marginLeft="20dp"
                                         android:layout_marginTop="2dp"
-                                        android:text="0123456789"
                                         android:textSize="20sp"
                                         android:textStyle="bold" />
                                 </LinearLayout>
@@ -317,14 +318,9 @@
                 </LinearLayout>
 
                 <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="30dp"
-                    android:background="@drawable/bg_btn_primary"
-                    android:gravity="center"
+                    style="@style/btn_primary"
                     android:text="Cập nhật chứng nhận"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
+                    />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"

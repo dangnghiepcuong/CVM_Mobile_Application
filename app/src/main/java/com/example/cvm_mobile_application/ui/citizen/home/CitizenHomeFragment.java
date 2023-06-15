@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.db.model.Citizen;
+import com.example.cvm_mobile_application.ui.citizen.info.CitizenCertificateActivity;
 import com.example.cvm_mobile_application.ui.citizen.vaccination.CitizenVaccinationActivity;
 
 public class CitizenHomeFragment extends Fragment {
@@ -19,6 +20,7 @@ public class CitizenHomeFragment extends Fragment {
     private Citizen citizen;
     private View view;
     private TextView fullName;
+    private LinearLayout btnCertificate;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,6 +40,7 @@ public class CitizenHomeFragment extends Fragment {
     public void implementView() {
         fullName = view.findViewById(R.id.FullName);
         btnVaccination = view.findViewById(R.id.btn_vaccination);
+        btnCertificate = view.findViewById(R.id.btn_certificate);
     }
 
     public void bindViewData() {
@@ -49,6 +52,15 @@ public class CitizenHomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity().getBaseContext(), CitizenVaccinationActivity.class);
+                intent.putExtra("citizen", citizen);
+                startActivity(intent);
+            }
+        });
+
+        btnCertificate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity().getBaseContext(), CitizenCertificateActivity.class);
                 intent.putExtra("citizen", citizen);
                 startActivity(intent);
             }
