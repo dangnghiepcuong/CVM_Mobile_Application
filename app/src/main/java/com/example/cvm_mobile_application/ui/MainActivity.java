@@ -56,7 +56,7 @@ import com.google.firebase.firestore.QuerySnapshot;
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
-            startActivity(new Intent(getApplicationContext(), CitizenNavigationBottomActivity.class));
+            queryUserRole(currentUser.getEmail());
             finish();
             return;
         }

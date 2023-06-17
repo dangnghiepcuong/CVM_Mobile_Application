@@ -13,6 +13,8 @@ import androidx.fragment.app.Fragment;
 
 import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.db.model.Citizen;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 @BuildCompat.PrereleaseSdkCheck public class CitizenPersonalMenuFragment extends Fragment {
 
@@ -71,6 +73,7 @@ import com.example.cvm_mobile_application.data.db.model.Citizen;
     }
 
     public void logOut() {
-
+        FirebaseAuth.getInstance().signOut();
+        getActivity().finish();
     }
 }

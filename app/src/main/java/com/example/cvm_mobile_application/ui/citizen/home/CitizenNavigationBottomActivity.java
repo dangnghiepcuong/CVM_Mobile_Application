@@ -164,20 +164,27 @@ public class CitizenNavigationBottomActivity extends AppCompatActivity implement
     @Override
     public void onBackPressed() {
         // Here you want to show the user a dialog box{
-        new AlertDialog.Builder(getApplicationContext())
-                .setTitle("Exiting the App")
+        if(isTaskRoot()) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Exiting the App")
                 .setMessage("Are you sure?")
-                .setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        // The user wants to leave - so dismiss the dialog and exit
-                        finish();
-                        dialog.dismiss();
-                    }
-                }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        // The user is not sure, so you can exit or just stay
-                        dialog.dismiss();
-                    }
-                }).show();
+                    .setCancelable(false)
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            finish();
+                            dialog.cancel();
+                        }
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+
+        } else {
+            super.onBackPressed();
+        }
     }
 }

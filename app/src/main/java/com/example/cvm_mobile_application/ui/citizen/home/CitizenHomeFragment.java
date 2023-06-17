@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.db.model.Citizen;
 import com.example.cvm_mobile_application.ui.citizen.info.CitizenCertificateActivity;
+import com.example.cvm_mobile_application.ui.citizen.info.CitizenProfileActivity;
 import com.example.cvm_mobile_application.ui.citizen.vaccination.CitizenVaccinationActivity;
 
 public class CitizenHomeFragment extends Fragment {
