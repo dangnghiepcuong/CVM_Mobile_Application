@@ -1,5 +1,6 @@
 package com.example.cvm_mobile_application.ui.citizen.info;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,11 +9,13 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.os.BuildCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.db.model.Citizen;
+import com.example.cvm_mobile_application.ui.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -73,7 +76,25 @@ import com.google.firebase.auth.FirebaseUser;
     }
 
     public void logOut() {
-        FirebaseAuth.getInstance().signOut();
-        getActivity().finish();
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Đăng xuất")
+                .setMessage("Bạn có muốn đăng xuất không?")
+                .setCancelable(false)
+                .setPositiveButton("Đăng xuất", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        FirebaseAuth.getInstance().signOut();
+                        Intent intent = new Intent(getContext(), MainActivity.class);
+                        startActivity(intent);
+                        getActivity().finish();
+                        dialog.cancel();
+                    }
+                })
+                .setNegativeButton("Hủy bỏ", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 }

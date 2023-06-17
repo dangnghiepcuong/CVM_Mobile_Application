@@ -166,16 +166,16 @@ public class CitizenNavigationBottomActivity extends AppCompatActivity implement
         // Here you want to show the user a dialog box{
         if(isTaskRoot()) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Exiting the App")
-                .setMessage("Are you sure?")
+            builder.setTitle("Thoát ứng dụng")
+                .setMessage("Bạn có muốn thoát ứng dụng không?")
                     .setCancelable(false)
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    .setPositiveButton("Thoát", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             finish();
                             dialog.cancel();
                         }
                     })
-                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    .setNegativeButton("Hủy bỏ", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             dialog.cancel();
                         }

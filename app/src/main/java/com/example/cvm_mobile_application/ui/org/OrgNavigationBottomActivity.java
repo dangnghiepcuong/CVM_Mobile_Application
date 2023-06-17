@@ -1,6 +1,7 @@
 package com.example.cvm_mobile_application.ui.org;
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -44,6 +45,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
     protected void onStart(){
         super.onStart();
         String username = getIntent().getStringExtra("username");
+        saveData(username);
 
         implementView();
         setViewListener();
@@ -135,26 +137,41 @@ import com.google.firebase.firestore.FirebaseFirestore;
     @Override
     public void onBackPressed() {
         // Here you want to show the user a dialog box{
-        new AlertDialog.Builder(getApplicationContext())
-                .setTitle("Exiting the App")
-                .setMessage("Are you sure?")
-                .setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        // The user wants to leave - so dismiss the dialog and exit
-                        finish();
-                        dialog.dismiss();
-                    }
-                }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        // The user is not sure, so you can exit or just stay
-                        dialog.dismiss();
-                    }
-                }).show();
+        if(isTaskRoot()) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Thoát ứng dụng")
+                    .setMessage("Bạn có muốn thoát ứng dụng không?")
+                    .setCancelable(false)
+                    .setPositiveButton("Thoát", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            finish();
+                            dialog.cancel();
+                        }
+                    })
+                    .setNegativeButton("Hủy bỏ", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+
+        } else {
+            super.onBackPressed();
+        }
     }
     private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
+    }
+
+    private void saveData(String username){
+        SharedPreferences sharedPreferences = getSharedPreferences("SHARED_PREFS", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putString("username", username);
+        editor.commit();
     }
 }
