@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -54,6 +55,10 @@ public class OrgCreateScheduleActivity extends AppCompatActivity {
     private SpinnerAdapter spVaccineLotAdapter;
     private DatePicker dpOnDate;
     private TextView tvOnDate;
+    private Button btnBack;
+    private TextView tbTitle;
+    private LinearLayout infoToRead;
+    private LinearLayout btnUpdate;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,6 +82,9 @@ public class OrgCreateScheduleActivity extends AppCompatActivity {
     }
 
     public void implementView() {
+        btnBack = findViewById(R.id.btn_back);
+        tbTitle = findViewById(R.id.tb_title);
+
         tvOnDate = findViewById(R.id.tv_on_date);
         btnOnDate = findViewById(R.id.btn_on_dp);
         dpOnDate = findViewById(R.id.dp_on_date);
@@ -94,9 +102,14 @@ public class OrgCreateScheduleActivity extends AppCompatActivity {
 
         btnCreate = findViewById(R.id.btn_create_schedule);
         btnCreate.setEnabled(false);
+
+        infoToRead.setVisibility(View.GONE);
+        btnUpdate.setVisibility(View.GONE);
     }
 
     public void bindViewData() {
+        tbTitle.setText("Tạo lịch tiêm chủng");
+
         getVaccineList();
         spVaccineTypeAdapter = new SpinnerAdapter(getApplicationContext(), R.layout.item_string, vaccineList);
         spVaccineType.setAdapter(spVaccineTypeAdapter);
@@ -106,6 +119,12 @@ public class OrgCreateScheduleActivity extends AppCompatActivity {
     }
 
     public void setViewListener() {
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         btnOnDate.setOnClickListener(new View.OnClickListener() {
             @Override

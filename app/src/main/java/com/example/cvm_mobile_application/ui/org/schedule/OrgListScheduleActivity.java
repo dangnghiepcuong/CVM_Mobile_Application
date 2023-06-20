@@ -1,9 +1,9 @@
 package com.example.cvm_mobile_application.ui.org.schedule;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
@@ -13,15 +13,16 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.os.BuildCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.db.model.Organization;
 import com.example.cvm_mobile_application.data.db.model.Schedule;
-import com.example.cvm_mobile_application.data.objects.DVHCHelper;
 import com.example.cvm_mobile_application.ui.ScheduleListAdapter;
 import com.example.cvm_mobile_application.ui.ViewStructure;
+import com.example.cvm_mobile_application.ui.org.OnScheduleItemClickListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
@@ -38,9 +39,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class OrgListScheduleActivity extends AppCompatActivity implements ViewStructure {
+@BuildCompat.PrereleaseSdkCheck public class OrgListScheduleActivity extends AppCompatActivity implements ViewStructure {
     private FirebaseFirestore db;
-    private DVHCHelper dvhcHelper;
     private Organization org;
     private Button btnBack;
     private TextView tbTitle;
@@ -56,12 +56,12 @@ public class OrgListScheduleActivity extends AppCompatActivity implements ViewSt
     private List<Schedule> scheduleList;
     private ScheduleListAdapter scheduleListAdapter;
     private RecyclerView recyclerViewScheduleList;
+    private OnScheduleItemClickListener onScheduleItemClickListener;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_org_schedule_list);
         db = FirebaseFirestore.getInstance();
-        dvhcHelper = new DVHCHelper(getApplicationContext());
 
         org = new Organization();
         scheduleList = new ArrayList<>();
@@ -116,6 +116,7 @@ public class OrgListScheduleActivity extends AppCompatActivity implements ViewSt
         tvStartDate.setText(onDateString);
         tvEndDate.setText(onDateString);
 
+        getScheduleList();
         scheduleListAdapter = new ScheduleListAdapter(getApplicationContext(), scheduleList);
         recyclerViewScheduleList.setAdapter(scheduleListAdapter);
 
@@ -183,6 +184,19 @@ public class OrgListScheduleActivity extends AppCompatActivity implements ViewSt
                 getScheduleList();
             }
         });
+
+        onScheduleItemClickListener = new OnScheduleItemClickListener() {
+            @Override
+            public void onItemClick(Schedule item) {
+                Toast.makeText(getBaseContext(),
+                        item.getId(), Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(getBaseContext(), OrgScheduleManagementActivity.class);
+                intent.putExtra("schedule", item);
+                startActivity(intent);
+            }
+        };
+        scheduleListAdapter.setListener(onScheduleItemClickListener);
     }
 
     private void getScheduleList() {

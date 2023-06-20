@@ -51,6 +51,10 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".ui.org.schedule.OrgScheduleManagementActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".ui.org.info.OrgProfileActivity"
             android:screenOrientation="portrait" />
 

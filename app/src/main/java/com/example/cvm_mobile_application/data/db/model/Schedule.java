@@ -1,11 +1,19 @@
 package com.example.cvm_mobile_application.data.db.model;
 
+import android.annotation.SuppressLint;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
+import com.google.firebase.Timestamp;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Schedule {
+public class Schedule implements Parcelable {
     private String id;
     private Date on_date;
     private String lot;
@@ -19,6 +27,17 @@ public class Schedule {
     private String vaccine_id;
 
     public Schedule() {
+        id = "";
+        on_date = new Date();
+        lot = "";
+        limit_day = 0;
+        limit_noon = 0;
+        limit_night = 0;
+        day_registered = 0;
+        noon_registered = 0;
+        night_registered = 0;
+        org_id = "";
+        vaccine_id = "";
     }
 
     public Schedule(String id, String onDateString, String lot,
@@ -46,6 +65,42 @@ public class Schedule {
         this.org_id = org_id;
         this.vaccine_id = vaccine_id;
     }
+
+    protected Schedule(Parcel in) {
+        id = in.readString();
+
+        String dateString = in.readString();
+        Date onDate = null;
+        @SuppressLint("SimpleDateFormat") DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            onDate = df.parse(dateString);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        on_date = onDate;
+
+        lot = in.readString();
+        limit_day = in.readInt();
+        limit_noon = in.readInt();
+        limit_night = in.readInt();
+        day_registered = in.readInt();
+        noon_registered = in.readInt();
+        night_registered = in.readInt();
+        org_id = in.readString();
+        vaccine_id = in.readString();
+    }
+
+    public static final Creator<Schedule> CREATOR = new Creator<Schedule>() {
+        @Override
+        public Schedule createFromParcel(Parcel in) {
+            return new Schedule(in);
+        }
+
+        @Override
+        public Schedule[] newArray(int size) {
+            return new Schedule[size];
+        }
+    };
 
     public String getId() {
         return id;
@@ -133,5 +188,29 @@ public class Schedule {
 
     public void setVaccine_id(String vaccine_id) {
         this.vaccine_id = vaccine_id;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeString(id);
+
+        @SuppressLint("SimpleDateFormat") DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String onDate = df.format(on_date);
+        parcel.writeString(onDate);
+
+        parcel.writeString(lot);
+        parcel.writeInt(limit_day);
+        parcel.writeInt(limit_noon);
+        parcel.writeInt(limit_night);
+        parcel.writeInt(day_registered);
+        parcel.writeInt(noon_registered);
+        parcel.writeInt(night_registered);
+        parcel.writeString(org_id);
+        parcel.writeString(vaccine_id);
     }
 }
