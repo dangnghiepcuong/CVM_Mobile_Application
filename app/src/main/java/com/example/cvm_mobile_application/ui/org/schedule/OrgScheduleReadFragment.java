@@ -185,7 +185,7 @@ import java.util.List;
                             citizen = new Citizen();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 citizen = document.toObject(Citizen.class);
-                                Intent intent = new Intent(getContext(), CitizenProfileActivity.class);
+                                Intent intent = new Intent(getContext(), RegisterCitizenInfo.class);
                                 intent.putExtra("citizen", citizen);
                                 startActivity(intent);
                             }

@@ -189,7 +189,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="@color/white"
-        android:paddingHorizontal="10dp">
+        android:paddingHorizontal="20dp">
 
         <Button
             android:id="@+id/btn_update_schedule"
