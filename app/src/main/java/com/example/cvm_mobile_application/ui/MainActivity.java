@@ -1,6 +1,8 @@
 package com.example.cvm_mobile_application.ui;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,12 +12,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.os.BuildCompat;
 
 import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.db.model.Account;
 import com.example.cvm_mobile_application.data.db.model.Citizen;
+import com.example.cvm_mobile_application.data.db.model.Organization;
 import com.example.cvm_mobile_application.ui.admin.AdminNavigationBottom;
 import com.example.cvm_mobile_application.ui.citizen.CitizenRegisterAccountActivity;
 import com.example.cvm_mobile_application.ui.citizen.home.CitizenNavigationBottomActivity;
@@ -39,7 +43,6 @@ import com.google.firebase.firestore.QuerySnapshot;
     private int role = -1;
     private TextView btnCreateNewAccount;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +51,7 @@ import com.google.firebase.firestore.QuerySnapshot;
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
+
     }
 
     @Override
@@ -56,8 +60,13 @@ import com.google.firebase.firestore.QuerySnapshot;
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
-            startActivity(new Intent(getApplicationContext(), CitizenNavigationBottomActivity.class));
-            finish();
+            queryUserRole(currentUser.getEmail());
+            return;
+        }
+        SharedPreferences sharedPreferences = getSharedPreferences("SHARED_PREFS", MODE_PRIVATE);
+        String username = sharedPreferences.getString("username", "");
+        if (username != ""){
+            queryUserRole(username);
             return;
         }
 

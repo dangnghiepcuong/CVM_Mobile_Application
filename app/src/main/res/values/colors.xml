@@ -21,4 +21,7 @@
     <color name="Secondary">#57BDFA</color>
     <color name="BlankBg">#EEF1F8</color>
     <color name="DateView">#EAF3FF</color>
+
+    <color name="Green">#DCF8C6</color>
+    <color name="DarkGreen">#008000</color>
 </resources>

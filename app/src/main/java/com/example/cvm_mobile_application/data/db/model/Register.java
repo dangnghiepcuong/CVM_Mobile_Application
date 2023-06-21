@@ -8,19 +8,7 @@ public class Register {
     private int status;
     private String schedule_id;
     private String citizen_id;
-
-    public Register() {
-    }
-
-    public Register(int id, String dose_type, String shift, int num_order, int status, String schedule_id, String citizen) {
-        this.id = id;
-        this.dose_type = dose_type;
-        this.shift = shift;
-        this.num_order = num_order;
-        this.status = status;
-        this.schedule_id = schedule_id;
-        this.citizen_id = citizen;
-    }
+    private String citizen_name;
 
     public int getId() {
         return id;
@@ -88,5 +76,13 @@ public class Register {
 
     public void setCitizen_id(String citizen_id) {
         this.citizen_id = citizen_id;
+    }
+
+    public String getCitizen_name() {
+        return citizen_name;
+    }
+
+    public void setCitizen_name(String citizen_name) {
+        this.citizen_name = citizen_name;
     }
 }

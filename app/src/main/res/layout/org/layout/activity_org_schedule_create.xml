@@ -2,44 +2,26 @@
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_gradient"
     android:orientation="vertical">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingHorizontal="20dp"
-        android:paddingVertical="10dp">
-
-        <LinearLayout
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/ic_arrow_back_white" />
-
-        <TextView
-            style="@style/labelFor_fragment"
-            android:text="Tạo lịch tiêm chủng"/>
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    <include layout="@layout/toolbar_1" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="9"
-        android:background="@drawable/card_form"
+        android:layout_weight="7"
+        android:background="@color/white"
         android:orientation="vertical">
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="20dp">
+            android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_marginTop="10dp"
+                android:orientation="vertical"
                 android:paddingHorizontal="20dp">
 
                 <LinearLayout
@@ -48,67 +30,112 @@
                     android:layout_gravity="center"
                     android:background="@drawable/bg_btn_org_feature_schedule_create" />
 
-                <TextView
-                    style="@style/labelFor_et"
-                    android:text="Ngày diễn ra lịch tiêm"
-                    android:textSize="18sp" />
-
-                <LinearLayout style="@style/linear_layout_date_picker">
-                    <TextView
-                        android:id="@+id/tv_on_date"
-                        style="@style/edit_date"
-                        android:layout_weight="7"/>
-                    <Button
-                        android:id="@+id/btn_on_dp"
-                        style="@style/btn_date_picker"
-                        android:layout_weight="3"
-                        android:text="chọn ngày"/>
-                </LinearLayout>
-                <DatePicker
-                    android:id="@+id/dp_on_date"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/info_to_read"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:spinnersShown="false"
-                    android:visibility="gone"/>
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-                <TextView
-                    style="@style/labelFor_et"
-                    android:text="Loại vắc-xin"
-                    android:textSize="18sp" />
+                    <TextView
+                        android:id="@+id/tv_if_date"
+                        style="@style/labelFor_et"
+                        android:text="Lịch tiêm ngày: "
+                        android:textColor="@color/Primary"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
 
-                <FrameLayout
+                    <TextView
+                        android:id="@+id/tv_if_vaccine_type"
+                        style="@style/labelFor_et"
+                        android:text="Loại vaccine: "
+                        android:textColor="@color/Primary"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/iv_if_vaccine_lot"
+                        style="@style/labelFor_et"
+                        android:text="Số lô: "
+                        android:textColor="@color/Primary"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/info_to_input"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <Spinner
-                        android:id="@+id/sp_vaccine_type"
-                        style="@style/spinner"
-                        android:spinnerMode="dialog"></Spinner>
-<!--                    <ProgressBar-->
-<!--                        android:id="@+id/pb_sp_vaccine_type"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:visibility="gone"/>-->
-                </FrameLayout>
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/labelFor_et"
+                        android:text="Ngày diễn ra lịch tiêm"
+                        android:textSize="18sp" />
+
+                    <LinearLayout style="@style/linear_layout_date_picker">
+
+                        <TextView
+                            android:id="@+id/tv_on_date"
+                            style="@style/edit_date"
+                            android:layout_weight="7" />
+
+                        <Button
+                            android:id="@+id/btn_on_dp"
+                            style="@style/btn_date_picker"
+                            android:layout_weight="3"
+                            android:text="chọn ngày" />
+                    </LinearLayout>
+
+                    <DatePicker
+                        android:id="@+id/dp_on_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:spinnersShown="false"
+                        android:visibility="gone" />
+
+                    <TextView
+                        style="@style/labelFor_et"
+                        android:text="Loại vắc-xin"
+                        android:textSize="18sp" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <Spinner
+                            android:id="@+id/sp_vaccine_type"
+                            style="@style/spinner"
+                            android:spinnerMode="dialog"></Spinner>
+                        <!--                    <ProgressBar-->
+                        <!--                        android:id="@+id/pb_sp_vaccine_type"-->
+                        <!--                        android:layout_width="match_parent"-->
+                        <!--                        android:layout_height="wrap_content"-->
+                        <!--                        android:visibility="gone"/>-->
+                    </FrameLayout>
 
 
-                <TextView
-                    style="@style/labelFor_et"
-                    android:text="Số lô vắc-xin"
-                    android:textSize="18sp" />
+                    <TextView
+                        style="@style/labelFor_et"
+                        android:text="Số lô vắc-xin"
+                        android:textSize="18sp" />
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <Spinner
-                        android:id="@+id/sp_vaccine_lot"
-                        style="@style/spinner"
-                        android:spinnerMode="dialog"/>
-<!--                    <ProgressBar-->
-<!--                        android:id="@+id/pb_sp_vaccine_lot"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:visibility="gone"/>-->
-                </FrameLayout>
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <Spinner
+                            android:id="@+id/sp_vaccine_lot"
+                            style="@style/spinner"
+                            android:spinnerMode="dialog" />
+                        <!--                    <ProgressBar-->
+                        <!--                        android:id="@+id/pb_sp_vaccine_lot"-->
+                        <!--                        android:layout_width="match_parent"-->
+                        <!--                        android:layout_height="wrap_content"-->
+                        <!--                        android:visibility="gone"/>-->
+                    </FrameLayout>
+                </LinearLayout>
 
                 <TextView
                     style="@style/labelFor_et"
@@ -118,8 +145,8 @@
                 <EditText
                     android:id="@+id/et_day_limit"
                     style="@style/edit_text"
-                    android:inputType="number"
-                    android:hint="0"/>
+                    android:hint="0"
+                    android:inputType="number" />
 
                 <TextView
                     style="@style/labelFor_et"
@@ -129,8 +156,8 @@
                 <EditText
                     android:id="@+id/et_noon_limit"
                     style="@style/edit_text"
-                    android:inputType="number"
-                    android:hint="0"/>
+                    android:hint="0"
+                    android:inputType="number" />
 
                 <TextView
                     style="@style/labelFor_et"
@@ -140,20 +167,34 @@
                 <EditText
                     android:id="@+id/et_night_limit"
                     style="@style/edit_text"
-                    android:inputType="number"
-                    android:hint="0"/>
+                    android:hint="0"
+                    android:inputType="number" />
 
                 <Button
                     android:id="@+id/btn_create_schedule"
                     style="@style/btn_primary"
-                    android:text="Tạo lịch tiêm chủng" />
+                    android:text="Tạo lịch tiêm chủng"/>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="30dp" />
             </androidx.appcompat.widget.LinearLayoutCompat>
-            
+
         </ScrollView>
     </androidx.appcompat.widget.LinearLayoutCompat>
 
+    <LinearLayout
+        android:id="@+id/btn_update"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:paddingHorizontal="20dp">
+
+        <Button
+            android:id="@+id/btn_update_schedule"
+            style="@style/btn_primary"
+            android:text="Cập nhật lịch tiêm chủng" />
+    </LinearLayout>
 </androidx.appcompat.widget.LinearLayoutCompat>
+

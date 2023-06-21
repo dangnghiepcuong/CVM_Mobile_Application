@@ -8,11 +8,15 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.os.BuildCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.db.model.Citizen;
+import com.example.cvm_mobile_application.ui.MainActivity;
+import com.google.firebase.auth.FirebaseAuth;
+
 
 @BuildCompat.PrereleaseSdkCheck public class CitizenPersonalMenuFragment extends Fragment {
 
@@ -28,7 +32,7 @@ import com.example.cvm_mobile_application.data.db.model.Citizen;
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_citizen_personal_menu, container, false);
 
-        citizen = getArguments().getParcelable("citizen");
+        citizen = requireArguments().getParcelable("citizen");
 
         implementView();
         setViewListener();
@@ -48,20 +52,9 @@ import com.example.cvm_mobile_application.data.db.model.Citizen;
     }
 
     public void setViewListener() {
-        menuTabProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                CitizenPersonalMenuFragment.this.getProfileActivity(citizen);
-            }
-        });
+        menuTabProfile.setOnClickListener(view -> CitizenPersonalMenuFragment.this.getProfileActivity(citizen));
 
-        menuTabLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                CitizenPersonalMenuFragment.this.logOut();
-            }
-        });
+        menuTabLogout.setOnClickListener(v -> CitizenPersonalMenuFragment.this.logOut());
     }
 
     public void getProfileActivity(Citizen citizen){
@@ -71,6 +64,19 @@ import com.example.cvm_mobile_application.data.db.model.Citizen;
     }
 
     public void logOut() {
-
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setTitle("Đăng xuất")
+                .setMessage("Bạn có muốn đăng xuất không?")
+                .setCancelable(false)
+                .setPositiveButton("Đăng xuất", (dialog, id) -> {
+                    FirebaseAuth.getInstance().signOut();
+                    Intent intent = new Intent(getContext(), MainActivity.class);
+                    startActivity(intent);
+                    requireActivity().finish();
+                    dialog.cancel();
+                })
+                .setNegativeButton("Hủy bỏ", (dialog, id) -> dialog.cancel());
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 }

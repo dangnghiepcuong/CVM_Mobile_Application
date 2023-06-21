@@ -8,12 +8,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:492603754623:android:653338d08b51a253cf574a",
+        "mobilesdk_app_id": "1:492603754623:android:558876d9a69faae4cf574a",
         "android_client_info": {
           "package_name": "com.example.cvm_mobile_application"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "492603754623-dqtmsgfsnegc4smi7bsfd13qeugals28.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.cvm_mobile_application",
+            "certificate_hash": "6f56fc3cf40398b31415101f07f63f565c79a27c"
+          }
+        },
         {
           "client_id": "492603754623-sgh48bvs95edt7g6vdds40l74v25sbpb.apps.googleusercontent.com",
           "client_type": 1,
@@ -56,43 +64,6 @@
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.realtimedemo",
-            "certificate_hash": "92ed4053257ae0cf2a55525fd68e63de0f3ee679"
-          }
-        },
-        {
-          "client_id": "492603754623-aja7pkp1eldv39hojsifaquul3iv9spr.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyA-NOQE6p2iF3ls7brlGWYel6BgDlR2Jpk"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "492603754623-aja7pkp1eldv39hojsifaquul3iv9spr.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:492603754623:android:a809ffe16b4bd7c2cf574a",
-        "android_client_info": {
-          "package_name": "com.example.realtimedemo2"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "492603754623-7abpkl58vpol8l006kmsfmllmstpdppf.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.realtimedemo2",
             "certificate_hash": "92ed4053257ae0cf2a55525fd68e63de0f3ee679"
           }
         },

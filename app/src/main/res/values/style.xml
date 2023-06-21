@@ -255,4 +255,19 @@
     <style name="toolbar_menu_Active" parent="@style/TextAppearance.AppCompat.Caption">
         <item name="android:textSize">18sp</item>
     </style>
+
+    <style name="labelFor_tv_info">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textSize">16dp</item>
+    </style>
+
+    <style name="tv_info">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">right</item>
+
+    </style>
 </resources>

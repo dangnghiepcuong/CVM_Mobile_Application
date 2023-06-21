@@ -373,6 +373,7 @@ public class CitizenVaccinationState3Fragment extends Fragment implements ViewSt
 
                 Register register = new Register();
                 register.setCitizen_id(citizen.getId());
+                register.setCitizen_name(citizen.getFull_name());
                 register.setSchedule_id(scheduleId);
                 register.setShift(shiftName);
                 register.setNum_order(dayRegistered.intValue()
