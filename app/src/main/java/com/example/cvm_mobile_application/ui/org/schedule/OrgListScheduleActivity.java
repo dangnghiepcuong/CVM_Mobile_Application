@@ -181,16 +181,13 @@ import java.util.List;
             public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 monthOfYear++;
                 tvEndDate.setText(year + "-" + monthOfYear + "-" + dayOfMonth);
-                getScheduleList();
+                OrgListScheduleActivity.this.getScheduleList();
             }
         });
 
         onScheduleItemClickListener = new OnScheduleItemClickListener() {
             @Override
             public void onItemClick(Schedule item) {
-                Toast.makeText(getBaseContext(),
-                        item.getId(), Toast.LENGTH_SHORT).show();
-
                 Intent intent = new Intent(getBaseContext(), OrgScheduleManagementActivity.class);
                 intent.putExtra("schedule", item);
                 startActivity(intent);
@@ -224,7 +221,7 @@ import java.util.List;
             db.collection("schedules")
                     .whereEqualTo("org_id", orgId)
                     .whereGreaterThanOrEqualTo("on_date", onSDate)
-                    .whereLessThanOrEqualTo("on_date", onEDate)
+//                    .whereLessThanOrEqualTo("on_date", onEDate)
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
