@@ -1,7 +1,6 @@
 package com.example.cvm_mobile_application.ui.org.schedule;
 
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -18,9 +17,8 @@ import com.example.cvm_mobile_application.data.db.model.Schedule;
 import com.example.cvm_mobile_application.ui.ViewStructure;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import org.json.JSONException;
-
-@BuildCompat.PrereleaseSdkCheck public class OrgScheduleManagementActivity extends AppCompatActivity implements ViewStructure {
+@BuildCompat.PrereleaseSdkCheck
+public class OrgScheduleManagementActivity extends AppCompatActivity implements ViewStructure {
     private OrgScheduleReadFragment orgScheduleReadFragment;
     private OrgScheduleUpdateFragment orgScheduleUpdateFragment;
     private BottomNavigationView toolbarMenu;
@@ -42,13 +40,9 @@ import org.json.JSONException;
         bundle = new Bundle();
         bundle.putParcelable("schedule", schedule);
 
-        try {
-            implementView();
-            bindViewData();
-            setViewListener();
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
+        implementView();
+        bindViewData();
+        setViewListener();
 
         orgScheduleReadFragment = new OrgScheduleReadFragment();
         orgScheduleReadFragment.setArguments(bundle);
@@ -63,7 +57,7 @@ import org.json.JSONException;
     }
 
     @Override
-    public void bindViewData() throws JSONException {
+    public void bindViewData() {
         tbTitle.setText(schedule.getId());
         toolbarMenu.getMenu().findItem(R.id.menu_option1).setTitle("Danh sách đăng ký");
         toolbarMenu.getMenu().findItem(R.id.menu_option2).setTitle("Chỉnh sửa");
@@ -79,7 +73,7 @@ import org.json.JSONException;
         });
 
         toolbarMenu.setOnItemSelectedListener(item -> {
-            switch (item.getItemId()){
+            switch (item.getItemId()) {
                 case R.id.menu_option1:
                     orgScheduleReadFragment = new OrgScheduleReadFragment();
                     orgScheduleReadFragment.setArguments(bundle);

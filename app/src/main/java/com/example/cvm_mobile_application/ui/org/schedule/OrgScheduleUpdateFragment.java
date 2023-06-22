@@ -9,21 +9,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.db.model.Schedule;
+import com.example.cvm_mobile_application.ui.ViewStructure;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class OrgScheduleUpdateFragment extends Fragment {
+public class OrgScheduleUpdateFragment extends Fragment implements ViewStructure {
     private View view;
     private LinearLayoutCompat toolbar1;
     private Button btnCreateSchedule;
@@ -45,7 +44,7 @@ public class OrgScheduleUpdateFragment extends Fragment {
         view = inflater.inflate(R.layout.activity_org_schedule_create, container, false);
         db = FirebaseFirestore.getInstance();
 
-        schedule = getArguments().getParcelable("schedule");
+        schedule = requireArguments().getParcelable("schedule");
 
         implementView();
         bindViewData();
@@ -53,7 +52,8 @@ public class OrgScheduleUpdateFragment extends Fragment {
         return view;
     }
 
-    private void implementView() {
+    @Override
+    public void implementView() {
         toolbar1 = view.findViewById(R.id.toolbar1);
         btnCreateSchedule = view.findViewById(R.id.btn_create_schedule);
         infoToInput = view.findViewById(R.id.info_to_input);
@@ -69,7 +69,8 @@ public class OrgScheduleUpdateFragment extends Fragment {
         btnUpdateSchedule  = view.findViewById(R.id.btn_update_schedule);
     }
 
-    private void bindViewData() {
+    @Override
+    public void bindViewData() {
         toolbar1.setVisibility(View.GONE);
         btnCreateSchedule.setVisibility(View.GONE);
         infoToInput.setVisibility(View.GONE);
@@ -82,16 +83,39 @@ public class OrgScheduleUpdateFragment extends Fragment {
         tvIfVaccineType.setText("Loại vaccine: " + schedule.getVaccine_id());
         tvIfVaccineLot.setText("Số lô: " + schedule.getLot());
 
-        String limitDay = String.valueOf(schedule.getLimit_day());
-        String limitNoon = String.valueOf(schedule.getLimit_noon());
-        String limitNight = String.valueOf(schedule.getLimit_night());
-
-        etDayLimit.setText(limitDay);
-        etNoonLimit.setText(limitNoon);
-        etNightLimit.setText(limitNight);
+        etDayLimit.setText(String.valueOf(schedule.getLimit_day()));
+        etNoonLimit.setText(String.valueOf(schedule.getLimit_noon()));
+        etNightLimit.setText(String.valueOf(schedule.getLimit_night()));
     }
 
-    private void setViewListener() {
+    @Override
+    public void setViewListener() {
+        btnUpdateSchedule.setOnClickListener(v -> {
+            int limitDay = 0, limitNoon = 0, limitNight = 0;
 
+            if (!String.valueOf(etDayLimit.getText()).equals("")) {
+                limitDay = Integer.parseInt(String.valueOf(etDayLimit.getText()));
+            }
+
+            if (!String.valueOf(etNoonLimit.getText()).equals("")) {
+                limitNoon = Integer.parseInt(String.valueOf(etNoonLimit.getText()));
+            }
+
+            if (!String.valueOf(etNightLimit.getText()).equals("")) {
+                limitNight = Integer.parseInt(String.valueOf(etNightLimit.getText()));
+            }
+
+            Schedule updatedSchedule = schedule;
+            updatedSchedule.setLimit_day(limitDay);
+            updatedSchedule.setLimit_noon(limitNoon);
+            updatedSchedule.setLimit_night(limitNight);
+
+            OrgScheduleUpdateFragment.this.updateSchedule(updatedSchedule);
+        });
+    }
+
+    public void updateSchedule(Schedule updatedSchedule) {
+        db.collection("schedules").document(updatedSchedule.getId())
+                .set(updatedSchedule);
     }
 }

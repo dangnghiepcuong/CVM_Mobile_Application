@@ -13,8 +13,6 @@ import com.example.cvm_mobile_application.data.db.model.Citizen;
 import com.example.cvm_mobile_application.ui.ViewStructure;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import org.json.JSONException;
-
 public class RegisterCitizenInfo extends AppCompatActivity implements ViewStructure {
     private Button btnBack;
     private TextView tbTitle;
@@ -34,17 +32,13 @@ public class RegisterCitizenInfo extends AppCompatActivity implements ViewStruct
         citizen = new Citizen();
     }
 
-    protected void onStart(){
+    protected void onStart() {
         super.onStart();
         citizen = getIntent().getParcelableExtra("citizen");
 
-        try {
-            implementView();
-            bindViewData();
-            setViewListener();
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
+        implementView();
+        bindViewData();
+        setViewListener();
     }
 
 
@@ -62,7 +56,7 @@ public class RegisterCitizenInfo extends AppCompatActivity implements ViewStruct
     }
 
     @Override
-    public void bindViewData() throws JSONException {
+    public void bindViewData() {
         tbTitle.setText("Thông tin công dân đăng ký tiêm chủng");
 
         tvName.setText(citizen.getFull_name());

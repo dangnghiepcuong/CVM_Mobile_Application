@@ -30,8 +30,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import org.json.JSONException;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -39,7 +37,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@BuildCompat.PrereleaseSdkCheck public class OrgListScheduleActivity extends AppCompatActivity implements ViewStructure {
+@BuildCompat.PrereleaseSdkCheck
+public class OrgListScheduleActivity extends AppCompatActivity implements ViewStructure {
     private FirebaseFirestore db;
     private Organization org;
     private Button btnBack;
@@ -57,6 +56,7 @@ import java.util.List;
     private ScheduleListAdapter scheduleListAdapter;
     private RecyclerView recyclerViewScheduleList;
     private OnScheduleItemClickListener onScheduleItemClickListener;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,14 +71,9 @@ import java.util.List;
         super.onStart();
         org = getIntent().getParcelableExtra("org");
 
-        try {
-            implementView();
-            bindViewData();
-            setViewListener();
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
-
+        implementView();
+        bindViewData();
+        setViewListener();
     }
 
     @Override
@@ -105,7 +100,7 @@ import java.util.List;
     }
 
     @Override
-    public void bindViewData() throws JSONException {
+    public void bindViewData() {
         tbTitle.setText("Danh sách lịch tiêm");
         tbMenu1.setText(org.getName());
 
@@ -168,7 +163,7 @@ import java.util.List;
         btnEndDateDP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(dpEndDate.getVisibility() == View.GONE){
+                if (dpEndDate.getVisibility() == View.GONE) {
                     dpEndDate.setVisibility(View.VISIBLE);
                 } else {
                     dpEndDate.setVisibility(View.GONE);
@@ -214,10 +209,9 @@ import java.util.List;
         Timestamp onSDate = new Timestamp(onStartDate);
         Timestamp onEDate = new Timestamp(onEndDate);
 
-        if(onStartDate.compareTo(onEndDate) > 0){
+        if (onStartDate.compareTo(onEndDate) > 0) {
             Toast.makeText(this, "Chọn ngày bắt đầu nhỏ hơn ngày kết thúc!", Toast.LENGTH_SHORT).show();
-        }
-        else {
+        } else {
             db.collection("schedules")
                     .whereEqualTo("org_id", orgId)
                     .whereGreaterThanOrEqualTo("on_date", onSDate)
