@@ -43,8 +43,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Transaction;
 
-import org.json.JSONException;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -89,11 +87,7 @@ public class CitizenVaccinationState3Fragment extends Fragment implements ViewSt
         scheduleList = new ArrayList<>();
 
         implementView();
-        try {
-            bindViewData();
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
+        bindViewData();
         setViewListener();
         return view;
     }
@@ -119,7 +113,7 @@ public class CitizenVaccinationState3Fragment extends Fragment implements ViewSt
     }
 
     @Override
-    public void bindViewData() throws JSONException {
+    public void bindViewData() {
         tvOrgName.setText(org.getName());
 
         Timestamp timestamp = new Timestamp(new Date());
@@ -250,7 +244,7 @@ public class CitizenVaccinationState3Fragment extends Fragment implements ViewSt
         }
         Timestamp onDate = new Timestamp(date);
 
-        SpinnerOption spOption= (SpinnerOption) spVaccineType.getItemAtPosition(
+        SpinnerOption spOption = (SpinnerOption) spVaccineType.getItemAtPosition(
                 spVaccineType.getSelectedItemPosition());
         if (spOption == null) {
             return;
@@ -348,26 +342,26 @@ public class CitizenVaccinationState3Fragment extends Fragment implements ViewSt
 
                 SpinnerOption shiftOption = (SpinnerOption) spShift.getSelectedItem();
                 String shiftValue = shiftOption.getValue();
-                String shiftName = shiftOption.getOption().substring(0, shiftOption.getOption().length()-3);
+                String shiftName = shiftOption.getOption().substring(0, shiftOption.getOption().length() - 3);
                 switch (shiftValue) {
                     default:
                     case "0":
                         if (dayRegistered == limitDay)
                             return null;
                         else
-                            transaction.update(scheduleRef, "day_registered", dayRegistered+1);
+                            transaction.update(scheduleRef, "day_registered", dayRegistered + 1);
                         break;
                     case "1":
                         if (noonRegistered == limitNoon)
                             return null;
                         else
-                            transaction.update(scheduleRef, "noon_registered", noonRegistered+1);
+                            transaction.update(scheduleRef, "noon_registered", noonRegistered + 1);
                         break;
                     case "2":
                         if (nightRegistered == limitNight)
                             return null;
                         else
-                            transaction.update(scheduleRef, "night_registered", nightRegistered+1);
+                            transaction.update(scheduleRef, "night_registered", nightRegistered + 1);
                         break;
                 }
 

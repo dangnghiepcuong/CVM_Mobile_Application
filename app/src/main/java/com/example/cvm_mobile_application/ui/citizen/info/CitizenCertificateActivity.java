@@ -1,6 +1,5 @@
 package com.example.cvm_mobile_application.ui.citizen.info;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,8 +15,6 @@ import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.db.model.Citizen;
 import com.example.cvm_mobile_application.ui.ViewStructure;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import org.json.JSONException;
 
 public class CitizenCertificateActivity extends AppCompatActivity implements ViewStructure {
     private FirebaseFirestore db;
@@ -43,13 +40,9 @@ public class CitizenCertificateActivity extends AppCompatActivity implements Vie
         super.onStart();
         citizen = getIntent().getParcelableExtra("citizen");
 
-        try {
-            implementView();
-            bindViewData();
-            setViewListener();
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
+        implementView();
+        bindViewData();
+        setViewListener();
     }
 
     @Override
@@ -67,12 +60,12 @@ public class CitizenCertificateActivity extends AppCompatActivity implements Vie
     }
 
     @Override
-    public void bindViewData() throws JSONException{
+    public void bindViewData() {
         tbTitle.setText("Chứng nhận tiêm chủng");
         //case 3
-        bgrActivity.setBackgroundColor(ContextCompat.getColor(getBaseContext(),R.color.Green));
+        bgrActivity.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.Green));
         tbBgrMenu.setBackgroundResource(R.drawable.card_green_rounded_corner);
-        bgrToolbar1.setBackgroundColor(ContextCompat.getColor(getBaseContext(),R.color.DarkGreen));
+        bgrToolbar1.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.DarkGreen));
 
         tvFullName.setText(citizen.getFull_name());
         tvBirthday.setText(citizen.getBirthdayString());
@@ -88,8 +81,6 @@ public class CitizenCertificateActivity extends AppCompatActivity implements Vie
             }
         });
     }
-
-
 
 
 }

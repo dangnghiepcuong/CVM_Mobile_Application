@@ -22,9 +22,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import org.json.JSONException;
-
-@BuildCompat.PrereleaseSdkCheck public class CitizenRegisterAccountActivity extends AppCompatActivity implements ViewStructure {
+@BuildCompat.PrereleaseSdkCheck
+public class CitizenRegisterAccountActivity extends AppCompatActivity implements ViewStructure {
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
@@ -44,14 +43,9 @@ import org.json.JSONException;
     @Override
     protected void onStart() {
         super.onStart();
-        try {
-            implementView();
-            bindViewData();
-            setViewListener();
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
-
+        implementView();
+        bindViewData();
+        setViewListener();
     }
 
     @Override
@@ -63,7 +57,7 @@ import org.json.JSONException;
     }
 
     @Override
-    public void bindViewData() throws JSONException {
+    public void bindViewData() {
 
     }
 

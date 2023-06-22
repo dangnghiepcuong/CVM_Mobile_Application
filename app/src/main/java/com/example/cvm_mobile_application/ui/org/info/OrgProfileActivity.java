@@ -1,9 +1,7 @@
 package com.example.cvm_mobile_application.ui.org.info;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -17,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.SpinnerOption;
 import com.example.cvm_mobile_application.data.db.model.Organization;
-import com.example.cvm_mobile_application.data.objects.DVHCHelper;
+import com.example.cvm_mobile_application.data.helpers.DVHCHelper;
 import com.example.cvm_mobile_application.ui.SpinnerAdapter;
 import com.example.cvm_mobile_application.ui.ViewStructure;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -64,15 +62,11 @@ public class OrgProfileActivity extends AppCompatActivity implements ViewStructu
         super.onStart();
         org = getIntent().getParcelableExtra("org");
 
-        try {
-            implementView();
-            bindViewData();
-            setViewListener();
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
-
+        implementView();
+        bindViewData();
+        setViewListener();
     }
+
     @Override
     public void implementView() {
         btnBack = findViewById(R.id.btn_back);
@@ -80,6 +74,10 @@ public class OrgProfileActivity extends AppCompatActivity implements ViewStructu
 
         etId = findViewById(R.id.et_id);
         etName = findViewById(R.id.et_name);
+
+        dvhcHelper.setSpProvince(findViewById(R.id.sp_province));
+        dvhcHelper.setSpDistrict(findViewById(R.id.sp_district));
+        dvhcHelper.setSpWard(findViewById(R.id.sp_ward));
 
         spProvince = findViewById(R.id.sp_province);
         spDistrict = findViewById(R.id.sp_district);
@@ -90,7 +88,7 @@ public class OrgProfileActivity extends AppCompatActivity implements ViewStructu
     }
 
     @Override
-    public void bindViewData() throws JSONException {
+    public void bindViewData() {
         tbTitle.setText("Chỉnh sửa thông tin đơn vị");
 
         etId.setText(org.getId());
@@ -98,40 +96,13 @@ public class OrgProfileActivity extends AppCompatActivity implements ViewStructu
 
         etName.setText(org.getName());
 
-        //GET PROVINCE LIST
-        provinceList = dvhcHelper.getLocalList(DVHCHelper.PROVINCE_LEVEL, null);
-
-        //SET PROVINCE INFO VALUE
-        spProvinceListAdapter = new SpinnerAdapter(getApplicationContext(),
-                R.layout.item_string, provinceList);
-        spProvince.setAdapter(spProvinceListAdapter);
-        int provincePosition = dvhcHelper.getLocalPositionFromList(
-                DVHCHelper.PROVINCE_LEVEL, org.getProvince_name(), null);
-        spProvince.setSelection(provincePosition, true);
-
-        //GET DISTRICT LIST
-        String provinceCode = ((SpinnerOption) spProvince.getItemAtPosition(spProvince.getSelectedItemPosition())).getValue();
-        districtList = dvhcHelper.getLocalList(DVHCHelper.DISTRICT_LEVEL, provinceCode);
-
-        //SET DISTRICT INFO VALUE
-        spDistrictListAdapter = new SpinnerAdapter(getApplicationContext(),
-                R.layout.item_string, districtList);
-        spDistrict.setAdapter(spDistrictListAdapter);
-        int districtPosition = dvhcHelper.getLocalPositionFromList(
-                DVHCHelper.DISTRICT_LEVEL, org.getDistrict_name(), provinceCode);
-        spDistrict.setSelection(districtPosition, true);
-
-        //GET WARD LIST
-        String districtCode = ((SpinnerOption) spDistrict.getItemAtPosition(spDistrict.getSelectedItemPosition())).getValue();
-        wardList = dvhcHelper.getLocalList(DVHCHelper.WARD_LEVEL, districtCode);
-
-        //SET WARD INFO VALUE
-        spWardListAdapter = new SpinnerAdapter(getApplicationContext(),
-                R.layout.item_string, wardList);
-        spWard.setAdapter(spWardListAdapter);
-        int wardPosition = dvhcHelper.getLocalPositionFromList(
-                DVHCHelper.WARD_LEVEL, org.getWard_name(), districtCode);
-        spWard.setSelection(wardPosition, true);
+        //SET LOCAL VALUE
+        try {
+            dvhcHelper.bindLocalListSpinnerData(getApplicationContext(),
+                    org.getProvince_name(), org.getDistrict_name(), org.getWard_name());
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
 
         etStreet.setText(org.getStreet());
     }
@@ -146,50 +117,7 @@ public class OrgProfileActivity extends AppCompatActivity implements ViewStructu
             }
         });
 
-        spProvince.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //GET DISTRICT LIST, WARD LIST
-                OrgProfileActivity.this
-                        .spProvinceTriggeredActivities();
-                Log.i("myTAG", "province spinner");
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        //SET DISTRICT SPINNER LISTENER
-        spDistrict.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //GET WARD LIST
-                OrgProfileActivity.this
-                        .spDistrictTriggeredActivities();
-                Log.i("myTAG", "district spinner");
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        spWard.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                OrgProfileActivity.this
-                        .spWardTriggeredActivities();
-                Log.i("myTAG", "ward spinner");
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+        dvhcHelper.setLocalListSpinnerListener();
 
         btnSaveProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -267,11 +195,11 @@ public class OrgProfileActivity extends AppCompatActivity implements ViewStructu
                 (SpinnerOption) wardList.get(spWard.getSelectedItemPosition());
     }
 
-    public void updateProfile(){
+    public void updateProfile() {
         Organization profile = new Organization();
         profile.setId(String.valueOf(etId.getText()));
         profile.setName(String.valueOf(etName.getText()));
-        if(profile.getName().equals("")){
+        if (profile.getName().equals("")) {
             Toast.makeText(this, "*Nhập tên đơn vị", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -286,7 +214,7 @@ public class OrgProfileActivity extends AppCompatActivity implements ViewStructu
         profile.setWard_name(spOption.getOption());
 
         profile.setStreet(String.valueOf(etStreet.getText()));
-        if(profile.getStreet().equals("")){
+        if (profile.getStreet().equals("")) {
             Toast.makeText(this, "*Nhập địa chỉ cụ thể", Toast.LENGTH_SHORT).show();
             return;
         }

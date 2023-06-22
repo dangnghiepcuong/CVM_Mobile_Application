@@ -103,7 +103,10 @@ public class OrgCreateScheduleActivity extends AppCompatActivity {
         btnCreate = findViewById(R.id.btn_create_schedule);
         btnCreate.setEnabled(false);
 
+        infoToRead = findViewById(R.id.info_to_read);
         infoToRead.setVisibility(View.GONE);
+
+        btnUpdate = findViewById(R.id.btn_update);
         btnUpdate.setVisibility(View.GONE);
     }
 

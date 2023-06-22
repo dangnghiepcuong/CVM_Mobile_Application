@@ -24,7 +24,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.SpinnerOption;
 import com.example.cvm_mobile_application.data.db.model.Citizen;
-import com.example.cvm_mobile_application.data.objects.DVHCHelper;
+import com.example.cvm_mobile_application.data.helpers.DVHCHelper;
 import com.example.cvm_mobile_application.ui.SpinnerAdapter;
 import com.example.cvm_mobile_application.ui.ViewStructure;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -97,13 +97,9 @@ public class CitizenVaccinationState1Fragment extends Fragment implements ViewSt
         //GET CITIZEN RELATIVES DATA FROM FIREBASE
         getTargetRelativesData();
 
-        try {
-            implementView();
-            bindViewData();
-            setViewListener();
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
+        implementView();
+        bindViewData();
+        setViewListener();
         return view;
     }
 
@@ -146,7 +142,7 @@ public class CitizenVaccinationState1Fragment extends Fragment implements ViewSt
     }
 
     @Override
-    public void bindViewData() throws JSONException {
+    public void bindViewData() {
         //SET TARGET ID
         selectedTargetId = citizen.getId();
 
@@ -180,7 +176,14 @@ public class CitizenVaccinationState1Fragment extends Fragment implements ViewSt
         etEmail.setText(citizen.getEmail());
 
         //SET LOCAL VALUE
-        dvhcHelper.bindLocalListSpinnerData(getContext(), citizen);
+        try {
+            dvhcHelper.bindLocalListSpinnerData(getContext(),
+                    citizen.getProvince_name(),
+                    citizen.getDistrict_name(),
+                    citizen.getWard_name());
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
 
         //SET ADDRESS INFO VALUE
         etStreet.setText(citizen.getStreet());
@@ -266,11 +269,7 @@ public class CitizenVaccinationState1Fragment extends Fragment implements ViewSt
                             citizen = document.toObject(Citizen.class);
                         }
 
-                        try {
-                            CitizenVaccinationState1Fragment.this.bindViewData();
-                        } catch (JSONException e) {
-                            throw new RuntimeException(e);
-                        }
+                        CitizenVaccinationState1Fragment.this.bindViewData();
                     }
                 });
     }
