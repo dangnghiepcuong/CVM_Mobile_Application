@@ -1,11 +1,9 @@
 package com.example.cvm_mobile_application.ui.citizen.vaccination;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -17,12 +15,12 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cvm_mobile_application.ui.OnOrgItemClickListener;
 import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.SpinnerOption;
 import com.example.cvm_mobile_application.data.db.model.Citizen;
 import com.example.cvm_mobile_application.data.db.model.Organization;
-import com.example.cvm_mobile_application.data.objects.DVHCHelper;
+import com.example.cvm_mobile_application.data.helpers.DVHCHelper;
+import com.example.cvm_mobile_application.ui.OnOrgItemClickListener;
 import com.example.cvm_mobile_application.ui.OrgListAdapter;
 import com.example.cvm_mobile_application.ui.SpinnerAdapter;
 import com.example.cvm_mobile_application.ui.ViewStructure;
@@ -72,13 +70,9 @@ public class CitizenVaccinationState2Fragment extends Fragment implements ViewSt
         citizen = getArguments().getParcelable("citizen");
         orgList = new ArrayList<>();
 
-        try {
-            implementView();
-            bindViewData();
-            setViewListener();
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
+        implementView();
+        bindViewData();
+        setViewListener();
 
         return view;
     }
@@ -87,6 +81,10 @@ public class CitizenVaccinationState2Fragment extends Fragment implements ViewSt
     public void implementView() {
         btnRegionFilter = view.findViewById(R.id.btn_region_filter);
         layoutRegionFilter = view.findViewById(R.id.layout_linear_region_filter);
+
+        dvhcHelper.setSpProvince(view.findViewById(R.id.sp_province));
+        dvhcHelper.setSpDistrict(view.findViewById(R.id.sp_district));
+        dvhcHelper.setSpWard(view.findViewById(R.id.sp_ward));
 
         spProvince = view.findViewById(R.id.sp_province);
         spDistrict = view.findViewById(R.id.sp_district);
@@ -100,42 +98,16 @@ public class CitizenVaccinationState2Fragment extends Fragment implements ViewSt
     }
 
     @Override
-    public void bindViewData() throws JSONException {
-
-        //GET PROVINCE LIST
-        provinceList = dvhcHelper.getLocalList(DVHCHelper.PROVINCE_LEVEL, null);
-
-        //SET PROVINCE INFO VALUE
-        spProvinceListAdapter = new SpinnerAdapter(requireActivity().getApplicationContext(),
-                R.layout.item_string, provinceList);
-        spProvince.setAdapter(spProvinceListAdapter);
-        int provincePosition = dvhcHelper.getLocalPositionFromList(
-                DVHCHelper.PROVINCE_LEVEL, citizen.getProvince_name(), null);
-        spProvince.setSelection(provincePosition, true);
-
-        //GET DISTRICT LIST
-        String provinceCode = ((SpinnerOption) spProvince.getItemAtPosition(spProvince.getSelectedItemPosition())).getValue();
-        districtList = dvhcHelper.getLocalList(DVHCHelper.DISTRICT_LEVEL, provinceCode);
-
-        //SET DISTRICT INFO VALUE
-        spDistrictListAdapter = new SpinnerAdapter(requireActivity().getApplicationContext(),
-                R.layout.item_string, districtList);
-        spDistrict.setAdapter(spDistrictListAdapter);
-        int districtPosition = dvhcHelper.getLocalPositionFromList(
-                DVHCHelper.DISTRICT_LEVEL, citizen.getDistrict_name(), provinceCode);
-        spDistrict.setSelection(districtPosition, true);
-
-        //GET WARD LIST
-        String districtCode = ((SpinnerOption) spDistrict.getItemAtPosition(spDistrict.getSelectedItemPosition())).getValue();
-        wardList = dvhcHelper.getLocalList(DVHCHelper.WARD_LEVEL, districtCode);
-
-        //SET WARD INFO VALUE
-        spWardListAdapter = new SpinnerAdapter(requireActivity().getApplicationContext(),
-                R.layout.item_string, wardList);
-        spWard.setAdapter(spWardListAdapter);
-        int wardPosition = dvhcHelper.getLocalPositionFromList(
-                DVHCHelper.WARD_LEVEL, citizen.getWard_name(), districtCode);
-        spWard.setSelection(wardPosition, true);
+    public void bindViewData() {
+        //SET LOCAL VALUE
+        try {
+            dvhcHelper.bindLocalListSpinnerData(getContext(),
+                    citizen.getProvince_name(),
+                    citizen.getDistrict_name(),
+                    citizen.getWard_name());
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
 
         //GET THE ORG LIST BASE ON THE INIT FILTER
         getOrgList(citizen.getProvince_name(), citizen.getDistrict_name(), citizen.getWard_name());
@@ -162,50 +134,7 @@ public class CitizenVaccinationState2Fragment extends Fragment implements ViewSt
             }
         });
 
-        //SET PROVINCE SPINNER LISTENER
-        spProvince.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //GET DISTRICT LIST, WARD LIST
-                CitizenVaccinationState2Fragment.this
-                        .spProvinceTriggeredActivities();
-                Log.i("myTAG", "province spinner");
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        //SET DISTRICT SPINNER LISTENER
-        spDistrict.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //GET WARD LIST
-                CitizenVaccinationState2Fragment.this
-                        .spDistrictTriggeredActivities();
-                Log.i("myTAG", "district spinner");
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        spWard.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                CitizenVaccinationState2Fragment.this
-                        .spWardTriggeredActivities();
-                Log.i("myTAG", "ward spinner");
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
+        dvhcHelper.setLocalListSpinnerListener();
 
         onOrgItemClickListener = new OnOrgItemClickListener() {
 

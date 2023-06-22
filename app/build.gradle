@@ -33,7 +33,13 @@ android {
     sourceSets {
         main {
             res {
-                srcDirs 'src\\main\\res', 'src\\main\\res\\drawable\\icon', 'src\\main\\res\\drawable\\bg', 'src\\main\\res\\drawable\\card', 'src\\main\\res\\layout\\admin', 'src\\main\\res\\layout\\citizen', 'src\\main\\res\\layout\\org'
+                srcDirs 'src\\main\\res',
+                        'src\\main\\res\\drawable\\icon',
+                        'src\\main\\res\\drawable\\bg',
+                        'src\\main\\res\\drawable\\card',
+                        'src\\main\\res\\layout\\admin',
+                        'src\\main\\res\\layout\\citizen',
+                        'src\\main\\res\\layout\\org'
             }
         }
     }

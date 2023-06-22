@@ -1,4 +1,4 @@
-package com.example.cvm_mobile_application.data.objects;
+package com.example.cvm_mobile_application.data.helpers;
 
 import android.content.Context;
 import android.util.Log;
@@ -10,7 +10,6 @@ import androidx.annotation.Nullable;
 
 import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.SpinnerOption;
-import com.example.cvm_mobile_application.data.db.model.Citizen;
 import com.example.cvm_mobile_application.ui.SpinnerAdapter;
 
 import org.json.JSONException;
@@ -295,7 +294,10 @@ public class DVHCHelper {
         return position;
     }
 
-    public void bindLocalListSpinnerData(Context context, Citizen citizen) throws JSONException {
+    public void bindLocalListSpinnerData(Context context,
+                                         String provinceName,
+                                         String districtName,
+                                         String wardName) throws JSONException {
         //GET PROVINCE LIST
         provinceList = getLocalList(PROVINCE_LEVEL, null);
 
@@ -304,7 +306,7 @@ public class DVHCHelper {
                 R.layout.item_string, provinceList);
         spProvince.setAdapter(spProvinceListAdapter);
         int provincePosition = getLocalPositionFromList(
-                PROVINCE_LEVEL, citizen.getProvince_name(), null);
+                PROVINCE_LEVEL, provinceName, null);
         spProvince.setSelection(provincePosition, false);
 
         //GET DISTRICT LIST
@@ -316,7 +318,7 @@ public class DVHCHelper {
                 R.layout.item_string, districtList);
         spDistrict.setAdapter(spDistrictListAdapter);
         int districtPosition = getLocalPositionFromList(
-                DISTRICT_LEVEL, citizen.getDistrict_name(), provinceCode);
+                DISTRICT_LEVEL, districtName, provinceCode);
         spDistrict.setSelection(districtPosition, false);
 
         //GET WARD LIST
@@ -328,7 +330,7 @@ public class DVHCHelper {
                 R.layout.item_string, wardList);
         spWard.setAdapter(spWardListAdapter);
         int wardPosition = getLocalPositionFromList(
-                WARD_LEVEL, citizen.getWard_name(), districtCode);
+                WARD_LEVEL, wardName, districtCode);
         spWard.setSelection(wardPosition);
     }
 
@@ -381,8 +383,7 @@ public class DVHCHelper {
 
     public void spProvinceTriggeredActivities() {
         try {
-            SpinnerOption provinceOption =
-                    (SpinnerOption) provinceList.get(spProvince.getSelectedItemPosition());
+            SpinnerOption provinceOption = provinceList.get(spProvince.getSelectedItemPosition());
             districtList = getLocalList(
                     DVHCHelper.DISTRICT_LEVEL, provinceOption.getValue());
             spDistrictListAdapter.setOptionList(districtList);
@@ -416,7 +417,7 @@ public class DVHCHelper {
 
     public void spDistrictTriggeredActivities() {
         try {
-            SpinnerOption districtOption = (SpinnerOption) spDistrict.getSelectedItem();
+            SpinnerOption districtOption = districtList.get(spDistrict.getSelectedItemPosition());
             wardList = getLocalList(
                     DVHCHelper.WARD_LEVEL, districtOption.getValue());
             spWardListAdapter.setOptionList(wardList);
@@ -435,10 +436,7 @@ public class DVHCHelper {
     }
 
     public void spWardTriggeredActivities() {
-        SpinnerOption provinceOption = (SpinnerOption) spProvince.getSelectedItem();
-        SpinnerOption districtOption = (SpinnerOption) spDistrict.getSelectedItem();
-        SpinnerOption wardOption =
-                (SpinnerOption) wardList.get(spWard.getSelectedItemPosition());
+        SpinnerOption wardOption = wardList.get(spWard.getSelectedItemPosition());
     }
 
     public SpinnerOption getSelectedLocal(int localLevel) {

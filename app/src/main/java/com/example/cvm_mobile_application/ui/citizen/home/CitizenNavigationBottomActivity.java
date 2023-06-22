@@ -28,8 +28,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import org.json.JSONException;
-
 @BuildCompat.PrereleaseSdkCheck
 public class CitizenNavigationBottomActivity extends AppCompatActivity implements ViewStructure {
     private FirebaseFirestore db;
@@ -52,12 +50,8 @@ public class CitizenNavigationBottomActivity extends AppCompatActivity implement
         super.onStart();
         username = getIntent().getStringExtra("username");
 
-        try {
-            implementView();
-            bindViewData();
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
+        implementView();
+        bindViewData();
     }
 
     @Override
@@ -66,7 +60,7 @@ public class CitizenNavigationBottomActivity extends AppCompatActivity implement
     }
 
     @Override
-    public void bindViewData() throws JSONException {
+    public void bindViewData() {
         getCitizenData();
     }
 
@@ -164,10 +158,10 @@ public class CitizenNavigationBottomActivity extends AppCompatActivity implement
     @Override
     public void onBackPressed() {
         // Here you want to show the user a dialog box{
-        if(isTaskRoot()) {
+        if (isTaskRoot()) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Thoát ứng dụng")
-                .setMessage("Bạn có muốn thoát ứng dụng không?")
+                    .setMessage("Bạn có muốn thoát ứng dụng không?")
                     .setCancelable(false)
                     .setPositiveButton("Thoát", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {

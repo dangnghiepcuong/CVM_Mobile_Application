@@ -3,7 +3,7 @@ package com.example.cvm_mobile_application.data.db.model;
 import java.sql.Date;
 
 public class Form {
-    private String id;
+    private int id;
     private String choices;
     private Date filledDate;
     private Citizen citizen;
@@ -11,18 +11,18 @@ public class Form {
     public Form() {
     }
 
-    public Form(String id, String choices, Date filledDate, Citizen citizen) {
+    public Form(int id, String choices, Date filledDate, Citizen citizen) {
         this.id = id;
         this.choices = choices;
         this.filledDate = filledDate;
         this.citizen = citizen;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
