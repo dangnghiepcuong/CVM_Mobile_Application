@@ -229,8 +229,9 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:paddingHorizontal="30dp">
-        <Button style="@style/btn_primary"
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/btn_register_vaccination"
+            style="@style/btn_primary"
             android:text="Đăng ký tiêm chủng">
         </Button>
     </androidx.appcompat.widget.LinearLayoutCompat>

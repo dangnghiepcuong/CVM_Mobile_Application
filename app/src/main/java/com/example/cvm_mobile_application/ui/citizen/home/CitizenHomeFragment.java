@@ -13,8 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.db.model.Citizen;
 import com.example.cvm_mobile_application.ui.citizen.info.CitizenCertificateActivity;
-import com.example.cvm_mobile_application.ui.citizen.info.CitizenProfileActivity;
-import com.example.cvm_mobile_application.ui.citizen.vaccination.CitizenVaccinationActivity;
+import com.example.cvm_mobile_application.ui.citizen.vaccination.CitizenVaccinationState1Activity;
 
 public class CitizenHomeFragment extends Fragment {
     private LinearLayout btnVaccination;
@@ -29,7 +28,7 @@ public class CitizenHomeFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_citizen_home, container, false);
 
         citizen = new Citizen();
-        citizen = getArguments().getParcelable("citizen");
+        citizen = requireArguments().getParcelable("citizen");
 
         implementView();
         setViewListener();
@@ -49,22 +48,16 @@ public class CitizenHomeFragment extends Fragment {
     }
 
     public void setViewListener() {
-        btnVaccination.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity().getBaseContext(), CitizenVaccinationActivity.class);
-                intent.putExtra("citizen", citizen);
-                startActivity(intent);
-            }
+        btnVaccination.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), CitizenVaccinationState1Activity.class);
+            intent.putExtra("citizen", citizen);
+            startActivity(intent);
         });
 
-        btnCertificate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity().getBaseContext(), CitizenCertificateActivity.class);
-                intent.putExtra("citizen", citizen);
-                startActivity(intent);
-            }
+        btnCertificate.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), CitizenCertificateActivity.class);
+            intent.putExtra("citizen", citizen);
+            startActivity(intent);
         });
     }
 }

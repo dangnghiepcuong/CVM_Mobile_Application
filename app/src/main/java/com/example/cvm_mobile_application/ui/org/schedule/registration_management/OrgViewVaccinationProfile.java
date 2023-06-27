@@ -1,4 +1,4 @@
-package com.example.cvm_mobile_application.ui.org.schedule;
+package com.example.cvm_mobile_application.ui.org.schedule.registration_management;
 
 import android.os.Bundle;
 import android.view.View;
@@ -13,7 +13,7 @@ import com.example.cvm_mobile_application.data.db.model.Citizen;
 import com.example.cvm_mobile_application.ui.ViewStructure;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class RegisterCitizenInfo extends AppCompatActivity implements ViewStructure {
+public class OrgViewVaccinationProfile extends AppCompatActivity implements ViewStructure {
     private Button btnBack;
     private TextView tbTitle;
     Citizen citizen;
@@ -27,7 +27,7 @@ public class RegisterCitizenInfo extends AppCompatActivity implements ViewStruct
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_org_read_info_register);
+        setContentView(R.layout.activity_org_view_vaccination_profile);
         db = FirebaseFirestore.getInstance();
         citizen = new Citizen();
     }

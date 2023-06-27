@@ -3,9 +3,7 @@ package com.example.cvm_mobile_application.ui.citizen.vaccination;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -16,7 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,19 +26,16 @@ import com.example.cvm_mobile_application.data.db.model.Register;
 import com.example.cvm_mobile_application.data.db.model.Schedule;
 import com.example.cvm_mobile_application.data.db.model.Shift;
 import com.example.cvm_mobile_application.ui.CustomDialog;
-import com.example.cvm_mobile_application.ui.ScheduleListAdapter;
+import com.example.cvm_mobile_application.ui.org.schedule.schedule_management.ScheduleAdapter;
 import com.example.cvm_mobile_application.ui.SpinnerAdapter;
 import com.example.cvm_mobile_application.ui.ViewStructure;
-import com.example.cvm_mobile_application.ui.org.OnScheduleItemClickListener;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.example.cvm_mobile_application.ui.org.schedule.schedule_management.OnScheduleItemClickListener;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Transaction;
 
 import java.text.DateFormat;
@@ -49,9 +44,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
-public class CitizenVaccinationState3Fragment extends Fragment implements ViewStructure {
-    private View view;
+public class CitizenVaccinationState3Activity extends AppCompatActivity implements ViewStructure {
     private FirebaseFirestore db;
     private Citizen citizen;
     private Organization org;
@@ -66,7 +61,7 @@ public class CitizenVaccinationState3Fragment extends Fragment implements ViewSt
     private List<SpinnerOption> shiftList;
     private List<Schedule> scheduleList;
     private RecyclerView recyclerViewScheduleList;
-    private ScheduleListAdapter scheduleListAdapter;
+    private ScheduleAdapter scheduleAdapter;
     private OnScheduleItemClickListener onScheduleItemClickListener;
     private Button btnOnDateDP;
     private TextView tvOnDate;
@@ -74,40 +69,44 @@ public class CitizenVaccinationState3Fragment extends Fragment implements ViewSt
     private CustomDialog customDialog;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_citizen_vaccination_state3, null);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_citizen_vaccination_state3);
+
         db = FirebaseFirestore.getInstance();
-
-        citizen = getArguments().getParcelable("citizen");
-        org = getArguments().getParcelable("organization");
-
         vaccineList = new ArrayList<>();
         shiftList = new ArrayList<>();
         scheduleList = new ArrayList<>();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        citizen = getIntent().getParcelableExtra("citizen");
+        org = getIntent().getParcelableExtra("organization");
 
         implementView();
         bindViewData();
         setViewListener();
-        return view;
     }
 
     @Override
     public void implementView() {
-        tvOrgName = view.findViewById(R.id.tv_org_name);
+        tvOrgName = findViewById(R.id.tv_org_name);
 
-        btnScheduleFilter = view.findViewById(R.id.btn_schedule_filter);
-        layoutScheduleFilter = view.findViewById(R.id.layout_linear_schedule_filter);
+        btnScheduleFilter = findViewById(R.id.btn_schedule_filter);
+        layoutScheduleFilter = findViewById(R.id.layout_linear_schedule_filter);
 
-        tvOnDate = view.findViewById(R.id.tv_on_date);
-        btnOnDateDP = view.findViewById(R.id.btn_on_date_dp);
-        dpOnDate = view.findViewById(R.id.dp_on_date);
+        tvOnDate = findViewById(R.id.tv_on_date);
+        btnOnDateDP = findViewById(R.id.btn_on_date_dp);
+        dpOnDate = findViewById(R.id.dp_on_date);
 
-        spVaccineType = view.findViewById(R.id.sp_vaccine_type);
-        spShift = view.findViewById(R.id.sp_shift);
+        spVaccineType = findViewById(R.id.sp_vaccine_type);
+        spShift = findViewById(R.id.sp_shift);
 
-        recyclerViewScheduleList = view.findViewById(R.id.view_recycler_schedule_list);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireActivity().getApplicationContext());
+        recyclerViewScheduleList = findViewById(R.id.view_recycler_schedule_list);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerViewScheduleList.setLayoutManager(linearLayoutManager);
     }
@@ -123,7 +122,7 @@ public class CitizenVaccinationState3Fragment extends Fragment implements ViewSt
         tvOnDate.setText(onDateString);
 
         getVaccineList();
-        spVaccineTypeAdapter = new SpinnerAdapter(requireActivity().getApplicationContext(), R.layout.item_string, vaccineList);
+        spVaccineTypeAdapter = new SpinnerAdapter(getApplicationContext(), R.layout.item_string, vaccineList);
         spVaccineType.setAdapter(spVaccineTypeAdapter);
 
         for (Shift shift : Shift.values()) {
@@ -131,13 +130,13 @@ public class CitizenVaccinationState3Fragment extends Fragment implements ViewSt
                     shift.getShift(), String.valueOf(shift.getValue()));
             shiftList.add(spinnerOption);
         }
-        spShiftAdapter = new SpinnerAdapter(requireActivity().getApplicationContext(), R.layout.item_string, shiftList);
+        spShiftAdapter = new SpinnerAdapter(getApplicationContext(), R.layout.item_string, shiftList);
         spShift.setAdapter(spShiftAdapter);
 
-        scheduleListAdapter = new ScheduleListAdapter(
-                requireActivity().getApplicationContext(),
+        scheduleAdapter = new ScheduleAdapter(
+                getApplicationContext(),
                 scheduleList);
-        recyclerViewScheduleList.setAdapter(scheduleListAdapter);
+        recyclerViewScheduleList.setAdapter(scheduleAdapter);
     }
 
     @Override
@@ -158,31 +157,25 @@ public class CitizenVaccinationState3Fragment extends Fragment implements ViewSt
         });
 
 
-        btnOnDateDP.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (dpOnDate.getVisibility() == View.GONE) {
-                    dpOnDate.setVisibility(View.VISIBLE);
-                } else {
-                    dpOnDate.setVisibility(View.GONE);
-                }
+        btnOnDateDP.setOnClickListener(v -> {
+            if (dpOnDate.getVisibility() == View.GONE) {
+                dpOnDate.setVisibility(View.VISIBLE);
+            } else {
+                dpOnDate.setVisibility(View.GONE);
             }
         });
 
-        dpOnDate.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
-            @Override
-            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                monthOfYear++;
-                tvOnDate.setText(year + "-" + monthOfYear + "-" + dayOfMonth);
-                CitizenVaccinationState3Fragment.this.getScheduleList();
-            }
+        dpOnDate.setOnDateChangedListener((view, year, monthOfYear, dayOfMonth) -> {
+            monthOfYear++;
+            tvOnDate.setText(year + "-" + monthOfYear + "-" + dayOfMonth);
+            CitizenVaccinationState3Activity.this.getScheduleList();
         });
 
 
         spVaccineType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                CitizenVaccinationState3Fragment.this.getScheduleList();
+                CitizenVaccinationState3Activity.this.getScheduleList();
             }
 
             @Override
@@ -194,7 +187,7 @@ public class CitizenVaccinationState3Fragment extends Fragment implements ViewSt
         spShift.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                CitizenVaccinationState3Fragment.this.getScheduleList();
+                CitizenVaccinationState3Activity.this.getScheduleList();
             }
 
             @Override
@@ -203,30 +196,22 @@ public class CitizenVaccinationState3Fragment extends Fragment implements ViewSt
             }
         });
 
-        onScheduleItemClickListener = new OnScheduleItemClickListener() {
-            @Override
-            public void onItemClick(Schedule item) {
-                CitizenVaccinationState3Fragment.this.checkConstraintBeforeVaccination(item);
-            }
-        };
-        scheduleListAdapter.setListener(onScheduleItemClickListener);
+        onScheduleItemClickListener = CitizenVaccinationState3Activity.this::checkConstraintBeforeVaccination;
+        scheduleAdapter.setListener(onScheduleItemClickListener);
     }
 
     public void getVaccineList() {
         // DISABLE SPINNER VACCINE LOT BEFORE GETTING NEW VACCINE TYPE
-        db.collection("vaccines").get().addOnCompleteListener(requireActivity(), new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        SpinnerOption spOption = new SpinnerOption((String) document.get("name"), (String) document.get("id"));
-                        vaccineList.add(spOption);
-                    }
-                    spVaccineTypeAdapter.notifyDataSetChanged();
-                } else {
-                    Log.d("myTAG", "Retrieving Data: getVaccineList");
-                    Toast.makeText(requireActivity().getApplicationContext(), "Lỗi khi lấy danh sách vaccine", Toast.LENGTH_LONG).show();
+        db.collection("vaccines").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    SpinnerOption spOption = new SpinnerOption((String) document.get("name"), (String) document.get("id"));
+                    vaccineList.add(spOption);
                 }
+                spVaccineTypeAdapter.notifyDataSetChanged();
+            } else {
+                Log.d("myTAG", "Retrieving Data: getVaccineList");
+                Toast.makeText(this, "Lỗi khi lấy danh sách vaccine", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -257,18 +242,15 @@ public class CitizenVaccinationState3Fragment extends Fragment implements ViewSt
                 .whereGreaterThanOrEqualTo("on_date", onDate)
                 .whereEqualTo("vaccine_id", vaccineType)
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            scheduleList = new ArrayList<>();
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Schedule schedule = (Schedule) document.toObject(Schedule.class);
-                                scheduleList.add(schedule);
-                            }
-                            scheduleListAdapter.setScheduleList(scheduleList);
-                            scheduleListAdapter.notifyDataSetChanged();
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        scheduleList = new ArrayList<>();
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            Schedule schedule = (Schedule) document.toObject(Schedule.class);
+                            scheduleList.add(schedule);
                         }
+                        scheduleAdapter.setScheduleList(scheduleList);
+                        scheduleAdapter.notifyDataSetChanged();
                     }
                 });
     }
@@ -278,34 +260,31 @@ public class CitizenVaccinationState3Fragment extends Fragment implements ViewSt
                 .whereEqualTo("citizen_id", citizen.getId())
                 .whereLessThan("status", 2)
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            if (task.getResult().isEmpty()) {
-                                CitizenVaccinationState3Fragment.this.vaccinationRegistration(schedule);
-                            } else {
-                                Toast.makeText(getContext(), "Không thể đăng ký tiêm chủng!", Toast.LENGTH_SHORT).show();
-                            }
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        if (task.getResult().isEmpty()) {
+                            CitizenVaccinationState3Activity.this.vaccinationRegistration(schedule);
                         } else {
-
+                            Toast.makeText(this, "Không thể đăng ký tiêm chủng!", Toast.LENGTH_SHORT).show();
                         }
+                    } else {
+                        Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
     public void vaccinationRegistration(Schedule schedule) {
-        customDialog = new CustomDialog(getContext());
+        customDialog = new CustomDialog(getApplicationContext());
 
         customDialog.setViewListener(new CustomDialog.OnClickButtonListener() {
             @Override
             public void onClickCancel() {
-                CitizenVaccinationState3Fragment.this.dialogOnCancel();
+                CitizenVaccinationState3Activity.this.dialogOnCancel();
             }
 
             @Override
             public void onClickConfirm() {
-                CitizenVaccinationState3Fragment.this.dialogOnConfirm(schedule.getId());
+                CitizenVaccinationState3Activity.this.dialogOnConfirm(schedule.getId());
             }
         });
 
@@ -370,23 +349,20 @@ public class CitizenVaccinationState3Fragment extends Fragment implements ViewSt
                 register.setCitizen_name(citizen.getFull_name());
                 register.setSchedule_id(scheduleId);
                 register.setShift(shiftName);
-                register.setNum_order(dayRegistered.intValue()
-                        + noonRegistered.intValue()
-                        + nightRegistered.intValue()
+                register.setNum_order(Objects.requireNonNull(dayRegistered).intValue()
+                        + Objects.requireNonNull(noonRegistered).intValue()
+                        + Objects.requireNonNull(nightRegistered).intValue()
                         + 1);
                 register.setStatus(0);
 
                 transaction.set(registryRef, register);
                 return 1;
             }
-        }).addOnCompleteListener(new OnCompleteListener<Integer>() {
-            @Override
-            public void onComplete(@NonNull Task<Integer> task) {
-                if (task.isSuccessful()) {
-                    Toast.makeText(getContext(), "Đăng ký tiêm chủng thành công!", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getContext(), "Đăng ký tiêm chủng thất bại!", Toast.LENGTH_SHORT).show();
-                }
+        }).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Toast.makeText(this, "Đăng ký tiêm chủng thành công!", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Đăng ký tiêm chủng thất bại!", Toast.LENGTH_SHORT).show();
             }
         });
     }

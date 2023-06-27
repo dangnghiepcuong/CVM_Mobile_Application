@@ -1,4 +1,4 @@
-package com.example.cvm_mobile_application.ui.org.schedule;
+package com.example.cvm_mobile_application.ui.org.schedule.schedule_management;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;

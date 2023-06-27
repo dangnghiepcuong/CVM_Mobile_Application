@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/card_linearLayout_horizontal">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:orientation="vertical">
+
+        <LinearLayout style="@style/card_date">
+            <TextView
+                android:id="@+id/tv_dd_registration"
+                style="@style/text_date_view_dd"/>
+
+            <TextView
+                android:id="@+id/tv_mmyyyy_registration"
+                style="@style/text_date_view_mmyyyy"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="7"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@drawable/ic_person" />
+
+            <TextView
+                android:id="@+id/tv_full_name"
+                style="@style/text_name"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@drawable/ic_cake" />
+
+            <TextView
+                android:id="@+id/tv_birthday"
+                style="@style/labelFor_et"
+                android:layout_width="wrap_content"/>
+        </LinearLayout>
+
+        <TextView style="@style/text_status_registration_3" />
+    </LinearLayout>
+
+    <Button
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/ic_more_vert" />
+</androidx.appcompat.widget.LinearLayoutCompat>

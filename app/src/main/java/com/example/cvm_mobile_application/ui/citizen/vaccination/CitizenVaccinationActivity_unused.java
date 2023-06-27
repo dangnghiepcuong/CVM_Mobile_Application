@@ -11,16 +11,16 @@ import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.db.model.Citizen;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class CitizenVaccinationActivity extends AppCompatActivity {
+public class CitizenVaccinationActivity_unused extends AppCompatActivity {
     private FirebaseFirestore db;
     private Citizen citizen;
-    private CitizenVaccinationState1Fragment state1Fragment;
+    private CitizenVaccinationState1Activity state1Fragment;
     private FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_citizen_vaccination);
+        setContentView(R.layout.activity_citizen_vaccination_unused);
 
         db = FirebaseFirestore.getInstance();
         citizen = new Citizen();
@@ -36,9 +36,9 @@ public class CitizenVaccinationActivity extends AppCompatActivity {
 
         Bundle bundle = new Bundle();
         bundle.putParcelable("citizen", citizen);
-        state1Fragment = new CitizenVaccinationState1Fragment();
-        state1Fragment.setArguments(bundle);
-        replaceFragment(state1Fragment);
+        state1Fragment = new CitizenVaccinationState1Activity();
+//        state1Fragment.setArguments(bundle);
+//        replaceFragment(state1Fragment);
     }
 
     public void implementView() {

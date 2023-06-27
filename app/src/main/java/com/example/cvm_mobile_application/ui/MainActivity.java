@@ -1,6 +1,5 @@
 package com.example.cvm_mobile_application.ui;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,19 +11,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.os.BuildCompat;
 
 import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.db.model.Account;
 import com.example.cvm_mobile_application.data.db.model.Citizen;
-import com.example.cvm_mobile_application.data.db.model.Organization;
 import com.example.cvm_mobile_application.ui.admin.AdminNavigationBottom;
 import com.example.cvm_mobile_application.ui.citizen.CitizenRegisterAccountActivity;
 import com.example.cvm_mobile_application.ui.citizen.home.CitizenNavigationBottomActivity;
 import com.example.cvm_mobile_application.ui.citizen.info.CitizenProfileActivity;
-import com.example.cvm_mobile_application.ui.org.OrgNavigationBottomActivity;
+import com.example.cvm_mobile_application.ui.org.home.OrgNavigationBottomActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -33,6 +30,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.Objects;
 
 @BuildCompat.PrereleaseSdkCheck public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -224,8 +223,9 @@ import com.google.firebase.firestore.QuerySnapshot;
                 }
                 break;
             default:
+                return;
         }
-        intent.putExtra("username", username);
+        Objects.requireNonNull(intent).putExtra("username", username);
         startActivity(intent);
         finish();
     }

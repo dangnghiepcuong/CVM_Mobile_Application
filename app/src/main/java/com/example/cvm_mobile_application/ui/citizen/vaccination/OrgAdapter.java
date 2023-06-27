@@ -1,4 +1,4 @@
-package com.example.cvm_mobile_application.ui;
+package com.example.cvm_mobile_application.ui.citizen.vaccination;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -14,12 +14,12 @@ import com.example.cvm_mobile_application.data.db.model.Organization;
 
 import java.util.List;
 
-public class OrgListAdapter extends RecyclerView.Adapter<OrgListAdapter.OrganizationViewHolder> {
+public class OrgAdapter extends RecyclerView.Adapter<OrgAdapter.OrganizationViewHolder> {
     private final Context context;
     private List<Organization> orgList;
     private OnOrgItemClickListener listener;
 
-    public OrgListAdapter(Context context, List<Organization> orgList) {
+    public OrgAdapter(Context context, List<Organization> orgList) {
         this.context = context;
         this.orgList = orgList;
     }
