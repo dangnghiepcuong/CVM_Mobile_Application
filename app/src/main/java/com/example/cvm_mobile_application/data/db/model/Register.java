@@ -2,11 +2,11 @@ package com.example.cvm_mobile_application.data.db.model;
 
 public class Register {
     private int id;
-    private String dose_type;
+    private String schedule_id;
     private String shift;
     private int num_order;
     private int status;
-    private String schedule_id;
+    private Schedule schedule;
     private String citizen_id;
     private String citizen_name;
 
@@ -18,12 +18,12 @@ public class Register {
         this.id = id;
     }
 
-    public String getDose_type() {
-        return dose_type;
+    public String getSchedule_id() {
+        return schedule_id;
     }
 
-    public void setDose_type(String dose_type) {
-        this.dose_type = dose_type;
+    public void setSchedule_id(String schedule_id) {
+        this.schedule_id = schedule_id;
     }
 
 //    public String getTime() {
@@ -62,12 +62,12 @@ public class Register {
         this.status = status;
     }
 
-    public String getSchedule_id() {
-        return schedule_id;
+    public Schedule getSchedule() {
+        return schedule;
     }
 
-    public void setSchedule_id(String schedule_id) {
-        this.schedule_id = schedule_id;
+    public void setSchedule(Schedule schedule) {
+        this.schedule = schedule;
     }
 
     public String getCitizen_id() {

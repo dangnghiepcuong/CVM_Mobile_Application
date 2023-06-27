@@ -371,7 +371,7 @@ public class CitizenVaccinationState1Activity extends AppCompatActivity implemen
 
                 // create new document id (ref) for the registration
                 String newId = profile.getId()
-                        + registrationList.get(i).getSchedule_id()
+                        + registrationList.get(i).getSchedule().getId()
                         + registrationList.get(i).getId();
 
                 // update the object transaction data

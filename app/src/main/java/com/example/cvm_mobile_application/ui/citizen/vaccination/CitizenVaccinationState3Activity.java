@@ -12,8 +12,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,24 +24,24 @@ import com.example.cvm_mobile_application.data.db.model.Register;
 import com.example.cvm_mobile_application.data.db.model.Schedule;
 import com.example.cvm_mobile_application.data.db.model.Shift;
 import com.example.cvm_mobile_application.ui.CustomDialog;
-import com.example.cvm_mobile_application.ui.org.schedule.schedule_management.ScheduleAdapter;
 import com.example.cvm_mobile_application.ui.SpinnerAdapter;
 import com.example.cvm_mobile_application.ui.ViewStructure;
 import com.example.cvm_mobile_application.ui.org.schedule.schedule_management.OnScheduleItemClickListener;
+import com.example.cvm_mobile_application.ui.org.schedule.schedule_management.ScheduleAdapter;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.Transaction;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class CitizenVaccinationState3Activity extends AppCompatActivity implements ViewStructure {
@@ -66,7 +64,7 @@ public class CitizenVaccinationState3Activity extends AppCompatActivity implemen
     private Button btnOnDateDP;
     private TextView tvOnDate;
     private DatePicker dpOnDate;
-    private CustomDialog customDialog;
+    private CustomDialog confirmVaccinationRegistrationDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -156,7 +154,7 @@ public class CitizenVaccinationState3Activity extends AppCompatActivity implemen
             }
         });
 
-
+        // CHOOSE SCHEDULE BUTTON LISTENER
         btnOnDateDP.setOnClickListener(v -> {
             if (dpOnDate.getVisibility() == View.GONE) {
                 dpOnDate.setVisibility(View.VISIBLE);
@@ -165,13 +163,14 @@ public class CitizenVaccinationState3Activity extends AppCompatActivity implemen
             }
         });
 
+        // SCHEDULE CALENDAR LISTENER
         dpOnDate.setOnDateChangedListener((view, year, monthOfYear, dayOfMonth) -> {
             monthOfYear++;
             tvOnDate.setText(year + "-" + monthOfYear + "-" + dayOfMonth);
             CitizenVaccinationState3Activity.this.getScheduleList();
         });
 
-
+        // VACCINE SPINNER LISTENER
         spVaccineType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -184,6 +183,7 @@ public class CitizenVaccinationState3Activity extends AppCompatActivity implemen
             }
         });
 
+        // SHIFT SPINNER LISTENER
         spShift.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -196,6 +196,7 @@ public class CitizenVaccinationState3Activity extends AppCompatActivity implemen
             }
         });
 
+        // SCHEDULE LISTENER
         onScheduleItemClickListener = CitizenVaccinationState3Activity.this::checkConstraintBeforeVaccination;
         scheduleAdapter.setListener(onScheduleItemClickListener);
     }
@@ -227,7 +228,7 @@ public class CitizenVaccinationState3Activity extends AppCompatActivity implemen
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
-        Timestamp onDate = new Timestamp(date);
+        Timestamp onDate = new Timestamp(Objects.requireNonNull(date));
 
         SpinnerOption spOption = (SpinnerOption) spVaccineType.getItemAtPosition(
                 spVaccineType.getSelectedItemPosition());
@@ -238,7 +239,6 @@ public class CitizenVaccinationState3Activity extends AppCompatActivity implemen
 
         db.collection("schedules")
                 .whereEqualTo("org_id", orgId)
-//                .whereEqualTo("on_date", onDate)
                 .whereGreaterThanOrEqualTo("on_date", onDate)
                 .whereEqualTo("vaccine_id", vaccineType)
                 .get()
@@ -246,7 +246,7 @@ public class CitizenVaccinationState3Activity extends AppCompatActivity implemen
                     if (task.isSuccessful()) {
                         scheduleList = new ArrayList<>();
                         for (QueryDocumentSnapshot document : task.getResult()) {
-                            Schedule schedule = (Schedule) document.toObject(Schedule.class);
+                            Schedule schedule = document.toObject(Schedule.class);
                             scheduleList.add(schedule);
                         }
                         scheduleAdapter.setScheduleList(scheduleList);
@@ -268,15 +268,24 @@ public class CitizenVaccinationState3Activity extends AppCompatActivity implemen
                             Toast.makeText(this, "Không thể đăng ký tiêm chủng!", Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Lỗi truy vấn dữ liệu", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
     public void vaccinationRegistration(Schedule schedule) {
-        customDialog = new CustomDialog(getApplicationContext());
+        confirmVaccinationRegistrationDialog =
+                new CustomDialog(CitizenVaccinationState3Activity.this);
 
-        customDialog.setViewListener(new CustomDialog.OnClickButtonListener() {
+        confirmVaccinationRegistrationDialog.showDialog("Xác nhận đăng ký tiêm chủng?",
+                "Lịch tiêm: "
+                        + schedule.getOnDateString() + "\n"
+                        + "Vắc-xin: "
+                        + schedule.getVaccine_id() + " - "
+                        + "lô: "
+                        + schedule.getLot());
+
+        confirmVaccinationRegistrationDialog.setViewListener(new CustomDialog.OnClickDialogButtonListener() {
             @Override
             public void onClickCancel() {
                 CitizenVaccinationState3Activity.this.dialogOnCancel();
@@ -284,80 +293,85 @@ public class CitizenVaccinationState3Activity extends AppCompatActivity implemen
 
             @Override
             public void onClickConfirm() {
-                CitizenVaccinationState3Activity.this.dialogOnConfirm(schedule.getId());
+                CitizenVaccinationState3Activity.this.dialogOnConfirm(schedule);
             }
         });
 
-        customDialog.showDialog("Xác nhận đăng ký tiêm chủng?",
-                "Lịch tiêm:...");
     }
 
     public void dialogOnCancel() {
-        customDialog.getDialog().dismiss();
+        confirmVaccinationRegistrationDialog.getDialog().dismiss();
     }
 
-    public void dialogOnConfirm(String scheduleId) {
-        customDialog.getDialog().dismiss();
+    public void dialogOnConfirm(Schedule schedule) {
+        confirmVaccinationRegistrationDialog.getDialog().dismiss();
 
         DocumentReference scheduleRef =
-                db.collection("schedules").document(scheduleId);
+                db.collection("schedules").document(schedule.getId());
         DocumentReference registryRef =
-                db.collection("registry").document(citizen.getId() + scheduleId);
-        db.runTransaction(new Transaction.Function<Integer>() {
-            @Nullable
-            @Override
-            public Integer apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
-                DocumentSnapshot scheduleSnapshot = transaction.get(scheduleRef);
+                db.collection("registry").document(citizen.getId() + "#" + schedule.getId());
+        db.runTransaction(transaction -> {
+            DocumentSnapshot scheduleSnapshot = transaction.get(scheduleRef);
 
-                Double dayRegistered = scheduleSnapshot.getDouble("day_registered");
-                Double noonRegistered = scheduleSnapshot.getDouble("noon_registered");
-                Double nightRegistered = scheduleSnapshot.getDouble("night_registered");
-                Double limitDay = scheduleSnapshot.getDouble("limit_day");
-                Double limitNoon = scheduleSnapshot.getDouble("limit_noon");
-                Double limitNight = scheduleSnapshot.getDouble("limit_night");
+            // GET LAST SCHEDULE REGISTERED NUMBER
+            schedule.setDay_registered(Math.toIntExact(scheduleSnapshot.getLong("day_registered")));
+            schedule.setNoon_registered(Math.toIntExact(scheduleSnapshot.getLong("noon_registered")));
+            schedule.setNight_registered(Math.toIntExact(scheduleSnapshot.getLong("night_registered")));
+            schedule.setLimit_day(Math.toIntExact(scheduleSnapshot.getLong("limit_day")));
+            schedule.setLimit_noon(Math.toIntExact(scheduleSnapshot.getLong("limit_noon")));
+            schedule.setLimit_night(Math.toIntExact(scheduleSnapshot.getLong("limit_night")));
 
-                Log.i("myTAG", dayRegistered + " " + noonRegistered + " " + nightRegistered
-                        + " " + limitDay + " " + limitNoon + " " + limitNight);
-
-                SpinnerOption shiftOption = (SpinnerOption) spShift.getSelectedItem();
-                String shiftValue = shiftOption.getValue();
-                String shiftName = shiftOption.getOption().substring(0, shiftOption.getOption().length() - 3);
-                switch (shiftValue) {
-                    default:
-                    case "0":
-                        if (dayRegistered == limitDay)
-                            return null;
-                        else
-                            transaction.update(scheduleRef, "day_registered", dayRegistered + 1);
-                        break;
-                    case "1":
-                        if (noonRegistered == limitNoon)
-                            return null;
-                        else
-                            transaction.update(scheduleRef, "noon_registered", noonRegistered + 1);
-                        break;
-                    case "2":
-                        if (nightRegistered == limitNight)
-                            return null;
-                        else
-                            transaction.update(scheduleRef, "night_registered", nightRegistered + 1);
-                        break;
-                }
-
-                Register register = new Register();
-                register.setCitizen_id(citizen.getId());
-                register.setCitizen_name(citizen.getFull_name());
-                register.setSchedule_id(scheduleId);
-                register.setShift(shiftName);
-                register.setNum_order(Objects.requireNonNull(dayRegistered).intValue()
-                        + Objects.requireNonNull(noonRegistered).intValue()
-                        + Objects.requireNonNull(nightRegistered).intValue()
-                        + 1);
-                register.setStatus(0);
-
-                transaction.set(registryRef, register);
-                return 1;
+            SpinnerOption shiftOption = (SpinnerOption) spShift.getSelectedItem();
+            String shiftValue = shiftOption.getValue();
+            String shiftName = shiftOption.getOption().substring(0, shiftOption.getOption().length() - 3);
+            switch (shiftValue) {
+                default:
+                case "0":
+                    if (schedule.getDay_registered() == schedule.getLimit_day()) {
+                        Toast.makeText(this, "Buổi sáng đã hết lượt!", Toast.LENGTH_SHORT).show();
+                        return null;
+                    } else
+                        transaction.update(scheduleRef, "day_registered", schedule.getDay_registered() + 1);
+                    break;
+                case "1":
+                    if (schedule.getNoon_registered() == schedule.getLimit_noon()){
+                        Toast.makeText(this, "Buổi trưa đã hết lượt!", Toast.LENGTH_SHORT).show();
+                        return null;
+                    }
+                    else
+                        transaction.update(scheduleRef, "noon_registered", schedule.getNoon_registered() + 1);
+                    break;
+                case "2":
+                    if (schedule.getNight_registered() == schedule.getLimit_night()){
+                        Toast.makeText(this, "Buổi tối đã hết lượt!", Toast.LENGTH_SHORT).show();
+                        return null;
+                    }
+                    else
+                        transaction.update(scheduleRef, "night_registered", schedule.getNight_registered() + 1);
+                    break;
             }
+
+            Register register = new Register();
+            register.setCitizen_id(citizen.getId());
+            register.setCitizen_name(citizen.getFull_name());
+            register.setSchedule(schedule);
+            register.setShift(shiftName);
+            register.setNum_order(schedule.getDay_registered()
+                    + schedule.getNoon_registered()
+                    + schedule.getNight_registered()
+                    + 1);
+            register.setStatus(0);
+
+            Map<String, Object> objectMap = new HashMap<>();
+            objectMap.put("shift", register.getShift());
+            objectMap.put("number_order", register.getNum_order());
+            objectMap.put("status", register.getStatus());
+            objectMap.put("schedule_id", register.getSchedule().getId());
+            objectMap.put("citizen_id", register.getCitizen_id());
+            objectMap.put("citizen_name", register.getCitizen_name());
+
+            transaction.set(registryRef, objectMap);
+            return 1;
         }).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 Toast.makeText(this, "Đăng ký tiêm chủng thành công!", Toast.LENGTH_SHORT).show();
