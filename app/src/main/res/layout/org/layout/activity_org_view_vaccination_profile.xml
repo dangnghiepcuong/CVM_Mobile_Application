@@ -7,13 +7,133 @@
 
     <include layout="@layout/toolbar_1" />
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="15dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingBottom="10dp"
+            android:text="Hồ sơ công dân"
+            android:textColor="@color/Primary"
+            android:textSize="18dp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/card_white_radius10"
+            android:orientation="vertical"
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="15dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingVertical="5dp">
+
+                <TextView
+                    style="@style/labelFor_tv_info"
+                    android:text="Họ tên: " />
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    style="@style/tv_info"
+                    android:text="ĐỖ Thị CÚc HOA" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingVertical="5dp">
+
+                <TextView
+                    style="@style/labelFor_tv_info"
+                    android:text="Ngày sinh: " />
+
+                <TextView
+                    android:id="@+id/tv_birthday"
+                    style="@style/tv_info"
+                    android:text="ĐỖ Thị CÚc HOA" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingVertical="5dp">
+
+                <TextView
+                    style="@style/labelFor_tv_info"
+                    android:text="Giới tính: " />
+
+                <TextView
+                    android:id="@+id/tv_gender"
+                    style="@style/tv_info"
+                    android:text="ĐỖ Thị CÚc HOA" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingVertical="5dp">
+
+                <TextView
+                    style="@style/labelFor_tv_info"
+                    android:text="Số điện thoại: " />
+
+                <TextView
+                    android:id="@+id/tv_phone"
+                    style="@style/tv_info"
+                    android:text="ĐỖ Thị CÚc HOA" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingVertical="5dp">
+
+                <TextView
+                    style="@style/labelFor_tv_info"
+                    android:text="CMND/CCCD: " />
+
+                <TextView
+                    android:id="@+id/tv_id"
+                    style="@style/tv_info"
+                    android:text="ĐỖ Thị CÚc HOA" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingVertical="5dp">
+
+                <TextView
+                    style="@style/labelFor_tv_info"
+                    android:text="Địa chỉ: " />
+
+                <TextView
+                    android:id="@+id/tv_address"
+                    style="@style/tv_info"
+                    android:text="ĐỖ Thị CÚc HOA" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="vertical"
             android:paddingHorizontal="15dp">
 
@@ -22,136 +142,17 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:paddingBottom="10dp"
-                android:text="Hồ sơ công dân"
+                android:text="Thông tin lịch sử tiêm chủng"
                 android:textColor="@color/Primary"
                 android:textSize="18dp"
                 android:textStyle="bold" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/card_white_radius10"
-                android:orientation="vertical"
-                android:paddingHorizontal="15dp"
-                android:paddingVertical="15dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingVertical="5dp">
-
-                    <TextView
-                        style="@style/labelFor_tv_info"
-                        android:text="Họ tên: " />
-
-                    <TextView
-                        android:id="@+id/tv_name"
-                        style="@style/tv_info"
-                        android:text="ĐỖ Thị CÚc HOA" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingVertical="5dp">
-
-                    <TextView
-                        style="@style/labelFor_tv_info"
-                        android:text="Ngày sinh: " />
-
-                    <TextView
-                        android:id="@+id/tv_birthday"
-                        style="@style/tv_info"
-                        android:text="ĐỖ Thị CÚc HOA" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingVertical="5dp">
-
-                    <TextView
-                        style="@style/labelFor_tv_info"
-                        android:text="Giới tính: " />
-
-                    <TextView
-                        android:id="@+id/tv_gender"
-                        style="@style/tv_info"
-                        android:text="ĐỖ Thị CÚc HOA" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingVertical="5dp">
-
-                    <TextView
-                        style="@style/labelFor_tv_info"
-                        android:text="Số điện thoại: " />
-
-                    <TextView
-                        android:id="@+id/tv_phone"
-                        style="@style/tv_info"
-                        android:text="ĐỖ Thị CÚc HOA" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingVertical="5dp">
-
-                    <TextView
-                        style="@style/labelFor_tv_info"
-                        android:text="CMND/CCCD: " />
-
-                    <TextView
-                        android:id="@+id/tv_id"
-                        style="@style/tv_info"
-                        android:text="ĐỖ Thị CÚc HOA" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingVertical="5dp">
-
-                    <TextView
-                        style="@style/labelFor_tv_info"
-                        android:text="Địa chỉ: " />
-
-                    <TextView
-                        android:id="@+id/tv_address"
-                        style="@style/tv_info"
-                        android:text="ĐỖ Thị CÚc HOA" />
-                </LinearLayout>
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="10dp"
-                android:paddingHorizontal="15dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:paddingBottom="10dp"
-                    android:text="Thông tin lịch sử tiêm chủng"
-                    android:textColor="@color/Primary"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
-            </LinearLayout>
         </LinearLayout>
-    </ScrollView>
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="15dp"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>
