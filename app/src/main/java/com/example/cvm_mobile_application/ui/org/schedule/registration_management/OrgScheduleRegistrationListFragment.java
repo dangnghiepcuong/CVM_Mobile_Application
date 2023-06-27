@@ -22,6 +22,7 @@ import com.example.cvm_mobile_application.data.db.model.Schedule;
 import com.example.cvm_mobile_application.data.db.model.Shift;
 import com.example.cvm_mobile_application.ui.SpinnerAdapter;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
@@ -36,10 +37,10 @@ import java.util.List;
     private FirebaseFirestore db;
     private LinearLayout btnScheduleFilter;
     private LinearLayout layoutScheduleFilter;
-    private List<Register> registryList;
+    private List<Register> registrationList;
     private Citizen citizen;
     private ScheduleRegistrationAdapter scheduleRegistrationAdapter;
-    private RecyclerView recyclerViewRegistryList;
+    private RecyclerView recyclerViewRegistrationList;
     private Register register;
     private OnRegistrationItemClickListener onRegistrationItemClickListener;
 
@@ -52,6 +53,7 @@ import java.util.List;
         schedule = requireArguments().getParcelable("schedule");
         shiftList = new ArrayList<>();
         citizen = new Citizen();
+        registrationList = new ArrayList<>();
 
         implementView();
         bindViewData();
@@ -65,10 +67,10 @@ import java.util.List;
 
         spShift = view.findViewById(R.id.sp_shift);
 
-        recyclerViewRegistryList = view.findViewById(R.id.view_recycler_registry_list);
+        recyclerViewRegistrationList = view.findViewById(R.id.view_recycler_registry_list);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireActivity().getApplicationContext());
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
-        recyclerViewRegistryList.setLayoutManager(linearLayoutManager);
+        recyclerViewRegistrationList.setLayoutManager(linearLayoutManager);
     }
 
     private void bindViewData() {
@@ -80,11 +82,11 @@ import java.util.List;
         spShiftAdapter = new SpinnerAdapter(requireActivity().getApplicationContext(), R.layout.item_string, shiftList);
         spShift.setAdapter(spShiftAdapter);
 
-        getRegisterList();
         scheduleRegistrationAdapter = new ScheduleRegistrationAdapter(
                 requireActivity().getApplicationContext(),
-                registryList);
-        recyclerViewRegistryList.setAdapter(scheduleRegistrationAdapter);
+                registrationList);
+        getRegisterList();
+        recyclerViewRegistrationList.setAdapter(scheduleRegistrationAdapter);
     }
 
     private void setViewListener() {
@@ -140,17 +142,17 @@ import java.util.List;
         db.collection("registry")
                 .whereEqualTo("schedule_id", scheduleId)
                 .whereEqualTo("shift", shift)
-//                .orderBy("num_order", Query.Direction.ASCENDING)
+                .orderBy("number_order", Query.Direction.ASCENDING)
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()){
-                        registryList = new ArrayList<>();
+                        registrationList = new ArrayList<>();
                         register = new Register();
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             register = document.toObject(Register.class);
-                            registryList.add(register);
+                            registrationList.add(register);
                         }
-                        scheduleRegistrationAdapter.setRegistryList(registryList);
+                        scheduleRegistrationAdapter.setRegistryList(registrationList);
                         scheduleRegistrationAdapter.notifyDataSetChanged();
                     }
                 });

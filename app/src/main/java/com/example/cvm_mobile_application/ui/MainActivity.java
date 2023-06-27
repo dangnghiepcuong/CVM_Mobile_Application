@@ -4,13 +4,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.os.BuildCompat;
 
@@ -22,14 +20,10 @@ import com.example.cvm_mobile_application.ui.citizen.CitizenRegisterAccountActiv
 import com.example.cvm_mobile_application.ui.citizen.home.CitizenNavigationBottomActivity;
 import com.example.cvm_mobile_application.ui.citizen.info.CitizenProfileActivity;
 import com.example.cvm_mobile_application.ui.org.home.OrgNavigationBottomActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Objects;
 
@@ -64,7 +58,7 @@ import java.util.Objects;
         }
         SharedPreferences sharedPreferences = getSharedPreferences("SHARED_PREFS", MODE_PRIVATE);
         String username = sharedPreferences.getString("username", "");
-        if (username != ""){
+        if (!username.equals("")){
             queryUserRole(username);
             return;
         }
@@ -81,56 +75,47 @@ import java.util.Objects;
     }
 
     public void setViewListener() {
-        btnlogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String username = String.valueOf(et_username.getText());
-                if (username.equals("")) {
-                    Toast.makeText(MainActivity.this, "*Nhập tài khoản", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+        btnlogin.setOnClickListener(view -> {
+            String username = String.valueOf(et_username.getText());
+            if (username.equals("")) {
+                Toast.makeText(MainActivity.this, "*Nhập tài khoản", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-                String password = String.valueOf(et_password.getText());
-                if (password.equals("")) {
-                    Toast.makeText(MainActivity.this, "*Nhập mật khẩu", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+            String password = String.valueOf(et_password.getText());
+            if (password.equals("")) {
+                Toast.makeText(MainActivity.this, "*Nhập mật khẩu", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-                if (username.contains("@")) {
-                    MainActivity.this.authPersonalUser(username, password);
-                } else {
-                    MainActivity.this.authOrgUser(username, password);
-                }
+            if (username.contains("@")) {
+                MainActivity.this.authPersonalUser(username, password);
+            } else {
+                MainActivity.this.authOrgUser(username, password);
             }
         });
 
-        btnCreateNewAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), CitizenRegisterAccountActivity.class);
-                startActivity(intent);
-            }
+        btnCreateNewAccount.setOnClickListener(v -> {
+            Intent intent = new Intent(getBaseContext(), CitizenRegisterAccountActivity.class);
+            startActivity(intent);
         });
     }
 
     public void authPersonalUser(String username, String password) {
         mAuth.signInWithEmailAndPassword(username, password)
-                .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d("myTAG", "signInWithEmail:success");
-                            Toast.makeText(MainActivity.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
+                .addOnCompleteListener(MainActivity.this, task -> {
+                    if (task.isSuccessful()) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d("myTAG", "signInWithEmail:success");
+                        Toast.makeText(MainActivity.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
 
-                            // GET USER ROLE
-                            MainActivity.this.queryUserRole(username);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w("myTAG", "signInWithEmail:failure", task.getException());
-                            Toast.makeText(MainActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_LONG).show();
-                        }
+                        // GET USER ROLE
+                        MainActivity.this.queryUserRole(username);
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w("myTAG", "signInWithEmail:failure", task.getException());
+                        Toast.makeText(MainActivity.this, "Authentication failed.",
+                                Toast.LENGTH_LONG).show();
                     }
                 });
     }
@@ -139,38 +124,34 @@ import java.util.Objects;
         db.collection("accounts")
                 .whereEqualTo("username", username)
                 .get()
-                .addOnCompleteListener(MainActivity.this, new OnCompleteListener<QuerySnapshot>() {
-
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            if (task.getResult().isEmpty()) {
-                                Toast.makeText(MainActivity.this, "Tài khoản không tồn tại!", Toast.LENGTH_SHORT).show();
-                                return;
-                            }
-
-                            Account account = new Account();
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                account = document.toObject(Account.class);
-                            }
-
-                            if (password.equals(account.getPassword()) == false) {
-                                Toast.makeText(MainActivity.this, "Sai mật khẩu!", Toast.LENGTH_SHORT).show();
-                                return;
-                            }
-
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d("myTAG", "signInWithEmail:success");
-                            Toast.makeText(MainActivity.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
-
-                            // GET USER ROLE
-                            MainActivity.this.queryUserRole(username);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w("myTAG", "signInWithEmail:failure", task.getException());
-                            Toast.makeText(MainActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_LONG).show();
+                .addOnCompleteListener(MainActivity.this, task -> {
+                    if (task.isSuccessful()) {
+                        if (task.getResult().isEmpty()) {
+                            Toast.makeText(MainActivity.this, "Tài khoản không tồn tại!", Toast.LENGTH_SHORT).show();
+                            return;
                         }
+
+                        Account account = new Account();
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            account = document.toObject(Account.class);
+                        }
+
+                        if (!password.equals(account.getPassword())) {
+                            Toast.makeText(MainActivity.this, "Sai mật khẩu!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d("myTAG", "signInWithEmail:success");
+                        Toast.makeText(MainActivity.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
+
+                        // GET USER ROLE
+                        MainActivity.this.queryUserRole(username);
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w("myTAG", "signInWithEmail:failure", task.getException());
+                        Toast.makeText(MainActivity.this, "Authentication failed.",
+                                Toast.LENGTH_LONG).show();
                     }
                 });
     }
@@ -180,29 +161,26 @@ import java.util.Objects;
         db.collection("accounts")
                 .whereEqualTo("username", username)
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                role = Integer.parseInt(String.valueOf(document.get("role")));
-                                int status = Integer.parseInt(String.valueOf(document.get("status")));
-                                Log.i("myTAG", "role: " + role);
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            role = Integer.parseInt(String.valueOf(document.get("role")));
+                            int status = Integer.parseInt(String.valueOf(document.get("status")));
+                            Log.i("myTAG", "role: " + role);
 
-                                // UPDATE UI BASE ON ROLE
-                                MainActivity.this.updateUI(username, role, status);
-                            }
-                        } else {
-                            Log.w("myTAG", "queryCollection doc role:failure", task.getException());
-                            Toast.makeText(MainActivity.this, "*Đã có lỗi xảy ra. Vui lòng thử lại!"
-                                    , Toast.LENGTH_LONG).show();
+                            // UPDATE UI BASE ON ROLE
+                            MainActivity.this.updateUI(username, role, status);
                         }
+                    } else {
+                        Log.w("myTAG", "queryCollection doc role:failure", task.getException());
+                        Toast.makeText(MainActivity.this, "*Đã có lỗi xảy ra. Vui lòng thử lại!"
+                                , Toast.LENGTH_LONG).show();
                     }
                 });
     }
 
     public void updateUI(String username, int role, int status) {
-        Intent intent = null;
+        Intent intent;
         switch (role) {
             case 0:
                 intent = new Intent(getBaseContext(), AdminNavigationBottom.class);
