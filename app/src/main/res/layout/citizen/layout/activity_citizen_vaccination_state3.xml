@@ -3,11 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/card_white_rounded_corner"
     android:orientation="vertical"
-    tools:context=".ui.citizen.vaccination.CitizenVaccinationState2Fragment"
+    android:background="@drawable/card_white_rounded_corner"
+    tools:context=".ui.citizen.vaccination.CitizenVaccinationState2Activity"
     tools:viewBindingIgnore="true">
-
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_org_name"
+            style="@style/text_heading"/>
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,13 +24,13 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/btn_region_filter"
+            android:id="@+id/btn_schedule_filter"
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
 
             <TextView
                 style="@style/labelFor_et"
-                android:text="Bộ lọc khu vực" />
+                android:text="Bộ lọc lịch tiêm" />
 
             <ImageView
                 android:layout_width="30dp"
@@ -31,37 +40,30 @@
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/layout_linear_region_filter"
+        android:id="@+id/layout_linear_schedule_filter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="10dp"
-        android:visibility="gone"
+        android:visibility="visible"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Tỉnh/Thành phố"
-                    android:textSize="16sp" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2">
-                <Spinner
-                    android:id="@+id/sp_province"
-                    style="@style/spinner" />
-            </LinearLayout>
-
+        <LinearLayout style="@style/linear_layout_date_picker">
+            <TextView
+                android:id="@+id/tv_on_date"
+                style="@style/edit_date"
+                android:layout_weight="7"/>
+            <Button
+                android:id="@+id/btn_on_date_dp"
+                style="@style/btn_date_picker"
+                android:layout_weight="3"
+                android:text="chọn ngày"/>
         </LinearLayout>
-
+        <DatePicker
+            android:id="@+id/dp_on_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:spinnersShown="false"
+            android:visibility="gone"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -72,7 +74,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Quận/Huyện"
+                    android:text="Loại vaccine"
                     android:textSize="16sp" />
             </LinearLayout>
             <LinearLayout
@@ -80,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2">
                 <Spinner
-                    android:id="@+id/sp_district"
+                    android:id="@+id/sp_vaccine_type"
                     style="@style/spinner" />
             </LinearLayout>
         </LinearLayout>
@@ -95,7 +97,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Phường/Xã"
+                    android:text="Buổi tiêm"
                     android:textSize="16sp" />
             </LinearLayout>
             <LinearLayout
@@ -103,7 +105,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2">
                 <Spinner
-                    android:id="@+id/sp_ward"
+                    android:id="@+id/sp_shift"
                     style="@style/spinner" />
             </LinearLayout>
         </LinearLayout>
@@ -112,14 +114,12 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="11">
+        android:layout_weight="9">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/view_recycler_org_list"
+            android:id="@+id/view_recycler_schedule_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingHorizontal="10dp" />
-
+            android:paddingHorizontal="10dp"/>
     </ScrollView>
-
 </androidx.appcompat.widget.LinearLayoutCompat>

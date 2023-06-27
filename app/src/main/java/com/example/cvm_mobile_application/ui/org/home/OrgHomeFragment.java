@@ -12,8 +12,8 @@ import androidx.fragment.app.Fragment;
 
 import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.db.model.Organization;
-import com.example.cvm_mobile_application.ui.org.schedule.OrgCreateScheduleActivity;
-import com.example.cvm_mobile_application.ui.org.schedule.OrgListScheduleActivity;
+import com.example.cvm_mobile_application.ui.org.schedule.schedule_management.OrgCreateScheduleActivity;
+import com.example.cvm_mobile_application.ui.org.schedule.schedule_management.OrgScheduleListActivity;
 import com.example.cvm_mobile_application.ui.org.vaccine.OrgVaccineManagementActivity;
 
 public class OrgHomeFragment extends Fragment {
@@ -75,7 +75,7 @@ public class OrgHomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity().getBaseContext(),
-                        OrgListScheduleActivity.class);
+                        OrgScheduleListActivity.class);
                 intent.putExtra("org", org);
                 startActivity(intent);
             }

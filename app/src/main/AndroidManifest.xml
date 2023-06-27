@@ -31,11 +31,19 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.citizen.vaccination.CitizenVaccinationActivity"
+            android:name=".ui.citizen.vaccination.CitizenVaccinationState1Activity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.org.OrgNavigationBottomActivity"
+            android:name=".ui.citizen.vaccination.CitizenVaccinationState2Activity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.citizen.vaccination.CitizenVaccinationState3Activity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.org.home.OrgNavigationBottomActivity"
             android:screenOrientation="portrait" />
 
         <activity
@@ -43,19 +51,19 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.org.schedule.OrgCreateScheduleActivity"
+            android:name=".ui.org.schedule.schedule_management.OrgCreateScheduleActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.org.schedule.OrgListScheduleActivity"
+            android:name=".ui.org.schedule.schedule_management.OrgScheduleListActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.org.schedule.OrgScheduleManagementActivity"
+            android:name=".ui.org.schedule.schedule_management.OrgScheduleManagementActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.org.schedule.RegisterCitizenInfo"
+            android:name=".ui.org.schedule.registration_management.OrgViewVaccinationProfile"
             android:screenOrientation="portrait" />
 
         <activity

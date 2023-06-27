@@ -1,4 +1,4 @@
-package com.example.cvm_mobile_application.ui.org;
+package com.example.cvm_mobile_application.ui.org.home;
 
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -19,8 +19,8 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.db.model.Organization;
 import com.example.cvm_mobile_application.ui.notification.NotificationFragment;
-import com.example.cvm_mobile_application.ui.org.home.OrgHomeFragment;
-import com.example.cvm_mobile_application.ui.org.schedule.OrgScheduleFragment;
+import com.example.cvm_mobile_application.ui.org.info.OrgOptionalMenuFragment;
+import com.example.cvm_mobile_application.ui.org.schedule.schedule_management.OrgScheduleFragment_unused;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -108,7 +108,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
                                         break;
 
                                     case R.id.schedule:
-                                        replaceFragment(new OrgScheduleFragment());
+                                        replaceFragment(new OrgScheduleFragment_unused());
                                         break;
 
                                     case R.id.notification:

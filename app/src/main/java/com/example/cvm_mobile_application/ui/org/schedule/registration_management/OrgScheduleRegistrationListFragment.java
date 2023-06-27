@@ -1,4 +1,4 @@
-package com.example.cvm_mobile_application.ui.org.schedule;
+package com.example.cvm_mobile_application.ui.org.schedule.registration_management;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,9 +8,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.core.os.BuildCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,22 +20,14 @@ import com.example.cvm_mobile_application.data.db.model.Citizen;
 import com.example.cvm_mobile_application.data.db.model.Register;
 import com.example.cvm_mobile_application.data.db.model.Schedule;
 import com.example.cvm_mobile_application.data.db.model.Shift;
-import com.example.cvm_mobile_application.ui.OnRegisterItemClickListener;
-import com.example.cvm_mobile_application.ui.RegistryListAdapter;
 import com.example.cvm_mobile_application.ui.SpinnerAdapter;
-import com.example.cvm_mobile_application.ui.citizen.info.CitizenProfileActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-@BuildCompat.PrereleaseSdkCheck public class OrgScheduleReadFragment extends Fragment {
+@BuildCompat.PrereleaseSdkCheck public class OrgScheduleRegistrationListFragment extends Fragment {
     private View view;
     private Schedule schedule;
     private Spinner spShift;
@@ -48,18 +38,18 @@ import java.util.List;
     private LinearLayout layoutScheduleFilter;
     private List<Register> registryList;
     private Citizen citizen;
-    private RegistryListAdapter registryListAdapter;
+    private ScheduleRegistrationAdapter scheduleRegistrationAdapter;
     private RecyclerView recyclerViewRegistryList;
     private Register register;
-    private OnRegisterItemClickListener onRegisterItemClickListener;
+    private OnRegistrationItemClickListener onRegistrationItemClickListener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_org_schedule_read, container, false);
+        view = inflater.inflate(R.layout.fragment_org_schedule_registration_list, container, false);
 
         db = FirebaseFirestore.getInstance();
-        schedule = getArguments().getParcelable("schedule");
+        schedule = requireArguments().getParcelable("schedule");
         shiftList = new ArrayList<>();
         citizen = new Citizen();
 
@@ -91,10 +81,10 @@ import java.util.List;
         spShift.setAdapter(spShiftAdapter);
 
         getRegisterList();
-        registryListAdapter = new RegistryListAdapter(
+        scheduleRegistrationAdapter = new ScheduleRegistrationAdapter(
                 requireActivity().getApplicationContext(),
                 registryList);
-        recyclerViewRegistryList.setAdapter(registryListAdapter);
+        recyclerViewRegistryList.setAdapter(scheduleRegistrationAdapter);
     }
 
     private void setViewListener() {
@@ -115,7 +105,7 @@ import java.util.List;
         spShift.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                OrgScheduleReadFragment.this.getRegisterList();
+                OrgScheduleRegistrationListFragment.this.getRegisterList();
             }
 
             @Override
@@ -124,13 +114,8 @@ import java.util.List;
             }
         });
 
-        onRegisterItemClickListener = new OnRegisterItemClickListener() {
-            @Override
-            public void onItemClick(Register item) {
-                getCitizen(item.getCitizen_id());
-            }
-        };
-        registryListAdapter.setListener(onRegisterItemClickListener);
+        onRegistrationItemClickListener = item -> getCitizen(item.getCitizen_id());
+        scheduleRegistrationAdapter.setListener(onRegistrationItemClickListener);
     }
 
     private void getRegisterList() {
@@ -157,19 +142,16 @@ import java.util.List;
                 .whereEqualTo("shift", shift)
 //                .orderBy("num_order", Query.Direction.ASCENDING)
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()){
-                            registryList = new ArrayList<>();
-                            register = new Register();
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                register = document.toObject(Register.class);
-                                registryList.add(register);
-                            }
-                            registryListAdapter.setRegistryList(registryList);
-                            registryListAdapter.notifyDataSetChanged();
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()){
+                        registryList = new ArrayList<>();
+                        register = new Register();
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            register = document.toObject(Register.class);
+                            registryList.add(register);
                         }
+                        scheduleRegistrationAdapter.setRegistryList(registryList);
+                        scheduleRegistrationAdapter.notifyDataSetChanged();
                     }
                 });
     }
@@ -178,17 +160,14 @@ import java.util.List;
         db.collection("users")
                 .whereEqualTo("id", id)
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()){
-                            citizen = new Citizen();
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                citizen = document.toObject(Citizen.class);
-                                Intent intent = new Intent(getContext(), RegisterCitizenInfo.class);
-                                intent.putExtra("citizen", citizen);
-                                startActivity(intent);
-                            }
+                .addOnCompleteListener(task -> {
+                    if(task.isSuccessful()){
+                        citizen = new Citizen();
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            citizen = document.toObject(Citizen.class);
+                            Intent intent = new Intent(getContext(), OrgViewVaccinationProfile.class);
+                            intent.putExtra("citizen", citizen);
+                            startActivity(intent);
                         }
                     }
                 });

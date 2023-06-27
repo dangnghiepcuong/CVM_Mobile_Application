@@ -1,4 +1,4 @@
-package com.example.cvm_mobile_application.ui;
+package com.example.cvm_mobile_application.ui.org.schedule.schedule_management;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,17 +11,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.db.model.Schedule;
-import com.example.cvm_mobile_application.ui.org.OnScheduleItemClickListener;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-public class ScheduleListAdapter extends RecyclerView.Adapter<ScheduleListAdapter.ScheduleViewHolder> {
+public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ScheduleViewHolder> {
     private final Context context;
     private List<Schedule> scheduleList;
     private OnScheduleItemClickListener listener;
-    public ScheduleListAdapter(Context context, List<Schedule> scheduleList) {
+    public ScheduleAdapter(Context context, List<Schedule> scheduleList) {
         this.context = context;
         this.scheduleList = scheduleList;
     }

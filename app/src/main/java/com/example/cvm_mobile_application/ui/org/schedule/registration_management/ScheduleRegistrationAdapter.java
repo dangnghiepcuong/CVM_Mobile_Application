@@ -1,4 +1,4 @@
-package com.example.cvm_mobile_application.ui;
+package com.example.cvm_mobile_application.ui.org.schedule.registration_management;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -14,12 +14,12 @@ import com.example.cvm_mobile_application.data.db.model.Register;
 
 import java.util.List;
 
-public class RegistryListAdapter extends RecyclerView.Adapter<RegistryListAdapter.RegisterViewHolder>{
+public class ScheduleRegistrationAdapter extends RecyclerView.Adapter<ScheduleRegistrationAdapter.RegisterViewHolder>{
     private final Context context;
     private List<Register> registryList;
-    private OnRegisterItemClickListener listener;
+    private OnRegistrationItemClickListener listener;
 
-    public RegistryListAdapter(Context context, List<Register> registryList) {
+    public ScheduleRegistrationAdapter(Context context, List<Register> registryList) {
         this.context = context;
         this.registryList = registryList;
     }
@@ -32,18 +32,18 @@ public class RegistryListAdapter extends RecyclerView.Adapter<RegistryListAdapte
         this.registryList = registryList;
     }
 
-    public OnRegisterItemClickListener getListener(){
+    public OnRegistrationItemClickListener getListener(){
         return listener;
     }
 
-    public void setListener(OnRegisterItemClickListener listener){
+    public void setListener(OnRegistrationItemClickListener listener){
         this.listener = listener;
     }
 
     @NonNull
     @Override
-    public RegistryListAdapter.RegisterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_registry, parent, false);
+    public ScheduleRegistrationAdapter.RegisterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.item_schedule_registration, parent, false);
 
         return new RegisterViewHolder(view);
     }

@@ -1,7 +1,6 @@
-package com.example.cvm_mobile_application.ui.org.schedule;
+package com.example.cvm_mobile_application.ui.org.schedule.schedule_management;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -15,11 +14,12 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.db.model.Schedule;
 import com.example.cvm_mobile_application.ui.ViewStructure;
+import com.example.cvm_mobile_application.ui.org.schedule.registration_management.OrgScheduleRegistrationListFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 @BuildCompat.PrereleaseSdkCheck
 public class OrgScheduleManagementActivity extends AppCompatActivity implements ViewStructure {
-    private OrgScheduleReadFragment orgScheduleReadFragment;
+    private OrgScheduleRegistrationListFragment orgScheduleRegistrationListFragment;
     private OrgScheduleUpdateFragment orgScheduleUpdateFragment;
     private BottomNavigationView toolbarMenu;
     private Button btnBack;
@@ -44,9 +44,9 @@ public class OrgScheduleManagementActivity extends AppCompatActivity implements 
         bindViewData();
         setViewListener();
 
-        orgScheduleReadFragment = new OrgScheduleReadFragment();
-        orgScheduleReadFragment.setArguments(bundle);
-        replaceFragment(orgScheduleReadFragment);
+        orgScheduleRegistrationListFragment = new OrgScheduleRegistrationListFragment();
+        orgScheduleRegistrationListFragment.setArguments(bundle);
+        replaceFragment(orgScheduleRegistrationListFragment);
     }
 
     @Override
@@ -65,19 +65,14 @@ public class OrgScheduleManagementActivity extends AppCompatActivity implements 
 
     @Override
     public void setViewListener() {
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        btnBack.setOnClickListener(view -> finish());
 
         toolbarMenu.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.menu_option1:
-                    orgScheduleReadFragment = new OrgScheduleReadFragment();
-                    orgScheduleReadFragment.setArguments(bundle);
-                    replaceFragment(orgScheduleReadFragment);
+                    orgScheduleRegistrationListFragment = new OrgScheduleRegistrationListFragment();
+                    orgScheduleRegistrationListFragment.setArguments(bundle);
+                    replaceFragment(orgScheduleRegistrationListFragment);
                     break;
                 case R.id.menu_option2:
                     orgScheduleUpdateFragment = new OrgScheduleUpdateFragment();

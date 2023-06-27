@@ -1,10 +1,9 @@
 package com.example.cvm_mobile_application.ui.citizen.vaccination;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -16,19 +15,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.SpinnerOption;
 import com.example.cvm_mobile_application.data.db.model.Citizen;
+import com.example.cvm_mobile_application.data.db.model.Form;
+import com.example.cvm_mobile_application.data.db.model.Register;
 import com.example.cvm_mobile_application.data.helpers.DVHCHelper;
 import com.example.cvm_mobile_application.ui.SpinnerAdapter;
 import com.example.cvm_mobile_application.ui.ViewStructure;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -39,11 +35,10 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CitizenVaccinationState1Fragment extends Fragment implements ViewStructure {
+public class CitizenVaccinationState1Activity extends AppCompatActivity implements ViewStructure {
     private FirebaseFirestore db;
     private Citizen citizen;
     private List<Citizen> relatives;
-    private View view;
     private Spinner spTargetList;
     private List<SpinnerOption> targetList;
     private String selectedTargetId;
@@ -54,42 +49,37 @@ public class CitizenVaccinationState1Fragment extends Fragment implements ViewSt
     private EditText etPhone;
     private EditText etEmail;
     private EditText etStreet;
-    private Spinner spProvince;
-    private List<SpinnerOption> provinceList = new ArrayList<>();
-    private SpinnerAdapter spProvinceListAdapter;
-    private Spinner spDistrict;
-    private List<SpinnerOption> districtList = new ArrayList<>();
-    private SpinnerAdapter spDistrictListAdapter;
-    private Spinner spWard;
-    private List<SpinnerOption> wardList = new ArrayList<>();
-    private SpinnerAdapter spWardListAdapter;
     private DVHCHelper dvhcHelper;
     private LinearLayout btnDetailPersonalInfo;
     private LinearLayout layoutDetailPersonalInfo;
     private EditText etFullName;
     private SpinnerAdapter spTargetListAdapter;
     private Button btnSave;
-    private FragmentManager fragmentManager;
-    private CitizenVaccinationState2Fragment state2Fragment;
     private RadioButton rdBtnGenderMale;
     private RadioButton rdBtnGenderFemale;
     private RadioButton rdBtnGenderOther;
     private RadioGroup rdGroupGender;
     private RadioButton rdBtnGender;
+    private List<String> registrationHistory;
+    private List<Register> registrationList;
+    private List<String> formHistory;
+    private List<Form> formList;
+    
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_citizen_vaccination_state1);
 
-    public Citizen getTarget() {
-        return citizen;
+        db = FirebaseFirestore.getInstance();
+        dvhcHelper = new DVHCHelper(getApplicationContext());
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_citizen_vaccination_state1, container, false);
-        db = FirebaseFirestore.getInstance();
-        dvhcHelper = new DVHCHelper(requireActivity().getApplicationContext());
+    public void onStart() {
+        super.onStart();
 
         //GET CITIZEN DATA FROM ACTIVITY
-        citizen = requireArguments().getParcelable("citizen");
+        citizen = getIntent().getParcelableExtra("citizen");
         SpinnerOption spOption = new SpinnerOption(citizen.getFull_name(), citizen.getId());
         targetList = new ArrayList<>();
         targetList.add(spOption);
@@ -100,45 +90,40 @@ public class CitizenVaccinationState1Fragment extends Fragment implements ViewSt
         implementView();
         bindViewData();
         setViewListener();
-        return view;
     }
 
     @Override
     public void implementView() {
-        spTargetList = view.findViewById(R.id.sp_target_list);
-        spTargetListAdapter = new SpinnerAdapter(requireActivity().getApplicationContext(),
+        spTargetList = findViewById(R.id.sp_target_list);
+        spTargetListAdapter = new SpinnerAdapter(getApplicationContext(),
                 R.layout.item_string, targetList);
         spTargetList.setAdapter(spTargetListAdapter);
 
-        btnDetailPersonalInfo = view.findViewById(R.id.btn_detail_personal_info);
-        layoutDetailPersonalInfo = view.findViewById(R.id.layout_detail_personal_info);
+        btnDetailPersonalInfo = findViewById(R.id.btn_detail_personal_info);
+        layoutDetailPersonalInfo = findViewById(R.id.layout_detail_personal_info);
 
-        etFullName = view.findViewById(R.id.et_fullname);
+        etFullName = findViewById(R.id.et_fullname);
 
-        tvBirthday = view.findViewById(R.id.tv_birthday);
-        btnBirthdayDP = view.findViewById(R.id.btn_birthday_dp);
-        dpBirhtday = view.findViewById(R.id.dp_birthday);
+        tvBirthday = findViewById(R.id.tv_birthday);
+        btnBirthdayDP = findViewById(R.id.btn_birthday_dp);
+        dpBirhtday = findViewById(R.id.dp_birthday);
 
-        rdGroupGender = view.findViewById(R.id.rd_group_gender);
-        rdBtnGenderMale = view.findViewById(R.id.rd_btn_gender_male);
-        rdBtnGenderFemale = view.findViewById(R.id.rd_btn_gender_female);
-        rdBtnGenderOther = view.findViewById(R.id.rd_btn_gender_another);
+        rdGroupGender = findViewById(R.id.rd_group_gender);
+        rdBtnGenderMale = findViewById(R.id.rd_btn_gender_male);
+        rdBtnGenderFemale = findViewById(R.id.rd_btn_gender_female);
+        rdBtnGenderOther = findViewById(R.id.rd_btn_gender_another);
 
-        etPhone = view.findViewById(R.id.et_phone);
-        etId = view.findViewById(R.id.et_id);
-        etEmail = view.findViewById(R.id.et_email);
+        etPhone = findViewById(R.id.et_phone);
+        etId = findViewById(R.id.et_id);
+        etEmail = findViewById(R.id.et_email);
 
-        dvhcHelper.setSpProvince(view.findViewById(R.id.sp_province));
-        dvhcHelper.setSpDistrict(view.findViewById(R.id.sp_district));
-        dvhcHelper.setSpWard(view.findViewById(R.id.sp_ward));
+        dvhcHelper.setSpProvince(findViewById(R.id.sp_province));
+        dvhcHelper.setSpDistrict(findViewById(R.id.sp_district));
+        dvhcHelper.setSpWard(findViewById(R.id.sp_ward));
 
-        spProvince = dvhcHelper.getSpProvince();
-        spDistrict = dvhcHelper.getSpDistrict();
-        spWard = dvhcHelper.getSpWard();
+        etStreet = findViewById(R.id.et_street);
 
-        etStreet = view.findViewById(R.id.et_street);
-
-        btnSave = view.findViewById(R.id.btn_next);
+        btnSave = findViewById(R.id.btn_next);
     }
 
     @Override
@@ -177,7 +162,7 @@ public class CitizenVaccinationState1Fragment extends Fragment implements ViewSt
 
         //SET LOCAL VALUE
         try {
-            dvhcHelper.bindLocalListSpinnerData(getContext(),
+            dvhcHelper.bindLocalListSpinnerData(getApplicationContext(),
                     citizen.getProvince_name(),
                     citizen.getDistrict_name(),
                     citizen.getWard_name());
@@ -205,11 +190,12 @@ public class CitizenVaccinationState1Fragment extends Fragment implements ViewSt
 
                 selectedTargetId = option.getValue();
                 Log.i("myTAG", selectedTargetId);
-                CitizenVaccinationState1Fragment.this.getTargetData();
+                CitizenVaccinationState1Activity.this.getTargetData();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
 
@@ -228,33 +214,24 @@ public class CitizenVaccinationState1Fragment extends Fragment implements ViewSt
             }
         });
 
-        btnBirthdayDP.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (dpBirhtday.getVisibility() == View.GONE) {
-                    dpBirhtday.setVisibility(View.VISIBLE);
-                } else {
-                    dpBirhtday.setVisibility(View.GONE);
-                }
+        btnBirthdayDP.setOnClickListener(v -> {
+            if (dpBirhtday.getVisibility() == View.GONE) {
+                dpBirhtday.setVisibility(View.VISIBLE);
+            } else {
+                dpBirhtday.setVisibility(View.GONE);
             }
         });
 
-        dpBirhtday.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
-            @Override
-            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                monthOfYear++;
-                tvBirthday.setText(year + "-" + monthOfYear + "-" + dayOfMonth);
-            }
+        dpBirhtday.setOnDateChangedListener((view, year, monthOfYear, dayOfMonth) -> {
+            monthOfYear++;
+            tvBirthday.setText(year + "-" + monthOfYear + "-" + dayOfMonth);
         });
 
         dvhcHelper.setLocalListSpinnerListener();
 
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // UPDATE PROFILE THEN UPDATE UI TO NEXT SCREEN
-                CitizenVaccinationState1Fragment.this.updateProfile();
-            }
+        btnSave.setOnClickListener(v -> {
+            // UPDATE PROFILE THEN UPDATE UI TO NEXT SCREEN
+            CitizenVaccinationState1Activity.this.updateProfile();
         });
     }
 
@@ -269,7 +246,7 @@ public class CitizenVaccinationState1Fragment extends Fragment implements ViewSt
                             citizen = document.toObject(Citizen.class);
                         }
 
-                        CitizenVaccinationState1Fragment.this.bindViewData();
+                        CitizenVaccinationState1Activity.this.bindViewData();
                     }
                 });
     }
@@ -293,52 +270,84 @@ public class CitizenVaccinationState1Fragment extends Fragment implements ViewSt
                 });
     }
 
+    public void getUserRegistrationHistory() {
+        db.collection("registry")
+                .whereEqualTo("citizen_id", citizen.getId())
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            registrationHistory.add(document.getId());
+                            Register register = document.toObject(Register.class);
+                            registrationList.add(register);
+                        }
+                        CitizenVaccinationState1Activity.this.getUserFormHistory();
+                    }
+                });
+    }
+
+    public void getUserFormHistory() {
+        db.collection("forms")
+                .whereEqualTo("citizen_id", citizen.getId())
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            formHistory.add(document.getId());
+                            Form form = document.toObject(Form.class);
+                            formList.add(form);
+                        }
+                        CitizenVaccinationState1Activity.this.updateProfile();
+                    }
+                });
+    }
+
     public void updateProfile() {
         Citizen profile = new Citizen();
         profile.setFull_name(String.valueOf(etFullName.getText()));
         if (profile.getFull_name().equals("")) {
-            Toast.makeText(getContext(), "*Nhập họ và tên", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "*Nhập họ và tên", Toast.LENGTH_SHORT).show();
             return;
         }
 
         profile.setBirthdayFromString(String.valueOf(tvBirthday.getText()));
         if (profile.getBirthdayString().equals("")) {
-            Toast.makeText(getContext(), "*Chọn ngày sinh", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "*Chọn ngày sinh", Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (rdGroupGender.getCheckedRadioButtonId() == -1) {
-            Toast.makeText(getContext(), "*Chọn giới tính", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "*Chọn giới tính", Toast.LENGTH_SHORT).show();
             return;
         }
-        rdBtnGender = view.findViewById(rdGroupGender.getCheckedRadioButtonId());
+        rdBtnGender = findViewById(rdGroupGender.getCheckedRadioButtonId());
         profile.setGender(String.valueOf(rdBtnGender.getText()));
 
         profile.setPhone(String.valueOf(etPhone.getText()));
         if (profile.getPhone().equals("")) {
-            Toast.makeText(getContext(), "*Nhập số điện thoại", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "*Nhập số điện thoại", Toast.LENGTH_SHORT).show();
             return;
         }
 
         profile.setId(String.valueOf(etId.getText()));
         if (profile.getId().equals("")) {
-            Toast.makeText(getContext(), "*Nhập CCCD", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "*Nhập CCCD", Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (!String.valueOf(etEmail.getText()).equals(citizen.getEmail())) {
-            Toast.makeText(getContext(), "*Email không được thay đổi", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "*Email không được thay đổi", Toast.LENGTH_SHORT).show();
             return;
         }
         profile.setEmail(String.valueOf(citizen.getEmail()));
 
-        SpinnerOption spOption = (SpinnerOption) dvhcHelper.getSelectedLocal(DVHCHelper.PROVINCE_LEVEL);
+        SpinnerOption spOption = dvhcHelper.getSelectedLocal(DVHCHelper.PROVINCE_LEVEL);
         profile.setProvince_name(spOption.getOption());
 
-        spOption = (SpinnerOption) dvhcHelper.getSelectedLocal(DVHCHelper.DISTRICT_LEVEL);
+        spOption = dvhcHelper.getSelectedLocal(DVHCHelper.DISTRICT_LEVEL);
         profile.setDistrict_name(spOption.getOption());
 
-        spOption = (SpinnerOption) dvhcHelper.getSelectedLocal(DVHCHelper.WARD_LEVEL);
+        spOption = dvhcHelper.getSelectedLocal(DVHCHelper.WARD_LEVEL);
         profile.setWard_name(spOption.getOption());
 
         profile.setStreet(String.valueOf(etStreet.getText()));
@@ -352,6 +361,34 @@ public class CitizenVaccinationState1Fragment extends Fragment implements ViewSt
         if (!profile.getId().equals(citizen.getId())) {
             batch.delete(oldProfile);
             batch.update(profileAccount, "user_id", profile.getId());
+
+            // UPDATE USER TRANSACTION DATA
+            int i = 0;
+            for (String id : registrationHistory) {
+                // get the registration ref (which has old id) from Firestore and delete it
+                DocumentReference registrationRef = db.collection("registry").document(id);
+                batch.delete(registrationRef);
+
+                // create new document id (ref) for the registration
+                String newId = profile.getId()
+                        + registrationList.get(i).getSchedule_id()
+                        + registrationList.get(i).getId();
+
+                // update the object transaction data
+                registrationList.get(i).setCitizen_id(profile.getId());
+
+                // set a new registration document with the id above in Firestore
+                DocumentReference newRegistrationRef = db.collection("registry").document(newId);
+                batch.set(newRegistrationRef, registrationList.get(i));
+
+                i++;
+            }
+
+            for (String id : formHistory) {
+                // get the form ref and update citizen_id
+                DocumentReference formRef = db.collection("forms").document(id);
+                batch.update(formRef, "citizen_id", profile.getId());
+            }
         }
 
         // THE SET() OPERATION WILL CREATE A NEW DOCUMENT OR OVERWRITE THE EXISTING PROFILE
@@ -364,25 +401,20 @@ public class CitizenVaccinationState1Fragment extends Fragment implements ViewSt
         batch.update(profileAccount, "user_id", profile.getId());
         batch.update(profileAccount, "status", 1);
 
-        batch.commit().addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                CitizenVaccinationState1Fragment.this.citizen = profile;
-
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("citizen", citizen);
-
-                state2Fragment = new CitizenVaccinationState2Fragment();
-                state2Fragment.setArguments(bundle);
-                CitizenVaccinationState1Fragment.this.replaceFragment(state2Fragment);
+        batch.commit().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Toast.makeText(CitizenVaccinationState1Activity.this,
+                        "Cập nhật thông tin thành công!", Toast.LENGTH_LONG).show();
+                citizen = profile;
+            } else {
+                Toast.makeText(CitizenVaccinationState1Activity.this,
+                        "Đã có lỗi xảy ra", Toast.LENGTH_LONG).show();
             }
-        });
-    }
 
-    public void replaceFragment(Fragment fragment) {
-        fragmentManager = getActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_layout, fragment);
-        fragmentTransaction.commit();
+            Intent intent = new Intent(CitizenVaccinationState1Activity.this.getBaseContext(),
+                    CitizenVaccinationState2Activity.class);
+            intent.putExtra("citizen", citizen);
+            startActivity(intent);
+        });
     }
 }
