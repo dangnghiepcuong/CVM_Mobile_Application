@@ -4,235 +4,26 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="9">
-        <ScrollView
+        android:layout_weight="4">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/view_recycler_reg_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    style="@style/card_linearLayout_horizontal">
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:orientation="vertical">
-                        <LinearLayout style="@style/card_date">
-                            <TextView style="@style/text_date_view_dd"
-                                android:text="20"/>
-                            <TextView style="@style/text_date_view_mmyyyy"
-                                android:text="10/2021"/>
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="7"
-                        android:orientation="vertical">
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                            <ImageView
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
-                                android:background="@drawable/ic_person"/>
-                            <TextView style="@style/text_name"
-                                android:text="Đặng Nghiệp Cường"/>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                            <ImageView
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
-                                android:background="@drawable/ic_cake"/>
-
-                            <TextView
-                                style="@style/labelFor_et"
-                                android:layout_width="wrap_content"
-                                android:text="17/008/2002" />
-                        </LinearLayout>
-                        <TextView style="@style/text_status_registration_1"/>
-                    </LinearLayout>
-
-                    <Button
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:background="@drawable/ic_more_vert"/>
-                </androidx.appcompat.widget.LinearLayoutCompat>
-
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    style="@style/card_linearLayout_horizontal">
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:orientation="vertical">
-                        <LinearLayout style="@style/card_date">
-                            <TextView style="@style/text_date_view_dd"
-                                android:text="20"/>
-                            <TextView style="@style/text_date_view_mmyyyy"
-                                android:text="10/2021"/>
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="7"
-                        android:orientation="vertical">
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                            <ImageView
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
-                                android:background="@drawable/ic_person"/>
-                            <TextView style="@style/text_name"
-                                android:text="Đặng Nghiệp Cường"/>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                            <ImageView
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
-                                android:background="@drawable/ic_cake"/>
-                            <TextView style="@style/labelFor_et"
-                                android:text="17/008/2002"/>
-                        </LinearLayout>
-                        <TextView style="@style/text_status_registration_2"/>
-                    </LinearLayout>
-                    <Button
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:background="@drawable/ic_more_vert"/>
-                </androidx.appcompat.widget.LinearLayoutCompat>
-
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    style="@style/card_linearLayout_horizontal">
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:orientation="vertical">
-                        <LinearLayout style="@style/card_date">
-                            <TextView style="@style/text_date_view_dd"
-                                android:text="15"/>
-                            <TextView style="@style/text_date_view_mmyyyy"
-                                android:text="12/2021"/>
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="7"
-                        android:orientation="vertical">
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                            <ImageView
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
-                                android:background="@drawable/ic_person"/>
-                            <TextView style="@style/text_name"
-                                android:text="Đặng Nghiệp Cường"/>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                            <ImageView
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
-                                android:background="@drawable/ic_cake"/>
-                            <TextView style="@style/labelFor_et"
-                                android:text="17/008/2002"/>
-                        </LinearLayout>
-                        <TextView style="@style/text_status_registration_0"/>
-                    </LinearLayout>
-                    <Button
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:background="@drawable/ic_more_vert"/>
-                </androidx.appcompat.widget.LinearLayoutCompat>
-
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    style="@style/card_linearLayout_horizontal">
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:orientation="vertical">
-                        <LinearLayout style="@style/card_date">
-                            <TextView style="@style/text_date_view_dd"
-                                android:text="12"/>
-                            <TextView style="@style/text_date_view_mmyyyy"
-                                android:text="10/2021"/>
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="7"
-                        android:orientation="vertical">
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                            <ImageView
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
-                                android:background="@drawable/ic_person"/>
-                            <TextView style="@style/text_name"
-                                android:text="Đặng Nghiệp Cường"/>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                            <ImageView
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
-                                android:background="@drawable/ic_cake"/>
-                            <TextView style="@style/labelFor_et"
-                                android:text="17/008/2002"/>
-                        </LinearLayout>
-                        <TextView style="@style/text_status_registration_3"/>
-                    </LinearLayout>
-                    <Button
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:background="@drawable/ic_more_vert"/>
-                </androidx.appcompat.widget.LinearLayoutCompat>
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
-        </ScrollView>
-    </androidx.appcompat.widget.LinearLayoutCompat>
+            android:layout_height="match_parent" />
+    </ScrollView>
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:paddingHorizontal="30dp">
+
         <Button
             android:id="@+id/btn_register_vaccination"
             style="@style/btn_primary"
-            android:text="Đăng ký tiêm chủng">
-        </Button>
+            android:text="Đăng ký tiêm chủng"></Button>
     </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.appcompat.widget.LinearLayoutCompat>

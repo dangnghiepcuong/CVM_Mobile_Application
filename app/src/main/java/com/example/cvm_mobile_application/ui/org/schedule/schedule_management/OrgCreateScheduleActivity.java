@@ -218,11 +218,11 @@ public class OrgCreateScheduleActivity extends AppCompatActivity {
                     limitNight = 0;
                 }
 
-                String id = org.getId() + onDate + vaccineType + vaccineLot;
+                String id = org.getId() + "#" + onDate + "#" + vaccineType + "#" + vaccineLot;
 
                 Schedule schedule = new Schedule(
                         id, onDate, vaccineLot, limitDay, limitNoon, limitNight,
-                        0, 0, 0, org.getId(), vaccineType
+                        0, 0, 0, org, vaccineType
                 );
 
                 OrgCreateScheduleActivity.this.createSchedule(schedule);
@@ -301,7 +301,7 @@ public class OrgCreateScheduleActivity extends AppCompatActivity {
         // Add a new document with a generated id.
         Map<String, Object> data = new HashMap<>();
         data.put("id", schedule.getId());
-        data.put("org_id", schedule.getOrg_id());
+        data.put("org_id", schedule.getOrg().getId());
         data.put("on_date", schedule.getOn_date());
         data.put("vaccine_id", schedule.getVaccine_id());
         data.put("lot", schedule.getLot());
@@ -315,7 +315,7 @@ public class OrgCreateScheduleActivity extends AppCompatActivity {
         db.runTransaction(new Transaction.Function<Integer>() {
             @Override
             public Integer apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
-                String lotId = schedule.getOrg_id() + schedule.getVaccine_id() + schedule.getLot();
+                String lotId = schedule.getOrg().getId() + schedule.getVaccine_id() + schedule.getLot();
                 int scheduledQuantity = schedule.getLimit_day() + schedule.getLimit_noon() + schedule.getLimit_night();
 
                 DocumentReference referenceInventory =

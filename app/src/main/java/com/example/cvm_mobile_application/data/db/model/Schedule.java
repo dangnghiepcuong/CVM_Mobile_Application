@@ -12,10 +12,11 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 public class Schedule implements Parcelable {
     private String id;
-    private Date on_date;
+    private Timestamp on_date;
     private String lot;
     private int limit_day;
     private int limit_noon;
@@ -23,12 +24,13 @@ public class Schedule implements Parcelable {
     private int day_registered;
     private int noon_registered;
     private int night_registered;
+    private Organization org;
     private String org_id;
     private String vaccine_id;
 
     public Schedule() {
         id = "";
-        on_date = new Date();
+        on_date = new Timestamp(new Date());
         lot = "";
         limit_day = 0;
         limit_noon = 0;
@@ -36,14 +38,13 @@ public class Schedule implements Parcelable {
         day_registered = 0;
         noon_registered = 0;
         night_registered = 0;
-        org_id = "";
         vaccine_id = "";
     }
 
     public Schedule(String id, String onDateString, String lot,
                     int limit_day, int limit_noon, int limit_night,
                     int day_registered, int noon_registered, int night_registered,
-                    String org_id, String vaccine_id) {
+                    Organization org, String vaccine_id) {
         this.id = id;
 
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -53,7 +54,7 @@ public class Schedule implements Parcelable {
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
-        this.on_date = onDate;
+        this.on_date = new Timestamp(Objects.requireNonNull(onDate));
 
         this.lot = lot;
         this.limit_day = limit_day;
@@ -62,7 +63,7 @@ public class Schedule implements Parcelable {
         this.day_registered = day_registered;
         this.noon_registered = noon_registered;
         this.night_registered = night_registered;
-        this.org_id = org_id;
+        this.org = org;
         this.vaccine_id = vaccine_id;
     }
 
@@ -70,14 +71,14 @@ public class Schedule implements Parcelable {
         id = in.readString();
 
         String dateString = in.readString();
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         Date onDate = null;
-        @SuppressLint("SimpleDateFormat") DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         try {
             onDate = df.parse(dateString);
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
-        on_date = onDate;
+        on_date = new Timestamp(Objects.requireNonNull(onDate));
 
         lot = in.readString();
         limit_day = in.readInt();
@@ -110,11 +111,11 @@ public class Schedule implements Parcelable {
         this.id = id;
     }
 
-    public java.util.Date getOn_date() {
+    public Timestamp getOn_date() {
         return on_date;
     }
 
-    public void setOn_date(java.util.Date on_date) {
+    public void setOn_date(Timestamp on_date) {
         this.on_date = on_date;
     }
 
@@ -174,6 +175,10 @@ public class Schedule implements Parcelable {
         this.night_registered = night_registered;
     }
 
+    public Organization getOrg() {
+        return org;
+    }
+
     public String getOrg_id() {
         return org_id;
     }
@@ -182,12 +187,22 @@ public class Schedule implements Parcelable {
         this.org_id = org_id;
     }
 
+    public void setOrg(Organization org) {
+        this.org = org;
+    }
+
     public String getVaccine_id() {
         return vaccine_id;
     }
 
     public void setVaccine_id(String vaccine_id) {
         this.vaccine_id = vaccine_id;
+    }
+
+    public String getOnDateString() {
+        @SuppressLint("SimpleDateFormat") DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = on_date.toDate();
+        return df.format(date);
     }
 
     @Override
@@ -200,7 +215,7 @@ public class Schedule implements Parcelable {
         parcel.writeString(id);
 
         @SuppressLint("SimpleDateFormat") DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        String onDate = df.format(on_date);
+        String onDate = df.format(on_date.toDate());
         parcel.writeString(onDate);
 
         parcel.writeString(lot);

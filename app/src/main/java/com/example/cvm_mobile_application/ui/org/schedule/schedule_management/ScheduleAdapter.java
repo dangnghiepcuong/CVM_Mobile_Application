@@ -12,8 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.db.model.Schedule;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ScheduleViewHolder> {
@@ -53,11 +51,8 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
     public void onBindViewHolder(ScheduleViewHolder holder, int position) {
         Schedule schedule = scheduleList.get(position);
 
-        holder.tvVaccineTupe.setText(schedule.getVaccine_id());
-
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        String onDate = df.format(schedule.getOn_date());
-        holder.tvOnDate.setText(onDate);
+        holder.tvVaccineType.setText(schedule.getVaccine_id());
+        holder.tvOnDate.setText(schedule.getOnDateString());
 
         String nRegistered =
                 "S: " + schedule.getDay_registered() +"/"
@@ -82,13 +77,13 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.Schedu
     }
 
     public static class ScheduleViewHolder extends RecyclerView.ViewHolder {
-        TextView tvVaccineTupe;
+        TextView tvVaccineType;
         TextView tvOnDate;
         TextView tvNRegistered;
 
         public ScheduleViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvVaccineTupe = itemView.findViewById(R.id.tv_vaccine_type);
+            tvVaccineType = itemView.findViewById(R.id.tv_vaccine_type);
             tvOnDate = itemView.findViewById(R.id.tv_on_date);
             tvNRegistered = itemView.findViewById(R.id.iv_n_registered);
         }

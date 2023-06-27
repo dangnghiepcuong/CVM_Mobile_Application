@@ -4,8 +4,9 @@
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="3"
+        android:gravity="center_vertical"
         android:orientation="vertical">
 
         <LinearLayout style="@style/card_date">
@@ -33,11 +34,11 @@
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:background="@drawable/ic_person" />
+                android:background="@drawable/ic_org_avatar" />
 
             <TextView
-                android:id="@+id/tv_full_name"
-                style="@style/text_name"/>
+                android:id="@+id/tv_org_name"
+                style="@style/text_content"/>
         </LinearLayout>
 
         <LinearLayout
@@ -48,15 +49,32 @@
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:background="@drawable/ic_cake" />
+                android:background="@drawable/ic_vaccines" />
 
             <TextView
-                android:id="@+id/tv_birthday"
+                android:id="@+id/tv_vaccine_type"
                 style="@style/labelFor_et"
                 android:layout_width="wrap_content"/>
         </LinearLayout>
 
-        <TextView style="@style/text_status_registration_3" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@drawable/ic_number"/>
+            <TextView
+                android:id="@+id/tv_number_order"
+                style="@style/labelFor_et"
+                android:layout_width="wrap_content"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_status"
+            style="@style/text_status_registration_3" />
     </LinearLayout>
 
     <Button

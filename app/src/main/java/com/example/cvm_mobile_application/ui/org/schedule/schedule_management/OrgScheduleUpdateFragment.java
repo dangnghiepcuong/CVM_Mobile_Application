@@ -16,11 +16,11 @@ import androidx.fragment.app.Fragment;
 import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.db.model.Schedule;
 import com.example.cvm_mobile_application.ui.ViewStructure;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class OrgScheduleUpdateFragment extends Fragment implements ViewStructure {
     private View view;
@@ -75,7 +75,7 @@ public class OrgScheduleUpdateFragment extends Fragment implements ViewStructure
         btnCreateSchedule.setVisibility(View.GONE);
         infoToInput.setVisibility(View.GONE);
 
-        Date date = schedule.getOn_date();
+        Timestamp date = schedule.getOn_date();
         @SuppressLint("SimpleDateFormat") DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String onDate = df.format(date);
 
