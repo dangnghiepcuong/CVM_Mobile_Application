@@ -56,6 +56,7 @@ public class CitizenVaccinationState2Activity extends AppCompatActivity implemen
         bindViewData();
         setViewListener();
     }
+
     @Override
     public void implementView() {
         btnRegionFilter = findViewById(R.id.btn_region_filter);
@@ -109,8 +110,6 @@ public class CitizenVaccinationState2Activity extends AppCompatActivity implemen
             }
         });
 
-        dvhcHelper.setLocalListSpinnerListener();
-
         onOrgItemClickListener = item -> {
             Toast.makeText(CitizenVaccinationState2Activity.this,
                     item.getId(), Toast.LENGTH_SHORT).show();
@@ -121,6 +120,13 @@ public class CitizenVaccinationState2Activity extends AppCompatActivity implemen
             startActivity(intent);
         };
         orgAdapter.setListener(onOrgItemClickListener);
+
+        dvhcHelper.setLocalListSpinnerListener(() -> {
+            CitizenVaccinationState2Activity.this.getOrgList(
+                    dvhcHelper.getSelectedLocal(DVHCHelper.PROVINCE_LEVEL).getOption(),
+                    dvhcHelper.getSelectedLocal(DVHCHelper.DISTRICT_LEVEL).getOption(),
+                    dvhcHelper.getSelectedLocal(DVHCHelper.WARD_LEVEL).getOption());
+        });
     }
 
     public void getOrgList(String provinceName, String districtName, String wardName) {
@@ -140,13 +146,13 @@ public class CitizenVaccinationState2Activity extends AppCompatActivity implemen
                     if (task.isSuccessful()) {
                         orgList = new ArrayList<>();
                         for (QueryDocumentSnapshot document : task.getResult()) {
-                            Organization org = new Organization();
-                            org.setId(String.valueOf(document.get("id")));
-                            org.setName((String) document.get("name"));
-                            org.setProvince_name(provinceName);
-                            org.setDistrict_name(districtName);
-                            org.setWard_name(wardName);
-                            org.setStreet(String.valueOf(document.get("street")));
+                            Organization org = document.toObject(Organization.class);
+//                            org.setId(String.valueOf(document.get("id")));
+//                            org.setName((String) document.get("name"));
+//                            org.setProvince_name(provinceName);
+//                            org.setDistrict_name(districtName);
+//                            org.setWard_name(wardName);
+//                            org.setStreet(String.valueOf(document.get("street")));
 
                             orgList.add(org);
                         }

@@ -117,7 +117,7 @@ public class OrgProfileActivity extends AppCompatActivity implements ViewStructu
             }
         });
 
-        dvhcHelper.setLocalListSpinnerListener();
+        dvhcHelper.setLocalListSpinnerListener(() -> {});
 
         btnSaveProfile.setOnClickListener(new View.OnClickListener() {
             @Override
