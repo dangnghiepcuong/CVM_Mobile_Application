@@ -8,12 +8,10 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cvm_mobile_application.R;
@@ -21,20 +19,16 @@ import com.example.cvm_mobile_application.data.SpinnerOption;
 import com.example.cvm_mobile_application.data.db.model.Organization;
 import com.example.cvm_mobile_application.data.db.model.Schedule;
 import com.example.cvm_mobile_application.ui.SpinnerAdapter;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.Transaction;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class OrgCreateScheduleActivity extends AppCompatActivity {
 
@@ -49,8 +43,6 @@ public class OrgCreateScheduleActivity extends AppCompatActivity {
     private EditText etNightLimit;
     private List<SpinnerOption> vaccineList;
     private List<SpinnerOption> vaccineInventoryList;
-    private ProgressBar pbSpVaccineList;
-    private ProgressBar pbSpVaccineLot;
     private SpinnerAdapter spVaccineTypeAdapter;
     private SpinnerAdapter spVaccineLotAdapter;
     private DatePicker dpOnDate;
@@ -122,30 +114,19 @@ public class OrgCreateScheduleActivity extends AppCompatActivity {
     }
 
     public void setViewListener() {
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
+        btnBack.setOnClickListener(view -> finish());
+
+        btnOnDate.setOnClickListener(v -> {
+            if (dpOnDate.getVisibility() == View.GONE) {
+                dpOnDate.setVisibility(View.VISIBLE);
+            } else {
+                dpOnDate.setVisibility(View.GONE);
             }
         });
 
-        btnOnDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (dpOnDate.getVisibility() == View.GONE) {
-                    dpOnDate.setVisibility(View.VISIBLE);
-                } else {
-                    dpOnDate.setVisibility(View.GONE);
-                }
-            }
-        });
-
-        dpOnDate.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
-            @Override
-            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                monthOfYear++;
-                tvOnDate.setText(year + "-" + monthOfYear + "-" + dayOfMonth);
-            }
+        dpOnDate.setOnDateChangedListener((view, year, monthOfYear, dayOfMonth) -> {
+            monthOfYear++;
+            tvOnDate.setText(year + "-" + monthOfYear + "-" + dayOfMonth);
         });
 
         // TRIGGER SELECTING VACCINE TYPE, GET LIST OF VACCINE LOT IN INVENTORY
@@ -162,71 +143,68 @@ public class OrgCreateScheduleActivity extends AppCompatActivity {
             }
         });
 
-        btnCreate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String onDate = String.valueOf(tvOnDate.getText());
-                if (onDate.equals("")) {
-                    Toast.makeText(OrgCreateScheduleActivity.this,
-                            "*Chọn ngày diễn ra lịch tiêm", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                // IF DATA HAVEN'T RETRIEVED YET, RETURN
-                SpinnerOption spOption = (SpinnerOption) spVaccineType.getSelectedItem();
-                try {
-                    spOption = (SpinnerOption) spVaccineType.getSelectedItem();
-                } catch (NullPointerException e) {
-                    return;
-                }
-                String vaccineType = spOption.getValue();
-
-                // IF DATA HAVEN'T RETRIEVED YET, OR DATA IS EMPTY THEN TOAST AND RETURN
-                if (vaccineInventoryList.size() == 0) {
-                    Toast.makeText(OrgCreateScheduleActivity.this,
-                            "Không có dữ liệu lô vắc-xin", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                // IF THE SPINNER HAVEN'T BEEN BIND DATA YET, RETURN
-                try {
-                    spOption = vaccineInventoryList.get(spVaccineLot.getSelectedItemPosition());
-                } catch (NullPointerException e) {
-                    Toast.makeText(OrgCreateScheduleActivity.this,
-                            "*Chưa có dữ liệu lô vắc-xin", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                String vaccineLot = spOption.getValue();
-
-                int limitDay = 0;
-                int limitNoon = 0;
-                int limitNight = 0;
-
-                try {
-                    limitDay = Integer.parseInt(String.valueOf(etDayLimit.getText()));
-                } catch (NumberFormatException e) {
-                    limitDay = 0;
-                }
-                try {
-                    limitNoon = Integer.parseInt(String.valueOf(etNoonLimit.getText()));
-                } catch (NumberFormatException e) {
-                    limitNoon = 0;
-                }
-                try {
-                    limitNight = Integer.parseInt(String.valueOf(etNightLimit.getText()));
-                } catch (NumberFormatException e) {
-                    limitNight = 0;
-                }
-
-                String id = org.getId() + "#" + onDate + "#" + vaccineType + "#" + vaccineLot;
-
-                Schedule schedule = new Schedule(
-                        id, onDate, vaccineLot, limitDay, limitNoon, limitNight,
-                        0, 0, 0, org, vaccineType
-                );
-
-                OrgCreateScheduleActivity.this.createSchedule(schedule);
+        btnCreate.setOnClickListener(v -> {
+            String onDate = String.valueOf(tvOnDate.getText());
+            if (onDate.equals("")) {
+                Toast.makeText(OrgCreateScheduleActivity.this,
+                        "*Chọn ngày diễn ra lịch tiêm", Toast.LENGTH_SHORT).show();
+                return;
             }
+
+            // IF DATA HAVEN'T RETRIEVED YET, RETURN
+            SpinnerOption spOption;
+            try {
+                spOption = (SpinnerOption) spVaccineType.getSelectedItem();
+            } catch (NullPointerException e) {
+                return;
+            }
+            String vaccineType = spOption.getValue();
+
+            // IF DATA HAVEN'T RETRIEVED YET, OR DATA IS EMPTY THEN TOAST AND RETURN
+            if (vaccineInventoryList.size() == 0) {
+                Toast.makeText(OrgCreateScheduleActivity.this,
+                        "Không có dữ liệu lô vắc-xin", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // IF THE SPINNER HAVEN'T BEEN BIND DATA YET, RETURN
+            try {
+                spOption = vaccineInventoryList.get(spVaccineLot.getSelectedItemPosition());
+            } catch (NullPointerException e) {
+                Toast.makeText(OrgCreateScheduleActivity.this,
+                        "*Chưa có dữ liệu lô vắc-xin", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            String vaccineLot = spOption.getValue();
+
+            int limitDay;
+            int limitNoon;
+            int limitNight;
+
+            try {
+                limitDay = Integer.parseInt(String.valueOf(etDayLimit.getText()));
+            } catch (NumberFormatException e) {
+                limitDay = 0;
+            }
+            try {
+                limitNoon = Integer.parseInt(String.valueOf(etNoonLimit.getText()));
+            } catch (NumberFormatException e) {
+                limitNoon = 0;
+            }
+            try {
+                limitNight = Integer.parseInt(String.valueOf(etNightLimit.getText()));
+            } catch (NumberFormatException e) {
+                limitNight = 0;
+            }
+
+            String id = org.getId() + "#" + onDate + "#" + vaccineType + "#" + vaccineLot;
+
+            Schedule schedule = new Schedule(
+                    id, onDate, vaccineLot, limitDay, limitNoon, limitNight,
+                    0, 0, 0, org, vaccineType
+            );
+
+            OrgCreateScheduleActivity.this.createSchedule(schedule);
         });
     }
 
@@ -236,29 +214,26 @@ public class OrgCreateScheduleActivity extends AppCompatActivity {
 //        pbSpVaccineList.setVisibility(View.VISIBLE);
         db.collection("vaccines")
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                SpinnerOption spOption = new SpinnerOption(
-                                        (String) document.get("name"),
-                                        (String) document.get("id")
-                                );
-                                vaccineList.add(spOption);
-                            }
-                            spVaccineTypeAdapter.notifyDataSetChanged();
-
-                            // RETRIEVE VACCINE LOT LIST IN INVENTORY
-                            OrgCreateScheduleActivity.this.getVaccineInventoryList(vaccineList.get(0).getValue());
-
-                            // ENABLE SPINNER VACCINE LOT AFTER SUCCESSFULLY RETRIEVING VACCINE TYPE
-                            spVaccineLot.setEnabled(true);
-                        } else {
-                            Log.d("myTAG", "Retrieving Data: getVaccineList");
-                            Toast.makeText(OrgCreateScheduleActivity.this,
-                                    "Lỗi khi lấy danh sách vaccine", Toast.LENGTH_LONG).show();
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            SpinnerOption spOption = new SpinnerOption(
+                                    (String) document.get("name"),
+                                    (String) document.get("id")
+                            );
+                            vaccineList.add(spOption);
                         }
+                        spVaccineTypeAdapter.notifyDataSetChanged();
+
+                        // RETRIEVE VACCINE LOT LIST IN INVENTORY
+                        OrgCreateScheduleActivity.this.getVaccineInventoryList(vaccineList.get(0).getValue());
+
+                        // ENABLE SPINNER VACCINE LOT AFTER SUCCESSFULLY RETRIEVING VACCINE TYPE
+                        spVaccineLot.setEnabled(true);
+                    } else {
+                        Log.d("myTAG", "Retrieving Data: getVaccineList");
+                        Toast.makeText(OrgCreateScheduleActivity.this,
+                                "Lỗi khi lấy danh sách vaccine", Toast.LENGTH_LONG).show();
                     }
                 });
     }
@@ -269,30 +244,26 @@ public class OrgCreateScheduleActivity extends AppCompatActivity {
                 .whereEqualTo("org_id", org.getId())
                 .whereEqualTo("vaccine_id", vaccineId)
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            vaccineInventoryList = new ArrayList<>();
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                if (Integer.parseInt(String.valueOf(document.get("quantity"))) > 0) {
-                                    SpinnerOption spOption = new SpinnerOption(
-                                            (String) document.get("lot")
-                                                    + " - sl: "
-                                                    + document.get("quantity"),
-                                            (String) document.get("lot")
-                                    );
-                                    vaccineInventoryList.add(spOption);
-                                }
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        vaccineInventoryList = new ArrayList<>();
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            if (Integer.parseInt(String.valueOf(document.get("quantity"))) > 0) {
+                                SpinnerOption spOption = new SpinnerOption(document.get("lot")
+                                        + " - sl: "
+                                        + document.get("quantity"),
+                                        (String) document.get("lot")
+                                );
+                                vaccineInventoryList.add(spOption);
                             }
-                            spVaccineLotAdapter.setOptionList(vaccineInventoryList);
-                            spVaccineLotAdapter.notifyDataSetChanged();
-                            btnCreate.setEnabled(true);
-                        } else {
-                            Log.d("myTAG", "Retrieving Data: getVaccineInventoryList");
-                            Toast.makeText(OrgCreateScheduleActivity.this,
-                                    "Lỗi khi lấy danh sách lot vaccine", Toast.LENGTH_LONG).show();
                         }
+                        spVaccineLotAdapter.setOptionList(vaccineInventoryList);
+                        spVaccineLotAdapter.notifyDataSetChanged();
+                        btnCreate.setEnabled(true);
+                    } else {
+                        Log.d("myTAG", "Retrieving Data: getVaccineInventoryList");
+                        Toast.makeText(OrgCreateScheduleActivity.this,
+                                "Lỗi khi lấy danh sách lot vaccine", Toast.LENGTH_LONG).show();
                     }
                 });
     }
@@ -312,45 +283,53 @@ public class OrgCreateScheduleActivity extends AppCompatActivity {
         data.put("noon_registered", 0);
         data.put("night_registered", 0);
 
-        db.runTransaction(new Transaction.Function<Integer>() {
-            @Override
-            public Integer apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
-                String lotId = schedule.getOrg().getId() + schedule.getVaccine_id() + schedule.getLot();
-                int scheduledQuantity = schedule.getLimit_day() + schedule.getLimit_noon() + schedule.getLimit_night();
+        db.runTransaction(transaction -> {
+            String lotId = schedule.getOrg().getId() + schedule.getVaccine_id() + schedule.getLot();
+            int scheduledQuantity = schedule.getLimit_day() + schedule.getLimit_noon() + schedule.getLimit_night();
 
-                DocumentReference referenceInventory =
-                        db.collection("vaccine_inventory").document(lotId);
+            DocumentReference referenceInventory =
+                    db.collection("vaccine_inventory").document(lotId);
 
-                DocumentSnapshot snapshot = transaction.get(referenceInventory);
-                int updatedQuantity = Integer.parseInt(String.valueOf(snapshot.get("quantity"))) - scheduledQuantity;
+            // GET THE QUANTITY IN INVENTORY
+            DocumentSnapshot snapshot = transaction.get(referenceInventory);
+            Long inventoryQuantity = (Long) snapshot.get("quantity");
 
-                // DECREASE THE QUANTITY OF THE SCHEDULED VACCINE IN THE INVENTORY
-                transaction.update(referenceInventory, "quantity", updatedQuantity);
-
-                DocumentReference referenceSchedule =
-                        db.collection("schedules").document(schedule.getId());
-
-                transaction.set(referenceSchedule, data);
-                return updatedQuantity;
+            // IF THE CREATING SCHEDULE TAKES OVER THE REMAINING QUANTITY, THEN RETURN
+            if (scheduledQuantity > Objects.requireNonNull(inventoryQuantity).intValue()) {
+                return -1;
             }
-        }).addOnCompleteListener(new OnCompleteListener<Integer>() {
-            @Override
-            public void onComplete(@NonNull Task<Integer> task) {
-                if (task.isSuccessful()) {
-                    tvOnDate.setText("");
-                    OrgCreateScheduleActivity.this.getVaccineInventoryList(schedule.getVaccine_id());
-                    etDayLimit.setText("");
-                    etNoonLimit.setText("");
-                    etNightLimit.setText("");
 
-                    Log.d("myTAG", "Document created with ID: " + schedule.getId());
+            int updatedQuantity = Integer.parseInt(String.valueOf(snapshot.get("quantity"))) - scheduledQuantity;
+
+            // DECREASE THE QUANTITY OF THE SCHEDULED VACCINE IN THE INVENTORY
+            transaction.update(referenceInventory, "quantity", updatedQuantity);
+
+            DocumentReference referenceSchedule =
+                    db.collection("schedules").document(schedule.getId());
+
+            transaction.set(referenceSchedule, data);
+            return updatedQuantity;
+        }).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                if (task.getResult() == -1) {
                     Toast.makeText(OrgCreateScheduleActivity.this,
-                            "Tạo lịch tiêm chủng thành công!", Toast.LENGTH_SHORT).show();
-                } else {
-                    Log.w("myTAG", "Error adding document", task.getException());
-                    Toast.makeText(OrgCreateScheduleActivity.this,
-                            "Đã có lỗi xảy, vui lòng thử lại!", Toast.LENGTH_LONG).show();
+                            "Số lượng vắc-xin cần dùng vượt quá số lượng trong kho", Toast.LENGTH_SHORT).show();
+                    return;
                 }
+
+                tvOnDate.setText("");
+                OrgCreateScheduleActivity.this.getVaccineInventoryList(schedule.getVaccine_id());
+                etDayLimit.setText("");
+                etNoonLimit.setText("");
+                etNightLimit.setText("");
+
+                Log.d("myTAG", "Document created with ID: " + schedule.getId());
+                Toast.makeText(OrgCreateScheduleActivity.this,
+                        "Tạo lịch tiêm chủng thành công!", Toast.LENGTH_SHORT).show();
+            } else {
+                Log.w("myTAG", "Error adding document", task.getException());
+                Toast.makeText(OrgCreateScheduleActivity.this,
+                        "Đã có lỗi xảy, vui lòng thử lại!", Toast.LENGTH_LONG).show();
             }
         });
     }
