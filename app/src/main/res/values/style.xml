@@ -47,7 +47,7 @@
         <item name="android:gravity">center_vertical</item>
     </style>
 
-    <style name="spinner">
+    <style name="spinner_text">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/et_height</item>
         <item name="android:layout_marginBottom">10dp</item>

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_detail_personal_info"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <LinearLayout
-        android:id="@+id/layout_detail_personal_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingHorizontal="20dp">
+        android:paddingHorizontal="@dimen/padding_screen_horizontal"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
@@ -45,7 +45,8 @@
 
             <EditText
                 android:id="@+id/et_fullname"
-                style="@style/edit_text" />
+                style="@style/edit_text"
+                android:inputType="textPersonName"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -68,7 +69,6 @@
             </LinearLayout>
 
             <LinearLayout style="@style/linear_layout_date_picker">
-
                 <TextView
                     android:id="@+id/tv_birthday"
                     style="@style/edit_date"
@@ -117,19 +117,16 @@
                 <RadioButton
                     android:id="@+id/rd_btn_gender_male"
                     style="@style/rd_btn_on_horizontal"
-                    android:layout_alignParentStart="true"
                     android:text="Nam" />
 
                 <RadioButton
                     android:id="@+id/rd_btn_gender_female"
                     style="@style/rd_btn_on_horizontal"
-                    android:layout_centerInParent="true"
                     android:text="Nữ" />
 
                 <RadioButton
                     android:id="@+id/rd_btn_gender_another"
                     style="@style/rd_btn_on_horizontal"
-                    android:layout_alignParentEnd="true"
                     android:text="Khác" />
             </RadioGroup>
 
@@ -155,7 +152,8 @@
 
             <EditText
                 android:id="@+id/et_phone"
-                style="@style/edit_text" />
+                style="@style/edit_text"
+                android:inputType="phone"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -179,7 +177,8 @@
 
             <EditText
                 android:id="@+id/et_id"
-                style="@style/edit_text" />
+                style="@style/edit_text"
+                android:inputType="text"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -203,7 +202,8 @@
 
             <EditText
                 android:id="@+id/et_email"
-                style="@style/edit_text" />
+                style="@style/edit_text"
+                android:inputType="textEmailAddress"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -227,7 +227,7 @@
 
             <Spinner
                 android:id="@+id/sp_province"
-                style="@style/spinner" />
+                style="@style/spinner_text" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -251,7 +251,7 @@
 
             <Spinner
                 android:id="@+id/sp_district"
-                style="@style/spinner" />
+                style="@style/spinner_text" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -275,7 +275,7 @@
 
             <Spinner
                 android:id="@+id/sp_ward"
-                style="@style/spinner" />
+                style="@style/spinner_text" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -292,7 +292,8 @@
 
             <EditText
                 android:id="@+id/et_street"
-                style="@style/edit_text" />
+                style="@style/edit_text"
+                android:inputType="text"/>
         </LinearLayout>
 
         <Button

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fragment_citizen_vaccination_state1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -19,28 +18,33 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingHorizontal="20dp">
-
-            <TextView
-                style="@style/labelFor_et"
-                android:text="Đối tượng đăng ký tiêm chủng" />
-
-            <Spinner
-                android:id="@+id/sp_target_list"
-                style="@style/spinner" />
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="end"
+                android:paddingHorizontal="@dimen/padding_screen_horizontal"
                 android:orientation="vertical">
                 <TextView
-                    android:id="@+id/btn_detail_personal_info"
                     style="@style/labelFor_et"
-                    app:drawableEndCompat="@drawable/ic_spinner_arrow_down"
-                    android:text="Chi tiết" />
+                    android:text="Đối tượng đăng ký tiêm chủng" />
+
+                <Spinner
+                    android:id="@+id/sp_target_list"
+                    style="@style/spinner_text"/>
             </LinearLayout>
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:gravity="end"-->
+<!--                android:orientation="vertical">-->
+<!--                <TextView-->
+<!--                    android:id="@+id/btn_detail_personal_info"-->
+<!--                    style="@style/labelFor_et"-->
+<!--                    app:drawableEndCompat="@drawable/ic_spinner_arrow_down"-->
+<!--                    android:text="Chi tiết" />-->
+<!--            </LinearLayout>-->
 
             <FrameLayout
                 android:id="@+id/frame_layout"

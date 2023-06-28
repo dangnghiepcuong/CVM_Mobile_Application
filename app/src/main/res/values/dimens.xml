@@ -14,4 +14,6 @@
     <dimen name="text_extreme_large">24sp</dimen>
 
     <dimen name="btn_height">45sp</dimen>
+
+    <dimen name="padding_screen_horizontal">15dp</dimen>
 </resources>

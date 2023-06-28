@@ -46,17 +46,14 @@
                 </LinearLayout>
 
             </LinearLayout>
-
-
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0"
             android:background="@drawable/card_home"
             android:orientation="vertical"
-            android:paddingLeft="30dp"
+            android:paddingHorizontal="@dimen/padding_screen_horizontal"
             android:paddingVertical="30dp">
 
             <LinearLayout
@@ -68,12 +65,13 @@
                     android:id="@+id/menu_tab_profile"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:baselineAligned="false">
                     <LinearLayout
                         android:background="@drawable/ic_infomation"
                         style="@style/iconFor_item_menu_info"/>
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1">
 
@@ -98,12 +96,13 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:baselineAligned="false">
                     <LinearLayout
                         android:background="@drawable/ic_info"
                         style="@style/iconFor_item_menu_info"/>
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1">
                         <TextView
@@ -127,12 +126,13 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:baselineAligned="false">
                     <LinearLayout
                         android:background="@drawable/ic_settings"
                         style="@style/iconFor_item_menu_info"/>
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1">
                         <TextView
@@ -157,12 +157,13 @@
                     android:id="@+id/menu_tab_logout"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:baselineAligned="false">
                     <LinearLayout
                         android:background="@drawable/ic_logout"
                         style="@style/iconFor_item_menu_info"/>
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1">
                         <TextView
