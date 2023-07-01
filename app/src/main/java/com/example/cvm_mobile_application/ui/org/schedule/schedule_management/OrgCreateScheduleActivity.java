@@ -50,7 +50,7 @@ public class OrgCreateScheduleActivity extends AppCompatActivity {
     private Button btnBack;
     private TextView tbTitle;
     private LinearLayout infoToRead;
-    private LinearLayout btnUpdate;
+    private Button btnUpdate;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -98,7 +98,7 @@ public class OrgCreateScheduleActivity extends AppCompatActivity {
         infoToRead = findViewById(R.id.info_to_read);
         infoToRead.setVisibility(View.GONE);
 
-        btnUpdate = findViewById(R.id.btn_update);
+        btnUpdate = findViewById(R.id.btn_update_schedule);
         btnUpdate.setVisibility(View.GONE);
     }
 

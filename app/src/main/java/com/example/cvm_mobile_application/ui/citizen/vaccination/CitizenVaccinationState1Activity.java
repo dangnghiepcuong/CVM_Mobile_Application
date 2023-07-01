@@ -4,9 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.os.BuildCompat;
@@ -33,8 +31,8 @@ import java.util.List;
     private Spinner spTargetList;
     private List<SpinnerOption> targetList;
     private String selectedTargetId;
-    private TextView btnDetailPersonalInfo;
-    private LinearLayout layoutDetailPersonalInfo;
+//    private TextView btnDetailPersonalInfo;
+//    private LinearLayout layoutDetailPersonalInfo;
     private SpinnerAdapter spTargetListAdapter;
 
     @Override
@@ -77,8 +75,8 @@ import java.util.List;
                 R.layout.item_string, targetList);
         spTargetList.setAdapter(spTargetListAdapter);
 
-        btnDetailPersonalInfo = findViewById(R.id.btn_detail_personal_info);
-        layoutDetailPersonalInfo = findViewById(R.id.layout_detail_personal_info);
+//        btnDetailPersonalInfo = findViewById(R.id.btn_detail_personal_info);
+//        layoutDetailPersonalInfo = findViewById(R.id.layout_detail_personal_info);
     }
 
     @Override
@@ -113,19 +111,19 @@ import java.util.List;
         });
 
         //SET DETAIL PERSONAL INFO BUTTON LISTENER
-        btnDetailPersonalInfo.setOnClickListener(v -> {
-            int visibility = layoutDetailPersonalInfo.getVisibility();
-            switch (visibility) {
-                case View.GONE:
-                    layoutDetailPersonalInfo.setVisibility(View.VISIBLE);
-                    break;
-
-                case View.VISIBLE:
-                default:
-                case View.INVISIBLE:
-                    layoutDetailPersonalInfo.setVisibility(View.GONE);
-            }
-        });
+//        btnDetailPersonalInfo.setOnClickListener(v -> {
+//            int visibility = layoutDetailPersonalInfo.getVisibility();
+//            switch (visibility) {
+//                case View.GONE:
+//                    layoutDetailPersonalInfo.setVisibility(View.VISIBLE);
+//                    break;
+//
+//                case View.VISIBLE:
+//                default:
+//                case View.INVISIBLE:
+//                    layoutDetailPersonalInfo.setVisibility(View.GONE);
+//            }
+//        });
     }
 
     public void getTargetData() {

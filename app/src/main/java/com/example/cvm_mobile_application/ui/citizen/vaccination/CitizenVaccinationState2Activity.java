@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,7 +33,7 @@ public class CitizenVaccinationState2Activity extends AppCompatActivity implemen
     private List<Organization> orgList;
     private RecyclerView recyclerViewOrgList;
     private OrgAdapter orgAdapter;
-    private LinearLayout btnRegionFilter;
+    private TextView btnRegionFilter;
     private LinearLayout layoutRegionFilter;
     private OnOrgItemClickListener onOrgItemClickListener;
 
