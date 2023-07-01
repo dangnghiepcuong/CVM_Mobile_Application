@@ -26,5 +26,7 @@
     <color name="DarkGreen">#008000</color>
     <color name="Yellow">#FFEA80</color>
     <color name="DarkYellow">#E4C837</color>
-    <color name="Red">#BD062F</color>
+    <color name="Red">#FC89A3</color>
+    <color name="DarkRed">#BD062F</color>
+
 </resources>

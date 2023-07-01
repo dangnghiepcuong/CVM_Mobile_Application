@@ -30,14 +30,12 @@ public class CitizenCertificateActivity extends AppCompatActivity implements Vie
     private LinearLayout tbBgrMenu;
     private LinearLayoutCompat bgrActivity;
     private LinearLayoutCompat bgrToolbar1;
-    private String type;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_citizen_cert);
         db = FirebaseFirestore.getInstance();
-        type = "";
     }
 
     protected void onStart() {
@@ -93,30 +91,27 @@ public class CitizenCertificateActivity extends AppCompatActivity implements Vie
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         for(QueryDocumentSnapshot document : task.getResult()){
-                            String type = String.valueOf(document.get("type"));
-                            String numInjection = String.valueOf(document.get("doses"));
+                            Integer numInjection = Integer.valueOf(String.valueOf(document.get("doses")));
+                            String status = "ĐÃ TIÊM " + numInjection + " MŨI VACCINE";
 
-                            switch (type){
-                                case "Đỏ":
-                                    bgrActivity.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.white));
-                                    tbBgrMenu.setBackgroundResource(R.drawable.card_white_rounded_corner);
-                                    bgrToolbar1.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.Red));
+                            switch (numInjection){
+                                case 0:
+                                    bgrActivity.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.Red));
+                                    tbBgrMenu.setBackgroundResource(R.drawable.card_red_rounded_corner);
+                                    bgrToolbar1.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.DarkRed));
                                     tvNumInjection.setText("CHƯA TIÊM VACCINE");
                                     break;
-                                case "Vàng":
+                                case 1:
                                     bgrActivity.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.Yellow));
                                     tbBgrMenu.setBackgroundResource(R.drawable.card_yellow_rounded_corner);
                                     bgrToolbar1.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.DarkYellow));
-                                    tvNumInjection.setText("ĐÃ TIÊM 1 MŨI VACCINE");
+                                    tvNumInjection.setText(status);
                                     break;
-                                case "Xanh":
+                                default:
                                     bgrActivity.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.Green));
                                     tbBgrMenu.setBackgroundResource(R.drawable.card_green_rounded_corner);
                                     bgrToolbar1.setBackgroundColor(ContextCompat.getColor(getBaseContext(), R.color.DarkGreen));
-                                    String status = "ĐÃ TIÊM " + numInjection + " MŨI VACCINE";
                                     tvNumInjection.setText(status);
-                                    break;
-                                case "":
                                     break;
                             }
                         }
