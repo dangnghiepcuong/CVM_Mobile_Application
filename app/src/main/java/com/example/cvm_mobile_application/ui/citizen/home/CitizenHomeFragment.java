@@ -82,17 +82,17 @@ import com.example.cvm_mobile_application.ui.citizen.vaccination.CitizenVaccinat
             startActivity(intent);
         });
 
-        btnAccount.setOnClickListener(v -> {
-            Intent intent = new Intent(getContext(), CitizenProfileActivity.class);
-            intent.putExtra("citizen", citizen);
-            startActivity(intent);
-        });
+//        btnAccount.setOnClickListener(v -> {
+//            Intent intent = new Intent(getContext(), CitizenProfileActivity.class);
+//            intent.putExtra("citizen", citizen);
+//            startActivity(intent);
+//        });
 
-        btnRelative.setOnClickListener(v -> {
-            Intent intent = new Intent(getContext(), CitizenProfileActivity.class);
-            intent.putExtra("citizen", citizen);
-            startActivity(intent);
-        });
+//        btnRelative.setOnClickListener(v -> {
+//            Intent intent = new Intent(getContext(), CitizenProfileActivity.class);
+//            intent.putExtra("citizen", citizen);
+//            startActivity(intent);
+//        });
 
         btnRegistrationHistory.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), CitizenRegistrationActivity.class);
