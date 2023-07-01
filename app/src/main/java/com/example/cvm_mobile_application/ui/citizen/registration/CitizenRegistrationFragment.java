@@ -1,5 +1,6 @@
 package com.example.cvm_mobile_application.ui.citizen.registration;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.core.os.BuildCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,13 +19,14 @@ import com.example.cvm_mobile_application.data.db.model.Organization;
 import com.example.cvm_mobile_application.data.db.model.Register;
 import com.example.cvm_mobile_application.data.db.model.Schedule;
 import com.example.cvm_mobile_application.ui.ViewStructure;
+import com.example.cvm_mobile_application.ui.citizen.vaccination.CitizenVaccinationState1Activity;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CitizenRegistrationFragment extends Fragment implements ViewStructure {
+@BuildCompat.PrereleaseSdkCheck public class CitizenRegistrationFragment extends Fragment implements ViewStructure {
     private FirebaseFirestore db;
     private RecyclerView recyclerViewRegistrationHistoryList;
     private VaccinationRegistrationAdapter vaccinationRegistrationAdapter;
@@ -76,6 +79,14 @@ public class CitizenRegistrationFragment extends Fragment implements ViewStructu
 
     @Override
     public void setViewListener() {
+        btnRegisterVaccination.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), CitizenVaccinationState1Activity.class);
+                intent.putExtra("citizen", citizen);
+                startActivity(intent);
+            }
+        });
 
     }
 

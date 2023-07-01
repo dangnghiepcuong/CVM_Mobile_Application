@@ -1,13 +1,11 @@
 package com.example.cvm_mobile_application.ui.citizen.registration;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.os.BuildCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -16,7 +14,7 @@ import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.db.model.Citizen;
 import com.example.cvm_mobile_application.ui.ViewStructure;
 
-public class CitizenRegistrationActivity extends AppCompatActivity implements ViewStructure {
+@BuildCompat.PrereleaseSdkCheck public class CitizenRegistrationActivity extends AppCompatActivity implements ViewStructure {
     private Citizen citizen;
     private CitizenRegistrationFragment citizenRegistrationFragment;
     private Button btnBack;
@@ -53,7 +51,6 @@ public class CitizenRegistrationActivity extends AppCompatActivity implements Vi
         citizenRegistrationFragment = new CitizenRegistrationFragment();
         citizenRegistrationFragment.setArguments(bundle);
         replaceFragment(citizenRegistrationFragment);
-        Toast.makeText(getBaseContext(), citizen.getFull_name(), Toast.LENGTH_SHORT).show();
     }
 
     @Override

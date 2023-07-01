@@ -122,9 +122,6 @@ public class CitizenVaccinationState2Activity extends AppCompatActivity implemen
         });
 
         onOrgItemClickListener = item -> {
-            Toast.makeText(CitizenVaccinationState2Activity.this,
-                    item.getId(), Toast.LENGTH_SHORT).show();
-
             Intent intent = new Intent(getApplicationContext(), CitizenVaccinationState3Activity.class);
             intent.putExtra("citizen", citizen);
             intent.putExtra("organization", item);

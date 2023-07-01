@@ -1,6 +1,7 @@
 package com.example.cvm_mobile_application.ui.citizen.vaccination;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.os.BuildCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,6 +28,7 @@ import com.example.cvm_mobile_application.data.db.model.Shift;
 import com.example.cvm_mobile_application.ui.CustomDialog;
 import com.example.cvm_mobile_application.ui.SpinnerAdapter;
 import com.example.cvm_mobile_application.ui.ViewStructure;
+import com.example.cvm_mobile_application.ui.citizen.registration.CitizenRegistrationActivity;
 import com.example.cvm_mobile_application.ui.org.schedule.schedule_management.OnScheduleItemClickListener;
 import com.example.cvm_mobile_application.ui.org.schedule.schedule_management.ScheduleAdapter;
 import com.google.firebase.Timestamp;
@@ -47,7 +50,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public class CitizenVaccinationState3Activity extends AppCompatActivity implements ViewStructure {
+@BuildCompat.PrereleaseSdkCheck public class CitizenVaccinationState3Activity extends AppCompatActivity implements ViewStructure {
     private FirebaseFirestore db;
     private Citizen citizen;
     private Organization org;
@@ -296,12 +299,11 @@ public class CitizenVaccinationState3Activity extends AppCompatActivity implemen
                                 case 2:
                                     Calendar cal = Calendar.getInstance();
                                     cal.setTime(schedule.getOn_date().toDate());
-                                    cal.add(Calendar.DATE, 28);
+                                    cal.add(Calendar.DATE, -56);
                                     Timestamp twoMonthsBefore = new Timestamp(cal.getTime());
-                                    if (register.getOn_date().compareTo(twoMonthsBefore) != -1) {
-                                        Toast.makeText(this, "Không thể đăng ký tiêm chủng." +
-                                                "\nBạn cần chờ ít nhất 56 ngày để tiêm mũi tiếp theo!", Toast.LENGTH_LONG).show();
-                                        return;
+                                    if (register.getOn_date().compareTo(twoMonthsBefore) >= 0) {
+                                        Toast.makeText(this, "Không thể đăng ký." +
+                                                " Bạn cần chờ ít nhất 56 ngày để tiêm mũi tiếp theo!", Toast.LENGTH_LONG).show();
                                     } else {
                                         CitizenVaccinationState3Activity.this.vaccinationRegistration(schedule);
                                     }
@@ -417,6 +419,9 @@ public class CitizenVaccinationState3Activity extends AppCompatActivity implemen
         }).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 Toast.makeText(this, "Đăng ký tiêm chủng thành công!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), CitizenRegistrationActivity.class);
+                intent.putExtra("citizen", citizen);
+                startActivity(intent);
             } else {
                 Toast.makeText(this, "Đăng ký tiêm chủng thất bại!", Toast.LENGTH_SHORT).show();
             }
