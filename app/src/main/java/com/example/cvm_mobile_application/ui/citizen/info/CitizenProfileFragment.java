@@ -308,7 +308,7 @@ import java.util.List;
                 case "CitizenProfile":
                     intent = new Intent(getActivity(),
                             CitizenNavigationBottomActivity.class);
-                    intent.putExtra("username", citizen.getEmail());
+                    intent.putExtra("username", profile.getEmail());
 
                     requireActivity().finish();
                     startActivity(intent);
@@ -317,7 +317,7 @@ import java.util.List;
                 case "CitizenVaccinationState1":
                     intent = new Intent(getActivity(),
                             CitizenVaccinationState2Activity.class);
-                    intent.putExtra("citizen", citizen);
+                    intent.putExtra("citizen", profile);
                     startActivity(intent);
                     break;
 
