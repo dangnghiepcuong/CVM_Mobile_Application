@@ -63,11 +63,11 @@ import com.google.firebase.auth.FirebaseAuth;
     public void setViewListener() {
         menuTabProfile.setOnClickListener(view -> CitizenPersonalMenuFragment.this.getProfileActivity(citizen));
 
-        menuTabRelative.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), CitizenCertificateActivity.class);
-            intent.putExtra("citizen", citizen);
-            startActivity(intent);
-        });
+//        menuTabRelative.setOnClickListener(v -> {
+//            Intent intent = new Intent(getActivity(), CitizenCertificateActivity.class);
+//            intent.putExtra("citizen", citizen);
+//            startActivity(intent);
+//        });
 
         menuTabCertificate.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), CitizenCertificateActivity.class);
