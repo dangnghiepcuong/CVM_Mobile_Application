@@ -3,6 +3,7 @@ package com.example.cvm_mobile_application.ui.citizen.vaccination;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +37,8 @@ public class CitizenVaccinationState2Activity extends AppCompatActivity implemen
     private TextView btnRegionFilter;
     private LinearLayout layoutRegionFilter;
     private OnOrgItemClickListener onOrgItemClickListener;
+    private Button btnBack;
+    private TextView tbTitle;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,6 +63,9 @@ public class CitizenVaccinationState2Activity extends AppCompatActivity implemen
 
     @Override
     public void implementView() {
+        btnBack = findViewById(R.id.btn_back);
+        tbTitle = findViewById(R.id.tb_title);
+
         btnRegionFilter = findViewById(R.id.btn_region_filter);
         layoutRegionFilter = findViewById(R.id.layout_linear_region_filter);
 
@@ -76,6 +82,8 @@ public class CitizenVaccinationState2Activity extends AppCompatActivity implemen
 
     @Override
     public void bindViewData() {
+        tbTitle.setText("Bước 2: Chọn đơn vị tiêm chủng");
+
         //SET LOCAL VALUE
         try {
             dvhcHelper.bindLocalListSpinnerData(getApplicationContext(),
@@ -96,6 +104,8 @@ public class CitizenVaccinationState2Activity extends AppCompatActivity implemen
 
     @Override
     public void setViewListener() {
+        btnBack.setOnClickListener(v -> finish());
+
         //SET DETAIL PERSONAL INFO BUTTON LISTENER
         btnRegionFilter.setOnClickListener(v -> {
             int visibility = layoutRegionFilter.getVisibility();

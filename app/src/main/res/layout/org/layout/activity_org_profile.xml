@@ -39,7 +39,7 @@
                     android:textColor="@color/red"/>
             </LinearLayout>
 
-            <TextView
+            <EditText
                 android:id="@+id/et_id"
                 style="@style/edit_text" />
 

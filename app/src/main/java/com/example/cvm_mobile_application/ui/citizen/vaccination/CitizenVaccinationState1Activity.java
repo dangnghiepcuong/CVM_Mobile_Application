@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.os.BuildCompat;
@@ -34,6 +36,8 @@ import java.util.List;
 //    private TextView btnDetailPersonalInfo;
 //    private LinearLayout layoutDetailPersonalInfo;
     private SpinnerAdapter spTargetListAdapter;
+    private Button btnBack;
+    private TextView tbTitle;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,6 +74,9 @@ import java.util.List;
 
     @Override
     public void implementView() {
+        btnBack = findViewById(R.id.btn_back);
+        tbTitle = findViewById(R.id.tb_title);
+
         spTargetList = findViewById(R.id.sp_target_list);
         spTargetListAdapter = new SpinnerAdapter(getApplicationContext(),
                 R.layout.item_string, targetList);
@@ -81,12 +88,15 @@ import java.util.List;
 
     @Override
     public void bindViewData() {
+        tbTitle.setText("Bước 1: Chọn đối tượng đăng ký tiêm");
         //SET TARGET ID
         selectedTargetId = citizen.getId();
     }
 
     @Override
     public void setViewListener() {
+        btnBack.setOnClickListener(v -> finish());
+
         //SET TARGET SPINNER LISTENER
         spTargetList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

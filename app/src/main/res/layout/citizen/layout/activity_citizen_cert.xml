@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#008000"
     android:id="@+id/brg_activity"
     android:orientation="vertical">
 
@@ -14,7 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="9"
-        android:background="#DCF8C6"
         android:orientation="vertical">
 
         <ScrollView
@@ -31,7 +29,7 @@
                     android:layout_width="120dp"
                     android:layout_height="120dp"
                     android:layout_gravity="center"
-                    android:layout_margin="15dp"
+                    android:layout_margin="5dp"
                     android:background="@drawable/ic_certshield" />
 
                 <LinearLayout
@@ -71,16 +69,10 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_gravity="center"
-                    android:layout_margin="10dp"
-                    android:background="@drawable/ic_qrcode" />
-
-                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="bottom"
+                    android:layout_marginTop="20dp"
                     android:orientation="vertical">
 
                     <TextView
@@ -95,13 +87,15 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/card_viewform"
+                        android:padding="10dp"
+                        android:background="@drawable/card_white_radius10"
                         android:orientation="vertical">
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="80dp"
+                            android:layout_height="70dp"
                             android:layout_weight="1"
+                            android:paddingVertical="5dp"
                             android:orientation="horizontal"
                             android:background="@drawable/card_viewform"
 
@@ -121,6 +115,7 @@
                                 android:layout_height="fill_parent"
                                 android:layout_weight="1"
                                 android:background="@color/white"
+                                android:paddingHorizontal="15dp"
                                 android:orientation="vertical">
 
                                 <LinearLayout
@@ -132,11 +127,10 @@
 
                                     <TextView
                                         android:layout_width="match_parent"
-                                        android:layout_height="30dp"
-                                        android:layout_marginLeft="20dp"
-                                        android:layout_marginTop="15dp"
+                                        android:layout_height="match_parent"
+                                        android:gravity="center_vertical"
                                         android:text="Họ tên"
-                                        android:textSize="20sp" />
+                                        android:textSize="18sp" />
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -149,10 +143,10 @@
                                     <TextView
                                         android:id="@+id/tv_fullName"
                                         android:layout_width="match_parent"
-                                        android:layout_height="30dp"
-                                        android:layout_marginLeft="20dp"
-                                        android:layout_marginTop="2dp"
-                                        android:textSize="20sp"
+                                        android:layout_height="match_parent"
+                                        android:gravity="center_vertical"
+                                        android:text="Đặng Nhiêp"
+                                        android:textSize="18sp"
                                         android:textStyle="bold" />
                                 </LinearLayout>
                             </LinearLayout>
@@ -168,7 +162,7 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="80dp"
+                            android:layout_height="70dp"
                             android:layout_weight="1"
                             android:orientation="horizontal"
                             android:background="@drawable/card_viewform"
@@ -188,7 +182,9 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="fill_parent"
                                 android:layout_weight="1"
+                                android:paddingVertical="5dp"
                                 android:background="@color/white"
+                                android:paddingHorizontal="15dp"
                                 android:orientation="vertical">
 
                                 <LinearLayout
@@ -200,11 +196,10 @@
 
                                     <TextView
                                         android:layout_width="match_parent"
-                                        android:layout_height="30dp"
-                                        android:layout_marginLeft="20dp"
-                                        android:layout_marginTop="15dp"
+                                        android:layout_height="match_parent"
+                                        android:gravity="center_vertical"
                                         android:text="Ngày sinh"
-                                        android:textSize="20sp" />
+                                        android:textSize="18sp" />
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -216,11 +211,10 @@
 
                                     <TextView
                                         android:id="@+id/tv_birthday"
+                                        android:gravity="center_vertical"
                                         android:layout_width="match_parent"
-                                        android:layout_height="30dp"
-                                        android:layout_marginLeft="20dp"
-                                        android:layout_marginTop="2dp"
-                                        android:textSize="20sp"
+                                        android:layout_height="match_parent"
+                                        android:textSize="18sp"
                                         android:textStyle="bold" />
                                 </LinearLayout>
                             </LinearLayout>
@@ -235,7 +229,7 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="80dp"
+                            android:layout_height="70dp"
                             android:layout_weight="1"
                             android:orientation="horizontal"
                             android:background="@drawable/card_viewform"
@@ -256,6 +250,8 @@
                                 android:layout_height="fill_parent"
                                 android:layout_weight="1"
                                 android:background="@color/white"
+                                android:paddingVertical="5dp"
+                                android:paddingHorizontal="15dp"
                                 android:orientation="vertical">
 
                                 <LinearLayout
@@ -267,11 +263,10 @@
 
                                     <TextView
                                         android:layout_width="match_parent"
-                                        android:layout_height="30dp"
-                                        android:layout_marginLeft="20dp"
-                                        android:layout_marginTop="15dp"
+                                        android:layout_height="match_parent"
+                                        android:gravity="center_vertical"
                                         android:text="Số hộ chiếu/CMND/CCCD"
-                                        android:textSize="20sp" />
+                                        android:textSize="18sp" />
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -283,11 +278,10 @@
 
                                     <TextView
                                         android:id="@+id/tv_id"
+                                        android:gravity="center_vertical"
                                         android:layout_width="match_parent"
-                                        android:layout_height="30dp"
-                                        android:layout_marginLeft="20dp"
-                                        android:layout_marginTop="2dp"
-                                        android:textSize="20sp"
+                                        android:layout_height="match_parent"
+                                        android:textSize="18sp"
                                         android:textStyle="bold" />
                                 </LinearLayout>
                             </LinearLayout>

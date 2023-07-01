@@ -87,11 +87,11 @@ public class CitizenNavigationBottomActivity extends AppCompatActivity implement
                     replaceFragment(citizenHomeFragment);
                     break;
 
-                case R.id.registration:
-                    citizenRegistrationFragment = new CitizenRegistrationFragment();
-                    citizenHomeFragment.setArguments(bundle);
-                     replaceFragment(new CitizenRegistrationFragment());
-                    break;
+//                case R.id.registration:
+//                    citizenRegistrationFragment = new CitizenRegistrationFragment();
+//                    citizenHomeFragment.setArguments(bundle);
+//                     replaceFragment(new CitizenRegistrationFragment());
+//                    break;
 
                 case R.id.notification:
                     notificationFragment = new NotificationFragment();

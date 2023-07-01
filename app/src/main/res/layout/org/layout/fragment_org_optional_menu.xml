@@ -5,14 +5,13 @@
     android:layout_height="match_parent"
     tools:context=".ui.org.info.OrgProfileActivity">
 
-    <!-- TODO: Update blank fragment layout -->
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/bg_gradient"
         android:orientation="vertical">
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0"
@@ -46,9 +45,9 @@
                 </LinearLayout>
 
             </LinearLayout>
-        </androidx.appcompat.widget.LinearLayoutCompat>
+        </LinearLayout>
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/card_home"
@@ -63,10 +62,7 @@
 
                 <LinearLayout
                     android:id="@+id/menu_tab_profile"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:orientation="horizontal"
-                    android:baselineAligned="false">
+                    style="@style/linear_layout_for_option_menu">
                     <LinearLayout
                         android:background="@drawable/ic_infomation"
                         style="@style/iconFor_item_menu_info"/>
@@ -94,10 +90,7 @@
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:orientation="horizontal"
-                    android:baselineAligned="false">
+                    style="@style/linear_layout_for_option_menu">
                     <LinearLayout
                         android:background="@drawable/ic_info"
                         style="@style/iconFor_item_menu_info"/>
@@ -124,10 +117,7 @@
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:orientation="horizontal"
-                    android:baselineAligned="false">
+                    style="@style/linear_layout_for_option_menu">
                     <LinearLayout
                         android:background="@drawable/ic_settings"
                         style="@style/iconFor_item_menu_info"/>
@@ -155,10 +145,7 @@
 
                 <LinearLayout
                     android:id="@+id/menu_tab_logout"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:orientation="horizontal"
-                    android:baselineAligned="false">
+                    style="@style/linear_layout_for_option_menu">
                     <LinearLayout
                         android:background="@drawable/ic_logout"
                         style="@style/iconFor_item_menu_info"/>
@@ -177,6 +164,6 @@
                     android:background="@drawable/line_under_text"/>
             </LinearLayout>
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
-    </androidx.appcompat.widget.LinearLayoutCompat>
+        </LinearLayout>
+    </LinearLayout>
 </FrameLayout>

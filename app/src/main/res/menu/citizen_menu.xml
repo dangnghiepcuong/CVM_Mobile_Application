@@ -6,10 +6,10 @@
         android:title="Trang chủ"
         android:icon="@drawable/ic_home"/>
 
-    <item
-        android:id="@+id/registration"
-        android:title="Đặt lịch"
-        android:icon="@drawable/ic_edit_calendar"/>
+<!--    <item-->
+<!--        android:id="@+id/registration"-->
+<!--        android:title="Đặt lịch"-->
+<!--        android:icon="@drawable/ic_edit_calendar"/>-->
 
     <item
         android:id="@+id/notification"
