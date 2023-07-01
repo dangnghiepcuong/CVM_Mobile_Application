@@ -1,4 +1,19 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
     <string name="secondary_feature_btn">80dp</string>
+
+    <!--  SIZE VALUES  -->
+    <dimen name="et_height">45dp</dimen>
+
+    <dimen name="text_extreme_small">8sp</dimen>
+    <dimen name="text_small">12sp</dimen>
+    <dimen name="text_medium_small">14sp</dimen>
+    <dimen name="text_medium">16sp</dimen>
+    <dimen name="text_medium_large">18sp</dimen>
+    <dimen name="text_large">20sp</dimen>
+    <dimen name="text_extreme_large">24sp</dimen>
+
+    <dimen name="btn_height">45sp</dimen>
+
+    <dimen name="padding_screen_horizontal">15dp</dimen>
 </resources>

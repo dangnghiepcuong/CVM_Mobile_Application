@@ -7,19 +7,16 @@
 
     <include layout="@layout/toolbar_1"/>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="10"
         android:background="@color/white">
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingHorizontal="20dp">
+            android:paddingHorizontal="@dimen/padding_screen_horizontal">
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="100dp"
@@ -34,19 +31,15 @@
                 android:orientation="horizontal"
                 android:gravity="bottom">
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Mã đơn vị tiêm chủng"
-                    android:textSize="16dp"/>
+                    style="@style/text_content"
+                    android:text="Mã đơn vị tiêm chủng"/>
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/text_content"
                     android:text=" *"
-                    android:textColor="@color/red"
-                    android:textSize="16dp"/>
+                    android:textColor="@color/red"/>
             </LinearLayout>
 
-            <EditText
+            <TextView
                 android:id="@+id/et_id"
                 style="@style/edit_text" />
 
@@ -56,21 +49,18 @@
                 android:orientation="horizontal"
                 android:gravity="bottom">
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Tên đơn vị tiêm chủng"
-                    android:textSize="16dp"/>
+                    style="@style/text_content"
+                    android:text="Tên đơn vị tiêm chủng"/>
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/text_content"
                     android:text=" *"
-                    android:textColor="@color/red"
-                    android:textSize="16dp"/>
+                    android:textColor="@color/red"/>
             </LinearLayout>
 
             <EditText
                 android:id="@+id/et_name"
-                style="@style/edit_text" />
+                style="@style/edit_text"
+                android:inputType="text"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -79,22 +69,18 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Tỉnh/Thành phố"
-                    android:textSize="16sp" />
+                    style="@style/text_content"
+                    android:text="Tỉnh/Thành phố"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/text_content"
                     android:text=" *"
-                    android:textColor="@color/red"
-                    android:textSize="16sp" />
+                    android:textColor="@color/red"/>
             </LinearLayout>
 
             <Spinner
                 android:id="@+id/sp_province"
-                style="@style/spinner" />
+                style="@style/spinner_text" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -103,22 +89,18 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Quận/Huyện"
-                    android:textSize="16sp" />
+                    style="@style/text_content"
+                    android:text="Quận/Huyện"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/text_content"
                     android:text=" *"
-                    android:textColor="@color/red"
-                    android:textSize="16sp" />
+                    android:textColor="@color/red"/>
             </LinearLayout>
 
             <Spinner
                 android:id="@+id/sp_district"
-                style="@style/spinner" />
+                style="@style/spinner_text" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -127,22 +109,18 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Phường/Xã"
-                    android:textSize="16sp" />
+                    style="@style/text_content"
+                    android:text="Phường/Xã"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/text_content"
                     android:text=" *"
-                    android:textColor="@color/red"
-                    android:textSize="16sp" />
+                    android:textColor="@color/red"/>
             </LinearLayout>
 
             <Spinner
                 android:id="@+id/sp_ward"
-                style="@style/spinner" />
+                style="@style/spinner_text" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -151,18 +129,16 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Thôn/Xóm/Số nhà"
-                    android:textSize="16sp" />
+                    style="@style/text_content"
+                    android:text="Thôn/Xóm/Số nhà"/>
             </LinearLayout>
 
             <EditText
                 android:id="@+id/et_street"
-                style="@style/edit_text" />
+                style="@style/edit_text"
+                android:inputType="text"/>
         </LinearLayout>
     </ScrollView>
-    </LinearLayout>
     <Button
         android:id="@+id/btn_save_profile"
         style="@style/btn_primary"

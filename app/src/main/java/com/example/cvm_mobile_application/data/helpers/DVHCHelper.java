@@ -334,14 +334,14 @@ public class DVHCHelper {
         spWard.setSelection(wardPosition);
     }
 
-    public void setLocalListSpinnerListener() {
+    public void setLocalListSpinnerListener(OnLocalListSpinnerChange onLocalListSpinnerChange) {
         //SET PROVINCE SPINNER LISTENER
         spProvince.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 //GET DISTRICT LIST, WARD LIST
                 DVHCHelper.this
-                        .spProvinceTriggeredActivities();
+                        .spProvinceTriggeredActivities(onLocalListSpinnerChange);
                 Log.i("myTAG", "province spinner");
             }
 
@@ -357,7 +357,7 @@ public class DVHCHelper {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 //GET WARD LIST
                 DVHCHelper.this
-                        .spDistrictTriggeredActivities();
+                        .spDistrictTriggeredActivities(onLocalListSpinnerChange);
                 Log.i("myTAG", "district spinner");
             }
 
@@ -370,8 +370,11 @@ public class DVHCHelper {
         spWard.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                DVHCHelper.this
-                        .spWardTriggeredActivities();
+                try {
+                    onLocalListSpinnerChange.onLowestLevelSpinnerChange();
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
                 Log.i("myTAG", "ward spinner");
             }
 
@@ -381,7 +384,7 @@ public class DVHCHelper {
         });
     }
 
-    public void spProvinceTriggeredActivities() {
+    public void spProvinceTriggeredActivities(OnLocalListSpinnerChange onLocalListSpinnerChange) {
         try {
             SpinnerOption provinceOption = provinceList.get(spProvince.getSelectedItemPosition());
             districtList = getLocalList(
@@ -399,7 +402,7 @@ public class DVHCHelper {
             // (THE ACTIVITY WHEN DISTRICT SPINNER IS TRIGGERED IS CHANGING THE WARD LIST)
             // SO WE NEED TO DO THE ACTIVITY OF THE DISTRICT SPINNER TRIGGER BY HAND HERE
             if (spDistrict.getSelectedItemPosition() == 0) {
-                spDistrictTriggeredActivities();
+                spDistrictTriggeredActivities(onLocalListSpinnerChange);
             }
             // ELSE SET SELECTION TO 0 AND TRIGGER THE DISTRICT SPINNER AUTOMATICALLY
             else {
@@ -415,7 +418,7 @@ public class DVHCHelper {
         }
     }
 
-    public void spDistrictTriggeredActivities() {
+    public void spDistrictTriggeredActivities(OnLocalListSpinnerChange onLocalListSpinnerChange) {
         try {
             SpinnerOption districtOption = districtList.get(spDistrict.getSelectedItemPosition());
             wardList = getLocalList(
@@ -426,7 +429,7 @@ public class DVHCHelper {
             // TRIGGER WARD SPINNER SELECTION FOR THE NEXT ACTIVITIES
 
             if (spWard.getSelectedItemPosition() == 0) {
-                spWardTriggeredActivities();
+                onLocalListSpinnerChange.onLowestLevelSpinnerChange();
             } else {
                 spWard.setSelection(0, true);
             }
@@ -436,7 +439,6 @@ public class DVHCHelper {
     }
 
     public void spWardTriggeredActivities() {
-        SpinnerOption wardOption = wardList.get(spWard.getSelectedItemPosition());
     }
 
     public SpinnerOption getSelectedLocal(int localLevel) {
@@ -450,5 +452,9 @@ public class DVHCHelper {
             default:
                 return new SpinnerOption("Tất cả", "-1");
         }
+    }
+
+    public interface OnLocalListSpinnerChange{
+        public void onLowestLevelSpinnerChange() throws JSONException;
     }
 }

@@ -14,13 +14,11 @@ import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.db.model.Citizen;
 import com.example.cvm_mobile_application.ui.ViewStructure;
 import com.example.cvm_mobile_application.ui.citizen.registration.CitizenRegistrationFragment;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 public class OrgViewVaccinationProfile extends AppCompatActivity implements ViewStructure {
     private Button btnBack;
     private TextView tbTitle;
     Citizen citizen;
-    private FirebaseFirestore db;
     private TextView tvName;
     private TextView tvBirthday;
     private TextView tvGender;
@@ -32,7 +30,6 @@ public class OrgViewVaccinationProfile extends AppCompatActivity implements View
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_org_view_vaccination_profile);
-        db = FirebaseFirestore.getInstance();
         citizen = new Citizen();
     }
 
@@ -44,7 +41,6 @@ public class OrgViewVaccinationProfile extends AppCompatActivity implements View
         bindViewData();
         setViewListener();
     }
-
 
     @Override
     public void implementView() {

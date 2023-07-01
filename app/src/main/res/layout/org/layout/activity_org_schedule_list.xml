@@ -1,120 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical">
 
-    <include layout="@layout/toolbar_1"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="end"
-        android:paddingVertical="5dp"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:id="@+id/btn_schedule_filter"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-
-            <TextView
-                style="@style/labelFor_et"
-                android:text="Bộ lọc theo ngày" />
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="@drawable/ic_spinner_arrow_down"
-                android:contentDescription="arrow" />
-        </LinearLayout>
-    </LinearLayout>
+    <include layout="@layout/toolbar_1" />
 
     <LinearLayout
         android:id="@+id/layout_linear_schedule_filter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="10dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/padding_screen_horizontal">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
+            <TextView
+                style="@style/labelFor_et"
+                android:layout_height="wrap_content"
+                android:text="Từ ngày: " />
+
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Từ ngày: "
-                    android:layout_gravity="center"
-                    android:textSize="18dp"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="7">
+                style="@style/linear_layout_date_picker">
+
                 <TextView
                     android:id="@+id/tv_start_date"
                     style="@style/edit_date"
-                    android:layout_weight="7"/>
+                    android:layout_weight="7" />
+
                 <Button
                     android:id="@+id/btn_start_date_dp"
                     style="@style/btn_date_picker"
                     android:layout_weight="3"
-                    android:textSize="14dp"
-                    android:text="chọn ngày"/>
+                    android:text="chọn ngày" />
             </LinearLayout>
         </LinearLayout>
+
         <DatePicker
             android:id="@+id/dp_start_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:spinnersShown="false"
-            android:visibility="gone"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="10dp"
-            android:visibility="gone"
-            android:orientation="horizontal">
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Đến ngày: "
-                    android:layout_gravity="center"
-                    android:textSize="18dp"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="7">
-                <TextView
-                    android:id="@+id/tv_end_date"
-                    style="@style/edit_date"
-                    android:layout_weight="7"/>
-                <Button
-                    android:id="@+id/btn_end_date_dp"
-                    style="@style/btn_date_picker"
-                    android:layout_weight="3"
-                    android:textSize="14dp"
-                    android:text="chọn ngày"/>
-            </LinearLayout>
-        </LinearLayout>
-        <DatePicker
-            android:id="@+id/dp_end_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:spinnersShown="false"
-            android:visibility="gone"/>
+            android:visibility="gone" />
     </LinearLayout>
 
     <ScrollView
@@ -125,8 +57,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/view_recycler_schedule_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingHorizontal="10dp"/>
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/padding_screen_horizontal" />
     </ScrollView>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

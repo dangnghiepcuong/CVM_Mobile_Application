@@ -20,6 +20,7 @@ import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.db.model.Citizen;
 import com.example.cvm_mobile_application.ui.ViewStructure;
 import com.example.cvm_mobile_application.ui.citizen.info.CitizenPersonalMenuFragment;
+import com.example.cvm_mobile_application.ui.citizen.registration.CitizenRegistrationFragment;
 import com.example.cvm_mobile_application.ui.notification.NotificationFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -37,6 +38,7 @@ public class CitizenNavigationBottomActivity extends AppCompatActivity implement
     private NotificationFragment notificationFragment;
     private Citizen citizen;
     private String username;
+    private CitizenRegistrationFragment citizenRegistrationFragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -86,7 +88,9 @@ public class CitizenNavigationBottomActivity extends AppCompatActivity implement
                     break;
 
                 case R.id.registration:
-                    // replaceFragment(new RegistrationFragment());
+                    citizenRegistrationFragment = new CitizenRegistrationFragment();
+                    citizenHomeFragment.setArguments(bundle);
+                     replaceFragment(new CitizenRegistrationFragment());
                     break;
 
                 case R.id.notification:

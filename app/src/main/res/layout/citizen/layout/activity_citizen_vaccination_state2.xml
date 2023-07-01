@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,56 +9,46 @@
     tools:context=".ui.citizen.vaccination.CitizenVaccinationState2Activity"
     tools:viewBindingIgnore="true">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="end"
-        android:orientation="vertical">
+    <TextView
+        android:id="@+id/btn_region_filter"
+        style="@style/labelFor_et"
+        android:paddingHorizontal="@dimen/padding_screen_horizontal"
+        android:layout_gravity="end"
+        android:text="Bộ lọc khu vực"
+        app:drawableEndCompat="@drawable/ic_spinner_arrow_down" />
 
-        <LinearLayout
-            android:id="@+id/btn_region_filter"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-
-            <TextView
-                style="@style/labelFor_et"
-                android:text="Bộ lọc khu vực" />
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="@drawable/ic_spinner_arrow_down"
-                android:contentDescription="arrow" />
-        </LinearLayout>
-    </LinearLayout>
     <LinearLayout
         android:id="@+id/layout_linear_region_filter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="10dp"
-        android:visibility="gone"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/padding_screen_horizontal"
+        android:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Tỉnh/Thành phố"
                     android:textSize="16sp" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2">
+
                 <Spinner
                     android:id="@+id/sp_province"
-                    style="@style/spinner" />
+                    style="@style/spinner_text" />
             </LinearLayout>
 
         </LinearLayout>
@@ -65,46 +56,54 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Quận/Huyện"
                     android:textSize="16sp" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2">
+
                 <Spinner
                     android:id="@+id/sp_district"
-                    style="@style/spinner" />
+                    style="@style/spinner_text" />
             </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Phường/Xã"
                     android:textSize="16sp" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2">
+
                 <Spinner
                     android:id="@+id/sp_ward"
-                    style="@style/spinner" />
+                    style="@style/spinner_text" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
@@ -118,7 +117,7 @@
             android:id="@+id/view_recycler_org_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingHorizontal="10dp" />
+            android:paddingHorizontal="@dimen/padding_screen_horizontal"/>
 
     </ScrollView>
 

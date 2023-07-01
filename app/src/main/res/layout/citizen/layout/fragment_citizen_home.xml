@@ -7,7 +7,7 @@
     tools:context=".ui.citizen.home.CitizenHomeFragment"
     tools:viewBindingIgnore="true">
 
-    <LinearLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
@@ -16,37 +16,37 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <LinearLayout
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <LinearLayout
+                <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="15dp"
+                    android:paddingHorizontal="@dimen/padding_screen_horizontal"
                     android:layout_marginVertical="20dp"
                     android:orientation="vertical">
-                    <LinearLayout
+                    <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:layout_marginVertical="10dp">
 
-                        <LinearLayout
+                        <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="2"
                             android:gravity="bottom"
                             android:orientation="vertical">
 
-                            <LinearLayout
+                            <androidx.appcompat.widget.LinearLayoutCompat
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/default_avatar_citizen" />
-                        </LinearLayout>
+                        </androidx.appcompat.widget.LinearLayoutCompat>
 
-                        <LinearLayout
+                        <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="8"
@@ -54,21 +54,37 @@
                             android:orientation="vertical"
                             android:paddingHorizontal="10dp">
                             <TextView
-                                style="@style/tv_hello" />
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:lineSpacingMultiplier="1.25"
+                                android:text="Xin chào,"
+                                android:textColor="@color/black"
+                                android:textSize="18sp" />
                             <TextView
                                 android:id="@+id/FullName"
-                                style="@style/tv_name" />
-                        </LinearLayout>
-                    </LinearLayout>
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:lineSpacingMultiplier="1.25"
+                                android:textColor="@color/black"
+                                android:textStyle="bold"
+                                android:textSize="22sp" />
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
 
-                    <LinearLayout
+                    <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="160dp"
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            style="@style/linear_layout_card"
-                            android:background="@drawable/card_first_primary_feature">
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:layout_marginHorizontal="5dp"
+                            android:gravity="center"
+                            android:background="@drawable/card_first_primary_feature"
+                            android:orientation="vertical">
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -82,8 +98,12 @@
 
                         <LinearLayout
                             android:id="@+id/btn_certificate"
-                            style="@style/linear_layout_card"
-                            android:background="@drawable/card_second_primary_feature">
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:layout_marginHorizontal="5dp"                            android:gravity="center"
+                            android:background="@drawable/card_second_primary_feature"
+                            android:orientation="vertical">
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -97,8 +117,14 @@
 
                         <LinearLayout
                             android:id="@+id/btn_vaccination"
-                            style="@style/linear_layout_card"
-                            android:background="@drawable/card_third_primary_feature">
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:layout_marginHorizontal="5dp"
+                            android:gravity="center"
+                            android:background="@drawable/card_third_primary_feature"
+                            android:orientation="vertical"
+                            android:clickable="true">
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -111,25 +137,23 @@
 
                         </LinearLayout>
 
-                    </LinearLayout>
-                </LinearLayout>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
-
-
-                <LinearLayout
+                <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="1000dp"
                     android:background="@drawable/card_home"
                     android:orientation="vertical"
-                    android:paddingHorizontal="30dp"
+                    android:paddingHorizontal="@dimen/padding_screen_horizontal"
                     android:paddingVertical="15dp">
 
-                    <LinearLayout
+                    <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
                         android:orientation="horizontal">
 
-                        <LinearLayout
+                        <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -143,9 +167,9 @@
 
                             <TextView style="@style/labelFor_btn_feature"
                                 android:text="Thông tin\ncông dân"/>
-                        </LinearLayout>
+                        </androidx.appcompat.widget.LinearLayoutCompat>
 
-                        <LinearLayout
+                        <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -160,9 +184,9 @@
 
                             <TextView style="@style/labelFor_btn_feature"
                                 android:text="Thông tin\ntài khoản"/>
-                        </LinearLayout>
+                        </androidx.appcompat.widget.LinearLayoutCompat>
 
-                        <LinearLayout
+                        <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -178,15 +202,15 @@
                             <TextView style="@style/labelFor_btn_feature"
                                 android:labelFor="@+id/btn_registration"
                                 android:text="Lịch đăng ký\ntiêm chủng"/>
-                        </LinearLayout>
-                    </LinearLayout>
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
 
-                    <LinearLayout
+                    <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
                         android:orientation="horizontal">
 
-                        <LinearLayout
+                        <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -200,9 +224,9 @@
 
                             <TextView style="@style/labelFor_btn_feature"
                                 android:text="Danh sách người thân"/>
-                        </LinearLayout>
+                        </androidx.appcompat.widget.LinearLayoutCompat>
 
-                        <LinearLayout
+                        <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -216,9 +240,9 @@
 
                             <TextView style="@style/labelFor_btn_feature"
                                 android:text="Thống kê\ntiêm chủng"/>
-                        </LinearLayout>
+                        </androidx.appcompat.widget.LinearLayoutCompat>
 
-                        <LinearLayout
+                        <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -232,8 +256,8 @@
 
                             <TextView style="@style/labelFor_btn_feature"
                                 android:text="Xem thêm"/>
-                        </LinearLayout>
-                    </LinearLayout>
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <TextView style="@style/text_heading"
                         android:text="Cẩm nang y tế"/>
@@ -244,9 +268,9 @@
                         android:layout_height="200dp"
                         android:orientation="vertical"
                         android:background="@drawable/card_white_radius10"/>
-                </LinearLayout>
-            </LinearLayout>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </androidx.appcompat.widget.LinearLayoutCompat>
         </ScrollView>
-    </LinearLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </FrameLayout>

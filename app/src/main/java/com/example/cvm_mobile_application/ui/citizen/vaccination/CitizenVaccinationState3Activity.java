@@ -49,7 +49,7 @@ public class CitizenVaccinationState3Activity extends AppCompatActivity implemen
     private Citizen citizen;
     private Organization org;
     private TextView tvOrgName;
-    private LinearLayout btnScheduleFilter;
+    private TextView btnScheduleFilter;
     private LinearLayout layoutScheduleFilter;
     private List<SpinnerOption> vaccineList;
     private Spinner spVaccineType;
@@ -285,17 +285,17 @@ public class CitizenVaccinationState3Activity extends AppCompatActivity implemen
                         + "lô: "
                         + schedule.getLot());
 
-//        confirmVaccinationRegistrationDialog.setViewListener(new CustomDialog.OnClickDialogButtonListener() {
-//            @Override
-//            public void onClickCancel() {
-//                CitizenVaccinationState3Activity.this.dialogOnCancel();
-//            }
-//
-//            @Override
-//            public void onClickConfirm() {
-//                CitizenVaccinationState3Activity.this.dialogOnConfirm(schedule);
-//            }
-//        });
+        confirmVaccinationRegistrationDialog.setViewListener(new CustomDialog.OnClickButtonListener() {
+            @Override
+            public void onClickCancel() {
+                CitizenVaccinationState3Activity.this.dialogOnCancel();
+            }
+
+            @Override
+            public void onClickConfirm() {
+                CitizenVaccinationState3Activity.this.dialogOnConfirm(schedule);
+            }
+        });
 
     }
 
@@ -356,7 +356,7 @@ public class CitizenVaccinationState3Activity extends AppCompatActivity implemen
             register.setCitizen_name(citizen.getFull_name());
             register.setSchedule(schedule);
             register.setShift(shiftName);
-            register.setNum_order(schedule.getDay_registered()
+            register.setNumber_order(schedule.getDay_registered()
                     + schedule.getNoon_registered()
                     + schedule.getNight_registered()
                     + 1);
@@ -364,7 +364,7 @@ public class CitizenVaccinationState3Activity extends AppCompatActivity implemen
 
             Map<String, Object> objectMap = new HashMap<>();
             objectMap.put("shift", register.getShift());
-            objectMap.put("number_order", register.getNum_order());
+            objectMap.put("number_order", register.getNumber_order());
             objectMap.put("status", register.getStatus());
             objectMap.put("schedule_id", register.getSchedule().getId());
             objectMap.put("citizen_id", register.getCitizen_id());
