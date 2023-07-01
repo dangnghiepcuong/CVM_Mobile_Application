@@ -1,5 +1,13 @@
 package com.example.cvm_mobile_application.data.db.model;
 
+import android.annotation.SuppressLint;
+
+import com.google.firebase.Timestamp;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Register {
     private int id;
     private String schedule_id;
@@ -9,6 +17,7 @@ public class Register {
     private Schedule schedule;
     private String citizen_id;
     private String citizen_name;
+    private Timestamp on_date;
 
     public int getId() {
         return id;
@@ -84,5 +93,20 @@ public class Register {
 
     public void setCitizen_name(String citizen_name) {
         this.citizen_name = citizen_name;
+    }
+
+    public Timestamp getOn_date() {
+        return on_date;
+    }
+
+    public void setOn_date(Timestamp on_date) {
+        this.on_date = on_date;
+    }
+
+
+    public String getOnDateString() {
+        @SuppressLint("SimpleDateFormat") DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = on_date.toDate();
+        return df.format(date);
     }
 }
