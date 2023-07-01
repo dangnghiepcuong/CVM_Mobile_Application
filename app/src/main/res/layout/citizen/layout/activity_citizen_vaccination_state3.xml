@@ -9,10 +9,7 @@
     tools:context=".ui.citizen.vaccination.CitizenVaccinationState2Activity"
     tools:viewBindingIgnore="true">
 
-    <TextView
-        android:id="@+id/tv_org_name"
-        style="@style/text_name"
-        android:layout_marginTop="40dp" />
+    <include layout="@layout/toolbar_1"/>
 
     <TextView
         android:id="@+id/btn_schedule_filter"

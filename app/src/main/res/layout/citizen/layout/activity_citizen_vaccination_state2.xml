@@ -9,6 +9,9 @@
     tools:context=".ui.citizen.vaccination.CitizenVaccinationState2Activity"
     tools:viewBindingIgnore="true">
 
+    <include layout="@layout/toolbar_1"/>
+
+
     <TextView
         android:id="@+id/btn_region_filter"
         style="@style/labelFor_et"

@@ -125,7 +125,7 @@ public class ScheduleRegistrationAdapter extends RecyclerView.Adapter<ScheduleRe
             tvShift = itemView.findViewById(R.id.tv_shift);
             tvId = itemView.findViewById(R.id.tv_id);
             tvNumOrder = itemView.findViewById(R.id.tv_num_order);
-            ibMoreOptions = itemView.findViewById(R.id.iv_more_options);
+//            ibMoreOptions = itemView.findViewById(R.id.iv_more_options);
         }
     }
 

@@ -324,4 +324,19 @@
         <item name="android:gravity">center</item>
         <item name="android:orientation">vertical</item>
     </style>
+
+    <style name="linear_layout_for_btn_home">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+    <style name="linear_layout_for_option_menu">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:baselineAligned">false</item>
+    </style>
 </resources>

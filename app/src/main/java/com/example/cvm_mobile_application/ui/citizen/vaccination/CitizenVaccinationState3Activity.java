@@ -48,7 +48,6 @@ public class CitizenVaccinationState3Activity extends AppCompatActivity implemen
     private FirebaseFirestore db;
     private Citizen citizen;
     private Organization org;
-    private TextView tvOrgName;
     private TextView btnScheduleFilter;
     private LinearLayout layoutScheduleFilter;
     private List<SpinnerOption> vaccineList;
@@ -65,6 +64,9 @@ public class CitizenVaccinationState3Activity extends AppCompatActivity implemen
     private TextView tvOnDate;
     private DatePicker dpOnDate;
     private CustomDialog confirmVaccinationRegistrationDialog;
+    private Button btnBack;
+    private TextView tbTitle;
+    private TextView tbMenu1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -91,7 +93,9 @@ public class CitizenVaccinationState3Activity extends AppCompatActivity implemen
 
     @Override
     public void implementView() {
-        tvOrgName = findViewById(R.id.tv_org_name);
+        btnBack = findViewById(R.id.btn_back);
+        tbTitle = findViewById(R.id.tb_title);
+        tbMenu1 = findViewById(R.id.tb_menu_1);
 
         btnScheduleFilter = findViewById(R.id.btn_schedule_filter);
         layoutScheduleFilter = findViewById(R.id.layout_linear_schedule_filter);
@@ -111,7 +115,8 @@ public class CitizenVaccinationState3Activity extends AppCompatActivity implemen
 
     @Override
     public void bindViewData() {
-        tvOrgName.setText(org.getName());
+        tbTitle.setText("Bước 3: Chọn lịch tiêm");
+        tbMenu1.setText(org.getName());
 
         Timestamp timestamp = new Timestamp(new Date());
         @SuppressLint("SimpleDateFormat") DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -139,6 +144,8 @@ public class CitizenVaccinationState3Activity extends AppCompatActivity implemen
 
     @Override
     public void setViewListener() {
+        btnBack.setOnClickListener(v -> finish());
+
         //SET DETAIL PERSONAL INFO BUTTON LISTENER
         btnScheduleFilter.setOnClickListener(v -> {
             int visibility = layoutScheduleFilter.getVisibility();
