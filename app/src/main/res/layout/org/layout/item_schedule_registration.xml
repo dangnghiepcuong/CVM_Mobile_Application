@@ -24,7 +24,7 @@
         </LinearLayout>
 
         <ImageButton
-            android:id="@+id/btn_show_more"
+            android:id="@+id/ib_show_more"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:background="@drawable/ic_spinner_arrow_down"/>
@@ -84,9 +84,11 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/layout_more_btn"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:orientation="horizontal"
+            android:visibility="gone"
             >
 
             <Button
@@ -98,14 +100,12 @@
             <Button
                 android:id="@+id/btn_check_in"
                 style="@style/btn_secondary_hor_line"
-                android:visibility="gone"
                 android:text="Điểm danh"
                 />
 
             <Button
-                android:id="@+id/btn_injected"
+                android:id="@+id/btn_inject"
                 style="@style/btn_secondary_hor_line"
-                android:visibility="gone"
                 android:text="Tiêm"
                 />
 
