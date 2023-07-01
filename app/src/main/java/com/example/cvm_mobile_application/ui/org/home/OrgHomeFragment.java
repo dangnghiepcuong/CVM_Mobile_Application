@@ -86,10 +86,10 @@ import com.example.cvm_mobile_application.ui.org.vaccine.OrgVaccineManagementAct
             startActivity(intent);
         });
 
-        btnAccount.setOnClickListener(v -> {
-            Intent intent = new Intent(getContext(), OrgProfileActivity.class);
-            intent.putExtra("org", org);
-            startActivity(intent);
-        });
+//        btnAccount.setOnClickListener(v -> {
+//            Intent intent = new Intent(getContext(), OrgProfileActivity.class);
+//            intent.putExtra("org", org);
+//            startActivity(intent);
+//        });
     }
 }
