@@ -45,15 +45,19 @@ public class CitizenNavigationBottomActivity extends AppCompatActivity implement
         super.onCreate(savedInstanceState);
         setContentView(R.layout.citizen_navigation_bottom);
         db = FirebaseFirestore.getInstance();
+
+        username = getIntent().getStringExtra("username");
+        implementView();
+        bindViewData();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        username = getIntent().getStringExtra("username");
-
-        implementView();
-        bindViewData();
+//        username = getIntent().getStringExtra("username");
+//
+//        implementView();
+//        bindViewData();
     }
 
     @Override

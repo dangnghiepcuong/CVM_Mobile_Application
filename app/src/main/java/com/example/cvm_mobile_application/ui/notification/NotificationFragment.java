@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.db.model.Citizen;
 import com.example.cvm_mobile_application.data.db.model.Notification;
+import com.example.cvm_mobile_application.data.db.model.Organization;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -34,9 +35,15 @@ public class NotificationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_notification, container, false);
-        Citizen citizen = getArguments().getParcelable("citizen");
 
-        getNotifications(citizen.getId(), view);
+        try {
+            Citizen citizen = getArguments().getParcelable("citizen");
+
+            getNotifications(citizen.getId(), view);
+        } catch (Exception e){
+            Organization organization = getArguments().getParcelable("org");
+        }
+
 
         return view;
     }

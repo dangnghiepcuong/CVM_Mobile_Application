@@ -5,10 +5,10 @@
         android:title="Trang chủ"
         android:icon="@drawable/ic_home"/>
 
-    <item
-        android:id="@+id/registration"
-        android:title="Lịch tiêm"
-        android:icon="@drawable/ic_calendar"/>
+<!--    <item-->
+<!--        android:id="@+id/registration"-->
+<!--        android:title="Lịch tiêm"-->
+<!--        android:icon="@drawable/ic_calendar"/>-->
 
     <item
         android:id="@+id/notification"
