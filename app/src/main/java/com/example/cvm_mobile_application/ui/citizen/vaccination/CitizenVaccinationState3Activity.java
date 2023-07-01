@@ -31,13 +31,16 @@ import com.example.cvm_mobile_application.ui.org.schedule.schedule_management.Sc
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.Filter;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -265,14 +268,38 @@ public class CitizenVaccinationState3Activity extends AppCompatActivity implemen
     public void checkConstraintBeforeVaccination(Schedule schedule) {
         db.collection("registry")
                 .whereEqualTo("citizen_id", citizen.getId())
-                .whereLessThan("status", 2)
+                .where(Filter.or(Filter.equalTo("status", 0),
+                                Filter.equalTo("status", 1),
+                                Filter.equalTo("status", 2)))
+                .orderBy("on_date", Query.Direction.DESCENDING)
+                .limit(1)
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         if (task.getResult().isEmpty()) {
                             CitizenVaccinationState3Activity.this.vaccinationRegistration(schedule);
                         } else {
-                            Toast.makeText(this, "Không thể đăng ký tiêm chủng!", Toast.LENGTH_SHORT).show();
+
+                            Register register = new Register();
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                register = document.toObject(Register.class);
+                            }
+
+                            switch (register.getStatus()) {
+                                case 0:
+                                case 1:
+                                    Toast.makeText(this, "Không thể đăng ký tiêm chủng." +
+                                            "\nBạn vẫn hoàn thành xong lượt tiêm trước!", Toast.LENGTH_LONG).show();
+                                    return;
+
+                                case 2:
+                                    Calendar cal = Calendar.getInstance();
+                                    cal.setTime(Timestamp.now().toDate());
+                                    cal.add(Calendar.DATE, -28);
+                                    Timestamp twoMonthsBefore = new Timestamp(cal.getTime());
+                                    int c = register.getOn_date().compareTo(twoMonthsBefore);
+                            }
+
                         }
                     } else {
                         Toast.makeText(this, "Lỗi truy vấn dữ liệu", Toast.LENGTH_SHORT).show();
@@ -376,6 +403,7 @@ public class CitizenVaccinationState3Activity extends AppCompatActivity implemen
             objectMap.put("schedule_id", register.getSchedule().getId());
             objectMap.put("citizen_id", register.getCitizen_id());
             objectMap.put("citizen_name", register.getCitizen_name());
+            objectMap.put("on_date", register.getSchedule().getOn_date());
 
             transaction.set(registryRef, objectMap);
             return 1;

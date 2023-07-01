@@ -104,8 +104,6 @@ public class ScheduleRegistrationAdapter extends RecyclerView.Adapter<ScheduleRe
                     holder.btnCancel.setVisibility(View.GONE);
                     break;
             }
-
-//            listenerMoreBtn.onClick(v);
         });
 
         holder.btnViewProfile.setOnClickListener(v -> {
@@ -123,52 +121,6 @@ public class ScheduleRegistrationAdapter extends RecyclerView.Adapter<ScheduleRe
         holder.btnCancel.setOnClickListener(v -> {
             listenerCancel.onClick(v);
         });
-
-//        String registryValues = "#" + registry.getCitizen_id() + "#" + registry.getShift();
-//
-//        List<SpinnerOption> registrationOptions = new ArrayList<>();
-//        PopupMenu popupMenu = new PopupMenu(context, holder.ibShowMore);
-//        MenuInflater inflater = popupMenu.getMenuInflater();
-//        MenuItem item;
-//        switch (registry.getStatus()) {
-//            case 0:
-////                registrationOptions.add(new SpinnerOption("Điểm danh", "1" + registryValues));
-////                registrationOptions.add(new SpinnerOption("Hủy tiêm", "3" + registryValues));
-//
-////                popupMenu.getMenuInflater().inflate(R.menu.registration_0_menu, popupMenu.getMenu());
-//                inflater.inflate(R.menu.registration_0_menu, popupMenu.getMenu());
-//                item = popupMenu.getMenu().getItem(0);
-//                item.setContentDescription("0" + registryValues);
-//                item = popupMenu.getMenu().getItem(1);
-//                item.setContentDescription("1" + registryValues);
-//                item = popupMenu.getMenu().getItem(2);
-//                item.setContentDescription("3" + registryValues);
-//                popupMenu.show();
-//                break;
-//
-//            case 1:
-////                registrationOptions.add(new SpinnerOption("Đã tiêm", "2" + registryValues));
-////                registrationOptions.add(new SpinnerOption("Hủy tiêm", "3" + registryValues));
-////                popupMenu.getMenuInflater().inflate(R.menu.registration_1_menu, popupMenu.getMenu());
-//                inflater.inflate(R.menu.registration_1_menu, popupMenu.getMenu());
-//                item = popupMenu.getMenu().getItem(0);
-//                item.setContentDescription("0" + registryValues);
-//                item = popupMenu.getMenu().getItem(1);
-//                item.setContentDescription("2" + registryValues);
-//                item = popupMenu.getMenu().getItem(2);
-//                item.setContentDescription("3" + registryValues);
-//                popupMenu.show();
-//                break;
-//
-//            case 2:
-//            case 3:
-//            default:
-////                registrationOptions.add(new SpinnerOption("Xem hồ sơ tiêm chủng", "-1" + registryValues));
-//                break;
-//        }
-////        SpinnerAdapter optionAdapter = new SpinnerAdapter(context, R.layout.item_string, registrationOptions);
-////        holder.ibMoreOptions.setAdapter(optionAdapter);
-
     }
 
     @Override
