@@ -173,7 +173,18 @@
                         android:layout_height="150dp"
                         android:orientation="horizontal">
 
+                        <LinearLayout
+                            style="@style/linear_layout_for_btn_home">
 
+                            <Button
+                                android:id="@+id/btn_registration_history"
+                                style="@style/btn_feature"
+                                android:background="@drawable/bg_btn_citizen_registration_history">
+                            </Button>
+
+                            <TextView style="@style/labelFor_btn_feature"
+                                android:text="Lịch sử\ntiêm chủng"/>
+                        </LinearLayout>
 
                         <LinearLayout
                             style="@style/linear_layout_for_btn_home">

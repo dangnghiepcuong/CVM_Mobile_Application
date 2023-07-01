@@ -72,26 +72,39 @@ public class CitizenRegistrationFragment extends Fragment implements ViewStructu
     }
 
     public void getRegistrationHistory() {
-        int status = 0;
         if (fromActivity.equals("org")) {
-            status = 0;
+            db.collection("registry")
+                    .whereEqualTo("citizen_id", citizen.getId())
+                    .whereEqualTo("status", 2)
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        registrationHistoryList = new ArrayList<>();
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Register register = document.toObject(Register.class);
+                                registrationHistoryList.add(register);
+                                CitizenRegistrationFragment.this.getSchedule(register.getSchedule_id(),
+                                        registrationHistoryList.size()-1);
+                            }
+                        }
+                    });
+        } else {
+            db.collection("registry")
+                    .whereEqualTo("citizen_id", citizen.getId())
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        registrationHistoryList = new ArrayList<>();
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Register register = document.toObject(Register.class);
+                                registrationHistoryList.add(register);
+                                CitizenRegistrationFragment.this.getSchedule(register.getSchedule_id(),
+                                        registrationHistoryList.size()-1);
+                            }
+                        }
+                    });
         }
 
-        db.collection("registry")
-                .whereEqualTo("citizen_id", citizen.getId())
-                .whereEqualTo("status", status)
-                .get()
-                .addOnCompleteListener(task -> {
-                    registrationHistoryList = new ArrayList<>();
-                    if (task.isSuccessful()) {
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            Register register = document.toObject(Register.class);
-                            registrationHistoryList.add(register);
-                            CitizenRegistrationFragment.this.getSchedule(register.getSchedule_id(),
-                                    registrationHistoryList.size()-1);
-                        }
-                    }
-                });
     }
 
     public void getSchedule(String scheduleId, int position) {

@@ -23,6 +23,10 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".ui.citizen.registration.CitizenRegistrationActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".ui.citizen.info.CitizenProfileActivity"
             android:screenOrientation="portrait" />
 
