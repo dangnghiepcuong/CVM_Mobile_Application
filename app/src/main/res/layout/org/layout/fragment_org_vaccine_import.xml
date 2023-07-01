@@ -10,23 +10,26 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/padding_screen_horizontal">
             <TextView style="@style/labelFor_et"
                 android:text="Loại vaccine" />
             <Spinner
                 android:id="@+id/sp_vaccine_type"
-                style="@style/spinner"/>
+                style="@style/spinner_text"/>
 
             <TextView style="@style/labelFor_et"
                 android:text="Số lô vắc-xin" />
             <EditText
                 android:id="@+id/et_vaccine_lot"
                 style="@style/edit_text"
-                android:hint="######"/>
+                android:hint="######"
+                android:inputType="text"/>
 
             <TextView style="@style/labelFor_et"
                 android:text="Ngày nhập:"/>
-            <LinearLayout style="@style/linear_layout_date_picker">
+            <LinearLayout
+                style="@style/linear_layout_date_picker">
                 <TextView
                     android:id="@+id/tv_import_date"
                     style="@style/edit_date"
@@ -46,11 +49,12 @@
 
             <TextView style="@style/labelFor_et"
                 android:text="Số lượng"/>
+
             <EditText
                 android:id="@+id/et_quantity"
                 style="@style/edit_text"
-                android:inputType="number"
-                android:hint="0"/>
+                android:hint="0"
+                android:inputType="number" />
 
             <TextView style="@style/labelFor_et"
                 android:text="HSD:"/>

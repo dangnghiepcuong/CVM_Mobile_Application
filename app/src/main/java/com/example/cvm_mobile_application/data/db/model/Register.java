@@ -4,7 +4,7 @@ public class Register {
     private int id;
     private String schedule_id;
     private String shift;
-    private int num_order;
+    private int number_order;
     private int status;
     private Schedule schedule;
     private String citizen_id;
@@ -46,12 +46,12 @@ public class Register {
         this.shift = shift;
     }
 
-    public int getNum_order() {
-        return num_order;
+    public int getNumber_order() {
+        return number_order;
     }
 
-    public void setNum_order(int num_order) {
-        this.num_order = num_order;
+    public void setNumber_order(int number_order) {
+        this.number_order = number_order;
     }
 
     public int getStatus() {

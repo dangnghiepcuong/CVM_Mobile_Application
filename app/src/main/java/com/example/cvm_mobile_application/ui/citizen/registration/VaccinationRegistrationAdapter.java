@@ -48,7 +48,34 @@ public class VaccinationRegistrationAdapter extends RecyclerView.Adapter<Vaccina
         holder.tvMMYYYY.setText(dateString[1] + "/" + dateString[0]);
         holder.tvOrgName.setText(register.getSchedule().getOrg().getName());
         holder.tvVaccineType.setText(register.getSchedule().getVaccine_id());
-        holder.tvNO.setText(String.valueOf(register.getNum_order()));
+        holder.tvNO.setText(String.valueOf(register.getNumber_order()));
+
+        switch (register.getStatus()) {
+            case 0:
+                holder.tvStatus.setText("Đăng ký thành công");
+                holder.tvStatus.setTextAppearance(R.style.text_status_registration_0);
+                holder.tvStatus.setBackgroundResource(R.drawable.bg_text_status_registration_0);
+                break;
+
+            case 1:
+                holder.tvStatus.setText("Điểm danh");
+                holder.tvStatus.setTextAppearance(R.style.text_status_registration_1);
+                holder.tvStatus.setBackgroundResource(R.drawable.bg_text_status_registration_1);
+                break;
+
+            case 2:
+                holder.tvStatus.setText("Đã tiêm");
+                holder.tvStatus.setTextAppearance(R.style.text_status_registration_2);
+                holder.tvStatus.setBackgroundResource(R.drawable.bg_text_status_registration_2);
+                break;
+
+            default:
+            case 3:
+                holder.tvStatus.setText("Đã hủy");
+                holder.tvStatus.setTextAppearance(R.style.text_status_registration_3);
+                holder.tvStatus.setBackgroundResource(R.drawable.bg_text_status_registration_3);
+                break;
+        }
     }
 
     @Override

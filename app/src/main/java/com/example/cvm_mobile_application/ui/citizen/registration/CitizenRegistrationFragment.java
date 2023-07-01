@@ -24,7 +24,6 @@ import java.util.List;
 
 public class CitizenRegistrationFragment extends Fragment implements ViewStructure {
     private FirebaseFirestore db;
-
     private RecyclerView recyclerViewRegistrationHistoryList;
     private VaccinationRegistrationAdapter vaccinationRegistrationAdapter;
     private List<Register> registrationHistoryList;

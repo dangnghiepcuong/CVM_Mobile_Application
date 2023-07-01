@@ -1,6 +1,5 @@
 package com.example.cvm_mobile_application.ui.org.schedule.schedule_management;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,11 +15,7 @@ import androidx.fragment.app.Fragment;
 import com.example.cvm_mobile_application.R;
 import com.example.cvm_mobile_application.data.db.model.Schedule;
 import com.example.cvm_mobile_application.ui.ViewStructure;
-import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 
 public class OrgScheduleUpdateFragment extends Fragment implements ViewStructure {
     private View view;
@@ -75,11 +70,7 @@ public class OrgScheduleUpdateFragment extends Fragment implements ViewStructure
         btnCreateSchedule.setVisibility(View.GONE);
         infoToInput.setVisibility(View.GONE);
 
-        Timestamp date = schedule.getOn_date();
-        @SuppressLint("SimpleDateFormat") DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        String onDate = df.format(date);
-
-        tvIfDate.setText("Lịch tiêm ngày: " + onDate);
+        tvIfDate.setText("Lịch tiêm ngày: " + schedule.getOnDateString());
         tvIfVaccineType.setText("Loại vaccine: " + schedule.getVaccine_id());
         tvIfVaccineLot.setText("Số lô: " + schedule.getLot());
 

@@ -217,7 +217,6 @@ public class Schedule implements Parcelable {
         @SuppressLint("SimpleDateFormat") DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String onDate = df.format(on_date.toDate());
         parcel.writeString(onDate);
-
         parcel.writeString(lot);
         parcel.writeInt(limit_day);
         parcel.writeInt(limit_noon);

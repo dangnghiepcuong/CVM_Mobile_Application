@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingHorizontal="15dp">
+        android:paddingHorizontal="@dimen/padding_screen_horizontal">
 
         <TextView
             android:layout_width="match_parent"
@@ -43,8 +43,7 @@
 
                 <TextView
                     android:id="@+id/tv_name"
-                    style="@style/tv_info"
-                    android:text="ĐỖ Thị CÚc HOA" />
+                    style="@style/tv_info"/>
             </LinearLayout>
 
             <LinearLayout
@@ -59,8 +58,7 @@
 
                 <TextView
                     android:id="@+id/tv_birthday"
-                    style="@style/tv_info"
-                    android:text="ĐỖ Thị CÚc HOA" />
+                    style="@style/tv_info"/>
             </LinearLayout>
 
             <LinearLayout
@@ -75,8 +73,7 @@
 
                 <TextView
                     android:id="@+id/tv_gender"
-                    style="@style/tv_info"
-                    android:text="ĐỖ Thị CÚc HOA" />
+                    style="@style/tv_info"/>
             </LinearLayout>
 
             <LinearLayout
@@ -91,8 +88,7 @@
 
                 <TextView
                     android:id="@+id/tv_phone"
-                    style="@style/tv_info"
-                    android:text="ĐỖ Thị CÚc HOA" />
+                    style="@style/tv_info"/>
             </LinearLayout>
 
             <LinearLayout
@@ -107,8 +103,7 @@
 
                 <TextView
                     android:id="@+id/tv_id"
-                    style="@style/tv_info"
-                    android:text="ĐỖ Thị CÚc HOA" />
+                    style="@style/tv_info"/>
             </LinearLayout>
 
             <LinearLayout
@@ -123,8 +118,7 @@
 
                 <TextView
                     android:id="@+id/tv_address"
-                    style="@style/tv_info"
-                    android:text="ĐỖ Thị CÚc HOA" />
+                    style="@style/tv_info" />
             </LinearLayout>
 
 
@@ -152,7 +146,6 @@
     <FrameLayout
         android:id="@+id/frame_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingHorizontal="15dp"/>
+        android:layout_height="match_parent"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -6,9 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,14 +37,9 @@ public class OrgScheduleListActivity extends AppCompatActivity implements ViewSt
     private Button btnBack;
     private TextView tbTitle;
     private TextView tbMenu1;
-    private LinearLayout btnScheduleFilter;
-    private LinearLayout layoutScheduleFilter;
     private Button btnStartDateDP;
     private TextView tvStartDate;
     private DatePicker dpStartDate;
-    private Button btnEndDateDP;
-    private TextView tvEndDate;
-    private DatePicker dpEndDate;
     private List<Schedule> scheduleList;
     private ScheduleAdapter scheduleAdapter;
     private RecyclerView recyclerViewScheduleList;
@@ -77,16 +70,9 @@ public class OrgScheduleListActivity extends AppCompatActivity implements ViewSt
         tbTitle = findViewById(R.id.tb_title);
         tbMenu1 = findViewById(R.id.tb_menu_1);
 
-        btnScheduleFilter = findViewById(R.id.btn_schedule_filter);
-        layoutScheduleFilter = findViewById(R.id.layout_linear_schedule_filter);
-
         tvStartDate = findViewById(R.id.tv_start_date);
         btnStartDateDP = findViewById(R.id.btn_start_date_dp);
         dpStartDate = findViewById(R.id.dp_start_date);
-
-        tvEndDate = findViewById(R.id.tv_end_date);
-        btnEndDateDP = findViewById(R.id.btn_end_date_dp);
-        dpEndDate = findViewById(R.id.dp_end_date);
 
         recyclerViewScheduleList = findViewById(R.id.view_recycler_schedule_list);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
@@ -104,7 +90,6 @@ public class OrgScheduleListActivity extends AppCompatActivity implements ViewSt
         Date date = timestamp.toDate();
         String onDateString = df.format(date);
         tvStartDate.setText(onDateString);
-        tvEndDate.setText(onDateString);
 
         getScheduleList();
         scheduleAdapter = new ScheduleAdapter(getApplicationContext(), scheduleList);
@@ -115,20 +100,6 @@ public class OrgScheduleListActivity extends AppCompatActivity implements ViewSt
     @Override
     public void setViewListener() {
         btnBack.setOnClickListener(view -> finish());
-
-        btnScheduleFilter.setOnClickListener(v -> {
-            int visibility = layoutScheduleFilter.getVisibility();
-            switch (visibility) {
-                case View.GONE:
-                    layoutScheduleFilter.setVisibility(View.VISIBLE);
-                    break;
-
-                case View.VISIBLE:
-                default:
-                case View.INVISIBLE:
-                    layoutScheduleFilter.setVisibility(View.GONE);
-            }
-        });
 
         btnStartDateDP.setOnClickListener(v -> {
             if (dpStartDate.getVisibility() == View.GONE) {
@@ -144,23 +115,9 @@ public class OrgScheduleListActivity extends AppCompatActivity implements ViewSt
             getScheduleList();
         });
 
-        btnEndDateDP.setOnClickListener(view -> {
-            if (dpEndDate.getVisibility() == View.GONE) {
-                dpEndDate.setVisibility(View.VISIBLE);
-            } else {
-                dpEndDate.setVisibility(View.GONE);
-            }
-        });
-
-        dpEndDate.setOnDateChangedListener((view, year, monthOfYear, dayOfMonth) -> {
-            monthOfYear++;
-            tvEndDate.setText(year + "-" + monthOfYear + "-" + dayOfMonth);
-            OrgScheduleListActivity.this.getScheduleList();
-        });
-
-        onScheduleItemClickListener = item -> {
+        onScheduleItemClickListener = schedule -> {
             Intent intent = new Intent(getBaseContext(), OrgScheduleManagementActivity.class);
-            intent.putExtra("schedule", item);
+            intent.putExtra("schedule", schedule);
             startActivity(intent);
         };
         scheduleAdapter.setListener(onScheduleItemClickListener);
@@ -169,40 +126,33 @@ public class OrgScheduleListActivity extends AppCompatActivity implements ViewSt
     private void getScheduleList() {
         String orgId = org.getId();
         String onSDateString = String.valueOf(tvStartDate.getText());
-        String onEDateString = String.valueOf(tvEndDate.getText());
 
         @SuppressLint("SimpleDateFormat") SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
         Date onStartDate;
-        Date onEndDate;
         try {
             onStartDate = df.parse(onSDateString);
-            onEndDate = df.parse(onEDateString);
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
         Timestamp onSDate = new Timestamp(Objects.requireNonNull(onStartDate));
 //        Timestamp onEDate = new Timestamp(onEndDate);
 
-        if (onStartDate.compareTo(onEndDate) > 0) {
-            Toast.makeText(this, "Chọn ngày bắt đầu nhỏ hơn ngày kết thúc!", Toast.LENGTH_SHORT).show();
-        } else {
-            db.collection("schedules")
-                    .whereEqualTo("org_id", orgId)
-                    .whereGreaterThanOrEqualTo("on_date", onSDate)
+        db.collection("schedules")
+                .whereEqualTo("org_id", orgId)
+                .whereGreaterThanOrEqualTo("on_date", onSDate)
 //                    .whereLessThanOrEqualTo("on_date", onEDate)
-                    .get()
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            scheduleList = new ArrayList<>();
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Schedule schedule = document.toObject(Schedule.class);
-                                scheduleList.add(schedule);
-                            }
-                            scheduleAdapter.setScheduleList(scheduleList);
-                            scheduleAdapter.notifyDataSetChanged();
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        scheduleList = new ArrayList<>();
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            Schedule schedule = document.toObject(Schedule.class);
+                            scheduleList.add(schedule);
                         }
-                    });
-        }
+                        scheduleAdapter.setScheduleList(scheduleList);
+                        scheduleAdapter.notifyDataSetChanged();
+                    }
+                });
     }
 }
