@@ -52,27 +52,27 @@
         <item name="android:layout_height">@dimen/et_height</item>
         <item name="android:layout_marginBottom">10dp</item>
         <item name="android:background">@drawable/bg_spinner</item>
-        <item name="android:textSize">@dimen/text_medium</item>
+        <item name="android:textSize">@dimen/text_medium_large</item>
     </style>
 
     <style name="text_heading">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/text_medium</item>
+        <item name="android:textSize">@dimen/text_medium_large</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="text_content">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/text_medium</item>
+        <item name="android:textSize">@dimen/text_medium_large</item>
         <item name="android:layout_marginVertical">2dp</item>
     </style>
 
     <style name="text_name">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/text_medium</item>
+        <item name="android:textSize">@dimen/text_medium_large</item>
         <item name="android:textStyle">bold</item>
     </style>
 
@@ -96,7 +96,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center_vertical</item>
-        <item name="android:textSize">@dimen/text_medium</item>
+        <item name="android:textSize">@dimen/text_medium_large</item>
         <item name="android:color">@color/black</item>
     </style>
 
@@ -164,7 +164,7 @@
     <style name="btn_secondary">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/btn_height</item>
-        <item name="android:textSize">@dimen/text_medium</item>
+        <item name="android:textSize">@dimen/text_medium_large</item>
         <item name="android:textColor">@color/Primary</item>
         <item name="android:layout_marginVertical">15dp</item>
         <item name="android:background">@drawable/bg_btn_secondary</item>
