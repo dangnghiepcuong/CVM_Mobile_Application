@@ -2,29 +2,29 @@ package com.example.cvm_mobile_application.ui.org.schedule.registration_manageme
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cvm_mobile_application.R;
-import com.example.cvm_mobile_application.data.SpinnerOption;
 import com.example.cvm_mobile_application.data.db.model.Register;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ScheduleRegistrationAdapter extends RecyclerView.Adapter<ScheduleRegistrationAdapter.RegisterViewHolder>{
     private final Context context;
     private List<Register> registryList;
-    private PopupMenu.OnMenuItemClickListener listener;
-
+    private View.OnClickListener listenerMoreBtn;
+    private View.OnClickListener listenerViewProfile;
+    private View.OnClickListener listenerCheckIn;
+    private View.OnClickListener listenerInject;
+    private View.OnClickListener listenerCancel;
     public ScheduleRegistrationAdapter(Context context, List<Register> registryList) {
         this.context = context;
         this.registryList = registryList;
@@ -34,8 +34,24 @@ public class ScheduleRegistrationAdapter extends RecyclerView.Adapter<ScheduleRe
         this.registryList = registryList;
     }
 
-    public void setListener(PopupMenu.OnMenuItemClickListener listener){
-        this.listener = listener;
+    public void setListener(View.OnClickListener listenerMoreBtn){
+        this.listenerMoreBtn = listenerMoreBtn;
+    }
+
+    public void setListenerViewProfile(View.OnClickListener listenerViewProfile) {
+        this.listenerViewProfile = listenerViewProfile;
+    }
+
+    public void setListenerCheckIn(View.OnClickListener listenerCheckIn) {
+        this.listenerCheckIn = listenerCheckIn;
+    }
+
+    public void setListenerInject(View.OnClickListener listenerInject) {
+        this.listenerInject = listenerInject;
+    }
+
+    public void setListenerCancel(View.OnClickListener listenerCancel) {
+        this.listenerCancel = listenerCancel;
     }
 
     @NonNull
@@ -60,50 +76,98 @@ public class ScheduleRegistrationAdapter extends RecyclerView.Adapter<ScheduleRe
         String numOrder = String.valueOf(registry.getNumber_order());
         holder.tvNumOrder.setText(numOrder);
 
-        String registryValues = "#" + registry.getCitizen_id() + "#" + registry.getShift();
+        holder.ibShowMore.setOnClickListener(v -> {
+            if (holder.layoutMoreBtn.getVisibility() == View.GONE) {
+                holder.layoutMoreBtn.setVisibility(View.VISIBLE);
+            } else {
+                holder.layoutMoreBtn.setVisibility(View.GONE);
+            }
 
-        List<SpinnerOption> registrationOptions = new ArrayList<>();
-        PopupMenu popupMenu = new PopupMenu(context, holder.ibMoreOptions);
-        MenuInflater inflater = popupMenu.getMenuInflater();
-        MenuItem item;
-        switch (registry.getStatus()) {
-            case 0:
-//                registrationOptions.add(new SpinnerOption("Điểm danh", "1" + registryValues));
-//                registrationOptions.add(new SpinnerOption("Hủy tiêm", "3" + registryValues));
+            switch (registry.getStatus()) {
+                case 0:
+                    holder.btnCheckIn.setVisibility(View.VISIBLE);
+                    holder.btnInject.setVisibility(View.GONE);
+                    holder.btnCancel.setVisibility(View.VISIBLE);
+                    break;
 
-//                popupMenu.getMenuInflater().inflate(R.menu.registration_0_menu, popupMenu.getMenu());
-                inflater.inflate(R.menu.registration_0_menu, popupMenu.getMenu());
-                item = popupMenu.getMenu().getItem(0);
-                item.setContentDescription("0" + registryValues);
-                item = popupMenu.getMenu().getItem(1);
-                item.setContentDescription("1" + registryValues);
-                item = popupMenu.getMenu().getItem(2);
-                item.setContentDescription("3" + registryValues);
-                popupMenu.show();
-                break;
+                case 1:
+                    holder.btnCheckIn.setVisibility(View.GONE);
+                    holder.btnInject.setVisibility(View.VISIBLE);
+                    holder.btnCancel.setVisibility(View.VISIBLE);
+                    break;
 
-            case 1:
-//                registrationOptions.add(new SpinnerOption("Đã tiêm", "2" + registryValues));
-//                registrationOptions.add(new SpinnerOption("Hủy tiêm", "3" + registryValues));
-//                popupMenu.getMenuInflater().inflate(R.menu.registration_1_menu, popupMenu.getMenu());
-                inflater.inflate(R.menu.registration_1_menu, popupMenu.getMenu());
-                item = popupMenu.getMenu().getItem(0);
-                item.setContentDescription("0" + registryValues);
-                item = popupMenu.getMenu().getItem(1);
-                item.setContentDescription("2" + registryValues);
-                item = popupMenu.getMenu().getItem(2);
-                item.setContentDescription("3" + registryValues);
-                popupMenu.show();
-                break;
+                default:
+                case 2:
+                case 3:
+                    holder.btnCheckIn.setVisibility(View.GONE);
+                    holder.btnInject.setVisibility(View.GONE);
+                    holder.btnCancel.setVisibility(View.GONE);
+                    break;
+            }
 
-            case 2:
-            case 3:
-            default:
-//                registrationOptions.add(new SpinnerOption("Xem hồ sơ tiêm chủng", "-1" + registryValues));
-                break;
-        }
-//        SpinnerAdapter optionAdapter = new SpinnerAdapter(context, R.layout.item_string, registrationOptions);
-//        holder.ibMoreOptions.setAdapter(optionAdapter);
+//            listenerMoreBtn.onClick(v);
+        });
+
+        holder.btnViewProfile.setOnClickListener(v -> {
+            listenerViewProfile.onClick(v);
+        });
+
+        holder.btnCheckIn.setOnClickListener(v -> {
+            listenerCheckIn.onClick(v);
+        });
+
+        holder.btnInject.setOnClickListener(v -> {
+            listenerInject.onClick(v);
+        });
+
+        holder.btnCancel.setOnClickListener(v -> {
+            listenerCancel.onClick(v);
+        });
+
+//        String registryValues = "#" + registry.getCitizen_id() + "#" + registry.getShift();
+//
+//        List<SpinnerOption> registrationOptions = new ArrayList<>();
+//        PopupMenu popupMenu = new PopupMenu(context, holder.ibShowMore);
+//        MenuInflater inflater = popupMenu.getMenuInflater();
+//        MenuItem item;
+//        switch (registry.getStatus()) {
+//            case 0:
+////                registrationOptions.add(new SpinnerOption("Điểm danh", "1" + registryValues));
+////                registrationOptions.add(new SpinnerOption("Hủy tiêm", "3" + registryValues));
+//
+////                popupMenu.getMenuInflater().inflate(R.menu.registration_0_menu, popupMenu.getMenu());
+//                inflater.inflate(R.menu.registration_0_menu, popupMenu.getMenu());
+//                item = popupMenu.getMenu().getItem(0);
+//                item.setContentDescription("0" + registryValues);
+//                item = popupMenu.getMenu().getItem(1);
+//                item.setContentDescription("1" + registryValues);
+//                item = popupMenu.getMenu().getItem(2);
+//                item.setContentDescription("3" + registryValues);
+//                popupMenu.show();
+//                break;
+//
+//            case 1:
+////                registrationOptions.add(new SpinnerOption("Đã tiêm", "2" + registryValues));
+////                registrationOptions.add(new SpinnerOption("Hủy tiêm", "3" + registryValues));
+////                popupMenu.getMenuInflater().inflate(R.menu.registration_1_menu, popupMenu.getMenu());
+//                inflater.inflate(R.menu.registration_1_menu, popupMenu.getMenu());
+//                item = popupMenu.getMenu().getItem(0);
+//                item.setContentDescription("0" + registryValues);
+//                item = popupMenu.getMenu().getItem(1);
+//                item.setContentDescription("2" + registryValues);
+//                item = popupMenu.getMenu().getItem(2);
+//                item.setContentDescription("3" + registryValues);
+//                popupMenu.show();
+//                break;
+//
+//            case 2:
+//            case 3:
+//            default:
+////                registrationOptions.add(new SpinnerOption("Xem hồ sơ tiêm chủng", "-1" + registryValues));
+//                break;
+//        }
+////        SpinnerAdapter optionAdapter = new SpinnerAdapter(context, R.layout.item_string, registrationOptions);
+////        holder.ibMoreOptions.setAdapter(optionAdapter);
 
     }
 
@@ -118,14 +182,24 @@ public class ScheduleRegistrationAdapter extends RecyclerView.Adapter<ScheduleRe
         TextView tvShift;
         TextView tvId;
         TextView tvNumOrder;
-        ImageButton ibMoreOptions;
+        ImageButton ibShowMore;
+        Button btnViewProfile;
+        Button btnCheckIn;
+        Button btnInject;
+        Button btnCancel;
+        LinearLayout layoutMoreBtn;
         public RegisterViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tv_name);
             tvShift = itemView.findViewById(R.id.tv_shift);
             tvId = itemView.findViewById(R.id.tv_id);
             tvNumOrder = itemView.findViewById(R.id.tv_num_order);
-//            ibMoreOptions = itemView.findViewById(R.id.iv_more_options);
+            ibShowMore = itemView.findViewById(R.id.ib_show_more);
+            btnViewProfile = itemView.findViewById(R.id.btn_view_profile);
+            btnCheckIn = itemView.findViewById(R.id.btn_check_in);
+            btnInject = itemView.findViewById(R.id.btn_inject);
+            btnCancel = itemView.findViewById(R.id.btn_cancel);
+            layoutMoreBtn = itemView.findViewById(R.id.layout_more_btn);
         }
     }
 
