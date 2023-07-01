@@ -5,8 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.org.home.OrgHomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
@@ -15,37 +14,37 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <androidx.appcompat.widget.LinearLayoutCompat
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <androidx.appcompat.widget.LinearLayoutCompat
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="15dp"
                     android:layout_marginVertical="20dp"
                     android:orientation="vertical">
-                    <androidx.appcompat.widget.LinearLayoutCompat
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:layout_marginVertical="10dp">
 
-                        <androidx.appcompat.widget.LinearLayoutCompat
+                        <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="2"
                             android:gravity="bottom"
                             android:orientation="vertical">
 
-                            <androidx.appcompat.widget.LinearLayoutCompat
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/default_avatar_org" />
-                        </androidx.appcompat.widget.LinearLayoutCompat>
+                        </LinearLayout>
 
-                        <androidx.appcompat.widget.LinearLayoutCompat
+                        <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="8"
@@ -53,39 +52,22 @@
                             android:orientation="vertical"
                             android:paddingHorizontal="10dp">
                             <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:lineSpacingMultiplier="1.25"
-                                android:text="Xin chào,"
-                                android:textColor="@color/black"
-                                android:textSize="18sp" />
+                                style="@style/tv_hello" />
                             <TextView
                                 android:id="@+id/tv_Name"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
-                                android:lineSpacingMultiplier="1.25"
-                                android:text="Bệnh viện đa khoa Dầu Tiếng"
-                                android:textColor="@color/black"
-                                android:textStyle="bold"
-                                android:textSize="22sp" />
-                        </androidx.appcompat.widget.LinearLayoutCompat>
-                    </androidx.appcompat.widget.LinearLayoutCompat>
+                                style="@style/tv_name" />
+                        </LinearLayout>
+                    </LinearLayout>
 
-                    <androidx.appcompat.widget.LinearLayoutCompat
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="160dp"
                         android:orientation="horizontal">
 
                         <LinearLayout
                             android:id="@+id/btn_create_schedule"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:layout_marginHorizontal="5dp"
-                            android:gravity="center"
-                            android:background="@drawable/card_first_primary_feature"
-                            android:orientation="vertical">
+                            style="@style/linear_layout_card"
+                            android:background="@drawable/card_first_primary_feature">
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -99,12 +81,8 @@
 
                         <LinearLayout
                             android:id="@+id/btn_schedule_mangement"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:layout_marginHorizontal="5dp"                            android:gravity="center"
-                            android:background="@drawable/card_second_primary_feature"
-                            android:orientation="vertical">
+                            style="@style/linear_layout_card"
+                            android:background="@drawable/card_second_primary_feature">
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -118,13 +96,8 @@
 
                         <LinearLayout
                             android:id="@+id/btn_vaccine_inventory"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:layout_marginHorizontal="5dp"
-                            android:gravity="center"
-                            android:background="@drawable/card_third_primary_feature"
-                            android:orientation="vertical">
+                            style="@style/linear_layout_card"
+                            android:background="@drawable/card_third_primary_feature">
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -136,25 +109,23 @@
                                 android:text="Quản lý kho vaccine"/>
                         </LinearLayout>
 
-                    </androidx.appcompat.widget.LinearLayoutCompat>
-                </androidx.appcompat.widget.LinearLayoutCompat>
+                    </LinearLayout>
+                </LinearLayout>
 
-
-
-                <androidx.appcompat.widget.LinearLayoutCompat
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="1000dp"
+                    android:layout_height="500dp"
                     android:background="@drawable/card_home"
                     android:orientation="vertical"
                     android:paddingHorizontal="30dp"
                     android:paddingVertical="15dp">
 
-                    <androidx.appcompat.widget.LinearLayoutCompat
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
                         android:orientation="horizontal">
 
-                        <androidx.appcompat.widget.LinearLayoutCompat
+                        <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -168,9 +139,9 @@
 
                             <TextView style="@style/labelFor_btn_feature"
                                 android:text="Thông tin\nđơn vị"/>
-                        </androidx.appcompat.widget.LinearLayoutCompat>
+                        </LinearLayout>
 
-                        <androidx.appcompat.widget.LinearLayoutCompat
+                        <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -185,45 +156,9 @@
 
                             <TextView style="@style/labelFor_btn_feature"
                                 android:text="Thông tin\ntài khoản"/>
-                        </androidx.appcompat.widget.LinearLayoutCompat>
+                        </LinearLayout>
 
-                        <androidx.appcompat.widget.LinearLayoutCompat
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center_horizontal"
-                            android:orientation="vertical">
-
-                            <Button
-                                style="@style/btn_feature">
-                            </Button>
-
-                            <TextView style="@style/labelFor_btn_feature"
-                                android:text="Chức năng"/>
-                        </androidx.appcompat.widget.LinearLayoutCompat>
-                    </androidx.appcompat.widget.LinearLayoutCompat>
-
-                    <androidx.appcompat.widget.LinearLayoutCompat
-                        android:layout_width="match_parent"
-                        android:layout_height="150dp"
-                        android:orientation="horizontal">
-
-                        <androidx.appcompat.widget.LinearLayoutCompat
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center_horizontal"
-                            android:orientation="vertical">
-
-                            <Button
-                                style="@style/btn_feature">
-                            </Button>
-
-                            <TextView style="@style/labelFor_btn_feature"
-                                android:text="Chức năng"/>
-                        </androidx.appcompat.widget.LinearLayoutCompat>
-
-                        <androidx.appcompat.widget.LinearLayoutCompat
+                        <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -237,24 +172,8 @@
 
                             <TextView style="@style/labelFor_btn_feature"
                                 android:text="Thống kê\ntiêm chủng"/>
-                        </androidx.appcompat.widget.LinearLayoutCompat>
-
-                        <androidx.appcompat.widget.LinearLayoutCompat
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center_horizontal"
-                            android:orientation="vertical">
-
-
-                            <Button
-                                style="@style/btn_feature"
-                                android:background="@drawable/bg_btn_feature_more"></Button>
-
-                            <TextView style="@style/labelFor_btn_feature"
-                                android:text="Xem thêm"/>
-                        </androidx.appcompat.widget.LinearLayoutCompat>
-                    </androidx.appcompat.widget.LinearLayoutCompat>
+                        </LinearLayout>
+                    </LinearLayout>
 
                     <TextView style="@style/text_heading"
                         android:text="Các quy định về tổ chức tiêm chủng"/>
@@ -265,9 +184,9 @@
                         android:layout_height="200dp"
                         android:orientation="vertical"
                         android:background="@drawable/card_white_radius10"/>
-                </androidx.appcompat.widget.LinearLayoutCompat>
-            </androidx.appcompat.widget.LinearLayoutCompat>
+                </LinearLayout>
+            </LinearLayout>
         </ScrollView>
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    </LinearLayout>
 
 </FrameLayout>

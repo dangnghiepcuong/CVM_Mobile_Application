@@ -8,12 +8,17 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 
 import com.example.cvm_mobile_application.R;
+import com.example.cvm_mobile_application.data.db.model.Organization;
 
 public class OrgScheduleFragment_unused extends Fragment {
+    private View view;
+    private Organization org;
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflate, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_org_schedule_registration_management, container, false);
+        view = inflate.inflate(R.layout.activity_org_schedule_list, container, false);
+        org = requireArguments().getParcelable("org");
+        return view;
     }
+
 }

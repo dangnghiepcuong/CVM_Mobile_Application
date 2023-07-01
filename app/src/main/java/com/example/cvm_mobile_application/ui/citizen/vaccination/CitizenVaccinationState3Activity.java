@@ -285,17 +285,17 @@ public class CitizenVaccinationState3Activity extends AppCompatActivity implemen
                         + "lô: "
                         + schedule.getLot());
 
-        confirmVaccinationRegistrationDialog.setViewListener(new CustomDialog.OnClickDialogButtonListener() {
-            @Override
-            public void onClickCancel() {
-                CitizenVaccinationState3Activity.this.dialogOnCancel();
-            }
-
-            @Override
-            public void onClickConfirm() {
-                CitizenVaccinationState3Activity.this.dialogOnConfirm(schedule);
-            }
-        });
+//        confirmVaccinationRegistrationDialog.setViewListener(new CustomDialog.OnClickDialogButtonListener() {
+//            @Override
+//            public void onClickCancel() {
+//                CitizenVaccinationState3Activity.this.dialogOnCancel();
+//            }
+//
+//            @Override
+//            public void onClickConfirm() {
+//                CitizenVaccinationState3Activity.this.dialogOnConfirm(schedule);
+//            }
+//        });
 
     }
 

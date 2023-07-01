@@ -24,6 +24,6 @@
         android:padding="5dp"
         app:labelVisibilityMode="labeled"
         android:theme="@style/BottomNavThem"
-        app:menu="@menu/org_menu" />
+        app:menu="@menu/org_bottom_menu" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

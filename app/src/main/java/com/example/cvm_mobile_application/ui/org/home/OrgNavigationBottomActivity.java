@@ -21,6 +21,7 @@ import com.example.cvm_mobile_application.data.db.model.Organization;
 import com.example.cvm_mobile_application.ui.notification.NotificationFragment;
 import com.example.cvm_mobile_application.ui.org.info.OrgOptionalMenuFragment;
 import com.example.cvm_mobile_application.ui.org.schedule.schedule_management.OrgScheduleFragment_unused;
+import com.example.cvm_mobile_application.ui.org.schedule.schedule_management.OrgScheduleListActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -34,22 +35,30 @@ import com.google.firebase.firestore.FirebaseFirestore;
     private OrgHomeFragment orgHomeFragment;
     private NotificationFragment notificationFragment;
     private OrgOptionalMenuFragment orgOptionalMenuFragment;
+    private OrgScheduleFragment_unused orgScheduleFragment_unused;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.org_navigation_bottom);
         db = FirebaseFirestore.getInstance();
-    }
 
-    protected void onStart(){
-        super.onStart();
         String username = getIntent().getStringExtra("username");
         saveData(username);
 
         implementView();
         setViewListener();
         getOrgData(username);
+    }
+
+    protected void onStart(){
+        super.onStart();
+//        String username = getIntent().getStringExtra("username");
+//        saveData(username);
+//
+//        implementView();
+//        setViewListener();
+//        getOrgData(username);
     }
     public void implementView() {
         bottomNavigationView = findViewById(R.id.bottomNavigation);
@@ -108,7 +117,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
                                         break;
 
                                     case R.id.schedule:
-                                        replaceFragment(new OrgScheduleFragment_unused());
+                                        orgScheduleFragment_unused = new OrgScheduleFragment_unused();
+                                        orgScheduleFragment_unused.setArguments(bundle);
+                                        replaceFragment(orgScheduleFragment_unused);
                                         break;
 
                                     case R.id.notification:

@@ -75,11 +75,7 @@ public class OrgScheduleUpdateFragment extends Fragment implements ViewStructure
         btnCreateSchedule.setVisibility(View.GONE);
         infoToInput.setVisibility(View.GONE);
 
-        Timestamp date = schedule.getOn_date();
-        @SuppressLint("SimpleDateFormat") DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        String onDate = df.format(date);
-
-        tvIfDate.setText("Lịch tiêm ngày: " + onDate);
+        tvIfDate.setText("Lịch tiêm ngày: " + schedule.getOnDateString());
         tvIfVaccineType.setText("Loại vaccine: " + schedule.getVaccine_id());
         tvIfVaccineLot.setText("Số lô: " + schedule.getLot());
 

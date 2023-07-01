@@ -2,6 +2,7 @@
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <include layout="@layout/toolbar_1"/>
@@ -165,5 +166,6 @@
     <Button
         android:id="@+id/btn_save_profile"
         style="@style/btn_primary"
+        android:layout_marginHorizontal="20dp"
         android:text="Lưu thông tin" />
 </androidx.appcompat.widget.LinearLayoutCompat>
