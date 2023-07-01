@@ -286,18 +286,25 @@ public class CitizenVaccinationState3Activity extends AppCompatActivity implemen
                             }
 
                             switch (register.getStatus()) {
+                                default:
                                 case 0:
                                 case 1:
-                                    Toast.makeText(this, "Không thể đăng ký tiêm chủng." +
-                                            "\nBạn vẫn hoàn thành xong lượt tiêm trước!", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(this, "Không thể đăng ký." +
+                                            " Bạn vẫn hoàn thành xong lượt tiêm trước!", Toast.LENGTH_LONG).show();
                                     return;
 
                                 case 2:
                                     Calendar cal = Calendar.getInstance();
-                                    cal.setTime(Timestamp.now().toDate());
-                                    cal.add(Calendar.DATE, -28);
+                                    cal.setTime(schedule.getOn_date().toDate());
+                                    cal.add(Calendar.DATE, 28);
                                     Timestamp twoMonthsBefore = new Timestamp(cal.getTime());
-                                    int c = register.getOn_date().compareTo(twoMonthsBefore);
+                                    if (register.getOn_date().compareTo(twoMonthsBefore) != -1) {
+                                        Toast.makeText(this, "Không thể đăng ký tiêm chủng." +
+                                                "\nBạn cần chờ ít nhất 56 ngày để tiêm mũi tiếp theo!", Toast.LENGTH_LONG).show();
+                                        return;
+                                    } else {
+                                        CitizenVaccinationState3Activity.this.vaccinationRegistration(schedule);
+                                    }
                             }
 
                         }
