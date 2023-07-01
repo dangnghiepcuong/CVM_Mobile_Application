@@ -3,11 +3,12 @@ package com.example.cvm_mobile_application.ui.org.schedule.registration_manageme
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -107,79 +108,67 @@ public class OrgScheduleRegistrationListFragment extends Fragment {
             }
         });
 
-        onMoreOptionsClickListener = new AdapterView.OnItemSelectedListener() {
+        View.OnClickListener btnViewProfileListener = new View.OnClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                SpinnerOption option = (SpinnerOption) parent.getSelectedItem();
+            public void onClick(View v) {
+                LinearLayout layoutInfo = (LinearLayout) v.getParent().getParent();
+                TextView tvId = layoutInfo.findViewById(R.id.tv_id);
 
-                String[] registryValues = String.valueOf(option.getValue()).split("#");
-                String updateOption = registryValues[0];
-                String citizenId = registryValues[1];
-                String shift = registryValues[2];
+                String citizenId = String.valueOf(tvId.getText());
 
-                switch (updateOption) {
-                    case "-1":
-                        OrgScheduleRegistrationListFragment.this.getCitizenVaccinationProfile(citizenId);
-                        break;
-                    case "1":
-                        OrgScheduleRegistrationListFragment.this.updateRegistration(citizenId, shift, 1);
-                        break;
-
-                    case "2":
-                        OrgScheduleRegistrationListFragment.this.updateRegistration(citizenId, shift, 2);
-                        break;
-
-                    case "3":
-                        OrgScheduleRegistrationListFragment.this.updateRegistration(citizenId, shift, 3);
-                        break;
-
-                    default:
-                        break;
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
+                OrgScheduleRegistrationListFragment.this.
+                        getCitizenVaccinationProfile(citizenId);
             }
         };
+        scheduleRegistrationAdapter.setListenerViewProfile(btnViewProfileListener);
 
-//        scheduleRegistrationAdapter.setListener(onMoreOptionsClickListener);
-
-        onMenuItemClickListener = new PopupMenu.OnMenuItemClickListener() {
+        View.OnClickListener btnCheckInListener = new View.OnClickListener() {
             @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                String itemValue = String.valueOf(item.getContentDescription());
+            public void onClick(View v) {
+                LinearLayout layoutInfo = (LinearLayout) v.getParent().getParent();
+                TextView tvShift = layoutInfo.findViewById(R.id.tv_shift);
+                TextView tvId = layoutInfo.findViewById(R.id.tv_id);
 
-                String[] registryValues = String.valueOf(itemValue).split("#");
-                String updateOption = registryValues[0];
-                String citizenId = registryValues[1];
-                String shift = registryValues[2];
+                String citizenId = String.valueOf(tvId.getText());
+                String shift = String.valueOf(tvShift.getText()).substring(11);
 
-                switch (updateOption) {
-                    case "-1":
-                        OrgScheduleRegistrationListFragment.this.getCitizenVaccinationProfile(citizenId);
-                        break;
-                    case "1":
-                        OrgScheduleRegistrationListFragment.this.updateRegistration(citizenId, shift, 1);
-                        break;
-
-                    case "2":
-                        OrgScheduleRegistrationListFragment.this.updateRegistration(citizenId, shift, 2);
-                        break;
-
-                    case "3":
-                        OrgScheduleRegistrationListFragment.this.updateRegistration(citizenId, shift, 3);
-                        break;
-
-                    default:
-                        break;
-                }
-                return false;
+                OrgScheduleRegistrationListFragment.this.
+                        updateRegistration(layoutInfo, citizenId, shift, 1);
             }
         };
+        scheduleRegistrationAdapter.setListenerCheckIn(btnCheckInListener);
 
-        scheduleRegistrationAdapter.setListener(onMenuItemClickListener);
+        View.OnClickListener btnInjectListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LinearLayout layoutInfo = (LinearLayout) v.getParent().getParent();
+                TextView tvShift = layoutInfo.findViewById(R.id.tv_shift);
+                TextView tvId = layoutInfo.findViewById(R.id.tv_id);
+
+                String citizenId = String.valueOf(tvId.getText());
+                String shift = String.valueOf(tvShift.getText()).substring(11);
+
+                OrgScheduleRegistrationListFragment.this.
+                        updateRegistration(layoutInfo, citizenId, shift, 2);
+            }
+        };
+        scheduleRegistrationAdapter.setListenerInject(btnInjectListener);
+
+        View.OnClickListener btnCancelListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LinearLayout layoutInfo = (LinearLayout) v.getParent().getParent();
+                TextView tvShift = layoutInfo.findViewById(R.id.tv_shift);
+                TextView tvId = layoutInfo.findViewById(R.id.tv_id);
+
+                String citizenId = String.valueOf(tvId.getText());
+                String shift = String.valueOf(tvShift.getText()).substring(11);
+
+                OrgScheduleRegistrationListFragment.this.
+                        updateRegistration(layoutInfo, citizenId, shift, 3);
+            }
+        };
+        scheduleRegistrationAdapter.setListenerCancel(btnCancelListener);
     }
 
     private void getRegisterList() {
@@ -237,7 +226,7 @@ public class OrgScheduleRegistrationListFragment extends Fragment {
                 });
     }
 
-    public void updateRegistration(String citizenId, String shift, int status) {
+    public void updateRegistration(LinearLayout layoutInfo, String citizenId, String shift, int status) {
         String registrationId = citizenId + "#"
                 + schedule.getId();
 
@@ -299,14 +288,20 @@ public class OrgScheduleRegistrationListFragment extends Fragment {
                 String notification = "";
                 switch (status) {
                     case 1:
+                        layoutInfo.findViewById(R.id.btn_check_in).setVisibility(View.GONE);
+                        layoutInfo.findViewById(R.id.btn_inject).setVisibility(View.VISIBLE);
                         notification = "Điểm danh công dân: " + citizenId;
                         break;
 
                     case 2:
+                        layoutInfo.findViewById(R.id.btn_inject).setVisibility(View.GONE);
+                        layoutInfo.findViewById(R.id.btn_cancel).setVisibility(View.GONE);
                         notification = "Đã tiêm cho công dân: " + citizenId;
                         break;
 
                     case 3:
+                        layoutInfo.findViewById(R.id.btn_check_in).setVisibility(View.GONE);
+                        layoutInfo.findViewById(R.id.btn_inject).setVisibility(View.GONE);
                         notification = "Đã hủy tiêm chủng cho công dân: " + citizenId;
                         break;
 
