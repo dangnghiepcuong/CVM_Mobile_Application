@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -30,6 +31,7 @@ public class CitizenRegistrationFragment extends Fragment implements ViewStructu
     private View view;
     private Citizen citizen;
     private String fromActivity;
+    private Button btnRegisterVaccination;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,6 +56,8 @@ public class CitizenRegistrationFragment extends Fragment implements ViewStructu
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerViewRegistrationHistoryList.setLayoutManager(linearLayoutManager);
+
+        btnRegisterVaccination = view.findViewById(R.id.btn_register_vaccination);
     }
 
     @Override
@@ -64,6 +68,10 @@ public class CitizenRegistrationFragment extends Fragment implements ViewStructu
         );
         getRegistrationHistory();
         recyclerViewRegistrationHistoryList.setAdapter(vaccinationRegistrationAdapter);
+
+        if (fromActivity.equals("org")) {
+            btnRegisterVaccination.setVisibility(View.GONE);
+        }
     }
 
     @Override
