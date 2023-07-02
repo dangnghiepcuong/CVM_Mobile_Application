@@ -19,6 +19,7 @@ import com.example.cvm_mobile_application.ui.ViewStructure;
     private CitizenRegistrationFragment citizenRegistrationFragment;
     private Button btnBack;
     private TextView tbTitle;
+    private TextView tbMenu1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,11 +40,13 @@ import com.example.cvm_mobile_application.ui.ViewStructure;
     public void implementView() {
         btnBack = findViewById(R.id.btn_back);
         tbTitle = findViewById(R.id.tb_title);
+        tbMenu1 = findViewById(R.id.tb_menu_1);
     }
 
     @Override
     public void bindViewData() {
         tbTitle.setText("Lịch sử tiêm chủng");
+        tbMenu1.setText(citizen.getFull_name());
 
         Bundle bundle = new Bundle();
         bundle.putParcelable("citizen", citizen);
