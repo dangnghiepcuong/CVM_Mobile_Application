@@ -166,10 +166,11 @@ import java.util.Objects;
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             role = Integer.parseInt(String.valueOf(document.get("role")));
                             int status = Integer.parseInt(String.valueOf(document.get("status")));
+                            String id = String.valueOf(document.get("user_id"));
                             Log.i("myTAG", "role: " + role);
 
                             // UPDATE UI BASE ON ROLE
-                            MainActivity.this.updateUI(username, role, status);
+                            MainActivity.this.updateUI(username, role, status, id);
                         }
                     } else {
                         Log.w("myTAG", "queryCollection doc role:failure", task.getException());
@@ -179,7 +180,7 @@ import java.util.Objects;
                 });
     }
 
-    public void updateUI(String username, int role, int status) {
+    public void updateUI(String username, int role, int status, String id) {
         Intent intent;
         switch (role) {
             case 0:
@@ -196,6 +197,7 @@ import java.util.Objects;
                 } else {
                     Citizen citizen = new Citizen();
                     citizen.setEmail(username);
+                    citizen.setId(id);
                     intent = new Intent(getBaseContext(), CitizenProfileActivity.class);
                     intent.putExtra("citizen", citizen);
                 }
